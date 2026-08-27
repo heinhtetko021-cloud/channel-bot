@@ -18,9 +18,18 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
 
 const isAdmin = (ctx) => ctx.from?.id === ADMIN_ID;
 
+// Numeric chat IDs (-100...) must be sent as numbers, otherwise Telegram
+// returns "chat not found".
+function toChatId(v) {
+  if (!v) return null;
+  if (/^-?\d+$/.test(String(v).trim())) return Number(v);
+  return v; // keep @username strings as-is
+}
 const channels = [];
-if (CHANNEL_ID) channels.push(CHANNEL_ID);
-if (CHANNEL_ID_2) channels.push(CHANNEL_ID_2);
+const c1 = toChatId(CHANNEL_ID);
+const c2 = toChatId(CHANNEL_ID_2);
+if (c1) channels.push(c1);
+if (c2) channels.push(c2);
 
 const TPL_KEY = "htech:templates";
 
