@@ -91,10 +91,10 @@ bot.command("new", async (ctx) => {
   return addTemplate(ctx, type, text);
 });
 
-bot.on("message:text", async (ctx) => {
-  if (!isAdmin(ctx)) return;
+bot.on("message:text", async (ctx, next) => {
+  if (!isAdmin(ctx) && !pendingAdd[ctx.from.id]) return next();
   const pending = pendingAdd[ctx.from.id];
-  if (!pending) return;
+  if (!pending) return next();
   const text = ctx.message.text.trim();
   if (!text) return ctx.reply("Text ဗလာဖြစ်နေတယ် — ပြန်ရိုက်ပါ");
   return addTemplate(ctx, pending.type, text);
@@ -170,10 +170,11 @@ bot.command("status", async (ctx) => {
   );
 });
 
-bot.on("message:text", async (ctx) => {
+bot.on("message:text", async (ctx, next) => {
   if (isAdmin(ctx) && ctx.message.text.startsWith("/")) {
     return ctx.reply("❌ Command မှားနေပါတယ်။ /admin ကို ကြည့်ပါ");
   }
+  return next();
 });
 
 module.exports = { bot, channels };
