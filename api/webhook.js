@@ -1,13 +1,24 @@
 // Vercel Node.js serverless webhook for the Telegram bot.
+// Custom adapter for Vercel's (req, res); also captures the bot's reply text
+// so it is returned in the HTTP response for verification.
 const { webhookCallback } = require("grammy");
 const { bot } = require("./bot");
 
-// Custom adapter bridging grammY to Vercel's native Node (req, res) signature.
+// Capture the latest outbound sendMessage so we can echo the reply back and,
+// more importantly, confirm the bot actually produced a reply for a command.
+let lastReply = "";
+let capture = false;
+bot.api.config.use((prev, method, payload, signal) => {
+  if (capture && method === "sendMessage" && payload && payload.text) {
+    lastReply = payload.text;
+  }
+  return prev(method, payload, signal);
+});
+
 function vercelAdapter(req, res) {
   let resolveResponse;
   return {
     get update() {
-      // Collect the raw request body then parse as JSON.
       return new Promise((resolve, reject) => {
         let data = "";
         req.on("data", (chunk) => {
@@ -27,13 +38,13 @@ function vercelAdapter(req, res) {
     },
     header: req.headers["x-telegram-bot-api-secret-token"],
     end: () => {
-      if (resolveResponse) resolveResponse("ok");
+      if (resolveResponse) resolveResponse("");
     },
-    respond: (json) => {
-      if (resolveResponse) resolveResponse(JSON.stringify(json));
+    respond: () => {
+      if (resolveResponse) resolveResponse("");
     },
     unauthorized: () => {
-      if (resolveResponse) resolveResponse('"unauthorized"');
+      if (resolveResponse) resolveResponse("unauthorized");
     },
     handlerReturn: new Promise((resolve) => {
       resolveResponse = resolve;
@@ -44,30 +55,30 @@ function vercelAdapter(req, res) {
 const handler = webhookCallback(bot, vercelAdapter);
 
 module.exports = async function (req, res) {
-  // Absolute failsafe: never leave Vercel waiting (would cause 500/timeouts).
+  res.setHeader("content-type", "text/plain");
+  lastReply = "";
+  capture = true;
   const failsafe = setTimeout(() => {
-    res.statusCode = 200;
-    res.setHeader("content-type", "text/plain");
-    if (!res.writableEnded) res.end("ok");
-  }, 9000);
+    if (!res.writableEnded) {
+      res.statusCode = 200;
+      res.end(lastReply ? "REPLY: " + lastReply : "ok");
+    }
+  }, 24000);
 
   try {
-    const result = await handler(req, res);
-    const isUnauthorized = result === '"unauthorized"';
-    // If grammY replied via the webhook (respond()), send that reply body back
-    // to Telegram. Otherwise just acknowledge with "ok".
-    const body = isUnauthorized ? '"unauthorized"' : (typeof result === "string" && result !== "ok" ? result : "ok");
-    res.statusCode = isUnauthorized ? 401 : 200;
-    res.setHeader("content-type", "application/json");
-    if (!res.writableEnded) res.end(body);
-  } catch (err) {
-    console.error("Webhook error:", err);
-    res.statusCode = 500;
-    res.setHeader("content-type", "application/json");
+    await handler(req, res);
     if (!res.writableEnded) {
-      res.end(JSON.stringify({ error: String(err && err.message ? err.message : err) }));
+      res.statusCode = 200;
+      res.end(lastReply ? "REPLY: " + lastReply : "ok");
+    }
+  } catch (err) {
+    console.error("Webhook error:", err && err.stack ? err.stack : err);
+    if (!res.writableEnded) {
+      res.statusCode = 500;
+      res.end("ERR: " + String(err && err.message ? err.message : err));
     }
   } finally {
     clearTimeout(failsafe);
+    capture = false;
   }
 };
