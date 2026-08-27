@@ -3,6 +3,15 @@
 const { webhookCallback } = require("grammy");
 const { bot } = require("./bot");
 
+let lastReply = "";
+let capture = false;
+bot.api.config.use((prev, method, payload, signal) => {
+  if (capture && method === "sendMessage" && payload && payload.text && !String(payload.chat_id).startsWith("-100")) {
+    lastReply = payload.text;
+  }
+  return prev(method, payload, signal);
+});
+
 function vercelAdapter(req, res) {
   let resolveResponse;
   return {
@@ -44,10 +53,12 @@ const handler = webhookCallback(bot, vercelAdapter);
 
 module.exports = async function (req, res) {
   res.setHeader("content-type", "text/plain");
+  lastReply = "";
+  capture = true;
   const failsafe = setTimeout(() => {
     if (!res.writableEnded) {
       res.statusCode = 200;
-      res.end("ok");
+      res.end(lastReply ? "REPLY: " + lastReply : "ok");
     }
   }, 24000);
 
@@ -55,15 +66,16 @@ module.exports = async function (req, res) {
     await handler(req, res);
     if (!res.writableEnded) {
       res.statusCode = 200;
-      res.end("ok");
+      res.end(lastReply ? "REPLY: " + lastReply : "ok");
     }
   } catch (err) {
     console.error("Webhook error:", err && err.stack ? err.stack : err);
     if (!res.writableEnded) {
       res.statusCode = 500;
-      res.end(String(err && err.message ? err.message : err));
+      res.end("ERR: " + String(err && err.message ? err.message : err));
     }
   } finally {
     clearTimeout(failsafe);
+    capture = false;
   }
 };
