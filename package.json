@@ -1,0 +1,12 @@
+{
+  "name": "h-tech-channel-bot",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.31.0",
+    "grammy": "^1.21.0"
+  }
+}
