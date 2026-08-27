@@ -1,19 +1,7 @@
 // Vercel Node.js serverless webhook for the Telegram bot.
-// Custom adapter for Vercel's (req, res); also captures the bot's reply text
-// so it is returned in the HTTP response for verification.
+// Custom adapter bridging grammY to Vercel's native Node (req, res) signature.
 const { webhookCallback } = require("grammy");
 const { bot } = require("./bot");
-
-// Capture the latest outbound sendMessage so we can echo the reply back and,
-// more importantly, confirm the bot actually produced a reply for a command.
-let lastReply = "";
-let capture = false;
-bot.api.config.use((prev, method, payload, signal) => {
-  if (capture && method === "sendMessage" && payload && payload.text) {
-    lastReply = payload.text;
-  }
-  return prev(method, payload, signal);
-});
 
 function vercelAdapter(req, res) {
   let resolveResponse;
@@ -56,12 +44,10 @@ const handler = webhookCallback(bot, vercelAdapter);
 
 module.exports = async function (req, res) {
   res.setHeader("content-type", "text/plain");
-  lastReply = "";
-  capture = true;
   const failsafe = setTimeout(() => {
     if (!res.writableEnded) {
       res.statusCode = 200;
-      res.end(lastReply ? "REPLY: " + lastReply : "ok");
+      res.end("ok");
     }
   }, 24000);
 
@@ -69,16 +55,15 @@ module.exports = async function (req, res) {
     await handler(req, res);
     if (!res.writableEnded) {
       res.statusCode = 200;
-      res.end(lastReply ? "REPLY: " + lastReply : "ok");
+      res.end("ok");
     }
   } catch (err) {
     console.error("Webhook error:", err && err.stack ? err.stack : err);
     if (!res.writableEnded) {
       res.statusCode = 500;
-      res.end("ERR: " + String(err && err.message ? err.message : err));
+      res.end(String(err && err.message ? err.message : err));
     }
   } finally {
     clearTimeout(failsafe);
-    capture = false;
   }
 };
