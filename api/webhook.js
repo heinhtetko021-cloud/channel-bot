@@ -54,9 +54,12 @@ module.exports = async function (req, res) {
   try {
     const result = await handler(req, res);
     const isUnauthorized = result === '"unauthorized"';
+    // If grammY replied via the webhook (respond()), send that reply body back
+    // to Telegram. Otherwise just acknowledge with "ok".
+    const body = isUnauthorized ? '"unauthorized"' : (typeof result === "string" && result !== "ok" ? result : "ok");
     res.statusCode = isUnauthorized ? 401 : 200;
-    res.setHeader("content-type", "text/plain");
-    if (!res.writableEnded) res.end(isUnauthorized ? '"unauthorized"' : "ok");
+    res.setHeader("content-type", "application/json");
+    if (!res.writableEnded) res.end(body);
   } catch (err) {
     console.error("Webhook error:", err);
     res.statusCode = 500;
