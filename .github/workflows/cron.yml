@@ -1,0 +1,14 @@
+name: htech-daily-drafts
+
+on:
+  schedule:
+    - cron: "30 2 * * *"  # 09:00 Myanmar time (UTC+6:30)
+    - cron: "30 11 * * *" # 18:00 Myanmar time (UTC+6:30)
+  workflow_dispatch:
+
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: trigger draft generation
+        run: curl -s -o /dev/null -w "HTTP %{http_code}\n" -X POST -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "https://channel-bot-jade.vercel.app/api/cron"
