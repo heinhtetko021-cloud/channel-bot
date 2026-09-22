@@ -8,4 +8,7 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - run: curl -s -o NUL -w "HTTP %{http_code}" -X POST -H "Authorization: Bearer test" https://channel-bot-jade.vercel.app/api/cron
+      - run: |
+          curl -s -o NUL -w "HTTP %{http_code}" -X POST \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            "https://channel-bot-jade.vercel.app/api/cron"
