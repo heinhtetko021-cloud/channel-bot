@@ -1,5 +1,8 @@
 name: dt
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 11 * * *"
 jobs:
   t:
     runs-on: ubuntu-latest
