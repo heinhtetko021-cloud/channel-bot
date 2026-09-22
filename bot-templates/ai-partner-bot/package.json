@@ -1,0 +1,12 @@
+{
+  "name": "htech-ai-partner-bot",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "check": "node --check api/bot.js && node --check api/webhook.js",
+    "set-webhook": "vercel env pull --environment=production && node -e \"const{bot}=require('./api/bot');bot.api.setWebhook(process.env.WEBHOOK_URL).then(r=>console.log(r.description||'ok'))\""
+  },
+  "dependencies": {
+    "grammy": "^1.21.0"
+  }
+}

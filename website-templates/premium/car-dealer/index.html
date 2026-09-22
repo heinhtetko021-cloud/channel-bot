@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{DEALER_NAME} | Premium Auto Marketplace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CREAMY MODERN — Premium Car Dealer Template
+   Customize colors via CSS variables below.
+   ========================================================= */
+:root{
+  --cream:#faf7f3;
+  --cream-2:#f3ede4;
+  --white:#ffffff;
+  --terra:#c2775a;
+  --terra-dark:#a85f43;
+  --terra-soft:#f0ded2;
+  --ink:#332a24;
+  --ink-soft:#6b5f55;
+  --line:#e7ded3;
+  --gold:#c9a45c;
+  --green:#4a7c59;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(51,42,36,.10);
+  --shadow-lg:0 20px 50px rgba(51,42,36,.18);
+  --font-head:'Playfair Display',serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --maxw:1220px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+/* ---------- Header ---------- */
+.topbar{background:var(--ink);color:var(--cream);font-size:13px;padding:8px 0}
+.topbar .container{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.topbar a{color:var(--terra-soft)}
+.topbar a:hover{color:#fff}
+header.sticky{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-head);font-size:1.35rem;font-weight:700}
+.brand .logo{width:38px;height:38px;background:var(--terra);border-radius:10px;display:grid;place-items:center;color:#fff;font-size:1.2rem}
+.nav-links{display:none;align-items:center;gap:26px;font-weight:500;font-size:.95rem}
+.nav-links a{position:relative;padding:4px 0}
+.nav-links a:hover,.nav-links a.active{color:var(--terra)}
+.nav-links a:hover::after,.nav-links a.active::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--terra);border-radius:2px}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.icon-btn{position:relative;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--cream-2);font-size:1.1rem;transition:.2s}
+.icon-btn:hover{background:var(--terra-soft)}
+.badge{position:absolute;top:-2px;right:-2px;background:var(--terra);color:#fff;font-size:10px;font-weight:700;border-radius:50%;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:40px;font-weight:600;font-size:.95rem;transition:.25s}
+.btn-primary{background:var(--terra);color:#fff}
+.btn-primary:hover{background:var(--terra-dark);transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn-outline{border:2px solid var(--terra);color:var(--terra)}
+.btn-outline:hover{background:var(--terra);color:#fff}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#1f1a16}
+
+/* Hamburger */
+.hamburger{display:flex;flex-direction:column;gap:5px;width:40px;height:40px;border-radius:10px;background:var(--cream-2);align-items:center;justify-content:center}
+.hamburger span{width:20px;height:2px;background:var(--ink);border-radius:2px;transition:.3s}
+.mobile-menu{position:fixed;inset:0;background:var(--cream);z-index:100;padding:24px;display:none;flex-direction:column;gap:8px}
+.mobile-menu.open{display:flex}
+.mobile-menu .m-close{align-self:flex-end;font-size:1.6rem;background:none}
+.mobile-menu a{font-size:1.3rem;font-weight:600;padding:12px;border-bottom:1px solid var(--line)}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;background:linear-gradient(135deg,var(--cream) 0%,var(--terra-soft) 100%);padding:60px 0 100px;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-80px;top:-80px;width:380px;height:380px;background:radial-gradient(circle,var(--terra-soft),transparent 70%);border-radius:50%}
+.hero-inner{position:relative;display:grid;gap:30px;text-align:center}
+.hero h1{font-family:var(--font-head);font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.15;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--terra)}
+.hero p{color:var(--ink-soft);max-width:560px;margin:0 auto 28px;font-size:1.05rem}
+.search-box{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:16px;display:grid;gap:12px;max-width:820px;margin:0 auto;grid-template-columns:1fr}
+.search-box select,.search-box input{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:12px;font-family:inherit;font-size:.95rem;background:var(--cream);color:var(--ink)}
+.search-box select:focus,.search-box input:focus{outline:2px solid var(--terra);outline-offset:-1px}
+.hero-stats{display:flex;justify-content:center;gap:30px;margin-top:34px;flex-wrap:wrap}
+.hero-stats .stat{text-align:center}
+.hero-stats .num{font-family:var(--font-head);font-size:1.7rem;font-weight:700;color:var(--terra)}
+.hero-stats .lbl{font-size:.85rem;color:var(--ink-soft)}
+
+/* ---------- Sections ---------- */
+section{padding:70px 0}
+.sec-head{text-align:center;max-width:640px;margin:0 auto 44px}
+.sec-head .eyebrow{display:inline-block;color:var(--terra);font-weight:700;letter-spacing:2px;font-size:.8rem;text-transform:uppercase;margin-bottom:10px}
+.sec-head h2{font-family:var(--font-head);font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.2}
+.sec-head p{color:var(--ink-soft);margin-top:12px}
+
+/* ---------- Type tabs ---------- */
+.tabs{display:flex;gap:10px;overflow-x:auto;justify-content:center;padding-bottom:8px;margin-bottom:30px}
+.tab{padding:10px 20px;border-radius:40px;border:1px solid var(--line);background:var(--white);font-weight:600;font-size:.9rem;white-space:nowrap;transition:.2s}
+.tab:hover{border-color:var(--terra);color:var(--terra)}
+.tab.active{background:var(--terra);color:#fff;border-color:var(--terra)}
+
+/* ---------- Filter bar ---------- */
+.filters{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;gap:14px;margin-bottom:36px;box-shadow:var(--shadow)}
+.filters .row{display:grid;gap:12px}
+.filters label{font-size:.8rem;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:5px}
+.filters select,.filters input[type=range]{width:100%}
+.filters select{padding:11px 14px;border:1px solid var(--line);border-radius:10px;font-family:inherit;background:var(--cream);color:var(--ink)}
+.filters .range-row{display:flex;align-items:center;gap:10px}
+.filters .range-row output{font-weight:700;color:var(--terra);min-width:64px;font-size:.9rem}
+.pill-toggle{display:inline-flex;border:1px solid var(--line);border-radius:40px;overflow:hidden}
+.pill-toggle button{padding:10px 18px;background:var(--white);font-weight:600;font-size:.88rem}
+.pill-toggle button.active{background:var(--ink);color:#fff}
+.search-row{display:flex;gap:10px}
+.search-row input{flex:1;padding:12px 16px;border:1px solid var(--line);border-radius:40px;font-family:inherit;background:var(--cream)}
+.search-row button{background:var(--terra);color:#fff;padding:12px 24px;border-radius:40px;font-weight:600}
+.result-count{color:var(--ink-soft);font-size:.9rem;margin-bottom:20px}
+.result-count b{color:var(--terra)}
+.count-note{color:var(--ink-soft);text-align:center;padding:40px 0;font-size:1.05rem}
+
+/* ---------- Cards grid ---------- */
+.grid{display:grid;gap:24px;grid-template-columns:1fr}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.3s;cursor:pointer}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--terra-soft)}
+.card-img{position:relative;height:220px;background:linear-gradient(135deg,var(--terra-soft),var(--cream-2));display:grid;place-items:center;font-size:4rem}
+.card-badges{position:absolute;top:12px;left:12px;display:flex;gap:6px;flex-wrap:wrap}
+.badge-pill{font-size:.72rem;font-weight:700;padding:5px 10px;border-radius:30px;color:#fff;letter-spacing:.4px;text-transform:uppercase}
+.badge-new{background:var(--green)}
+.badge-featured{background:var(--gold)}
+.badge-sold{background:#9b8f84}
+.card-heart{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;font-size:1.1rem;transition:.2s}
+.card-heart:hover{transform:scale(1.12)}
+.card-heart.liked{color:#e05c5c}
+.card-body{padding:20px}
+.card-title{font-family:var(--font-head);font-size:1.2rem;font-weight:700;margin-bottom:2px}
+.card-sub{color:var(--ink-soft);font-size:.85rem;margin-bottom:14px}
+.card-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.card-spec{background:var(--cream);border-radius:10px;padding:8px;text-align:center}
+.card-spec .k{font-size:.68rem;color:var(--ink-soft)}
+.card-spec .v{font-weight:700;font-size:.82rem}
+.card-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px}
+.price{font-family:var(--font-head);font-weight:700;color:var(--terra);font-size:1.15rem}
+.price small{font-size:.8rem;color:var(--ink-soft);font-weight:400}
+
+/* ---------- Carousel (featured) ---------- */
+.carousel-wrap{position:relative;overflow:hidden}
+.carousel{display:flex;gap:20px;transition:transform .5s ease;padding:4px}
+.carousel .feature-card{min-width:100%;max-width:100%;flex:0 0 auto;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);cursor:pointer}
+.feature-img{height:230px;background:linear-gradient(135deg,var(--terra-soft),var(--cream-2));display:grid;place-items:center;font-size:4.5rem}
+.feature-body{padding:20px}
+.car-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--white);box-shadow:var(--shadow);display:grid;place-items:center;font-size:1.2rem;z-index:5}
+.car-arrow:hover{background:var(--terra);color:#fff}
+.car-arrow.prev{left:8px}.car-arrow.next{right:8px}
+
+/* ---------- Compare ---------- */
+.compare-bar{position:fixed;bottom:-180px;left:0;right:0;background:var(--white);border-top:2px solid var(--terra);box-shadow:0 -10px 30px rgba(0,0,0,.12);z-index:60;transition:bottom .35s;padding:18px 0}
+.compare-bar.open{bottom:0}
+.compare-inner{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.compare-items{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.compare-chip{background:var(--cream-2);border:1px solid var(--line);border-radius:30px;padding:6px 14px;font-size:.85rem;display:flex;gap:8px;align-items:center}
+.compare-chip button{color:var(--terra);font-weight:700}
+.compare-bar .btn:disabled{opacity:.5;cursor:not-allowed}
+.compare-modal{display:none;position:fixed;inset:0;z-index:110;background:rgba(0,0,0,.55);padding:20px;overflow-y:auto}
+.compare-modal.open{display:block}
+.cm-box{background:var(--cream);max-width:1000px;margin:30px auto;border-radius:var(--radius);padding:24px;position:relative}
+.cm-close{position:absolute;top:14px;right:18px;font-size:1.5rem}
+.cm-table{width:100%;border-collapse:collapse;margin-top:16px;overflow-x:auto}
+.cm-wrap{overflow-x:auto}
+.cm-table th,.cm-table td{border:1px solid var(--line);padding:12px 14px;text-align:left;font-size:.9rem;background:var(--white)}
+.cm-table th{background:var(--ink);color:#fff;font-weight:600}
+.cm-table td:first-child{background:var(--cream-2);font-weight:600;color:var(--ink-soft)}
+.cm-table .rem{color:var(--terra);font-weight:700;cursor:pointer}
+
+/* ---------- Modal ---------- */
+.veh-modal{display:none;position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.6);padding:16px;overflow-y:auto}
+.veh-modal.open{display:block}
+.veh-box{background:var(--cream);max-width:960px;margin:30px auto;border-radius:var(--radius);padding:22px;position:relative;box-shadow:var(--shadow-lg)}
+.veh-close{position:absolute;top:14px;right:16px;width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;font-size:1.2rem;display:grid;place-items:center;z-index:10}
+.gallery-main{height:280px;background:linear-gradient(135deg,var(--terra-soft),var(--cream-2));border-radius:12px;display:grid;place-items:center;font-size:6rem;margin-bottom:12px}
+.gallery-thumbs{display:flex;gap:10px;overflow-x:auto;margin-bottom:20px}
+.thumb{width:80px;height:60px;border-radius:10px;background:var(--white);border:2px solid var(--line);display:grid;place-items:center;font-size:1.8rem;cursor:pointer;flex-shrink:0}
+.thumb.active{border-color:var(--terra)}
+.veh-title{font-family:var(--font-head);font-size:1.7rem;margin-bottom:4px}
+.veh-price{font-family:var(--font-head);font-size:1.6rem;color:var(--terra);font-weight:700;margin-bottom:16px}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.spec-box{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.spec-box .k{font-size:.75rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.5px}
+.spec-box .v{font-weight:700;font-size:.95rem}
+.modal-cols{display:grid;gap:24px}
+.desc{color:var(--ink-soft);line-height:1.7}
+.seller-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:20px 0}
+.seller-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.seller-avatar{width:46px;height:46px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center;font-weight:700}
+.seller-card .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.seller-card .row:last-child{border:none}
+.finance{background:linear-gradient(135deg,var(--terra),var(--terra-dark));color:#fff;border-radius:var(--radius);padding:18px;margin:20px 0}
+.finance h4{font-family:var(--font-head);margin-bottom:6px}
+.finance p{font-size:.9rem;opacity:.95}
+.form-group{margin-bottom:14px}
+.form-group label{font-size:.85rem;font-weight:600;display:block;margin-bottom:6px}
+.form-group input,.form-group textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-family:inherit;background:var(--white);font-size:.95rem}
+.form-group input:focus,.form-group textarea:focus{outline:2px solid var(--terra);outline-offset:-1px}
+.form-note{font-size:.8rem;color:var(--ink-soft);margin:10px 0}
+
+/* ---------- Sell / trade-in ---------- */
+.sell-section{background:linear-gradient(135deg,var(--ink),#4a3d33);color:var(--cream);border-radius:var(--radius) 0 0 var(--radius)}
+.sell-grid{display:grid;gap:30px}
+.sell-cols{display:grid;gap:30px}
+.sell-steps{display:grid;gap:16px;margin-top:20px}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step .n{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center;font-weight:700}
+.step h4{margin-bottom:2px}
+.step p{font-size:.9rem;opacity:.85}
+.sell-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);padding:22px}
+.sell-box h3{font-family:var(--font-head);margin-bottom:6px}
+.sell-box .field{margin-bottom:12px}
+.sell-box label{display:block;font-size:.85rem;margin-bottom:5px;opacity:.9}
+.sell-box input,.sell-box select,.sell-box textarea{width:100%;padding:12px;border-radius:10px;border:none;font-family:inherit;font-size:.95rem;background:rgba(255,255,255,.95);color:var(--ink)}
+
+/* ---------- About / Stats ---------- */
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.stat-box{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px;text-align:center}
+.stat-box .n{font-family:var(--font-head);font-size:2.2rem;color:var(--terra);font-weight:700}
+.stat-box .l{color:var(--ink-soft);font-size:.9rem;margin-top:4px}
+
+/* ---------- Testimonials ---------- */
+.testi-grid{display:grid;gap:20px}
+.testi{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.stars{color:var(--gold);letter-spacing:2px;margin-bottom:12px}
+.testi p{font-style:italic;color:var(--ink-soft);margin-bottom:16px}
+.testi .who{display:flex;align-items:center;gap:12px}
+.testi .av{width:42px;height:42px;border-radius:50%;background:var(--terra-soft);color:var(--terra);display:grid;place-items:center;font-weight:700}
+
+/* ---------- Contact ---------- */
+.contact-grid{display:grid;gap:24px}
+.contact-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;gap:14px;align-items:flex-start}
+.contact-card .ic{width:44px;height:44px;flex-shrink:0;border-radius:12px;background:var(--terra-soft);color:var(--terra);display:grid;place-items:center;font-size:1.2rem}
+.contact-card h4{margin-bottom:2px}
+.contact-card p{color:var(--ink-soft);font-size:.92rem}
+.map-ph{width:100%;border-radius:var(--radius);border:1px solid var(--line);height:260px;background:linear-gradient(135deg,var(--cream-2),var(--terra-soft));display:grid;place-items:center;text-align:center;color:var(--ink-soft);font-size:1rem}
+
+/* ---------- Footer ---------- */
+footer{background:var(--ink);color:var(--cream);padding:60px 0 30px;margin-top:40px}
+.foot-grid{display:grid;gap:30px;margin-bottom:40px}
+footer h4{font-family:var(--font-head);font-size:1.1rem;margin-bottom:14px}
+footer a{opacity:.85;display:block;padding:4px 0}
+footer a:hover{opacity:1;color:var(--terra-soft)}
+footer p{opacity:.8;font-size:.92rem}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.15);padding-top:22px;text-align:center;font-size:.85rem;opacity:.7}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;padding:14px 24px;border-radius:40px;font-weight:600;z-index:200;box-shadow:var(--shadow-lg);opacity:0;transition:.35s;max-width:90%;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ---------- Responsive ---------- */
+@media(min-width:560px){
+  .search-box{grid-template-columns:1fr 1fr}
+}
+@media(min-width:768px){
+  .nav-links{display:flex}
+  .hamburger{display:none}
+  .hero h1{font-size:3.2rem}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .filters .row{grid-template-columns:repeat(4,1fr)}
+  .filters .row-2{grid-template-columns:1fr auto}
+  .carousel .feature-card{min-width:calc(50% - 10px);max-width:calc(50% - 10px)}
+  .stats-grid{grid-template-columns:repeat(4,1fr)}
+  .testi-grid{grid-template-columns:repeat(3,1fr)}
+  .contact-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:repeat(2,1fr)}
+  .sell-grid{grid-template-columns:1fr 1fr}
+  .modal-cols{grid-template-columns:1fr 1fr}
+}
+@media(min-width:1024px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .filters .row{grid-template-columns:1.2fr .8fr .8fr .8fr}
+  .foot-grid{grid-template-columns:2fr 1fr 1fr 1.4fr}
+  .carousel .feature-card{min-width:calc(33.333% - 14px);max-width:calc(33.333% - 14px)}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     TOP BAR
+     ============================================================ -->
+<div class="topbar">
+  <div class="container">
+    <span>🇲🇲 Premium Auto Marketplace — Yangon &amp; Mandalay [Yangon နှင့် မန္တလေး]</span>
+    <span><a href="tel:{PHONE}">📞 {PHONE}</a> &nbsp;·&nbsp; <a href="{TG_LINK}" target="_blank" rel="noopener">Telegram</a></span>
+  </div>
+</div>
+
+<!-- ============================================================
+     HEADER / NAV
+     ============================================================ -->
+<header class="sticky">
+  <div class="container nav">
+    <div class="brand">
+      <span class="logo">🚘</span>
+      <span>H-Tech Auto</span>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#inventory">Inventory</a>
+      <a href="#featured">Featured</a>
+      <a href="#sell">Sell Your Car</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="shortlistBtn" title="My Shortlist">🖤<span class="badge" id="shortlistCount">0</span></button>
+      <a class="btn btn-primary" href="#inventory">Browse Cars</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="m-close" id="menuClose">✕</button>
+  <a href="#home">Home</a>
+  <a href="#inventory">Inventory</a>
+  <a href="#featured">Featured</a>
+  <a href="#sell">Sell Your Car</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="home">
+  <div class="container hero-inner">
+    <h1>Drive Your Dream, <em>Own The Road.</em></h1>
+    <p>Premium pre-owned &amp; new vehicles from <b>{DEALER_NAME}</b>. Every car inspected, certified &amp; ready to go. အကောင်းဆုံးဈေးဖြင့် ယုံကြည်စိတ်ချစွာ ဝယ်ယူနိုင်ပါသည်။</p>
+    <form class="search-box" id="heroSearch">
+      <select id="heroMake">
+        <option value="">All Makes / အားလုံး</option>
+      </select>
+      <input type="text" id="heroQuery" placeholder="Search by model... e.g. Fortuner / အမျိုးအစား">
+      <select id="heroType">
+        <option value="">All Types</option>
+        <option>Sedan</option><option>SUV</option><option>Truck</option><option>Bike</option>
+      </select>
+      <button class="btn btn-primary" type="submit">🔍 Search / ရှာမည်</button>
+    </form>
+    <div class="hero-stats">
+      <div class="stat"><div class="num" id="statVehicles">0</div><div class="lbl">Vehicles</div></div>
+      <div class="stat"><div class="num" id="statSold">0</div><div class="lbl">Happy Drivers</div></div>
+      <div class="stat"><div class="num" id="statYears">7+</div><div class="lbl">Years Experience</div></div>
+      <div class="stat"><div class="num" id="statRating">4.9★</div><div class="lbl">Rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INVENTORY + FILTERS
+     ============================================================ -->
+<section id="inventory">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Our Collection</span>
+      <h2>Inventory / ကားများ</h2>
+      <p>Browse our carefully curated selection of premium vehicles. Live filters help you find the perfect match.</p>
+    </div>
+
+    <!-- Type tabs -->
+    <div class="tabs" id="typeTabs">
+      <button class="tab active" data-type="All">All / အားလုံး</button>
+      <button class="tab" data-type="Sedan">Sedan</button>
+      <button class="tab" data-type="SUV">SUV</button>
+      <button class="tab" data-type="Truck">Truck</button>
+      <button class="tab" data-type="Bike">Bike</button>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="filters">
+      <div class="search-row">
+        <input type="text" id="qSearch" placeholder="Search model / အမည်ဖြင့်ရှာမည်...">
+        <button id="qReset">↺ Reset</button>
+      </div>
+      <div class="row">
+        <div>
+          <label>Make</label>
+          <select id="fMake"><option value="">All Makes</option></select>
+        </div>
+        <div>
+          <label>Max Price (Ks)</label>
+          <div class="range-row">
+            <input type="range" id="fPrice" min="0" max="700000" step="50000" value="700000">
+            <output id="priceOut">700K</output>
+          </div>
+        </div>
+        <div>
+          <label>Fuel</label>
+          <select id="fFuel">
+            <option value="">All Fuel</option>
+            <option>Petrol</option><option>Diesel</option><option>Electric</option>
+          </select>
+        </div>
+        <div>
+          <label>Transmission</label>
+          <select id="fTrans">
+            <option value="">All</option>
+            <option>Auto</option><option>Manual</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="pill-toggle" id="condToggle">
+          <button data-cond="All" class="active">All / အားလုံး</button>
+          <button data-cond="New">New</button>
+          <button data-cond="Used">Used</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+          <input type="checkbox" id="fFeatured"> <label for="fFeatured" style="margin:0">Featured only</label>
+        </div>
+      </div>
+      <div class="result-count" id="resultCount"></div>
+      <div class="grid" id="vehicleGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURED CAROUSEL
+     ============================================================ -->
+<section id="featured" style="background:var(--cream-2)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Hand-Picked</span>
+      <h2>Featured Vehicles / အထူးရွေးချယ်ထား</h2>
+      <p>Our most sought-after rides, available now.</p>
+    </div>
+    <div class="carousel-wrap">
+      <button class="car-arrow prev" id="featPrev">‹</button>
+      <div class="carousel" id="featCarousel"></div>
+      <button class="car-arrow next" id="featNext">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SELL YOUR CAR / TRADE-IN
+     ============================================================ -->
+<section id="sell" class="sell-section">
+  <div class="container sell-grid" style="margin:0 auto">
+    <div>
+      <span class="eyebrow" style="color:var(--terra-soft)">Sell / Trade-In</span>
+      <h2 style="font-family:var(--font-head);font-size:clamp(1.8rem,4vw,2.5rem);line-height:1.2">What's Your Car<br>Worth Today?</h2>
+      <p style="opacity:.9;margin:12px 0 20px;max-width:460px">Sell in 3 easy steps or trade-in towards your next ride. We pay fair market prices immediately. သင့်ကားကို မြန်မြန်ဆန်ဆန် ဈေးတွက်ပေးပါမည်။</p>
+      <div class="sell-steps">
+        <div class="step"><div class="n">1</div><div><h4>Describe your car</h4><p>Year, model, mileage &amp; condition — takes 2 minutes.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Get an instant offer</h4><p>We evaluate &amp; respond within 24 hours.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Get paid fast</h4><p>Finalize papers &amp; receive payment same day.</p></div></div>
+      </div>
+    </div>
+    <div class="sell-box">
+      <h3>Sell / Trade-In Form</h3>
+      <p style="opacity:.85;font-size:.9rem;margin-bottom:16px">Fill this out and our team will contact you. / အောက်ပါအချက်များဖြည့်ပါ။</p>
+      <form id="sellForm">
+        <div class="field"><label>Name / အမည်</label><input type="text" id="sName" required></div>
+        <div class="field"><label>Phone / ဖုန်း</label><input type="tel" id="sPhone" required></div>
+        <div class="field"><label>Car Make &amp; Model</label><input type="text" id="sCar" required></div>
+        <div class="field"><label>Car Type</label><select id="sType"><option>Sedan</option><option>SUV</option><option>Truck</option><option>Bike</option></select></div>
+        <div class="field"><label>Year</label><input type="number" id="sYear" placeholder="e.g. 2019" required></div>
+        <div class="field"><label>Expected Price (Ks)</label><input type="number" id="sPrice" placeholder="e.g. 40000000"></div>
+        <div class="field"><label>Message / အသေးစိတ်</label><textarea id="sMsg" rows="3" placeholder="Condition, extras, etc."></textarea></div>
+        <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center">Submit Offer / တင်သွင်းမည်</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT + STATS
+     ============================================================ -->
+<section id="about">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">About Us</span>
+      <h2>Trusted By Hundreds Of Drivers</h2>
+      <p>For over 7 years, {DEALER_NAME} has been Myanmar's trusted destination for premium vehicles — quality you can see, prices you can trust.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="n" id="sVeh">0</div><div class="l">Vehicles Listed</div></div>
+      <div class="stat-box"><div class="n">500+</div><div class="l">Happy Customers</div></div>
+      <div class="stat-box"><div class="n">7+</div><div class="l">Years Experience</div></div>
+      <div class="stat-box"><div class="n">100%</div><div class="l">Quality Verified</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section id="testimonials" style="background:var(--cream-2)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Testimonials</span>
+      <h2>What Our Customers Say</h2>
+    </div>
+    <div class="testi-grid" id="testiGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Get In Touch</span>
+      <h2>Contact Us / ဆက်သွယ်ရန်</h2>
+      <p>Visit our showroom or reach us anytime.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card"><div class="ic">📍</div><div><h4>Location</h4><p>{ADDRESS}</p></div></div>
+      <div class="contact-card"><div class="ic">📞</div><div><h4>Phone / Viber</h4><p>{PHONE}</p></div></div>
+      <div class="contact-card"><div class="ic">💬</div><div><h4>Telegram</h4><p><a href="{TG_LINK}" target="_blank" rel="noopener" style="color:var(--terra);font-weight:600">Chat with us on Telegram / htein_public_ai_bot</a></p></div></div>
+      <div class="contact-card"><div class="ic">🕘</div><div><h4>Opening Hours</h4><p>Mon–Sat: 9:00 AM – 6:00 PM<br>Sun: By appointment</p></div></div>
+    </div>
+    <div class="map-ph" style="margin-top:24px">📍 Google Map Placeholder — {ADDRESS}<br><span style="font-size:.85rem;opacity:.7">ဒီနေရာတွင် မြေပုံထည့်ပါ</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="brand" style="color:var(--cream);margin-bottom:14px"><span class="logo">🚘</span><span>H-Tech Auto</span></div>
+        <p>Premium vehicles, trusted service. {DEALER_NAME} is your partner on the road — from first test-drive to final keys.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="#inventory">Inventory</a>
+        <a href="#featured">Featured</a>
+        <a href="#sell">Sell Your Car</a>
+        <a href="#about">About</a>
+      </div>
+      <div>
+        <h4>Buying</h4>
+        <a href="#inventory">New Cars</a>
+        <a href="#inventory">Pre-Owned</a>
+        <a href="#inventory">Financing</a>
+        <a href="#inventory">Trade-In</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>📍 {ADDRESS}</p>
+        <p>📞 {PHONE}</p>
+        <p>💬 <a href="{TG_LINK}" target="_blank" rel="noopener">Telegram: htein_public_ai_bot</a></p>
+        <p>🕘 Mon–Sat: 9am–6pm</p>
+      </div>
+    </div>
+    <div class="foot-bottom">© <span id="year"></span> {DEALER_NAME} · H-Tech Studio · All rights reserved · Crafted with 💛 in Myanmar</div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     COMPARE BAR
+     ============================================================ -->
+<div class="compare-bar" id="compareBar">
+  <div class="container compare-inner">
+    <div class="compare-items" id="compareItems">
+      <span style="font-weight:700;color:var(--ink-soft)">Compare:</span>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-outline" id="cmpClear" disabled>Clear</button>
+      <button class="btn btn-primary" id="cmpOpen" disabled>Compare Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     COMPARE MODAL
+     ============================================================ -->
+<div class="compare-modal" id="compareModal">
+  <div class="cm-box">
+    <button class="cm-close" id="cmpClose">✕</button>
+    <h2 style="font-family:var(--font-head)">Compare Vehicles</h2>
+    <div class="cm-wrap">
+      <table class="cm-table" id="cmpTable"></table>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     VEHICLE DETAIL MODAL
+     ============================================================ -->
+<div class="veh-modal" id="vehModal">
+  <div class="veh-box" id="vehBox"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   ⚙️ CONFIG — EDIT YOUR BUSINESS DETAILS HERE
+   ============================================================ */
+const CONFIG = {
+  dealerName  : "{DEALER_NAME}",          // Business name
+  phone       : "{PHONE}",                // Contact phone
+  address     : "{ADDRESS}",              // Showroom address
+  telegramLink: "{TG_LINK}",              // Your Telegram link
+  currencyLabel: "Ks",                    // Currency symbol/label
+};
+document.title = CONFIG.dealerName + " | Premium Auto Marketplace";
+
+/* ============================================================
+   🚗 VEHICLES — CUSTOMIZE YOUR VEHICLES HERE
+   To add/remove/edit cars, just add/remove objects in this array.
+   Fields: id, make, model, year, price(Ks), mileage, fuel,
+           transmission, type, color, condition, sold, featured,
+           description, emoji, seller
+   ============================================================ */
+const VEHICLES = [
+  {
+    id:1, make:"Toyota", model:"Fortuner 2.7V", year:2021, price:65000000, mileage:"45,000 km",
+    fuel:"Diesel", transmission:"Auto", type:"SUV", color:"Pearl White", condition:"Used",
+    sold:false, featured:true,
+    description:"Excellent condition Fortuner with full maintenance history. Premium interior, 7 seats, adaptive cruise control, 360-degree camera. Perfect for family & business. ကောင်းမွန်သောအခြေအနေ၊ ပြုပြင်ထိန်းသိမ်းမှုမှတ်တမ်းအပြည့်အစုံ။",
+    emoji:"🚙", seller:{name:"U Myo Min", phone:"09 970 000 001"}
+  },
+  {
+    id:2, make:"Toyota", model:"Camry 2.5G", year:2022, price:48000000, mileage:"18,000 km",
+    fuel:"Petrol", transmission:"Auto", type:"Sedan", color:"Black", condition:"New",
+    sold:false, featured:true,
+    description:"Brand new Camry with luxurious leather interior, panoramic sunroof and Toyota Safety Sense. Smooth, quiet and elegant. မောင်းနှင်မှုချောမွေ့လှပပါသည်။",
+    emoji:"🚗", seller:{name:"Daw Khin", phone:"09 970 000 002"}
+  },
+  {
+    id:3, make:"Honda", model:"Civic RS Turbo", year:2020, price:37000000, mileage:"55,000 km",
+    fuel:"Petrol", transmission:"Auto", type:"Sedan", color:"Sonic Grey", condition:"Used",
+    sold:true, featured:false,
+    description:"Sporty Civic RS with turbo performance, sport seats and Honda Sensing. Well maintained, ready to drive. ပြိုင်ကားဆန်သော Civic RS။",
+    emoji:"🏎️", seller:{name:"U Aung Aung", phone:"09 970 000 003"}
+  },
+  {
+    id:4, make:"Nissan", model:"Navara Pro-4X", year:2019, price:55000000, mileage:"70,000 km",
+    fuel:"Diesel", transmission:"Auto", type:"Truck", color:"Orange", condition:"Used",
+    sold:false, featured:false,
+    description:"Powerful 4x4 pickup, off-road capable, tow package, roof rack. Built to work hard and play harder. ခိုင်မာသော 4x4 pick-up ကား။",
+    emoji:"🛻", seller:{name:"U Zaw Htet", phone:"09 970 000 004"}
+  },
+  {
+    id:5, make:"BMW", model:"5 Series 530i", year:2023, price:125000000, mileage:"12,000 km",
+    fuel:"Petrol", transmission:"Auto", type:"Sedan", color:"Alpine White", condition:"New",
+    sold:false, featured:true,
+    description:"Flagship executive sedan. TwinPower turbo, premium Merino leather, gesture control, ambient lighting. The ultimate driving machine. အနာဂတ်နည်းပညာ။",
+    emoji:"🚘", seller:{name:"U Nay Lin", phone:"09 970 000 005"}
+  },
+  {
+    id:6, make:"Mercedes-Benz", model:"GLE 350", year:2022, price:135000000, mileage:"20,000 km",
+    fuel:"Diesel", transmission:"Auto", type:"SUV", color:"Obsidian Black", condition:"New",
+    sold:false, featured:false,
+    description:"Luxury 7-seat SUV with MBUX infotainment, air suspension and 4MATIC. Supreme comfort for every journey.",
+    emoji:"🚙", seller:{name:"Daw Su Su", phone:"09 970 000 006"}
+  },
+  {
+    id:7, make:"Lexus", model:"LX 570", year:2018, price:88000000, mileage:"90,000 km",
+    fuel:"Petrol", transmission:"Auto", type:"SUV", color:"Silver", condition:"Used",
+    sold:false, featured:false,
+    description:"Full-size luxury SUV, legendary reliability, 8 seats, off-road ready. A true road king.",
+    emoji:"🚙", seller:{name:"U Than Win", phone:"09 970 000 007"}
+  },
+  {
+    id:8, make:"Suzuki", model:"Celerio", year:2023, price:28000000, mileage:"8,000 km",
+    fuel:"Petrol", transmission:"Manual", type:"Sedan", color:"Red", condition:"New",
+    sold:false, featured:false,
+    description:"Compact, fuel-efficient city car. Perfect first car, cheap to run and easy to park. စီးပွားရေးသင့်လှပါသည်။",
+    emoji:"🚗", seller:{name:"Ma Phyu", phone:"09 970 000 008"}
+  },
+  {
+    id:9, make:"Honda", model:"CBR 650R", year:2022, price:15000000, mileage:"5,000 km",
+    fuel:"Petrol", transmission:"Manual", type:"Bike", color:"Red", condition:"New",
+    sold:false, featured:false,
+    description:"Sport motorcycle, 650cc inline-four, quick-shifter, premium brakes. Thrill seekers welcome.",
+    emoji:"🏍️", seller:{name:"U Ko Ko", phone:"09 970 000 009"}
+  },
+  {
+    id:10, make:"Tesla", model:"Model 3 Long Range", year:2023, price:95000000, mileage:"9,500 km",
+    fuel:"Electric", transmission:"Auto", type:"Sedan", color:"Midnight Blue", condition:"New",
+    sold:false, featured:true,
+    description:"Fully electric, 500+ km range, autopilot, minimal luxury interior, supercharger ready. The future is now. လျှပ်စစ်ကား။",
+    emoji:"⚡", seller:{name:"U Hein Htet", phone:"09 970 000 010"}
+  },
+  {
+    id:11, make:"Suzuki", model:"Swift Sport", year:2021, price:33000000, mileage:"40,000 km",
+    fuel:"Petrol", transmission:"Auto", type:"Sedan", color:"Yellow", condition:"Used",
+    sold:false, featured:false,
+    description:"Fun, punchy hot hatch. Lightweight, agile, and very affordable to run. ပျော်စရာကောင်းသောကား။",
+    emoji:"🚗", seller:{name:"Ma Aye", phone:"09 970 000 011"}
+  },
+  {
+    id:12, make:"Mitsubishi", model:"Pajero Sport", year:2021, price:62000000, mileage:"60,000 km",
+    fuel:"Diesel", transmission:"Auto", type:"SUV", color:"White", condition:"Used",
+    sold:false, featured:false,
+    description:"Proven 7-seat Pajero Sport with Super Select 4WD. Durable, spacious and comfortable for all terrain.",
+    emoji:"🚙", seller:{name:"U Kyaw Thu", phone:"09 970 000 012"}
+  }
+];
+
+/* ============================================================
+   TESTIMONIALS — edit if you wish
+   ============================================================ */
+const TESTIMONIALS = [
+  {name:"U Aung Moe", role:"Business Owner", text:"Best experience buying a car in Myanmar. Transparent pricing, honest advice and great after-sales support. Highly recommended!"},
+  {name:"Daw Hnin Wai", role:"Doctor", text:"I traded in my old car and upgraded to a Fortuner. The trade-in offer was the fairest I found. Quick and professional."},
+  {name:"Ko Yan Naing", role:"Software Engineer", text:"Loved the financing option and the detailed vehicle history. Felt safe with a certified car. Will buy again."}
+];
+
+/* ============================================================
+   APP STATE
+   ============================================================ */
+const state = {
+  type:"All", make:"", price:700000, fuel:"", trans:"", cond:"All",
+  featured:false, query:"",
+  shortlist: loadShortlist(),
+  compare:[]
+};
+
+function loadShortlist(){
+  try{ return JSON.parse(localStorage.getItem("ht_shortlist"))||[]; }
+  catch(e){ return []; }
+}
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+
+function fmtPrice(n){
+  return Number(n).toLocaleString("en-US") + " " + CONFIG.currencyLabel;
+}
+function kmRange(n){
+  const v = Number(n);
+  return v >= 1000000 ? (v/1000000).toFixed(1)+"M" : Math.round(v/1000)+"K";
+}
+
+/* ---------- seed makes + type tabs ---------- */
+function seedMakes(){
+  const makes = [...new Set(VEHICLES.map(v=>v.make))].sort();
+  const opts = makes.map(m=>`<option value="${m}">${m}</option>`).join("");
+  $("#heroMake").insertAdjacentHTML("beforeend",opts);
+  $("#fMake").insertAdjacentHTML("beforeend",opts);
+}
+
+/* ---------- filtering ---------- */
+function applyFilters(){
+  return VEHICLES.filter(v=>{
+    if(state.type!=="All" && v.type!==state.type) return false;
+    if(state.make && v.make!==state.make) return false;
+    if(v.price>state.price) return false;
+    if(state.fuel && v.fuel!==state.fuel) return false;
+    if(state.trans && v.transmission!==state.trans) return false;
+    if(state.cond!=="All" && v.condition!==state.cond) return false;
+    if(state.featured && !v.featured) return false;
+    if(state.query){
+      const q=state.query.toLowerCase();
+      if(!(v.model.toLowerCase().includes(q)||v.make.toLowerCase().includes(q)||v.description.toLowerCase().includes(q))) return false;
+    }
+    return true;
+  });
+}
+
+/* ---------- render card ---------- */
+function cardHTML(v){
+  const badges = [
+    v.sold?'<span class="badge-pill badge-sold">Sold</span>':'',
+    v.featured?'<span class="badge-pill badge-featured">Featured</span>':'',
+    v.condition==="New"?'<span class="badge-pill badge-new">New</span>':''
+  ].join("");
+  const liked = state.shortlist.includes(v.id)?"liked":"";
+  return `
+  <div class="card" data-id="${v.id}">
+    <div class="card-img">
+      ${badges}
+      <button class="card-heart ${liked}" data-heart="${v.id}" title="Save">${state.shortlist.includes(v.id)?"❤️":"🤍"}</button>
+      <span>${v.emoji}</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title">${v.make} ${v.model}</div>
+      <div class="card-sub">${v.year} · ${v.type} · ${v.color}</div>
+      <div class="card-specs">
+        <div class="card-spec"><div class="k">Price</div><div class="v" style="color:var(--terra)">${kmRange(v.price)}</div></div>
+        <div class="card-spec"><div class="k">Km</div><div class="v">${v.mileage.split(" ")[0]}</div></div>
+        <div class="card-spec"><div class="k">Gear</div><div class="v">${v.transmission}</div></div>
+      </div>
+      <div class="card-foot">
+        <div class="price">${fmtPrice(v.price)}</div>
+        <button class="btn btn-outline" style="padding:8px 14px;font-size:.85rem" data-view="${v.id}">Details</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderGrid(){
+  const list = applyFilters();
+  const grid = $("#vehicleGrid");
+  if(!list.length){ grid.innerHTML = `<div class="count-note">No vehicles match your filters. 🔎<br>Try removing some filters.</div>`; }
+  else { grid.innerHTML = list.map(cardHTML).join(""); }
+  $("#resultCount").innerHTML = `<b>${list.length}</b> vehicle${list.length===1?"":"s"} found / တွေ့ရှိသည်`;
+  $("#statVehicles").textContent = VEHICLES.length;
+  $("#sVeh").textContent = VEHICLES.length;
+  $("#statSold").textContent = (VEHICLES.filter(v=>v.sold).length || VEHICLES.length-1);
+}
+
+/* ---------- featured carousel ---------- */
+let featIndex = 0;
+function featPerView(){
+  const w=window.innerWidth;
+  return w>=1024?3 : w>=768?2 : 1;
+}
+let featCount=0;
+function renderFeatured(){
+  const feats = VEHICLES.filter(v=>v.featured);
+  featCount = feats.length;
+  const wrap = $("#featCarousel");
+  wrap.innerHTML = feats.map(v=>`
+    <div class="feature-card" data-view="${v.id}">
+      <div class="feature-img">${v.emoji}</div>
+      <div class="feature-body">
+        <div style="font-family:var(--font-head);font-weight:700;font-size:1.15rem">${v.make} ${v.model}</div>
+        <div style="color:var(--ink-soft);font-size:.85rem;margin-bottom:10px">${v.year} · ${v.fuel} · ${v.type}</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:var(--font-head);color:var(--terra);font-weight:700">${fmtPrice(v.price)}</span>
+          <button class="btn btn-primary" style="padding:8px 14px;font-size:.85rem">View</button>
+        </div>
+      </div>
+    </div>`).join("");
+  capFeatIndex();
+}
+function capFeatIndex(){
+  const pv=featPerView();
+  const max=Math.max(0,featCount-pv);
+  featIndex=Math.min(Math.max(featIndex,0),max);
+  $("#featCarousel").style.transform = `translateX(-${featIndex*(100/pv)}%)`;
+}
+$("#featPrev").onclick=()=>{featIndex--;capFeatIndex();};
+$("#featNext").onclick=()=>{featIndex++;capFeatIndex();};
+
+/* ---------- testimonials ---------- */
+function renderTesti(){
+  $("#testiGrid").innerHTML = TESTIMONIALS.map(t=>`
+    <div class="testi">
+      <div class="stars">★★★★★</div>
+      <p>"${t.text}"</p>
+      <div class="who"><div class="av">${t.name.split(" ")[0][0]}</div><div><b>${t.name}</b><br><small style="color:var(--ink-soft)">${t.role}</small></div></div>
+    </div>`).join("");
+}
+
+/* ---------- modal open ---------- */
+function openVehicle(id){
+  const v = VEHICLES.find(x=>x.id===id);
+  if(!v) return;
+  const currency = CONFIG.currencyLabel;
+  const modal = $("#vehModal");
+  $("#vehBox").innerHTML = `
+    <button class="veh-close" id="vehClose">✕</button>
+    <div class="gallery-main" id="galMain">${v.emoji}</div>
+    <div class="gallery-thumbs" id="galThumbs">
+      ${[1].concat(Array.from({length:3},(_,i)=>i+2)).map(t=>`<div class="thumb${t===1?" active":""}" data-n="${t}">${v.emoji}</div>`).join("")}
+    </div>
+    <div class="veh-title">${v.make} ${v.model}</div>
+    <div class="veh-price">${fmtPrice(v.price)}</div>
+    ${v.sold?'<div style="background:#ffefe9;border:1px solid #e05c5c;color:#e05c5c;padding:10px;border-radius:10px;font-weight:600;margin-bottom:14px">⚠️ This vehicle is SOLD</div>':''}
+    <div class="spec-grid">
+      <div class="spec-box"><div class="k">Year</div><div class="v">${v.year}</div></div>
+      <div class="spec-box"><div class="k">Type</div><div class="v">${v.type}</div></div>
+      <div class="spec-box"><div class="k">Mileage</div><div class="v">${v.mileage}</div></div>
+      <div class="spec-box"><div class="k">Fuel</div><div class="v">${v.fuel}</div></div>
+      <div class="spec-box"><div class="k">Transmission</div><div class="v">${v.transmission}</div></div>
+      <div class="spec-box"><div class="k">Color</div><div class="v">${v.color}</div></div>
+      <div class="spec-box"><div class="k">Condition</div><div class="v">${v.condition}</div></div>
+      <div class="spec-box"><div class="k">Status</div><div class="v">${v.sold?"Sold":"Available"}</div></div>
+    </div>
+    <p class="desc">${v.description}</p>
+
+    <div class="seller-card">
+      <div class="seller-top">
+        <div class="seller-avatar">${v.seller.name[0]}</div>
+        <div><b>${v.seller.name}</b><br><small style="color:var(--ink-soft)">${CONFIG.dealerName} · Verified Seller</small></div>
+      </div>
+      <div class="row"><span>Phone / Viber</span><b>${v.seller.phone || CONFIG.phone}</b></div>
+      <div class="row"><span>Telegram</span><b>htein_public_ai_bot</b></div>
+    </div>
+
+    <div class="finance">
+      <h4>💳 Finance &amp; Installment</h4>
+      <p>Flexible installment plans available. Example: <b>${fmtPrice(Math.round(v.price*0.2))}</b> down + <b>${fmtPrice(Math.round(v.price*0.035))}/month</b> for 24 months. လစဉ်အရစ်ကျစနစ် ရရှိနိုင်ပါသည်။</p>
+    </div>
+
+    <div class="modal-cols">
+      <div>
+        <h3 style="font-family:var(--font-head);margin-bottom:12px">Enquire About This Vehicle</h3>
+        <form id="enqForm" data-id="${v.id}">
+          <div class="form-group"><label>Name / အမည်</label><input type="text" id="enqName" required></div>
+          <div class="form-group"><label>Phone / ဖုန်း</label><input type="tel" id="enqPhone" required></div>
+          <div class="form-group"><label>Message</label><textarea id="enqMsg" rows="3">I'm interested in ${v.make} ${v.model}</textarea></div>
+          <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center">Send Enquiry</button>
+          <p class="form-note">Or chat with us directly on Telegram.</p>
+          <a class="btn btn-outline" href="${CONFIG.telegramLink}" target="_blank" rel="noopener" style="width:100%;justify-content:center;margin-top:8px">💬 Chat on Telegram</a>
+        </form>
+      </div>
+      <div>
+        <h3 style="font-family:var(--font-head);margin-bottom:12px">Actions</h3>
+        <button class="btn btn-outline" data-compare="${v.id}" style="width:100%;justify-content:center;margin-bottom:10px">⚖️ Add to Compare</button>
+        <button class="btn btn-outline" data-heart="${v.id}" style="width:100%;justify-content:center">${state.shortlist.includes(v.id)?"❤️ Remove from Shortlist":"🤍 Save to Shortlist"}</button>
+      </div>
+    </div>`;
+  modal.classList.add("open");
+  document.body.style.overflow="hidden";
+
+  // thumb switcher
+  $("#galThumbs").querySelectorAll(".thumb").forEach(th=>{
+    th.onclick=()=>{
+      $("#galThumbs").querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));
+      th.classList.add("active");
+      $("#galMain").textContent = th.dataset.n==="1"? v.emoji : "🖼️";
+    };
+  });
+  $("#vehClose").onclick=closeVehicle;
+}
+function closeVehicle(){
+  $("#vehModal").classList.remove("open");
+  document.body.style.overflow="";
+}
+
+/* ---------- compare ---------- */
+function renderCompareBar(){
+  const wrap=$("#compareItems");
+  wrap.innerHTML = '<span style="font-weight:700;color:var(--ink-soft)">Compare:</span>' + state.compare.map(id=>{
+    const v=VEHICLES.find(x=>x.id===id);
+    return `<div class="compare-chip">${v.emoji} ${v.make} ${v.model}<button data-rmc="${id}">✕</button></div>`;
+  }).join("");
+  $("#cmpClear").disabled = !state.compare.length;
+  $("#cmpOpen").disabled = state.compare.length<2;
+  $("#compareBar").classList.toggle("open", state.compare.length>0);
+}
+function openCompare(){
+  $("#cmpTable").innerHTML = (()=>{
+    if(state.compare.length<2) return "<tr><td>Add at least 2 vehicles to compare.</td></tr>";
+    const rows = [
+      ["Vehicle", v=>`${v.emoji} ${v.make} ${v.model}`, true],
+      ["Year", v=>v.year],
+      ["Type", v=>v.type],
+      ["Price", v=>fmtPrice(v.price)],
+      ["Mileage", v=>v.mileage],
+      ["Fuel", v=>v.fuel],
+      ["Transmission", v=>v.transmission],
+      ["Color", v=>v.color],
+      ["Condition", v=>v.condition],
+      ["Status", v=>v.sold?"Sold":"Available"],
+      ["", v=>`<span class="rem" data-re="${v.id}">✕ Remove</span>`]
+    ];
+    const feats=state.compare;
+    let head = "<tr><th>Specification</th>"+feats.map(id=>{const v=V.find(x=>x.id===id);return `<th>${v.emoji} ${v.make} ${v.model}</th>`;}).join("")+"</tr>";
+    let body = rows.map(([label,fn])=>{
+      return `<tr><td>${label}</td>`+feats.map(id=>`<td>${fn(V.find(x=>x.id===id))}</td>`).join("")+"</tr>";
+    }).join("");
+    return head+body;
+  })();
+  $("#compareModal").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+const V = VEHICLES; // alias for compare template
+
+/* ---------- shortlist ---------- */
+function toggleShortlist(id){
+  const i = state.shortlist.indexOf(id);
+  if(i>-1) state.shortlist.splice(i,1); else state.shortlist.push(id);
+  localStorage.setItem("ht_shortlist", JSON.stringify(state.shortlist));
+  $("#shortlistCount").textContent = state.shortlist.length;
+  renderGrid(); renderCompareBar(); updateModalShortlist();
+  showToast(state.shortlist.includes(id)?"Saved to shortlist / သိမ်းပြီးပါပြီ":"Removed from shortlist");
+}
+function updateModalShortlist(){
+  const btn=$("#vehBox")?.querySelector('[data-heart]');
+  if(btn && $("#vehBox").querySelector('#vehClose')){
+    const id=Number($("#vehBox").querySelector('[data-heart]').dataset.heart);
+    btn.textContent = state.shortlist.includes(id)?"❤️ Remove from Shortlist":"🤍 Save to Shortlist";
+  }
+}
+
+/* ---------- toast ---------- */
+let toastTimer;
+function showToast(msg){
+  const t=$("#toast");
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove("show"),2800);
+}
+
+/* ---------- event delegation ---------- */
+document.addEventListener("click", e=>{
+  const heart=e.target.closest("[data-heart]");
+  if(heart){ e.stopPropagation(); toggleShortlist(Number(heart.dataset.heart)); return; }
+
+  if(e.target.closest("[data-view]")){
+    const card=e.target.closest("[data-view]");
+    openVehicle(Number(card.dataset.view)); return;
+  }
+
+  if(e.target.closest("[data-compare]")){
+    const id=Number(e.target.closest("[data-compare]").dataset.compare);
+    if(state.compare.includes(id)){ showToast("Already in compare"); return; }
+    if(state.compare.length>=3){ showToast("You can compare up to 3 vehicles"); return; }
+    state.compare.push(id); renderCompareBar(); closeVehicle();
+    showToast("Added to compare / နှိုင်းယှဉ်ရန် ထည့်ပြီးပါပြီ"); return;
+  }
+
+  if(e.target.closest("[data-rmc]")){
+    const id=Number(e.target.closest("[data-rmc]").dataset.rmc);
+    state.compare=state.compare.filter(x=>x!==id); renderCompareBar(); return;
+  }
+  if(e.target.closest("[data-re]")){
+    const id=Number(e.target.closest("[data-re]").dataset.re);
+    state.compare=state.compare.filter(x=>x!==id); renderCompareBar(); openCompare();
+    if(state.compare.length<2) $("#compareModal").classList.remove("open"); return;
+  }
+});
+
+// modal "view" from featured card also delegated via data-view, fine.
+// But featured card's inner button also has no data-view - it uses closest.
+
+/* ---------- filter events ---------- */
+$("#typeTabs").addEventListener("click",e=>{
+  const b=e.target.closest(".tab"); if(!b) return;
+  $("#typeTabs").querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  b.classList.add("active"); state.type=b.dataset.type; renderGrid();
+});
+$("#fMake").addEventListener("change",e=>{state.make=e.target.value; $("#heroMake").value=e.target.value; renderGrid();});
+$("#fPrice").addEventListener("input",e=>{
+  state.price=Number(e.target.value);
+  $("#priceOut").textContent= kmRange(e.target.value)+"+";
+  renderGrid();
+});
+$("#fFuel").addEventListener("change",e=>{state.fuel=e.target.value; renderGrid();});
+$("#fTrans").addEventListener("change",e=>{state.trans=e.target.value; renderGrid();});
+$("#fFeatured").addEventListener("change",e=>{state.featured=e.target.checked; renderGrid();});
+$("#condToggle").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  $("#condToggle").querySelectorAll("button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active"); state.cond=b.dataset.cond; renderGrid();
+});
+$("#qSearch").addEventListener("input",e=>{state.query=e.target.value; renderGrid();});
+$("#qReset").onclick=()=>{
+  state.type="All"; state.make=""; state.price=700000; state.fuel=""; state.trans="";
+  state.cond="All"; state.featured=false; state.query="";
+  $("#fMake").value=""; $("#heroMake").value=""; $("#fFuel").value=""; $("#fTrans").value="";
+  $("#fFeatured").checked=false; $("#qSearch").value=""; $("#priceOut").textContent="700K"; $("#fPrice").value="700000";
+  $("#typeTabs").querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  $("#typeTabs").querySelector('[data-type="All"]').classList.add("active");
+  $("#condToggle").querySelectorAll("button").forEach(x=>x.classList.remove("active"));
+  $("#condToggle").querySelector('[data-cond="All"]').classList.add("active");
+  renderGrid();
+};
+
+// hero search
+$("#heroSearch").addEventListener("submit",e=>{
+  e.preventDefault();
+  state.query=$("#heroQuery").value;
+  state.make=$("#heroMake").value;
+  state.type=$("#heroType").value;
+  $("#qSearch").value=state.query;
+  $("#fMake").value=state.make;
+  $("#typeTabs").querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  const tab=[...$("#typeTabs").querySelectorAll(".tab")].find(t=>t.dataset.type===state.type);
+  if(tab) tab.classList.add("active");
+  renderGrid();
+  $("#inventory").scrollIntoView({behavior:"smooth"});
+});
+
+// mobile menu
+$("#hamburger").onclick=()=>$("#mobileMenu").classList.add("open");
+$("#menuClose").onclick=()=>$("#mobileMenu").classList.remove("open");
+$("#mobileMenu").querySelectorAll("a").forEach(a=>a.onclick=()=>$("#mobileMenu").classList.remove("open"));
+
+// mobile nav link active state
+$("#navLinks").addEventListener("click",e=>{
+  if(e.target.tagName==="A"){ $("#navLinks").querySelectorAll("a").forEach(a=>a.classList.remove("active")); e.target.classList.add("active"); }
+});
+
+// compare
+$("#cmpClear").onclick=()=>{ state.compare=[]; renderCompareBar(); };
+$("#cmpOpen").onclick=openCompare;
+$("#cmpClose").onclick=()=>{ $("#compareModal").classList.remove("open"); document.body.style.overflow=""; };
+$("#compareModal").addEventListener("click",e=>{ if(e.target===e.currentTarget){ $("#compareModal").classList.remove("open"); document.body.style.overflow=""; } });
+$("#vehModal").addEventListener("click",e=>{ if(e.target===e.currentTarget) closeVehicle(); });
+
+// shortlist button
+$("#shortlistBtn").onclick=()=>{
+  if(!state.shortlist.length){ showToast("Your shortlist is empty / စာရင်းဗလာဖြစ်နေသည်"); return; }
+};
+
+// enquiry form (delegated)
+document.addEventListener("submit",e=>{
+  if(e.target.id==="enqForm"){
+    e.preventDefault();
+    const msg = encodeURIComponent(
+      `Hello ${CONFIG.dealerName},\n\nName: ${e.target.querySelector("#enqName").value}\nPhone: ${e.target.querySelector("#enqPhone").value}\n\nMessage: ${e.target.querySelector("#enqMsg").value}`
+    );
+    const tg = CONFIG.telegramLink && CONFIG.telegramLink.includes("http")
+      ? CONFIG.telegramLink
+      : "https://t.me/hein_public_ai_bot";
+    showToast("Enquiry sent! Opening Telegram to confirm... ✅");
+    setTimeout(()=>window.open(tg, "_blank"), 900);
+    e.target.reset();
+  }
+  if(e.target.id==="sellForm"){
+    e.preventDefault();
+    showToast(`Thank you ${e.target.querySelector("#sName").value}! We'll contact you soon / ကျေးဇူးတင်ပါသည် 🎉`);
+    e.target.reset();
+  }
+});
+
+// close modal on ESC
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){ closeVehicle(); $("#compareModal").classList.remove("open"); document.body.style.overflow=""; }
+});
+
+/* ---------- init ---------- */
+function init(){
+  seedMakes();
+  renderGrid();
+  renderFeatured();
+  renderTesti();
+  renderCompareBar();
+  $("#shortlistCount").textContent = state.shortlist.length;
+  $("#year").textContent = new Date().getFullYear();
+  setInterval(()=>{ featIndex++; capFeatIndex(); }, 5000); // auto-rotate
+}
+init();
+</script>
+</body>
+</html>

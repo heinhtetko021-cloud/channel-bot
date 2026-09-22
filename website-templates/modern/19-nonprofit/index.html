@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ORG_NAME}} - Making a Difference Together</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+--primary: #1a6b5a;
+--primary-dark: #134e42;
+--primary-light: #e8f5f1;
+--accent: #e07a5f;
+--accent-dark: #c4583e;
+--accent-light: #fdf0ed;
+--bg: #faf8f5;
+--bg-warm: #f5f0ea;
+--bg-card: #ffffff;
+--text: #2d2d2d;
+--text-light: #6b6b6b;
+--text-muted: #999999;
+--white: #ffffff;
+--border: #e8e3dc;
+--shadow: 0 2px 20px rgba(0,0,0,0.06);
+--shadow-lg: 0 8px 40px rgba(0,0,0,0.1);
+--radius: 12px;
+--radius-sm: 8px;
+--font-serif: 'Playfair Display', Georgia, serif;
+--font-sans: 'Inter', -apple-system, sans-serif;
+--max-w: 1200px;
+--transition: all 0.3s ease;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+/* NAVBAR */
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(250,248,245,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: var(--transition); }
+.navbar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; color: var(--primary); }
+.nav-logo .logo-icon { width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.1rem; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-light); transition: var(--transition); position: relative; }
+.nav-links a:hover, .nav-links a.active { color: var(--primary); }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: var(--transition); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta { background: var(--primary); color: var(--white) !important; padding: 10px 24px; border-radius: 50px; font-weight: 600; transition: var(--transition); }
+.nav-cta:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.nav-cta::after { display: none !important; }
+.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.nav-toggle span { width: 24px; height: 2.5px; background: var(--text); border-radius: 2px; transition: var(--transition); }
+
+/* HERO */
+.hero { padding: 160px 0 100px; background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg) 50%, var(--accent-light) 100%); position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(26,107,90,0.08) 0%, transparent 70%); border-radius: 50%; }
+.hero::after { content: ''; position: absolute; bottom: -150px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(224,122,95,0.06) 0%, transparent 70%); border-radius: 50%; }
+.hero .container { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--white); padding: 8px 20px; border-radius: 50px; font-size: 0.82rem; font-weight: 600; color: var(--primary); margin-bottom: 24px; box-shadow: var(--shadow); }
+.hero-badge span { font-size: 1rem; }
+.hero h1 { font-family: var(--font-serif); font-size: 3.2rem; font-weight: 700; line-height: 1.2; color: var(--text); margin-bottom: 20px; }
+.hero h1 em { color: var(--primary); font-style: normal; }
+.hero h1 .accent { color: var(--accent); }
+.hero-desc { font-size: 1.12rem; color: var(--text-light); line-height: 1.8; margin-bottom: 36px; max-width: 520px; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 50px; font-family: var(--font-sans); font-size: 0.95rem; font-weight: 600; border: none; cursor: pointer; transition: var(--transition); }
+.btn-primary { background: var(--accent); color: var(--white); }
+.btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(224,122,95,0.3); }
+.btn-secondary { background: var(--white); color: var(--primary); border: 2px solid var(--primary); }
+.btn-secondary:hover { background: var(--primary); color: var(--white); transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: var(--text-light); border: 2px solid var(--border); }
+.btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+.hero-visual { position: relative; }
+.hero-img-wrap { position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 4/3; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-lg); }
+.hero-img-wrap .placeholder { font-size: 5rem; opacity: 0.3; }
+.hero-float { position: absolute; bottom: -20px; left: -30px; background: var(--white); padding: 16px 24px; border-radius: var(--radius); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; animation: float 3s ease-in-out infinite; }
+.hero-float .icon { width: 44px; height: 44px; background: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+.hero-float strong { display: block; font-size: 1.1rem; color: var(--primary); }
+.hero-float span { font-size: 0.78rem; color: var(--text-light); }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* STATS */
+.stats { padding: 80px 0; background: var(--primary); color: var(--white); position: relative; }
+.stats::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; position: relative; z-index: 1; }
+.stat-item { text-align: center; }
+.stat-num { font-family: var(--font-serif); font-size: 3rem; font-weight: 700; margin-bottom: 4px; }
+.stat-label { font-size: 0.9rem; opacity: 0.85; font-weight: 400; }
+
+/* SECTION GENERAL */
+.section { padding: 100px 0; }
+.section-warm { background: var(--bg-warm); }
+.section-alt { background: var(--white); }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 12px; }
+.section-title { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--text); margin-bottom: 14px; }
+.section-desc { font-size: 1.05rem; color: var(--text-light); max-width: 600px; margin: 0 auto; }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-img { border-radius: 20px; overflow: hidden; aspect-ratio: 4/3; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); }
+.about-img .placeholder { font-size: 4rem; opacity: 0.3; }
+.about-content h3 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 16px; color: var(--text); }
+.about-content p { color: var(--text-light); margin-bottom: 16px; font-size: 1rem; }
+.about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; }
+.about-feature { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text); }
+.about-feature .icon { width: 32px; height: 32px; background: var(--primary-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 0.9rem; flex-shrink: 0; }
+
+/* CAUSES */
+.causes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; }
+.cause-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid var(--border); }
+.cause-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.cause-img { height: 200px; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); display: flex; align-items: center; justify-content: center; position: relative; }
+.cause-img .emoji { font-size: 3.5rem; }
+.cause-badge { position: absolute; top: 14px; right: 14px; background: var(--accent); color: var(--white); padding: 4px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; }
+.cause-body { padding: 24px; }
+.cause-body h3 { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 8px; color: var(--text); }
+.cause-body p { font-size: 0.88rem; color: var(--text-light); margin-bottom: 18px; line-height: 1.6; }
+.cause-progress { margin-bottom: 18px; }
+.progress-header { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 8px; }
+.progress-header strong { color: var(--primary); }
+.progress-header span { color: var(--text-muted); }
+.progress-bar { height: 8px; background: var(--bg-warm); border-radius: 50px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 50px; transition: width 1.5s ease; width: 0; }
+.cause-footer { display: flex; justify-content: space-between; align-items: center; }
+.cause-footer .btn { padding: 10px 24px; font-size: 0.85rem; }
+
+/* HOW TO HELP */
+.help-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.help-card { background: var(--white); border-radius: var(--radius); padding: 36px 28px; text-align: center; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid var(--border); }
+.help-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+.help-icon { width: 72px; height: 72px; margin: 0 auto 20px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+.help-card:nth-child(1) .help-icon { background: var(--primary-light); }
+.help-card:nth-child(2) .help-icon { background: var(--accent-light); }
+.help-card:nth-child(3) .help-icon { background: #fef3e2; }
+.help-card h3 { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 10px; }
+.help-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px; }
+
+/* DONATE FORM */
+.donate-section { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: var(--white); position: relative; overflow: hidden; }
+.donate-section::before { content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%); border-radius: 50%; }
+.donate-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+.donate-info h2 { font-family: var(--font-serif); font-size: 2.2rem; margin-bottom: 16px; }
+.donate-info p { opacity: 0.85; font-size: 1.05rem; margin-bottom: 24px; line-height: 1.7; }
+.donate-info .trust-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.9rem; opacity: 0.9; }
+.donate-info .trust-item span { font-size: 1.1rem; }
+.donate-form-card { background: var(--white); border-radius: var(--radius); padding: 36px; color: var(--text); box-shadow: var(--shadow-lg); }
+.donate-form-card h3 { font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 20px; color: var(--text); }
+.amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+.amount-btn { padding: 12px; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); font-family: var(--font-sans); font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: var(--transition); text-align: center; }
+.amount-btn:hover, .amount-btn.active { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); background: var(--bg); }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,107,90,0.1); }
+.donate-form-card .btn { width: 100%; justify-content: center; padding: 16px; font-size: 1rem; }
+.form-success { display: none; text-align: center; padding: 40px 20px; }
+.form-success .check { font-size: 3rem; margin-bottom: 12px; }
+.form-success h4 { font-family: var(--font-serif); font-size: 1.3rem; color: var(--primary); margin-bottom: 8px; }
+.form-success p { font-size: 0.9rem; color: var(--text-light); }
+
+/* TESTIMONIALS */
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.testimonial-card { background: var(--white); border-radius: var(--radius); padding: 32px 28px; box-shadow: var(--shadow); border: 1px solid var(--border); transition: var(--transition); position: relative; }
+.testimonial-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.testimonial-card::before { content: '\201C'; position: absolute; top: 16px; right: 24px; font-family: var(--font-serif); font-size: 4rem; color: var(--primary-light); line-height: 1; }
+.testimonial-stars { color: #f5a623; font-size: 0.85rem; margin-bottom: 14px; letter-spacing: 2px; }
+.testimonial-card p { font-size: 0.92rem; color: var(--text-light); line-height: 1.7; margin-bottom: 18px; font-style: italic; position: relative; z-index: 1; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; color: var(--primary); }
+.testimonial-name strong { display: block; font-size: 0.88rem; color: var(--text); }
+.testimonial-name span { font-size: 0.78rem; color: var(--text-muted); }
+
+/* VOLUNTEER */
+.volunteer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.volunteer-content h3 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 14px; }
+.volunteer-content p { color: var(--text-light); margin-bottom: 20px; }
+.volunteer-perks { margin-bottom: 24px; }
+.volunteer-perk { display: flex; align-items: center; gap: 10px; padding: 10px 0; font-size: 0.9rem; color: var(--text); }
+.volunteer-perk .icon { color: var(--primary); font-size: 1rem; }
+.volunteer-form-card { background: var(--white); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
+.volunteer-form-card h3 { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 20px; }
+.volunteer-form-card .btn { margin-top: 6px; }
+
+/* PARTNERS */
+.partners-logos { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 40px; opacity: 0.5; }
+.partner-logo { width: 120px; height: 50px; background: var(--bg-warm); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); transition: var(--transition); }
+.partner-logo:hover { opacity: 1; }
+
+/* NEWSLETTER */
+.newsletter { background: var(--bg-warm); text-align: center; }
+.newsletter-form { display: flex; gap: 10px; max-width: 460px; margin: 0 auto; }
+.newsletter-form input { flex: 1; padding: 14px 20px; border: 2px solid var(--border); border-radius: 50px; font-family: var(--font-sans); font-size: 0.9rem; background: var(--white); }
+.newsletter-form input:focus { outline: none; border-color: var(--primary); }
+.newsletter-form .btn { flex-shrink: 0; }
+
+/* FOOTER */
+.footer { background: var(--primary-dark); color: rgba(255,255,255,0.8); padding: 60px 0 0; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand .logo { font-family: var(--font-serif); font-size: 1.4rem; color: var(--white); margin-bottom: 12px; }
+.footer-brand p { font-size: 0.88rem; line-height: 1.7; margin-bottom: 16px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: var(--transition); }
+.footer-social a:hover { background: var(--accent); color: var(--white); }
+.footer-col h4 { color: var(--white); font-size: 0.95rem; font-weight: 600; margin-bottom: 16px; }
+.footer-col a { display: block; font-size: 0.85rem; padding: 4px 0; transition: var(--transition); }
+.footer-col a:hover { color: var(--accent-light); }
+.footer-col .contact-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; margin-bottom: 10px; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 20px 0; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; opacity: 0.7; }
+
+/* BACK TO TOP */
+.back-top { position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px; background: var(--primary); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; border: none; opacity: 0; visibility: hidden; transition: var(--transition); box-shadow: var(--shadow); z-index: 999; }
+.back-top.show { opacity: 1; visibility: visible; }
+.back-top:hover { background: var(--primary-dark); transform: translateY(-3px); }
+
+/* RESPONSIVE */
+@media (max-width: 968px) {
+.hero .container { grid-template-columns: 1fr; text-align: center; }
+.hero-desc { margin: 0 auto 36px; }
+.hero-btns { justify-content: center; }
+.hero-visual { max-width: 500px; margin: 0 auto; }
+.hero-float { left: 10px; bottom: -10px; }
+.stats-grid { grid-template-columns: repeat(2, 1fr); }
+.about-grid, .donate-inner, .volunteer-grid { grid-template-columns: 1fr; }
+.donate-section .section-header { text-align: left; }
+.footer-grid { grid-template-columns: 1fr 1fr; }
+.nav-links { display: none; }
+.nav-links.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--white); padding: 20px 24px; box-shadow: var(--shadow-lg); gap: 16px; }
+.nav-toggle { display: flex; }
+}
+@media (max-width: 640px) {
+.hero h1 { font-size: 2.2rem; }
+.section-title { font-size: 1.8rem; }
+.stats-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+.stat-num { font-size: 2.2rem; }
+.causes-grid { grid-template-columns: 1fr; }
+.help-grid { grid-template-columns: 1fr; }
+.testimonials-grid { grid-template-columns: 1fr; }
+.amount-grid { grid-template-columns: repeat(2, 1fr); }
+.newsletter-form { flex-direction: column; }
+.footer-grid { grid-template-columns: 1fr; }
+.footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+.about-features { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CUSTOMIZE: CONFIGURATION
+     Change these values to match your organization.
+     ============================================================ -->
+<script>
+// =============================================
+//  ORG CONFIG - EDIT THIS BLOCK
+// =============================================
+const CONFIG = {
+  orgName: "Hope Myanmar Foundation",       // Your org name
+  tagline: "Empowering Communities, Transforming Lives",  // Tagline / mission
+  phone: "+95 9 123 456 789",              // Contact phone
+  email: "info@hopemyanmar.org",            // Contact email
+  telegramLink: "t.me/hein_public_ai_bot", // Telegram confirm link
+  currency: "Ks",                           // Currency symbol
+  foundedYear: 2019,
+  taglineShort: "Together for a better Myanmar"
+};
+
+// =============================================
+//  CAUSES / PROJECTS - CUSTOMIZE YOUR CAUSES HERE
+// =============================================
+const CAUSES = [
+  {
+    emoji: "📚",
+    title: "Education for All",
+    desc: "Providing quality education and school supplies to underprivileged children in remote villages across Myanmar.",
+    goal: 5000000,
+    raised: 3250000,
+    badge: "Urgent"
+  },
+  {
+    emoji: "💧",
+    title: "Clean Water Initiative",
+    desc: "Building sustainable water wells and filtration systems to ensure safe drinking water for rural communities.",
+    goal: 8000000,
+    raised: 5600000,
+    badge: "Active"
+  },
+  {
+    emoji: "🏥",
+    title: "Healthcare Access",
+    desc: "Delivering mobile health clinics and essential medical supplies to underserved regions with limited healthcare.",
+    goal: 12000000,
+    raised: 4800000,
+    badge: "Growing"
+  },
+  {
+    emoji: "🌾",
+    title: "Sustainable Farming",
+    desc: "Training farmers in modern sustainable techniques to improve food security and household income.",
+    goal: 6000000,
+    raised: 2100000,
+    badge: "New"
+  },
+  {
+    emoji: "🏠",
+    title: "Housing & Shelter",
+    desc: "Constructing safe, durable homes for families displaced by natural disasters and conflict.",
+    goal: 15000000,
+    raised: 9750000,
+    badge: "Active"
+  },
+  {
+    emoji: "👩‍💼",
+    title: "Women Empowerment",
+    desc: "Offering vocational training, micro-loans, and mentorship to women entrepreneurs in Myanmar.",
+    goal: 4000000,
+    raised: 2800000,
+    badge: "Featured"
+  }
+];
+
+const TESTIMONIALS = [
+  { text: "This foundation changed my family's life. My children can now go to school and dream of a better future.", name: "Daw Thin Thin Aye", role: "Mother of 4, Mandalay", avatar: "T" },
+  { text: "The clean water project saved our village. We no longer walk hours for safe water. Thank you!", name: "U Kyaw Zin Htut", role: "Village Leader, Shan State", avatar: "K" },
+  { text: "As a volunteer, I've seen firsthand the incredible impact. Every donation truly makes a difference.", name: "May Su Myat", role: "Volunteer Coordinator", avatar: "M" }
+];
+
+const PARTNERS = ["Partner 1", "Partner 2", "Partner 3", "Partner 4", "Partner 5", "Partner 6"];
+
+// =============================================
+//  END CONFIG - NO NEED TO EDIT BELOW
+// =============================================
+</script>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><div class="logo-icon">&#9829;</div><span id="nav-org-name"></span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#causes">Causes</a>
+      <a href="#help">Get Involved</a>
+      <a href="#testimonials">Stories</a>
+      <a href="#volunteer">Volunteer</a>
+      <a href="#donate" class="nav-cta">Donate Now</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge"><span>&#10084;&#65039;</span> Making a Real Difference</div>
+      <h1 id="hero-title"></h1>
+      <p class="hero-desc" id="hero-desc"></p>
+      <div class="hero-btns">
+        <a href="#donate" class="btn btn-primary">&#128176; Donate Now</a>
+        <a href="#help" class="btn btn-secondary">&#129309; Get Involved</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <div class="placeholder">&#127793;</div>
+        <div class="hero-float">
+          <div class="icon">&#128200;</div>
+          <div><strong id="hero-stat-num">12,000+</strong><span id="hero-stat-label">Lives Touched</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item"><div class="stat-num" data-target="12847">0</div><div class="stat-label">People Helped</div></div>
+      <div class="stat-item"><div class="stat-num" data-target="48">0</div><div class="stat-label">Projects Completed</div></div>
+      <div class="stat-item"><div class="stat-num" data-target="320">0</div><div class="stat-label">Active Volunteers</div></div>
+      <div class="stat-item"><div class="stat-num" data-target="850">0</div><div class="stat-label">Funds Raised (Million Ks)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / MISSION -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img"><div class="placeholder">&#127757;</div></div>
+      <div class="about-content">
+        <div class="section-tag">&#10024; Our Mission</div>
+        <h3>Building a Brighter Future for Myanmar</h3>
+        <p>Founded in <span id="about-year"></span>, our organization is dedicated to creating sustainable change across Myanmar through education, healthcare, and community development.</p>
+        <p>We believe every person deserves access to basic necessities, quality education, and opportunities to thrive. Our grassroots approach ensures aid reaches those who need it most.</p>
+        <div class="about-features">
+          <div class="about-feature"><div class="icon">&#9989;</div>Transparent Operations</div>
+          <div class="about-feature"><div class="icon">&#128200;</div>Proven Impact</div>
+          <div class="about-feature"><div class="icon">&#129309;</div>Community-Driven</div>
+          <div class="about-feature"><div class="icon">&#127793;</div>Sustainable Programs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAUSES -->
+<section class="section section-warm" id="causes">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">&#128293; Our Causes</div>
+      <h2 class="section-title">Where Your Donation Goes</h2>
+      <p class="section-desc">Every contribution makes a real difference. Choose a cause close to your heart and help us create lasting impact.</p>
+    </div>
+    <div class="causes-grid" id="causes-grid"></div>
+  </div>
+</section>
+
+<!-- HOW TO HELP -->
+<section class="section" id="help">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">&#127775; Get Involved</div>
+      <h2 class="section-title">How You Can Help</h2>
+      <p class="section-desc">There are many ways to make a difference. Every action, no matter how small, creates ripples of change.</p>
+    </div>
+    <div class="help-grid">
+      <div class="help-card">
+        <div class="help-icon">&#128176;</div>
+        <h3>Make a Donation</h3>
+        <p>Your generous financial support directly funds life-changing projects and programs across Myanmar.</p>
+        <a href="#donate" class="btn btn-secondary" style="padding:10px 24px;font-size:0.85rem;">Donate Now</a>
+      </div>
+      <div class="help-card">
+        <div class="help-icon">&#129489;</div>
+        <h3>Volunteer</h3>
+        <p>Join our team of dedicated volunteers. Share your skills, time, and passion to help communities grow.</p>
+        <a href="#volunteer" class="btn btn-secondary" style="padding:10px 24px;font-size:0.85rem;">Join Us</a>
+      </div>
+      <div class="help-card">
+        <div class="help-icon">&#129309;</div>
+        <h3>Partner With Us</h3>
+        <p>Organizations and businesses can partner with us to amplify impact and create meaningful CSR opportunities.</p>
+        <a href="mailto:" class="btn btn-secondary" style="padding:10px 24px;font-size:0.85rem;">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DONATE -->
+<section class="section donate-section" id="donate">
+  <div class="container">
+    <div class="donate-inner">
+      <div class="donate-info">
+        <div class="section-tag" style="color:rgba(255,255,255,0.7);">&#10084;&#65039; Make a Donation</div>
+        <h2>Your Generosity Changes Lives</h2>
+        <p>Every donation, no matter the size, brings us closer to a world where everyone has access to education, clean water, and healthcare.</p>
+        <div class="trust-item"><span>&#128274;</span> 100% Secure Transactions</div>
+        <div class="trust-item"><span>&#128203;</span> Full Transparency & Reporting</div>
+        <div class="trust-item"><span>&#127793;</span> Tax-Deductible Donation</div>
+        <div class="trust-item"><span>&#9989;</span> Verified Non-Profit Organization</div>
+      </div>
+      <div class="donate-form-card">
+        <h3>Choose Your Amount</h3>
+        <div class="amount-grid">
+          <button class="amount-btn" data-amount="5000">5,000 Ks</button>
+          <button class="amount-btn" data-amount="10000">10,000 Ks</button>
+          <button class="amount-btn active" data-amount="25000">25,000 Ks</button>
+          <button class="amount-btn" data-amount="50000">50,000 Ks</button>
+          <button class="amount-btn" data-amount="100000">100,000 Ks</button>
+          <button class="amount-btn" data-amount="250000">250,000 Ks</button>
+        </div>
+        <div class="form-group">
+          <label>Or Enter Custom Amount (Ks)</label>
+          <input type="number" id="customAmount" placeholder="Enter amount in Ks" min="1000">
+        </div>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="donorName" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="donorPhone" placeholder="e.g. +95 9 xxx xxx xxx" required>
+        </div>
+        <div class="form-group">
+          <label>Email (Optional)</label>
+          <input type="email" id="donorEmail" placeholder="your@email.com">
+        </div>
+        <button class="btn btn-primary" id="donateBtn" style="margin-top:8px;">&#128176; Donate Now</button>
+        <div class="form-success" id="donateSuccess">
+          <div class="check">&#127881;</div>
+          <h4>Thank You for Your Donation!</h4>
+          <p>A confirmation will be sent via Telegram. Your generosity makes a real difference.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">&#11088; Impact Stories</div>
+      <h2 class="section-title">Voices From the Community</h2>
+      <p class="section-desc">Hear from the people whose lives have been changed through our programs and your generous support.</p>
+    </div>
+    <div class="testimonials-grid" id="testimonials-grid"></div>
+  </div>
+</section>
+
+<!-- VOLUNTEER -->
+<section class="section section-warm" id="volunteer">
+  <div class="container">
+    <div class="volunteer-grid">
+      <div class="volunteer-content">
+        <div class="section-tag">&#128188; Join Our Team</div>
+        <h3>Become a Volunteer</h3>
+        <p>Join our growing family of volunteers and help us build stronger communities across Myanmar. No matter your background, there's a place for you.</p>
+        <div class="volunteer-perks">
+          <div class="volunteer-perk"><span class="icon">&#10004;</span> Flexible schedule & remote options</div>
+          <div class="volunteer-perk"><span class="icon">&#10004;</span> Training & skill development</div>
+          <div class="volunteer-perk"><span class="icon">&#10004;</span> Certificate of recognition</div>
+          <div class="volunteer-perk"><span class="icon">&#10004;</span> Make a real community impact</div>
+        </div>
+      </div>
+      <div class="volunteer-form-card">
+        <h3>Sign Up to Volunteer</h3>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="volName" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="volPhone" placeholder="e.g. +95 9 xxx xxx xxx" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="volEmail" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Area of Interest</label>
+          <select id="volInterest">
+            <option>Education & Teaching</option>
+            <option>Healthcare Support</option>
+            <option>Community Development</option>
+            <option>Fundraising</option>
+            <option>Technology & Design</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="volBtn" style="width:100%;justify-content:center;">&#128188; Sign Up Now</button>
+        <div class="form-success" id="volSuccess">
+          <div class="check">&#127881;</div>
+          <h4>Welcome Aboard!</h4>
+          <p>Thank you for volunteering. We'll contact you soon with next steps.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="section section-alt" id="partners">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">&#129309; Our Partners</div>
+      <h2 class="section-title">Trusted by Leading Organizations</h2>
+      <p class="section-desc">We're proud to collaborate with organizations that share our vision for a better Myanmar.</p>
+    </div>
+    <div class="partners-logos" id="partners-logos"></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section newsletter">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">&#9993; Stay Connected</div>
+      <h2 class="section-title">Subscribe to Our Newsletter</h2>
+      <p class="section-desc">Get the latest updates on our projects, impact stories, and ways to get involved.</p>
+    </div>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" placeholder="Enter your email address" required>
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">&#9829; <span id="footer-org-name"></span></div>
+        <p id="footer-tagline"></p>
+        <div class="footer-social">
+          <a href="#" title="Facebook">&#128247;</a>
+          <a href="#" title="YouTube">&#9654;</a>
+          <a href="#" title="Telegram">&#9993;</a>
+          <a href="#" title="Instagram">&#128248;</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#about">About Us</a>
+        <a href="#causes">Our Causes</a>
+        <a href="#help">Get Involved</a>
+        <a href="#donate">Donate</a>
+        <a href="#volunteer">Volunteer</a>
+      </div>
+      <div class="footer-col">
+        <h4>Our Causes</h4>
+        <a href="#causes">Education</a>
+        <a href="#causes">Clean Water</a>
+        <a href="#causes">Healthcare</a>
+        <a href="#causes">Farming</a>
+        <a href="#causes">Housing</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="contact-item">&#128222; <span id="footer-phone"></span></div>
+        <div class="contact-item">&#9993; <span id="footer-email"></span></div>
+        <div class="contact-item">&#128205; Yangon, Myanmar</div>
+        <div class="contact-item">&#9993; <a href="" id="footer-tg" target="_blank" style="color:var(--accent-light);">Telegram</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span id="footer-copy"></span>
+      <span>Made with &#10084;&#65039; for Myanmar</span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" aria-label="Back to top">&#8593;</button>
+
+<script>
+// =============================================
+//  INIT
+// =============================================
+(function() {
+  // Populate config references
+  const $ = id => document.getElementById(id);
+  const fmt = n => n.toLocaleString('en-US');
+
+  document.querySelectorAll('#nav-org-name, #footer-org-name').forEach(el => el.textContent = CONFIG.orgName);
+  $('hero-title').innerHTML = 'Building a Brighter<br>Future for <em>Myanmar</em>';
+  $('hero-desc').textContent = CONFIG.tagline + '. We are committed to sustainable development, community empowerment, and creating lasting positive change across Myanmar through education, healthcare, and innovation.';
+  $('about-year').textContent = CONFIG.foundedYear;
+  $('footer-tagline').textContent = CONFIG.taglineShort;
+  $('footer-phone').textContent = CONFIG.phone;
+  $('footer-email').textContent = CONFIG.email;
+  $('footer-tg').href = 'https://' + CONFIG.telegramLink;
+  $('footer-tg').textContent = CONFIG.telegramLink;
+  $('footer-copy').textContent = `\u00A9 ${new Date().getFullYear()} ${CONFIG.orgName}. All rights reserved.`;
+
+  // =============================================
+  //  RENDER CAUSES
+  // =============================================
+  const causesGrid = $('causes-grid');
+  CAUSES.forEach(cause => {
+    const pct = Math.round((cause.raised / cause.goal) * 100);
+    const card = document.createElement('div');
+    card.className = 'cause-card';
+    card.innerHTML = `
+      <div class="cause-img">
+        <span class="emoji">${cause.emoji}</span>
+        <span class="cause-badge">${cause.badge}</span>
+      </div>
+      <div class="cause-body">
+        <h3>${cause.title}</h3>
+        <p>${cause.desc}</p>
+        <div class="cause-progress">
+          <div class="progress-header">
+            <strong>${fmt(cause.raised)} ${CONFIG.currency}</strong>
+            <span>of ${fmt(cause.goal)} ${CONFIG.currency}</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" data-width="${pct}%"></div></div>
+        </div>
+        <div class="cause-footer">
+          <span style="font-size:0.82rem;color:var(--text-muted);">${pct}% funded</span>
+          <a href="#donate" class="btn btn-primary">&#128176; Donate</a>
+        </div>
+      </div>`;
+    causesGrid.appendChild(card);
+  });
+
+  // =============================================
+  //  RENDER TESTIMONIALS
+  // =============================================
+  const tGrid = $('testimonials-grid');
+  TESTIMONIALS.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'testimonial-card';
+    card.innerHTML = `
+      <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>${t.text}</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">${t.avatar}</div>
+        <div class="testimonial-name"><strong>${t.name}</strong><span>${t.role}</span></div>
+      </div>`;
+    tGrid.appendChild(card);
+  });
+
+  // =============================================
+  //  RENDER PARTNERS
+  // =============================================
+  const pLogos = $('partners-logos');
+  PARTNERS.forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'partner-logo';
+    d.textContent = p;
+    pLogos.appendChild(d);
+  });
+
+  // =============================================
+  //  COUNTER ANIMATION
+  // =============================================
+  let countersDone = false;
+  function animateCounters() {
+    if (countersDone) return;
+    countersDone = true;
+    document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const dur = 2000;
+      const start = performance.now();
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / dur, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = fmt(Math.round(target * eased));
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  // =============================================
+  //  PROGRESS BAR ANIMATION
+  // =============================================
+  function animateProgress() {
+    document.querySelectorAll('.progress-fill').forEach(bar => {
+      bar.style.width = bar.dataset.width;
+    });
+  }
+
+  // =============================================
+  //  INTERSECTION OBSERVER
+  // =============================================
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        if (e.target.id === 'stats') animateCounters();
+        if (e.target.id === 'causes') animateProgress();
+      }
+    });
+  }, { threshold: 0.3 });
+  obs.observe($('stats'));
+  obs.observe($('causes'));
+
+  // =============================================
+  //  NAVBAR SCROLL
+  // =============================================
+  window.addEventListener('scroll', () => {
+    $('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    $('backTop').classList.toggle('show', window.scrollY > 500);
+  });
+
+  // Mobile nav toggle
+  $('navToggle').addEventListener('click', () => $('navLinks').classList.toggle('open'));
+
+  // Close mobile nav on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => $('navLinks').classList.remove('open'));
+  });
+
+  // Back to top
+  $('backTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current && !a.classList.contains('nav-cta'));
+    });
+  });
+
+  // =============================================
+  //  DONATION AMOUNT BUTTONS
+  // =============================================
+  let selectedAmount = 25000;
+  document.querySelectorAll('.amount-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedAmount = parseInt(btn.dataset.amount);
+      $('customAmount').value = '';
+    });
+  });
+
+  $('customAmount').addEventListener('input', e => {
+    if (e.target.value) {
+      document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+      selectedAmount = parseInt(e.target.value) || 0;
+    }
+  });
+
+  // =============================================
+  //  DONATION FORM
+  // =============================================
+  $('donateBtn').addEventListener('click', () => {
+    const name = $('donorName').value.trim();
+    const phone = $('donorPhone').value.trim();
+    const amount = parseInt($('customAmount').value) || selectedAmount;
+
+    if (!name) { $('donorName').focus(); return; }
+    if (!phone) { $('donorPhone').focus(); return; }
+    if (!amount || amount < 1000) { alert('Please enter a valid donation amount (minimum 1,000 ' + CONFIG.currency + ')'); return; }
+
+    // Build Telegram message
+    const msg = `%(newline)s%(newline)s%(u2764%ufe0f) New Donation!%(newline)s%(newline)s%(u2709%ufe0f) Name: ${name}%(newline)s%(u260e%ufe0f) Phone: ${phone}%(newline)s%(u2709%ufe0f) Email: ${$('donorEmail').value || 'N/A'}%(newline)s%(u2764%ufe0f) Amount: ${fmt(amount)} ${CONFIG.currency}%(newline)s%(u23f0) Time: ${new Date().toLocaleString()}%(newline)s%(newline)sThank you for your generosity! %(u2764%ufe0f)`;
+
+    const tgUrl = `https://${CONFIG.telegramLink}?text=${encodeURIComponent(msg)}`;
+    window.open(tgUrl, '_blank');
+
+    // Show success
+    $('donateBtn').style.display = 'none';
+    $('donateSuccess').style.display = 'block';
+  });
+
+  // =============================================
+  //  VOLUNTEER FORM
+  // =============================================
+  $('volBtn').addEventListener('click', () => {
+    const name = $('volName').value.trim();
+    const phone = $('volPhone').value.trim();
+    const email = $('volEmail').value.trim();
+    const interest = $('volInterest').value;
+
+    if (!name) { $('volName').focus(); return; }
+    if (!phone) { $('volPhone').focus(); return; }
+
+    const msg = `%(newline)s%(newline)s%(u2764%ufe0f) New Volunteer Signup!%(newline)s%(newline)s%(u2709%ufe0f) Name: ${name}%(newline)s%(u260e%ufe0f) Phone: ${phone}%(newline)s%(u2709%ufe0f) Email: ${email || 'N/A'}%(newline)s%(u2699%ufe0f) Interest: ${interest}%(newline)s%(u23f0) Time: ${new Date().toLocaleString()}%(newline)s%(newline)sWelcome to the team! %(u2764%ufe0f)`;
+
+    const tgUrl = `https://${CONFIG.telegramLink}?text=${encodeURIComponent(msg)}`;
+    window.open(tgUrl, '_blank');
+
+    $('volBtn').style.display = 'none';
+    $('volSuccess').style.display = 'block';
+  });
+
+  // =============================================
+  //  NEWSLETTER
+  // =============================================
+  $('newsletterForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = e.target.querySelector('input').value;
+    const msg = `%(newline)s%(u2709%ufe0f) Newsletter Signup!%(newline)s%(newline)s%(u2709%ufe0f) Email: ${email}%(newline)s%(u23f0) Time: ${new Date().toLocaleString()}`;
+    window.open(`https://${CONFIG.telegramLink}?text=${encodeURIComponent(msg)}`, '_blank');
+    e.target.querySelector('input').value = '';
+    alert('Thank you for subscribing! Check your Telegram for confirmation.');
+  });
+
+})();
+</script>
+</body>
+</html>

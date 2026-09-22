@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: trigger draft generation
-        run: echo ok
+        run: curl -s -o /dev/null -w "HTTP %{http_code}\n" -X POST -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "https://channel-bot-jade.vercel.app/api/cron"

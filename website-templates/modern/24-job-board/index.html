@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{BOARD_NAME} — Find your next job in Myanmar. Browse jobs, apply instantly, and build your career.">
+<title>{BOARD_NAME} | Job Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   {BOARD_NAME} — JOB BOARD TEMPLATE
+   ------------------------------------------------------------
+   CUSTOMIZATION: All colors are controlled by CSS variables below.
+   Change the accent color, spacing, fonts, and radii here.
+   Primary accent: blue/teal (#0d6efd default).
+   Currency and constants live in the JS CONFIG (bottom of file).
+   ============================================================ */
+:root{
+  /* ---------- Brand / palette ---------- */
+  --primary:#0d6efd;          /* main accent (blue) */
+  --primary-dark:#0b5ed7;
+  --accent:#14b8a6;           /* teal secondary accent */
+  --accent-soft:#e6f7f5;
+  --primary-soft:#eaf2ff;     /* light tinted background */
+
+  /* ---------- Neutrals ---------- */
+  --bg:#f6f8fb;
+  --surface:#ffffff;
+  --text:#1a2333;
+  --text-muted:#5b6b7e;
+  --border:#e4e9f0;
+  --border-strong:#cfd8e3;
+
+  /* ---------- Status ---------- */
+  --success:#16a34a;
+  --warning:#f59e0b;
+  --danger:#dc2626;
+
+  /* ---------- Metrics ---------- */
+  --radius:14px;
+  --radius-sm:9px;
+  --shadow-sm:0 1px 3px rgba(16,24,40,.08);
+  --shadow:0 6px 24px rgba(16,24,40,.10);
+  --maxw:1180px;
+
+  /* ---------- Type ---------- */
+  --font:'Inter',system-ui,'Segoe UI',Roboto,Arial,sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:inherit;font-weight:600;font-size:.95rem;
+  padding:11px 20px;border-radius:var(--radius-sm);
+  border:1px solid transparent;cursor:pointer;
+  transition:all .2s ease;white-space:nowrap;
+}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.btn-teal{background:var(--accent);color:#fff}
+.btn-teal:hover{background:#0f9488;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--primary);border-color:var(--primary)}
+.btn-outline:hover{background:var(--primary-soft)}
+.btn-ghost{background:var(--surface);color:var(--text);border-color:var(--border-strong)}
+.btn-ghost:hover{border-color:var(--primary);color:var(--primary)}
+.btn-block{width:100%}
+
+/* ============ NAV ============ */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--text)}
+.brand .logo{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  display:grid;place-items:center;color:#fff;font-size:1.1rem;
+}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{font-weight:600;color:var(--text-muted);font-size:.95rem;transition:color .2s}
+.nav-links a:hover{color:var(--primary)}
+.nav-cta{display:flex;gap:10px;align-items:center}
+.nav-toggle{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text)}
+
+/* ============ HERO ============ */
+.hero{
+  background:linear-gradient(135deg,var(--primary-soft),var(--accent-soft) 55%, var(--bg));
+  padding:70px 0 60px;
+}
+.hero-content{text-align:center;max-width:760px;margin:0 auto}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid var(--border);
+  color:var(--primary);font-weight:600;font-size:.85rem;
+  padding:6px 14px;border-radius:999px;margin-bottom:20px;
+}
+.hero h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.15;font-weight:800;margin-bottom:14px}
+.hero h1 span{color:var(--primary)}
+.hero p{color:var(--text-muted);font-size:1.1rem;max-width:600px;margin:0 auto 30px}
+.search-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:14px;display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;
+  text-align:left;
+  margin-bottom:18px;
+}
+.field{position:relative}
+.field i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.9rem}
+.search-card input,.search-card select{
+  width:100%;padding:12px 12px 12px 38px;font-size:.95rem;
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-family:inherit;background:#fff;color:var(--text);outline:none;transition:border .2s;
+}
+.search-card select{padding-left:14px}
+.search-card input:focus,.search-card select:focus{border-color:var(--primary)}
+.hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:8px}
+.hero-stats div{text-align:center}
+.hero-stats strong{display:block;font-size:1.6rem;color:var(--primary)}
+.hero-stats span{color:var(--text-muted);font-size:.9rem}
+
+/* ============ SECTIONS ============ */
+.section{padding:64px 0}
+.section-head{text-align:center;max-width:640px;margin:0 auto 40px}
+.section-head h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;margin-bottom:10px}
+.section-head p{color:var(--text-muted)}
+
+/* ============ CATEGORIES ============ */
+.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+.cat-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px 16px;text-align:center;cursor:pointer;transition:all .2s ease;
+}
+.cat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--primary)}
+.cat-card .icon{
+  width:52px;height:52px;margin:0 auto 12px;border-radius:14px;
+  background:var(--primary-soft);display:grid;place-items:center;font-size:1.6rem;
+}
+.cat-card h3{font-size:1rem;font-weight:700}
+.cat-card span{color:var(--text-muted);font-size:.82rem}
+
+/* ============ JOB LISTINGS ============ */
+.job-toolbar{
+  display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;
+  align-items:center;justify-content:space-between;
+}
+.job-filters{display:flex;gap:10px;flex-wrap:wrap}
+.job-filters select{
+  padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-family:inherit;font-size:.9rem;background:#fff;color:var(--text);outline:none;cursor:pointer;
+}
+.job-filters select:focus{border-color:var(--primary)}
+.job-search{display:flex;position:relative}
+.job-search input{
+  padding:11px 14px 11px 38px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-family:inherit;font-size:.9rem;width:260px;outline:none;background:#fff;
+}
+.job-search input:focus{border-color:var(--primary)}
+.job-search i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted)}
+.jobs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.job-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px;cursor:pointer;transition:all .2s ease;display:flex;flex-direction:column;gap:12px;
+}
+.job-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--primary)}
+.job-top{display:flex;gap:14px;align-items:flex-start}
+.company-logo{
+  width:52px;height:52px;flex-shrink:0;border-radius:12px;
+  display:grid;place-items:center;font-size:1.6rem;font-weight:800;color:#fff;
+}
+.job-meta-top{flex:1}
+.job-meta-top h3{font-size:1.08rem;font-weight:700;margin-bottom:3px}
+.job-company{color:var(--text-muted);font-size:.88rem;font-weight:500}
+.job-time{font-size:.78rem;color:var(--text-muted);white-space:nowrap}
+.job-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{
+  font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.badge-type{background:var(--primary-soft);color:var(--primary)}
+.badge-cat{background:var(--accent-soft);color:var(--accent)}
+.badge-tag{background:#f0f2f6;color:var(--text-muted);font-weight:500}
+.job-mid{display:flex;flex-wrap:wrap;gap:14px;color:var(--text-muted);font-size:.85rem}
+.job-mid span{display:inline-flex;align-items:center;gap:6px}
+.job-mid i{color:var(--primary)}
+.job-salary{font-weight:700;color:var(--primary);font-size:1rem}
+.job-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:12px}
+.btn-sm{padding:8px 16px;font-size:.85rem}
+.no-jobs{
+  grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--text-muted);
+  background:var(--surface);border:1px dashed var(--border-strong);border-radius:var(--radius);
+}
+
+/* ============ MODAL ============ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:200;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:var(--surface);border-radius:var(--radius);max-width:640px;width:100%;
+  max-height:90vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+.modal-head{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:24px 26px 16px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;background:var(--surface);
+}
+.modal-close{background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--text-muted);line-height:1}
+.modal-close:hover{color:var(--danger)}
+.modal-body{padding:22px 26px 28px}
+.modal-title{font-size:1.4rem;font-weight:800;margin-bottom:4px}
+.modal .job-company{color:var(--text-muted);margin-bottom:14px}
+.modal-meta{display:flex;flex-wrap:wrap;gap:14px;color:var(--text-muted);font-size:.9rem;margin-bottom:18px}
+.modal-meta span{display:inline-flex;align-items:center;gap:6px}
+.modal-meta i{color:var(--primary)}
+.modal .job-badges{margin-bottom:16px}
+.modal h4{font-size:1.02rem;font-weight:700;margin:20px 0 8px}
+.modal ul{padding-left:20px;list-style:disc}
+.modal ul li{margin-bottom:6px;color:var(--text);font-size:.95rem}
+.modal .apply-box{margin-top:22px;border-top:1px solid var(--border);padding-top:20px}
+
+/* ============ FORMS ============ */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field-group label{display:block;font-weight:600;font-size:.85rem;margin-bottom:6px}
+.field-group label .req{color:var(--danger)}
+.field-group input,.field-group select,.field-group textarea{
+  width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-family:inherit;font-size:.92rem;background:#fff;color:var(--text);outline:none;transition:border .2s;
+}
+.field-group input:focus,.field-group select:focus,.field-group textarea:focus{border-color:var(--primary)}
+.field-group textarea{resize:vertical;min-height:90px}
+.form-note{font-size:.8rem;color:var(--text-muted);margin-top:8px}
+.form-success{
+  background:var(--accent-soft);border:1px solid var(--accent);color:#0f766e;
+  padding:14px 16px;border-radius:var(--radius-sm);font-weight:600;font-size:.92rem;
+  display:none;gap:8px;align-items:center;
+}
+
+/* ============ HOW IT WORKS / COMPANIES ============ */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.step{text-align:center;padding:26px 18px}
+.step .icon{font-size:2rem;margin-bottom:10px}
+.step h3{font-weight:700;margin-bottom:8px}
+.step p{color:var(--text-muted);font-size:.9rem}
+.companies{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.company-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px;text-align:center;transition:all .2s ease;display:flex;flex-direction:column;gap:8px;align-items:center;
+}
+.company-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.company-card .logo{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;color:#fff;font-weight:800}
+.company-card h3{font-size:1rem;font-weight:700}
+.company-card span{color:var(--text-muted);font-size:.85rem}
+
+/* ============ TESTIMONIALS ============ */
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.testimonial{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.testimonial .quote{color:var(--text);font-size:.95rem;font-style:italic}
+.testimonial .stars{color:var(--warning)}
+.testimonial .author{display:flex;align-items:center;gap:12px;margin-top:auto}
+.testimonial .avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800}
+.testimonial .author strong{display:block;font-size:.92rem}
+.testimonial .author span{color:var(--text-muted);font-size:.8rem}
+
+/* ============ NEWSLETTER ============ */
+.newsletter{
+  background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;
+  border-radius:var(--radius);padding:46px 30px;text-align:center;
+}
+.newsletter h2{font-size:1.7rem;font-weight:800;margin-bottom:8px}
+.newsletter p{opacity:.9;margin-bottom:24px}
+.newsletter-form{display:flex;gap:10px;max-width:460px;margin:0 auto}
+.newsletter-form input{
+  flex:1;padding:13px 16px;border:none;border-radius:var(--radius-sm);
+  font-family:inherit;font-size:.95rem;outline:none;
+}
+.newsletter-form .btn{background:#fff;color:var(--primary)}
+.newsletter-form .btn:hover{background:#f0f0f0;transform:none}
+
+/* ============ FOOTER ============ */
+.footer{background:#141b26;color:#aab4c3;padding:56px 0 24px;margin-top:40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px;margin-bottom:40px}
+.footer-brand .logo{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--accent));display:grid;place-items:center;color:#fff;font-size:1.2rem;margin-bottom:14px}
+.footer h3{color:#fff;font-size:1.05rem;margin-bottom:14px;font-weight:700}
+.footer-brand p{font-size:.9rem;max-width:300px}
+.footer ul li{margin-bottom:9px}
+.footer ul a{font-size:.9rem;transition:color .2s}
+.footer ul a:hover{color:var(--accent)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.85rem}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:900px){
+  .nav-links{display:none}
+  .nav-cta .btn-outline{display:none}
+  .nav-cta{display:none}
+  .nav.show-menu .nav-links{
+    display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;
+    background:var(--surface);border-bottom:1px solid var(--border);padding:16px 20px;gap:14px;
+  }
+  .nav.show-menu .nav-cta{display:flex}
+  .nav-toggle{display:block}
+  .search-card{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .footer-grid{grid-template-columns:1fr}
+  .job-search input{width:100%}
+  .job-filters{width:100%}
+  .jobs-grid{grid-template-columns:1fr}
+  .newsletter-form{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#home" class="brand">
+      <span class="logo">💼</span>
+      <span>{BOARD_NAME}</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#jobs">Jobs</a>
+      <a href="#categories">Categories</a>
+      <a href="#companies">Companies</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#jobs" class="btn btn-ghost">Browse Jobs</a>
+      <a href="#postjob" class="btn btn-primary">Post a Job</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="home">
+  <div class="container hero-content">
+    <span class="hero-badge">✨ မြန်မာနိုင်ငံရှိ အလုပ်အကိုင်များ · Jobs in Myanmar</span>
+    <h1>Find Your Dream Job <span>Today</span></h1>
+    <p>Browse thousands of jobs from trusted companies across Myanmar. Apply in minutes — no sign-up required.</p>
+    <form class="search-card" onsubmit="return globalSearch(event)">
+      <div class="field"><i>🔍</i>
+        <input type="text" id="globalKeyword" placeholder="Job title or keyword…">
+      </div>
+      <div class="field"><i>📍</i>
+        <input type="text" id="globalLocation" placeholder="Location (Yangon, Mandalay…)">
+      </div>
+      <div class="field">
+        <select id="globalCategory">
+          <option value="">All Categories</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <div class="hero-stats">
+      <div><strong id="statJobs">0</strong><span>Open Jobs</span></div>
+      <div><strong id="statCompanies">0</strong><span>Companies</span></div>
+      <div><strong>1,200+</strong><span>Hired Candidates</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= CATEGORIES ================= -->
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-head">
+      <h2>Browse by Category</h2>
+      <p>Explore jobs across your favorite fields.</p>
+    </div>
+    <div class="categories" id="categoryGrid"></div>
+  </div>
+</section>
+
+<!-- ================= JOB LISTINGS ================= -->
+<section class="section" id="jobs" style="padding-top:0">
+  <div class="container">
+    <div class="section-head">
+      <h2>Latest Job Listings</h2>
+      <p>အကောင်းဆုံး အလုပ်နေရာများ · Fresh opportunities updated daily.</p>
+    </div>
+    <div class="job-toolbar">
+      <div class="job-filters">
+        <select id="filterCategory" onchange="applyFilters()"><option value="">All Categories</option></select>
+        <select id="filterType" onchange="applyFilters()">
+          <option value="">All Types</option>
+          <option>Full-time</option>
+          <option>Part-time</option>
+          <option>Remote</option>
+        </select>
+      </div>
+      <div class="job-search">
+        <i>🔍</i>
+        <input type="text" id="jobSearch" placeholder="Search jobs…" oninput="applyFilters()">
+      </div>
+    </div>
+    <div class="jobs-grid" id="jobsGrid"></div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="section-head">
+      <h2>How It Works</h2>
+      <p>Getting hired has never been easier.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="icon">📝</div><h3>Search Jobs</h3><p>Use filters to find the perfect role for your skills.</p></div>
+      <div class="step"><div class="icon">📩</div><h3>Apply Instantly</h3><p>Fill one short form and send your application via Telegram.</p></div>
+      <div class="step"><div class="icon">🤝</div><h3>Get Hired</h3><p>Companies contact you directly. No fees, ever.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPANIES ================= -->
+<section class="section" id="companies" style="padding-top:0">
+  <div class="container">
+    <div class="section-head">
+      <h2>Trusted Companies</h2>
+      <p>Leading employers hiring on {BOARD_NAME}.</p>
+    </div>
+    <div class="companies" id="companiesGrid"></div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section testimonials-sec" id="testimonials" style="padding-top:0">
+  <div class="container">
+    <div class="section-head">
+      <h2>What People Say</h2>
+      <p>Success stories from our community.</p>
+    </div>
+    <div class="testimonials" id="testimonialsGrid"></div>
+  </div>
+</section>
+
+<!-- ================= POST A JOB ================= -->
+<section class="section" id="postjob" style="padding-top:0">
+  <div class="container">
+    <div class="section-head">
+      <h2>Post a Job</h2>
+      <p>Reach thousands of qualified candidates across Myanmar.</p>
+    </div>
+    <div class="job-card" style="cursor:default">
+      <div id="postFormSuccess" class="form-success">✅ Thank you! Your job posting has been sent to our team on Telegram. We will review and publish it shortly.</div>
+      <form onsubmit="return submitPostJob(event)" style="display:grid;gap:18px">
+        <input type="hidden" id="pjCategory">
+        <div class="form-grid">
+          <div class="field-group">
+            <label>Company Name <span class="req">*</span></label>
+            <input type="text" id="pjCompany" required placeholder="e.g. Digital Myanmar Co., Ltd">
+          </div>
+          <div class="field-group">
+            <label>Contact Person <span class="req">*</span></label>
+            <input type="text" id="pjContact" required placeholder="Your name">
+          </div>
+          <div class="field-group">
+            <label>Phone / Telegram <span class="req">*</span></label>
+            <input type="text" id="pjPhone" required placeholder="09-xxx-xxx-xxx">
+          </div>
+          <div class="field-group">
+            <label>Email</label>
+            <input type="email" id="pjEmail" placeholder="hr@company.com">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field-group">
+            <label>Job Title <span class="req">*</span></label>
+            <input type="text" id="pjJobTitle" required placeholder="e.g. Frontend Developer">
+          </div>
+          <div class="field-group">
+            <label>Category <span class="req">*</span></label>
+            <select id="pjCategorySelect" required onchange="document.getElementById('pjCategory').value=this.value">
+              <option value="">Select category…</option>
+              <option>IT &amp; Software</option>
+              <option>Sales &amp; Marketing</option>
+              <option>Design &amp; Creative</option>
+              <option>Finance &amp; Accounting</option>
+              <option>Engineering</option>
+              <option>Human Resources</option>
+              <option>Customer Service</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Location <span class="req">*</span></label>
+            <input type="text" id="pjLocation" required placeholder="Yangon, Mandalay, Remote…">
+          </div>
+          <div class="field-group">
+            <label>Job Type <span class="req">*</span></label>
+            <select id="pjType" required>
+              <option>Full-time</option>
+              <option>Part-time</option>
+              <option>Remote</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field-group">
+            <label>Salary Range (Ks)</label>
+            <input type="text" id="pjSalary" placeholder="e.g. 400,000 - 700,000 Ks">
+          </div>
+          <div class="field-group">
+            <label>Tags (comma separated)</label>
+            <input type="text" id="pjTags" placeholder="e.g. React, Junior, English">
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Job Description <span class="req">*</span></label>
+          <textarea id="pjDesc" required placeholder="Briefly describe the role, responsibilities, and requirements…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Job Posting</button>
+        <p class="form-note">Your posting will be reviewed and confirmed via Telegram before publishing. Free for the first 3 listings.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section class="section" id="contact" style="padding-top:0">
+  <div class="container">
+    <div class="newsletter">
+      <h2>Never Miss a Job Opportunity</h2>
+      <p>Subscribe to get the latest jobs delivered straight to your inbox.</p>
+      <form class="newsletter-form" onsubmit="return submitNewsletter(event)">
+        <input type="email" placeholder="Your email address" required>
+        <button type="submit" class="btn">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">💼</span>
+        <h3>{BOARD_NAME}</h3>
+        <p>Myanmar's trusted job board connecting talented professionals with great companies.</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#jobs">Browse Jobs</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#companies">Companies</a></li>
+          <li><a href="#postjob">Post a Job</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Support</h3>
+        <ul>
+          <li><a href="https://t.me/hein_public_ai_bot">Telegram {TG_LINK}</a></li>
+          <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
+          <li><a href="#contact">Newsletter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> {BOARD_NAME}. All rights reserved.</span>
+      <span>Made with ❤️ in Myanmar 🇲🇲</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= JOB DETAIL MODAL ================= -->
+<div class="modal-overlay" id="jobModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="mTitle"></div>
+        <div class="job-company" id="mCompany"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-meta" id="mMeta"></div>
+      <div class="job-badges" id="mBadges"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px">
+        <div>
+          <h4>📋 Job Description</h4>
+          <ul id="mDesc"></ul>
+        </div>
+        <div>
+          <h4>✅ Requirements</h4>
+          <ul id="mReq"></ul>
+        </div>
+      </div>
+      <div class="apply-box">
+        <h4>📩 How to Apply</h4>
+        <p id="mApply" style="font-size:.92rem;color:var(--text-muted);margin-bottom:14px"></p>
+        <button class="btn btn-teal btn-block" onclick="openApplyForm()">Apply for this Job →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APPLY FORM MODAL ================= -->
+<div class="modal-overlay" id="applyModal">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-head">
+      <div class="modal-title" style="font-size:1.2rem">Apply for Job</div>
+      <button class="modal-close" onclick="closeApply()">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="applySuccess" class="form-success" style="margin-bottom:12px">✅ Application sent! Our team will contact you on Telegram.</div>
+      <form onsubmit="return submitApply(event)" style="display:grid;gap:14px">
+        <div class="field-group">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" id="apName" required placeholder="Your full name">
+        </div>
+        <div class="field-group">
+          <label>Phone / Telegram <span class="req">*</span></label>
+          <input type="text" id="apPhone" required placeholder="09-xxx-xxx-xxx">
+        </div>
+        <div class="field-group">
+          <label>Email <span class="req">*</span></label>
+          <input type="email" id="apEmail" required placeholder="you@example.com">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Send Application</button>
+        <p class="form-note">Your details are shared via Telegram with the hiring team for this position.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+/* ============================================================
+   {BOARD_NAME} — JOB BOARD CONFIG
+   ------------------------------------------------------------
+   EDIT THIS CONFIG BLOCK to customize the entire board.
+   boardName   : name shown in nav/footer/title
+   telegramLink: telegram bot/channel for confirmations
+   email       : contact email
+   currency    : salary currency symbol (Ks)
+   ============================================================ */
+const CONFIG = {
+  boardName: "{BOARD_NAME}",
+  telegramLink: "{TG_LINK}",          /* e.g. hein_public_ai_bot */
+  email: "{EMAIL}",
+  currency: "Ks"
+};
+
+/* ============================================================
+   CUSTOMIZE YOUR JOB LISTINGS HERE
+   ------------------------------------------------------------
+   Add / edit objects in this array. Each job supports:
+   id, title, company, location, type (Full-time/Part-time/Remote),
+   salary (in Ks), category, emoji (logo), tags[], posted (days ago),
+   description[] (bullets), requirements[] (bullets),
+   howToApply (string), color (hex for logo placeholder).
+   ============================================================ */
+const JOBS = [
+  {
+    id: 1,
+    title: "Frontend Developer (React)",
+    company: "Digital Myanmar Co., Ltd",
+    location: "Yangon",
+    type: "Full-time",
+    salary: "600,000 - 900,000",
+    category: "IT & Software",
+    emoji: "💻",
+    color: "#0d6efd",
+    tags: ["React", "JavaScript", "English"],
+    posted: 1,
+    description: [
+      "Build modern, responsive web applications using React.",
+      "Collaborate with designers and backend developers.",
+      "Write clean, maintainable, and testable code.",
+      "Participate in code reviews and agile ceremonies."
+    ],
+    requirements: [
+      "2+ years experience with React / JavaScript.",
+      "Strong understanding of HTML, CSS, and REST APIs.",
+      "Good English communication skills.",
+      "Bachelor's degree in CS or related (preferred)."
+    ],
+    howToApply: "Click 'Apply for this Job' and submit your details. Our team will confirm your application on Telegram."
+  },
+  {
+    id: 2,
+    title: "Sales Executive",
+    company: "Shwe Taung Enterprises",
+    location: "Mandalay",
+    type: "Full-time",
+    salary: "400,000 - 700,000",
+    category: "Sales & Marketing",
+    emoji: "📈",
+    color: "#14b8a6",
+    tags: ["Sales", "B2B", "Negotiation"],
+    posted: 2,
+    description: [
+      "Develop and maintain relationships with new and existing clients.",
+      "Meet monthly and quarterly sales targets.",
+      "Prepare sales reports and forecasts.",
+      "Represent the company at events and meetings."
+    ],
+    requirements: [
+      "1+ year in sales or account management.",
+      "Strong communication and negotiation skills.",
+      "Self-motivated and target-driven.",
+      "Myanmar and English language skills."
+    ],
+    howToApply: "Submit your application via the button below and our sales manager will reach out on Telegram."
+  },
+  {
+    id: 3,
+    title: "Graphic Designer",
+    company: "Creative Studio Yangon",
+    location: "Yangon",
+    type: "Full-time",
+    salary: "450,000 - 750,000",
+    category: "Design & Creative",
+    emoji: "🎨",
+    color: "#9333ea",
+    tags: ["Photoshop", "Illustrator", "Branding"],
+    posted: 3,
+    description: [
+      "Design marketing materials, social media posts, and branding.",
+      "Work with clients to understand design requirements.",
+      "Deliver high-quality designs on schedule.",
+      "Collaborate with the content and marketing teams."
+    ],
+    requirements: [
+      "Strong portfolio of design work.",
+      "Proficiency in Adobe Creative Suite.",
+      "Good eye for layout and typography.",
+      "Ability to multi-task and meet deadlines."
+    ],
+    howToApply: "Apply with the button below. Please include your portfolio link when we reach out."
+  },
+  {
+    id: 4,
+    title: "Backend Developer (Node.js)",
+    company: "TechForward Myanmar",
+    location: "Remote",
+    type: "Remote",
+    salary: "700,000 - 1,100,000",
+    category: "IT & Software",
+    emoji: "⚙️",
+    color: "#0f766e",
+    tags: ["Node.js", "MongoDB", "API"],
+    posted: 4,
+    description: [
+      "Develop and maintain scalable backend services.",
+      "Design RESTful APIs and database schemas.",
+      "Ensure high performance and responsiveness.",
+      "Work remotely with an international team."
+    ],
+    requirements: [
+      "3+ years experience with Node.js.",
+      "Strong SQL / NoSQL database knowledge.",
+      "Experience with cloud platforms (AWS/GCP).",
+      "Excellent remote communication skills."
+    ],
+    howToApply: "This is a remote role. Apply below and detail your experience in the confirmation chat."
+  },
+  {
+    id: 5,
+    title: "Accountant",
+    company: "Golden Finance Group",
+    location: "Yangon",
+    type: "Full-time",
+    salary: "500,000 - 850,000",
+    category: "Finance & Accounting",
+    emoji: "🧮",
+    color: "#059669",
+    tags: ["Accounting", "Tax", "Excel"],
+    posted: 5,
+    description: [
+      "Manage accounts payable and receivable.",
+      "Prepare financial statements and tax filings.",
+      "Reconcile bank statements monthly.",
+      "Assist with budgeting and forecasting."
+    ],
+    requirements: [
+      "Degree in accounting or finance.",
+      "2+ years of relevant experience.",
+      "Proficiency in Excel and accounting software.",
+      "Strong attention to detail."
+    ],
+    howToApply: "Click apply and our finance team will contact you on Telegram for an interview."
+  },
+  {
+    id: 6,
+    title: "Customer Service Representative",
+    company: "Myanmar Telecom Services",
+    location: "Yangon",
+    type: "Part-time",
+    salary: "250,000 - 380,000",
+    category: "Customer Service",
+    emoji: "🎧",
+    color: "#2563eb",
+    tags: ["Support", "Communication", "Myanmar/English"],
+    posted: 6,
+    description: [
+      "Respond to customer inquiries via phone and chat.",
+      "Resolve complaints and escalate issues.",
+      "Maintain accurate customer records.",
+      "Provide product guidance and support."
+    ],
+    requirements: [
+      "Excellent communication skills.",
+      "Fluent in Myanmar and conversational English.",
+      "Customer-oriented mindset.",
+      "Ability to work rotating shifts."
+    ],
+    howToApply: "Part-time role perfect for students. Apply below and confirm on Telegram."
+  },
+  {
+    id: 7,
+    title: "HR Officer",
+    company: "Evergreen Industrial Co.",
+    location: "Yangon",
+    type: "Full-time",
+    salary: "550,000 - 900,000",
+    category: "Human Resources",
+    emoji: "👥",
+    color: "#b45309",
+    tags: ["Recruitment", "Payroll", "HR"],
+    posted: 7,
+    description: [
+      "Manage recruitment and onboarding processes.",
+      "Handle payroll and employee records.",
+      "Support employee relations and engagement.",
+      "Ensure compliance with labor laws."
+    ],
+    requirements: [
+      "Degree in human resources or related.",
+      "2+ years HR experience.",
+      "Knowledge of Myanmar labor law.",
+      "Strong organizational skills."
+    ],
+    howToApply: "Apply via the button and our HR team will confirm your application on Telegram."
+  },
+  {
+    id: 8,
+    title: "Mechanical Engineer",
+    company: "Nay Pyi Taw Engineering",
+    location: "Nay Pyi Taw",
+    type: "Full-time",
+    salary: "800,000 - 1,300,000",
+    category: "Engineering",
+    emoji: "🔧",
+    color: "#dc2626",
+    tags: ["CAD", "Maintenance", "Project"],
+    posted: 8,
+    description: [
+      "Design and oversee mechanical systems and equipment.",
+      "Troubleshoot and perform maintenance.",
+      "Prepare technical drawings and reports.",
+      "Coordinate with contractors and vendors."
+    ],
+    requirements: [
+      "Bachelor's in mechanical engineering.",
+      "3+ years relevant experience.",
+      "Proficiency in CAD software.",
+      "Willing to travel to project sites."
+    ],
+    howToApply: "Submit your application below. Include your experience with CAD tools in the chat."
+  }
+];
+
+/* ============================================================
+   COMPANIES & TESTIMONIALS — customize freely
+   ============================================================ */
+const COMPANIES = [
+  { name: "Digital Myanmar", emoji: "💻", color: "#0d6efd", jobs: "12" },
+  { name: "Shwe Taung", emoji: "🏢", color: "#14b8a6", jobs: "8" },
+  { name: "Creative Studio", emoji: "🎨", color: "#9333ea", jobs: "5" },
+  { name: "TechForward", emoji: "⚙️", color: "#0f766e", jobs: "15" },
+  { name: "Golden Finance", emoji: "💰", color: "#059669", jobs: "4" },
+  { name: "Evergreen", emoji: "🌿", color: "#b45309", jobs: "9" }
+];
+
+const TESTIMONIALS = [
+  { name: "အောင်မျိုးသူ", role: "Frontend Developer", quote: "I found my dream job within a week of posting my application. The process was fast and professional.", color: "#0d6efd" },
+  { name: "ခင်လေးရွှေ", role: "Sales Manager", quote: "As a recruiter, the Telegram confirmation saved us so much time. Highly recommend this platform.", color: "#14b8a6" },
+  { name: "Nyi Nyi Aung", role: "Graphic Designer", quote: "Simple, clean, and effective. I've already recommended it to all my friends.", color: "#9333ea" }
+];
+
+/* ============================================================
+   RENDER ENGINE — no need to edit below here
+   ============================================================ */
+const categorySet = new Set();
+JOBS.forEach(j => categorySet.add(j.category));
+const categories = [...categorySet];
+
+const TEL_PREFIX = CONFIG.telegramLink.startsWith("http")
+  ? CONFIG.telegramLink
+  : "https://t.me/" + CONFIG.telegramLink.replace(/^@?t\.me\//, "");
+
+function renderCategories() {
+  const container = document.getElementById("categoryGrid");
+  const counts = {};
+  JOBS.forEach(j => counts[j.category] = (counts[j.category] || 0) + 1);
+  container.innerHTML = categories.map(c => `
+    <div class="cat-card" onclick="setCategoryFromCard('${c}')">
+      <div class="icon">${iconFor(c)}</div>
+      <h3>${c}</h3>
+      <span>${counts[c] || 0} jobs · ${c}</span>
+    </div>`).join("");
+}
+
+function iconFor(cat) {
+  const map = {
+    "IT & Software": "💻", "Sales & Marketing": "📈", "Design & Creative": "🎨",
+    "Finance & Accounting": "🧮", "Engineering": "🔧", "Human Resources": "👥",
+    "Customer Service": "🎧", "Other": "📋"
+  };
+  return map[cat] || "📋";
+}
+
+function setCategoryFromCard(cat) {
+  document.getElementById("filterCategory").value = cat;
+  document.getElementById("globalCategory").value = cat;
+  applyFilters();
+  document.getElementById("jobs").scrollIntoView({ behavior: "smooth" });
+}
+
+function renderJobOptions() {
+  const gOpts = categories.map(c => `<option>${c}</option>`).join("");
+  document.getElementById("globalCategory").innerHTML = '<option value="">All Categories</option>' + gOpts;
+  document.getElementById("filterCategory").innerHTML = '<option value="">All Categories</option>' + gOpts;
+}
+
+function applyFilters() {
+  const cat = document.getElementById("filterCategory").value;
+  const type = document.getElementById("filterType").value;
+  const q = document.getElementById("jobSearch").value.trim().toLowerCase();
+  const grid = document.getElementById("jobsGrid");
+
+  const filtered = JOBS.filter(j => {
+    if (cat && j.category !== cat) return false;
+    if (type && j.type !== type) return false;
+    if (q) {
+      const hay = (j.title + " " + j.company + " " + j.location + " " + j.tags.join(" ")).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  grid.innerHTML = filtered.length
+    ? filtered.map(jobCardHTML).join("")
+    : '<div class="no-jobs">😕 No jobs found. Try adjusting your filters.</div>';
+}
+
+function jobCardHTML(j) {
+  return `
+  <div class="job-card" onclick="openModal(${j.id})">
+    <div class="job-top">
+      <div class="company-logo" style="background:${j.color}">${j.emoji}</div>
+      <div class="job-meta-top">
+        <h3>${j.title}</h3>
+        <div class="job-company">${j.company}</div>
+      </div>
+      <span class="job-time">${j.posted}d ago</span>
+    </div>
+    <div class="job-badges">
+      <span class="badge badge-type">${j.type}</span>
+      <span class="badge badge-cat">${j.category}</span>
+      ${j.tags.slice(0,2).map(t => `<span class="badge badge-tag">#${t}</span>`).join("")}
+    </div>
+    <div class="job-mid">
+      <span>📍 ${j.location}</span>
+      <span class="job-salary">${CONFIG.currency} ${j.salary}</span>
+    </div>
+    <div class="job-bottom">
+      <span class="job-company">View details →</span>
+      <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();openModal(${j.id})">Apply</button>
+    </div>
+  </div>`;
+}
+
+function renderCompanies() {
+  document.getElementById("companiesGrid").innerHTML = COMPANIES.map(c => `
+    <div class="company-card">
+      <div class="logo" style="background:${c.color}">${c.emoji}</div>
+      <h3>${c.name}</h3>
+      <span>${c.jobs} open positions</span>
+    </div>`).join("");
+}
+
+function renderTestimonials() {
+  document.getElementById("testimonialsGrid").innerHTML = TESTIMONIALS.map((t, i) => `
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"${t.quote}"</p>
+      <div class="author">
+        <div class="avatar" style="background:${t.color}">${t.name.charAt(0)}</div>
+        <div><strong>${t.name}</strong><span>${t.role}</span></div>
+      </div>
+    </div>`).join("");
+}
+
+/* ---- Modal ---- */
+let currentJobId = null;
+function openModal(id) {
+  const j = JOBS.find(x => x.id === id);
+  if (!j) return;
+  currentJobId = id;
+  document.getElementById("mTitle").textContent = j.title;
+  document.getElementById("mCompany").textContent = j.company;
+
+  let s = j.salary.split("-");
+  let salaryLabel = `${CONFIG.currency} ${j.salary}`;
+  if (s.length === 2) salaryLabel = `${CONFIG.currency} ${s[0].trim()} - ${s[1].trim()}`;
+
+  document.getElementById("mMeta").innerHTML = `
+    <span>📍 ${j.location}</span>
+    <span>⏰ ${j.type}</span>
+    <span>💰 ${salaryLabel}</span>
+    <span>🗓 ${j.posted} day${j.posted > 1 ? "s" : ""} ago</span>`;
+
+  document.getElementById("mBadges").innerHTML = `
+    <span class="badge badge-type">${j.type}</span>
+    <span class="badge badge-cat">${j.category}</span>
+    ${j.tags.map(t => `<span class="badge badge-tag">#${t}</span>`).join("")}`;
+
+  document.getElementById("mDesc").innerHTML = j.description.map(d => `<li>${d}</li>`).join("");
+  document.getElementById("mReq").innerHTML = j.requirements.map(d => `<li>${d}</li>`).join("");
+  document.getElementById("mApply").textContent = j.howToApply;
+
+  document.getElementById("jobModal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeModal() {
+  document.getElementById("jobModal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function openApplyForm() {
+  document.getElementById("applyModal").classList.add("open");
+}
+function closeApply() {
+  document.getElementById("applyModal").classList.remove("open");
+}
+document.getElementById("jobModal").addEventListener("click", e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.getElementById("applyModal").addEventListener("click", e => {
+  if (e.target === e.currentTarget) closeApply();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { closeModal(); closeApply(); }
+});
+
+/* ---- Forms ---- */
+function sendTelegram(message) {
+  const text = encodeURIComponent(message);
+  const url = `${TEL_PREFIX}?start=` + encodeURIComponent("jobboard_confirm");
+  return url; /* open telegram confirm */
+}
+
+function submitPostJob(e) {
+  e.preventDefault();
+  const company = document.getElementById("pjCompany").value.trim();
+  const title = document.getElementById("pjJobTitle").value.trim();
+  const type = document.getElementById("pjType").value;
+  const loc = document.getElementById("pjLocation").value.trim();
+  const salary = document.getElementById("pjSalary").value.trim() || "Negotiable";
+
+  const msg = `📢 NEW JOB POSTING — ${CONFIG.boardName}\n` +
+    `🏢 Company: ${company}\n` +
+    `💼 Title: ${title}\n` +
+    `📍 Location: ${loc}\n` +
+    `⏰ Type: ${type}\n` +
+    `💰 Salary: ${salary}\n` +
+    `📞 Contact: ${document.getElementById("pjPhone").value.trim()}\n` +
+    `✉️ Email: ${document.getElementById("pjEmail").value.trim() || "n/a"}\n` +
+    `📝 Desc: ${document.getElementById("pjDesc").value.trim().slice(0,150)}…`;
+
+  window.open(sendTelegram(msg), "_blank");
+  document.getElementById("postFormSuccess").style.display = "flex";
+  document.getElementById("postFormSuccess").scrollIntoView({ behavior: "smooth" });
+  e.target.reset();
+  return false;
+}
+
+function submitApply(e) {
+  e.preventDefault();
+  const job = JOBS.find(x => x.id === currentJobId);
+  const name = document.getElementById("apName").value.trim();
+  const phone = document.getElementById("apPhone").value.trim();
+  const email = document.getElementById("apEmail").value.trim();
+
+  const msg = `✅ NEW JOB APPLICATION — ${CONFIG.boardName}\n` +
+    `💼 Position: ${job ? job.title : "N/A"} @ ${job ? job.company : "N/A"}\n` +
+    `👤 Name: ${name}\n` +
+    `📞 Phone: ${phone}\n` +
+    `✉️ Email: ${email}\n`;
+
+  window.open(sendTelegram(msg), "_blank");
+  document.getElementById("applySuccess").style.display = "flex";
+  e.target.reset();
+  setTimeout(()=>{ document.getElementById("applySuccess").style.display = "none"; }, 4000);
+  return false;
+}
+
+function submitNewsletter(e) {
+  e.preventDefault();
+  alert("✅ Thank you for subscribing to " + CONFIG.boardName + "!");
+  e.target.reset();
+  return false;
+}
+
+function globalSearch(e) {
+  e.preventDefault();
+  const kw = document.getElementById("globalKeyword").value.trim();
+  const loc = document.getElementById("globalLocation").value.trim();
+  const cat = document.getElementById("globalCategory").value;
+
+  /* set the listing filters then scroll */
+  document.getElementById("jobSearch").value = kw;
+  document.getElementById("filterCategory").value = cat;
+
+  const grid = document.getElementById("jobsGrid");
+  const filtered = JOBS.filter(j => {
+    if (cat && j.category !== cat) return false;
+    if (loc) {
+      if (!j.location.toLowerCase().includes(loc.toLowerCase())) return false;
+    }
+    if (kw) {
+      if (!(j.title + " " + j.company + " " + j.tags.join(" ")).toLowerCase().includes(kw.toLowerCase())) return false;
+    }
+    return true;
+  });
+
+  grid.innerHTML = filtered.length
+    ? filtered.map(jobCardHTML).join("")
+    : '<div class="no-jobs">😕 No jobs found matching your search.</div>';
+
+  document.getElementById("jobs").scrollIntoView({ behavior: "smooth" });
+  return false;
+}
+
+/* ---- Nav toggle ---- */
+document.getElementById("navToggle").addEventListener("click", () => {
+  document.getElementById("nav").classList.toggle("show-menu");
+});
+
+/* ---- Init ---- */
+function init() {
+  document.getElementById("year").textContent = new Date().getFullYear();
+  document.title = CONFIG.boardName + " | Job Board";
+  document.getElementById("statJobs").textContent = JOBS.length;
+  document.getElementById("statCompanies").textContent = COMPANIES.length;
+  renderCategories();
+  renderJobOptions();
+  renderCompanies();
+  renderTestimonials();
+  applyFilters();
+}
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>

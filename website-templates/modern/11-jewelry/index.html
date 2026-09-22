@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>{BRAND_NAME} — Fine Jewelry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   CSS VARIABLES — EDIT TO REBRAND
+   ============================================ */
+:root {
+  --clr-bg:       #faf7f2;
+  --clr-surface:  #ffffff;
+  --clr-gold:     #b3902f;
+  --clr-gold-lt:  #d4b462;
+  --clr-gold-dk:  #8a6e1f;
+  --clr-text:     #2c2520;
+  --clr-text-lt:  #7a7470;
+  --clr-border:   #e8e2d8;
+  --clr-overlay:  rgba(44,37,32,.85);
+  --clr-sale:     #c0392b;
+  --clr-new:      #27ae60;
+  --ff-serif:     'Cormorant Garamond', Georgia, serif;
+  --ff-sans:      'Inter', -apple-system, sans-serif;
+  --radius:       6px;
+  --shadow-sm:    0 2px 12px rgba(0,0,0,.06);
+  --shadow-md:    0 8px 32px rgba(0,0,0,.10);
+  --shadow-lg:    0 16px 64px rgba(0,0,0,.14);
+  --max-w:        1240px;
+  --transition:   .3s cubic-bezier(.4,0,.2,1);
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--ff-sans);
+  background:var(--clr-bg);
+  color:var(--clr-text);
+  line-height:1.7;
+  font-weight:300;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none}
+ul{list-style:none}
+h1,h2,h3,h4,h5{font-family:var(--ff-serif);font-weight:400;line-height:1.2}
+.container{width:92%;max-width:var(--max-w);margin:0 auto}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.section-label{
+  font-family:var(--ff-sans);
+  font-size:.7rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--clr-gold);
+  margin-bottom:.6rem;
+  font-weight:500;
+}
+.section-title{
+  font-size:clamp(1.8rem,4vw,3rem);
+  margin-bottom:1rem;
+  color:var(--clr-text);
+}
+.section-subtitle{
+  color:var(--clr-text-lt);
+  font-size:.95rem;
+  max-width:540px;
+  line-height:1.8;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.85rem 2.2rem;
+  font-size:.78rem;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  border-radius:var(--radius);
+  transition:var(--transition);
+}
+.btn-gold{
+  background:var(--clr-gold);color:#fff;
+  border:1.5px solid var(--clr-gold);
+}
+.btn-gold:hover{background:var(--clr-gold-dk);border-color:var(--clr-gold-dk)}
+.btn-outline{
+  background:transparent;color:var(--clr-gold);
+  border:1.5px solid var(--clr-gold);
+}
+.btn-outline:hover{background:var(--clr-gold);color:#fff}
+.btn-sm{padding:.6rem 1.4rem;font-size:.72rem}
+.btn-icon{width:44px;height:44px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:50%}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:1.1rem 0;
+  transition:var(--transition);
+  background:transparent;
+}
+.navbar.scrolled{
+  background:rgba(250,247,242,.95);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 var(--clr-border);
+}
+.navbar .container{display:flex;align-items:center;justify-content:space-between}
+.nav-brand{
+  font-family:var(--ff-serif);
+  font-size:1.4rem;
+  font-weight:500;
+  letter-spacing:.08em;
+  color:var(--clr-text);
+}
+.nav-brand span{color:var(--clr-gold)}
+.nav-right{display:flex;align-items:center;gap:1.2rem}
+.nav-cart{position:relative}
+.nav-cart .count{
+  position:absolute;top:-4px;right:-6px;
+  background:var(--clr-gold);color:#fff;
+  font-size:.6rem;font-weight:600;
+  width:18px;height:18px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(.7);
+  transition:var(--transition);
+}
+.nav-cart .count.show{opacity:1;transform:scale(1)}
+
+/* Hamburger */
+.hamburger{width:28px;height:20px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;padding:0}
+.hamburger span{display:block;height:1.5px;background:var(--clr-text);transition:var(--transition);transform-origin:center}
+.hamburger.active span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+
+/* Overlay */
+.nav-overlay{
+  position:fixed;inset:0;z-index:999;
+  background:var(--clr-overlay);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .4s ease;
+}
+.nav-overlay.open{opacity:1;pointer-events:all}
+.nav-overlay a{
+  display:block;font-family:var(--ff-serif);
+  font-size:2rem;color:#fff;
+  padding:.6rem 0;
+  opacity:0;transform:translateY(20px);
+  transition:all .35s ease;
+}
+.nav-overlay.open a{opacity:1;transform:translateY(0)}
+.nav-overlay.open a:nth-child(1){transition-delay:.1s}
+.nav-overlay.open a:nth-child(2){transition-delay:.15s}
+.nav-overlay.open a:nth-child(3){transition-delay:.2s}
+.nav-overlay.open a:nth-child(4){transition-delay:.25s}
+.nav-overlay.open a:nth-child(5){transition-delay:.3s}
+.nav-overlay.open a:nth-child(6){transition-delay:.35s}
+.nav-overlay a:hover{color:var(--clr-gold-lt)}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  padding:6rem 0 4rem;
+  background:linear-gradient(168deg,#faf7f2 0%,#f3ede3 50%,#faf7f2 100%);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-30%;right:-15%;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(179,144,47,.07) 0%,transparent 70%);
+  border-radius:50%;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-20%;left:-10%;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(179,144,47,.05) 0%,transparent 70%);
+  border-radius:50%;
+}
+.hero-content{position:relative;z-index:1}
+.hero-badge{
+  display:inline-block;
+  font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--clr-gold);
+  border:1px solid var(--clr-border);
+  padding:.45rem 1.4rem;
+  border-radius:100px;
+  margin-bottom:2rem;
+}
+.hero h1{
+  font-size:clamp(2.4rem,6vw,5rem);
+  font-weight:300;
+  letter-spacing:.04em;
+  margin-bottom:1rem;
+  line-height:1.1;
+}
+.hero h1 em{font-style:italic;color:var(--clr-gold);font-weight:400}
+.hero-tagline{
+  font-family:var(--ff-serif);
+  font-size:clamp(1rem,2vw,1.25rem);
+  color:var(--clr-text-lt);
+  margin-bottom:2.5rem;
+  font-style:italic;
+  font-weight:300;
+}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.hero-scroll{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:var(--clr-text-lt);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+}
+.hero-scroll span{
+  display:block;width:1px;height:32px;
+  background:linear-gradient(to bottom,var(--clr-gold),transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ============================================
+   COLLECTION / PRODUCTS
+   ============================================ */
+.collection{padding:6rem 0}
+.collection-header{text-align:center;margin-bottom:3rem}
+.collection-header .section-subtitle{margin:0 auto}
+
+/* Category Filter */
+.filter-bar{
+  display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;
+  margin-bottom:3rem;
+}
+.filter-btn{
+  padding:.5rem 1.3rem;
+  font-size:.72rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  border:1px solid var(--clr-border);
+  border-radius:100px;
+  background:transparent;
+  color:var(--clr-text-lt);
+  transition:var(--transition);
+  font-weight:400;
+}
+.filter-btn:hover,.filter-btn.active{
+  background:var(--clr-gold);
+  color:#fff;
+  border-color:var(--clr-gold);
+}
+
+/* Product Grid */
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:1.5rem;
+}
+.product-card{
+  background:var(--clr-surface);
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--clr-border);
+  transition:var(--transition);
+  cursor:pointer;
+  position:relative;
+}
+.product-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px)}
+.product-thumb{
+  aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#f8f5ef,#f0ebe0);
+  font-size:3.2rem;
+  position:relative;
+}
+.product-badge{
+  position:absolute;top:.8rem;left:.8rem;
+  font-size:.6rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:.3rem .7rem;border-radius:100px;
+  color:#fff;
+}
+.badge-new{background:var(--clr-new)}
+.badge-sale{background:var(--clr-sale)}
+.product-info{padding:1.2rem}
+.product-cat{
+  font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--clr-gold);margin-bottom:.3rem;font-weight:500;
+}
+.product-name{
+  font-family:var(--ff-serif);font-size:1.1rem;
+  margin-bottom:.4rem;font-weight:500;
+}
+.product-mat{font-size:.78rem;color:var(--clr-text-lt);margin-bottom:.6rem}
+.product-price{font-size:1rem;font-weight:500;color:var(--clr-gold)}
+.product-price .original{
+  text-decoration:line-through;color:var(--clr-text-lt);
+  font-size:.82rem;font-weight:300;margin-left:.4rem;
+}
+
+/* ============================================
+   PRODUCT DETAIL MODAL
+   ============================================ */
+.modal-backdrop{
+  position:fixed;inset:0;z-index:2000;
+  background:var(--clr-overlay);
+  display:flex;align-items:center;justify-content:center;
+  padding:1.5rem;
+  opacity:0;pointer-events:none;
+  transition:opacity .35s ease;
+}
+.modal-backdrop.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--clr-surface);
+  border-radius:10px;
+  width:100%;max-width:760px;
+  max-height:90vh;overflow-y:auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  box-shadow:var(--shadow-lg);
+  transform:translateY(30px) scale(.97);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.modal-backdrop.open .modal{transform:translateY(0) scale(1)}
+.modal-close{
+  position:absolute;top:1rem;right:1rem;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:var(--clr-bg);
+  font-size:1.1rem;
+  z-index:2;
+  transition:var(--transition);
+}
+.modal-close:hover{background:var(--clr-border)}
+.modal-image{
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#f8f5ef,#f0ebe0);
+  font-size:5rem;
+  min-height:300px;
+}
+.modal-body{padding:2.2rem;display:flex;flex-direction:column;justify-content:center}
+.modal-cat{
+  font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--clr-gold);margin-bottom:.4rem;font-weight:500;
+}
+.modal-name{font-size:1.6rem;margin-bottom:.5rem;font-family:var(--ff-serif)}
+.modal-price{font-size:1.3rem;color:var(--clr-gold);font-weight:500;margin-bottom:1rem}
+.modal-desc{font-size:.88rem;color:var(--clr-text-lt);line-height:1.8;margin-bottom:1.5rem}
+.modal-materials{margin-bottom:1.5rem}
+.modal-materials h4{font-size:.85rem;margin-bottom:.5rem;font-family:var(--ff-sans);font-weight:500}
+.modal-materials p{font-size:.82rem;color:var(--clr-text-lt);line-height:1.7}
+.qty-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem}
+.qty-ctrl{
+  display:flex;align-items:center;gap:0;
+  border:1px solid var(--clr-border);border-radius:var(--radius);overflow:hidden;
+}
+.qty-ctrl button{
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+  transition:var(--transition);
+}
+.qty-ctrl button:hover{background:var(--clr-bg)}
+.qty-ctrl span{width:40px;text-align:center;font-weight:500;font-size:.9rem}
+.modal-add{width:100%;justify-content:center}
+
+/* ============================================
+   CART DRAWER
+   ============================================ */
+.cart-drawer{
+  position:fixed;top:0;right:0;bottom:0;z-index:2001;
+  width:420px;max-width:92vw;
+  background:var(--clr-surface);
+  box-shadow:var(--shadow-lg);
+  transform:translateX(100%);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+}
+.cart-drawer.open{transform:translateX(0)}
+.cart-overlay{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.35);
+  opacity:0;pointer-events:none;
+  transition:opacity .35s ease;
+}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem;border-bottom:1px solid var(--clr-border);
+}
+.cart-header h3{font-family:var(--ff-serif);font-size:1.3rem}
+.cart-items{flex:1;overflow-y:auto;padding:1rem 1.5rem}
+.cart-empty{
+  text-align:center;padding:3rem 1rem;
+  color:var(--clr-text-lt);font-size:.88rem;
+}
+.cart-empty span{display:block;font-size:2.5rem;margin-bottom:.8rem}
+.cart-item{
+  display:flex;gap:1rem;
+  padding:1rem 0;
+  border-bottom:1px solid var(--clr-border);
+  align-items:center;
+}
+.cart-item-thumb{
+  width:56px;height:56px;min-width:56px;
+  border-radius:var(--radius);
+  background:var(--clr-bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;
+}
+.cart-item-info{flex:1}
+.cart-item-name{font-family:var(--ff-serif);font-size:.95rem;margin-bottom:.15rem}
+.cart-item-price{font-size:.82rem;color:var(--clr-gold)}
+.cart-item-qty{display:flex;align-items:center;gap:0;margin-top:.4rem}
+.cart-item-qty button{
+  width:24px;height:24px;
+  border:1px solid var(--clr-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;border-radius:3px;
+  transition:var(--transition);
+}
+.cart-item-qty button:hover{background:var(--clr-bg)}
+.cart-item-qty span{width:30px;text-align:center;font-size:.8rem;font-weight:500}
+.cart-item-remove{
+  color:var(--clr-text-lt);font-size:.7rem;
+  text-decoration:underline;cursor:pointer;
+  transition:var(--transition);margin-top:.3rem;display:inline-block;
+}
+.cart-item-remove:hover{color:var(--clr-sale)}
+.cart-footer{padding:1.5rem;border-top:1px solid var(--clr-border)}
+.cart-total{display:flex;justify-content:space-between;margin-bottom:1rem}
+.cart-total span:first-child{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--clr-text-lt)}
+.cart-total span:last-child{font-size:1.15rem;font-weight:500;color:var(--clr-gold)}
+.cart-checkout{width:100%;justify-content:center}
+
+/* ============================================
+   CRAFTSMANSHIP / ABOUT
+   ============================================ */
+.craft{padding:6rem 0;background:linear-gradient(180deg,#faf7f2 0%,#f0ebe0 100%)}
+.craft .container{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.craft-visual{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+}
+.craft-img{
+  aspect-ratio:1/1;
+  background:linear-gradient(135deg,var(--clr-surface),#ede7db);
+  border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;
+  border:1px solid var(--clr-border);
+}
+.craft-img:nth-child(2){margin-top:2rem}
+.craft-img:nth-child(3){margin-top:-2rem}
+.craft-content .section-title{margin-bottom:1.2rem}
+.craft-content p{
+  color:var(--clr-text-lt);
+  margin-bottom:1rem;
+  font-size:.9rem;
+  line-height:1.9;
+}
+.craft-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1rem;margin-top:2rem;
+  padding-top:2rem;border-top:1px solid var(--clr-border);
+}
+.craft-stat-num{
+  font-family:var(--ff-serif);
+  font-size:1.8rem;
+  color:var(--clr-gold);
+  display:block;
+}
+.craft-stat-label{
+  font-size:.68rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--clr-text-lt);
+}
+
+/* ============================================
+   EDITORIAL BANNER
+   ============================================ */
+.editorial{
+  padding:5rem 0;
+  text-align:center;
+  background:var(--clr-text);
+  color:#fff;
+  position:relative;overflow:hidden;
+}
+.editorial::before{
+  content:'';position:absolute;top:50%;left:50%;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(179,144,47,.12) 0%,transparent 70%);
+  transform:translate(-50%,-50%);border-radius:50%;
+}
+.editorial .container{position:relative;z-index:1}
+.editorial .section-label{color:var(--clr-gold-lt)}
+.editorial .section-title{color:#fff;margin-bottom:1rem}
+.editorial p{
+  color:rgba(255,255,255,.6);
+  max-width:500px;margin:0 auto 2rem;
+  font-size:.9rem;line-height:1.8;
+}
+
+/* ============================================
+   CARE GUIDE
+   ============================================ */
+.care{padding:6rem 0}
+.care .container{text-align:center}
+.care-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.5rem;margin-top:2.5rem;
+  text-align:left;
+}
+.care-card{
+  background:var(--clr-surface);
+  border:1px solid var(--clr-border);
+  border-radius:var(--radius);
+  padding:1.8rem;
+  transition:var(--transition);
+}
+.care-card:hover{box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.care-card span{font-size:1.5rem;display:block;margin-bottom:.8rem}
+.care-card h4{font-family:var(--ff-serif);font-size:1.05rem;margin-bottom:.5rem}
+.care-card p{font-size:.82rem;color:var(--clr-text-lt);line-height:1.7}
+
+/* ============================================
+   CONTACT
+   ============================================ */
+.contact{padding:6rem 0;background:linear-gradient(180deg,var(--clr-bg),#f0ebe0)}
+.contact .container{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-info h3{font-family:var(--ff-serif);font-size:1.6rem;margin-bottom:1.2rem}
+.contact-info p{color:var(--clr-text-lt);font-size:.9rem;line-height:1.8;margin-bottom:1.5rem}
+.contact-detail{
+  display:flex;align-items:center;gap:.8rem;
+  margin-bottom:1rem;font-size:.88rem;
+}
+.contact-detail span{font-size:1.1rem}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.contact-form input,.contact-form textarea{
+  font-family:var(--ff-sans);
+  font-size:.88rem;
+  padding:.85rem 1.1rem;
+  border:1px solid var(--clr-border);
+  border-radius:var(--radius);
+  background:var(--clr-surface);
+  color:var(--clr-text);
+  outline:none;
+  transition:var(--transition);
+  resize:vertical;
+}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--clr-gold)}
+.contact-form textarea{min-height:120px}
+.contact-form .btn{align-self:flex-start}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer{
+  padding:3rem 0;
+  border-top:1px solid var(--clr-border);
+  text-align:center;
+  background:var(--clr-bg);
+}
+.footer-brand{
+  font-family:var(--ff-serif);
+  font-size:1.2rem;
+  letter-spacing:.06em;
+  margin-bottom:.5rem;
+}
+.footer-brand span{color:var(--clr-gold)}
+.footer p{font-size:.75rem;color:var(--clr-text-lt);margin-bottom:.3rem}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin:1rem 0}
+.footer-links a{
+  font-size:.72rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--clr-text-lt);
+  transition:var(--transition);
+}
+.footer-links a:hover{color:var(--clr-gold)}
+
+/* ============================================
+   TOAST
+   ============================================ */
+.toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--clr-text);color:#fff;
+  padding:.8rem 1.6rem;border-radius:var(--radius);
+  font-size:.82rem;
+  box-shadow:var(--shadow-md);
+  opacity:0;transition:all .35s ease;
+  z-index:3000;pointer-events:none;
+  white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media(max-width:768px){
+  .modal{grid-template-columns:1fr;max-height:85vh}
+  .modal-image{min-height:200px}
+  .craft .container{grid-template-columns:1fr;gap:2.5rem}
+  .craft-visual{order:1}
+  .contact .container{grid-template-columns:1fr;gap:2.5rem}
+  .product-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+}
+@media(max-width:480px){
+  .product-grid{grid-template-columns:1fr}
+  .hero h1{font-size:2.2rem}
+  .craft-stats{grid-template-columns:repeat(3,1fr);gap:.5rem}
+  .craft-stat-num{font-size:1.3rem}
+  .filter-bar{gap:.35rem}
+  .filter-btn{padding:.4rem .9rem;font-size:.65rem}
+}
+
+/* ============================================
+   ANIMATIONS (scroll reveal)
+   ============================================ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     TOP CONFIG — CUSTOMIZE YOUR STORE HERE
+     ============================================= -->
+<script>
+/*
+ * =====================================================
+ *  JEWELRY STORE — CONFIGURATION
+ *  Edit values below to rebrand your store instantly.
+ * =====================================================
+ */
+const CONFIG = {
+  brandName:    "Lumière",                              // your brand name
+  tagline:      "Where light meets legacy",             // hero tagline
+  phone:        "+95 9 123 456 789",                    // contact phone
+  email:        "hello@lumiere-mm.com",                 // contact email
+  telegramLink: "t.me/hein_public_ai_bot",             // Telegram checkout link
+  currency:     "Ks",                                   // Myanmar Kyat
+
+  /* Burmese + English filler for meta / placeholders */
+  taglineMy:    "အလင်းနှင့်အမွေအနည်း ပေါင်းစည်းသည့်နေရာ",
+  aboutText:    "Every piece is handcrafted with intention, designed to become part of your most cherished moments.",
+  aboutTextMy:  "လက်ဝတ်ရတနာတိုင်းကို ရည်ရွယ်ချက်ဖြင့် လက်ဖြင့် ပြုလုပ်ထားပါသည်။",
+};
+
+/*
+ * =====================================================
+ *  PRODUCT CATALOG — CUSTOMIZE YOUR PRODUCTS HERE
+ *  • id:        unique number
+ *  • name:      product name
+ *  • price:     numeric (Myanmar Kyat)
+ *  • category:  Ring | Necklace | Earrings | Bracelet
+ *  • material:  e.g. "18K Gold · Natural Ruby"
+ *  • emoji:     placeholder image emoji
+ *  • badge:     null | "New" | "Sale"
+ *  • desc:      short product description
+ * =====================================================
+ */
+const PRODUCTS = [
+  { id:1,  name:"Celestial Ring",        price:280000, category:"Ring",     material:"18K Gold · Natural Ruby",          emoji:"💍", badge:"New",   desc:"A celestial-inspired ring set with a deep Burmese ruby, framed by hand-engraved gold leaf motifs. ပြင်ဆင်မှု အသေးစိတ်။" },
+  { id:2,  name:"Lunar Pendant",         price:320000, category:"Necklace", material:"18K Gold · White Sapphire",        emoji:"✨", badge:null,   desc:"Crescent-shaped pendant with pavé white sapphires. A modern heirloom for every occasion." },
+  { id:3,  name:"Mingalabar Earrings",   price:195000, category:"Earrings", material:"14K Gold · Pearl",                 emoji:"🪷", badge:"New",   desc:"Drop earrings featuring freshwater pearls set in hammered 14K gold. Classic Burmese elegance." },
+  { id:4,  name:"Golden Temple Bangle",  price:350000, category:"Bracelet",material:"18K Gold · Diamond",               emoji:"⭐", badge:"Sale",  desc:"Architectural bangle inspired by temple spires, lined with micro-pavé diamonds." },
+  { id:5,  name:"Ruby Heart Ring",       price:240000, category:"Ring",     material:"14K Gold · Burmese Ruby",          emoji:"❤️", badge:null,   desc:"Heart-shaped Burmese ruby solitaire in a sleek 14K band. A statement of passion." },
+  { id:6,  name:"Irrawaddy Necklace",    price:310000, category:"Necklace", material:"18K Gold · Jade",                  emoji:"🌿", badge:"New",   desc:"Flowing chain adorned with hand-carved jade beads, evoking the grace of the Irrawaddy." },
+  { id:7,  name:"Mandalay Hoops",        price:150000, category:"Earrings", material:"14K Gold · Zircon",                emoji:"💫", badge:"Sale",  desc:"Bold double-hoop earrings with cubic zirconia accents. Versatile day-to-night style." },
+  { id:8,  name:"Pagoda Chain Bracelet", price:260000, category:"Bracelet",material:"18K Gold · Sapphire",              emoji:"🔮", badge:null,   desc:"Linked chain bracelet with bezel-set blue sapphires. Inspired by ancient craftsmanship." },
+];
+</script>
+
+<!-- =============================================
+     NAVBAR
+     ============================================= -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#" class="nav-brand" id="navBrand">Lumière</a>
+    <div class="nav-right">
+      <button class="nav-cart" id="cartToggle" aria-label="Cart">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="count" id="cartCount">0</span>
+      </button>
+      <div class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Nav Overlay -->
+<div class="nav-overlay" id="navOverlay">
+  <a href="#collection" data-nav>Collection</a>
+  <a href="#craft" data-nav>Craftsmanship</a>
+  <a href="#care" data-nav>Care Guide</a>
+  <a href="#contact" data-nav>Contact</a>
+  <a href="#" onclick="openCart();return false">Cart</a>
+  <a href="#" data-nav>Close</a>
+</div>
+
+<!-- =============================================
+     HERO
+     ============================================= -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Est. 2024 · Myanmar</div>
+    <h1>Born of <em>Light</em>,<br>Built to Last</h1>
+    <p class="hero-tagline" id="heroTagline">Where light meets legacy</p>
+    <div class="hero-actions">
+      <a href="#collection" class="btn btn-gold">Shop Collection</a>
+      <a href="#craft" class="btn btn-outline">Our Craft</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span></span>Scroll</div>
+</section>
+
+<!-- =============================================
+     COLLECTION
+     ============================================= -->
+<section class="collection" id="collection">
+  <div class="container">
+    <div class="collection-header reveal">
+      <p class="section-label">Our Collection</p>
+      <h2 class="section-title">Timeless Pieces</h2>
+      <p class="section-subtitle">Handcrafted in Myanmar, each piece tells a story of heritage and artistry. Every gemstone is ethically sourced, every setting handmade.</p>
+    </div>
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- =============================================
+     CRAFTSMANSHIP
+     ============================================= -->
+<section class="craft" id="craft">
+  <div class="container">
+    <div class="craft-visual reveal">
+      <div class="craft-img">🔨</div>
+      <div class="craft-img">💎</div>
+      <div class="craft-img">🤲</div>
+      <div class="craft-img">⚜️</div>
+    </div>
+    <div class="craft-content reveal">
+      <p class="section-label">Craftsmanship</p>
+      <h2 class="section-title">Art Made by Hand</h2>
+      <p>Our master artisans bring decades of generational knowledge to every piece. From the initial sketch to the final polish, each step is guided by patience, precision, and deep respect for Myanmar's jewelry-making heritage.</p>
+      <p>လက်ဝတ်ရတနာတိုင်းကို ရည်ရွယ်ချက်ဖြင့် လက်ဖြင့် ပြုလုပ်ထားပါသည်။ မြန်မာ့လက်ဝတ်ရတနာ ပြုလုပ်နည်း အမွေအနည်းများကို လေးစားတန်ဖိုးထားလျက် ဖန်တီးထားပါသည်။</p>
+      <div class="craft-stats">
+        <div><span class="craft-stat-num">15+</span><span class="craft-stat-label">Years Experience</span></div>
+        <div><span class="craft-stat-num">2000+</span><span class="craft-stat-label">Pieces Created</span></div>
+        <div><span class="craft-stat-num">100%</span><span class="craft-stat-label">Handcrafted</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     EDITORIAL BANNER
+     ============================================= -->
+<section class="editorial">
+  <div class="container reveal">
+    <p class="section-label">The Lumière Journal</p>
+    <h2 class="section-title">Worn by Those<br>Who Lead with Light</h2>
+    <p>Stories from our workshop, styling inspiration, and the art of meaningful adornment. လက်ဝတ်ရတနာများ၏ အနုပညာ။</p>
+    <a href="#contact" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.3)">Get in Touch</a>
+  </div>
+</section>
+
+<!-- =============================================
+     CARE GUIDE
+     ============================================= -->
+<section class="care" id="care">
+  <div class="container">
+    <p class="section-label reveal">Jewellery Care</p>
+    <h2 class="section-title reveal">Preserve the Beauty</h2>
+    <div class="care-grid">
+      <div class="care-card reveal">
+        <span>🧴</span>
+        <h4>Store Properly</h4>
+        <p>Keep pieces in individual pouches or compartments. Avoid direct contact between different gemstones and metals. သိုလှောင်ပုံကို ဂရုစိုက်ပါ။</p>
+      </div>
+      <div class="care-card reveal">
+        <span>💧</span>
+        <h4>Avoid Chemicals</h4>
+        <p>Remove jewelry before swimming, bathing, or applying perfume and lotions. Chemicals can damage gold and gemstones.</p>
+      </div>
+      <div class="care-card reveal">
+        <span>✨</span>
+        <h4>Regular Cleaning</h4>
+        <p>Gently clean with a soft cloth after each wear. For deeper cleaning, use lukewarm water with mild soap. ပုံမှန်သန့်ရှင်းပါ။</p>
+      </div>
+      <div class="care-card reveal">
+        <span>🔧</span>
+        <h4>Professional Check</h4>
+        <p>Visit us annually for a professional inspection and polish. We'll ensure settings remain secure and your piece stays radiant.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================
+     CONTACT
+     ============================================= -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-info reveal">
+      <p class="section-label">Contact</p>
+      <h3>Let's Create Something Beautiful</h3>
+      <p>Whether you're looking for a bespoke piece or have questions about our collection, we'd love to hear from you. ကျွန်တော်တို့ထံ ဆက်သွယ်ပါ။</p>
+      <div class="contact-detail"><span>📞</span><a href="tel:+959123456789" id="contactPhone">+95 9 123 456 789</a></div>
+      <div class="contact-detail"><span>✉️</span><a href="mailto:hello@lumiere-mm.com" id="contactEmail">hello@lumiere-mm.com</a></div>
+      <div class="contact-detail"><span>💬</span><a href="https://t.me/hein_public_ai_bot" id="contactTG" target="_blank">Telegram @hein_public_ai_bot</a></div>
+      <div class="contact-detail"><span>📍</span>Yangon, Myanmar</div>
+    </div>
+    <form class="contact-form reveal" id="contactForm" onsubmit="return false">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="text" placeholder="Subject">
+      <textarea placeholder="Tell us about your vision…"></textarea>
+      <button type="submit" class="btn btn-gold btn-sm" onclick="submitContact()">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- =============================================
+     FOOTER
+     ============================================= -->
+<footer class="footer">
+  <div class="container">
+    <p class="footer-brand" id="footerBrand">Lumière <span>✦</span></p>
+    <p>Fine Jewelry · Handcrafted in Myanmar</p>
+    <div class="footer-links">
+      <a href="#collection">Collection</a>
+      <a href="#craft">Craft</a>
+      <a href="#care">Care</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p>© 2024 <span id="footerYear">Lumière</span>. All rights reserved. Built with passion in Yangon.</p>
+  </div>
+</footer>
+
+<!-- =============================================
+     PRODUCT DETAIL MODAL
+     ============================================= -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="productModal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-image" id="modalImage">💍</div>
+    <div class="modal-body">
+      <p class="modal-cat" id="modalCat">RING</p>
+      <h2 class="modal-name" id="modalName">Product Name</h2>
+      <p class="modal-price" id="modalPrice">280,000 Ks</p>
+      <p class="modal-desc" id="modalDesc">Description goes here.</p>
+      <div class="modal-materials">
+        <h4>Materials</h4>
+        <p id="modalMat">18K Gold · Ruby</p>
+      </div>
+      <div class="qty-row">
+        <span style="font-size:.8rem;color:var(--clr-text-lt);letter-spacing:.05em">Qty</span>
+        <div class="qty-ctrl">
+          <button onclick="changeModalQty(-1)">−</button>
+          <span id="modalQty">1</span>
+          <button onclick="changeModalQty(1)">+</button>
+        </div>
+      </div>
+      <button class="btn btn-gold modal-add" onclick="addFromModal()">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<!-- =============================================
+     CART DRAWER
+     ============================================= -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button onclick="closeCart()" style="font-size:1.1rem">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty"><span>🛍️</span>Your cart is empty<br><small style="font-size:.75rem;color:var(--clr-text-lt)">လက်ခံထားသော ပစ္စည်း မရှိသေးပါ</small></div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">0 Ks</span>
+    </div>
+    <button class="btn btn-gold btn-sm cart-checkout" onclick="checkout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- =============================================
+     TOAST
+     ============================================= -->
+<div class="toast" id="toast"></div>
+
+<!-- =============================================
+     INLINE JAVASCRIPT
+     ============================================= -->
+<script>
+/* =============================================
+   INITIALIZATION
+   ============================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  // Apply CONFIG placeholders
+  document.getElementById('navBrand').innerHTML      = CONFIG.brandName;
+  document.getElementById('heroTagline').textContent  = CONFIG.tagline;
+  document.getElementById('contactPhone').textContent = CONFIG.phone;
+  document.getElementById('contactPhone').href        = 'tel:' + CONFIG.phone.replace(/\s/g,'');
+  document.getElementById('contactEmail').textContent = CONFIG.email;
+  document.getElementById('contactEmail').href        = 'mailto:' + CONFIG.email;
+  document.getElementById('contactTG').href           = 'https://' + CONFIG.telegramLink;
+  document.getElementById('contactTG').textContent    = CONFIG.telegramLink;
+  document.getElementById('footerBrand').innerHTML    = CONFIG.brandName + ' <span>✦</span>';
+  document.getElementById('footerYear').textContent   = CONFIG.brandName;
+  document.getElementById('modalPrice').textContent   = '' ;
+  document.title = CONFIG.brandName + ' — Fine Jewelry';
+
+  buildFilters();
+  renderProducts(PRODUCTS);
+  loadCart();
+  initScrollReveal();
+});
+
+/* =============================================
+   NAVBAR SCROLL
+   ============================================= */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* =============================================
+   HAMBURGER / OVERLAY
+   ============================================= */
+const hamburger   = document.getElementById('hamburger');
+const navOverlay  = document.getElementById('navOverlay');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navOverlay.classList.toggle('open');
+  document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
+});
+document.querySelectorAll('[data-nav]').forEach(el => {
+  el.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+/* =============================================
+   PRODUCT FILTERS & RENDERING
+   ============================================= */
+let activeFilter = 'All';
+
+function buildFilters() {
+  const cats = ['All', ...new Set(PRODUCTS.map(p => p.category))];
+  const bar  = document.getElementById('filterBar');
+  cats.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (c === 'All' ? ' active' : '');
+    btn.textContent = c;
+    btn.onclick = () => {
+      activeFilter = c;
+      bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filtered = c === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.category === c);
+      renderProducts(filtered);
+    };
+    bar.appendChild(btn);
+  });
+}
+
+function renderProducts(list) {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = '';
+  list.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'product-card reveal';
+    card.onclick = () => openModal(p.id);
+
+    let badgeHTML = '';
+    if (p.badge === 'New')  badgeHTML = '<span class="product-badge badge-new">New</span>';
+    if (p.badge === 'Sale') badgeHTML = '<span class="product-badge badge-sale">Sale</span>';
+
+    const fmtPrice = p.price.toLocaleString() + ' ' + CONFIG.currency;
+
+    card.innerHTML = `
+      <div class="product-thumb">
+        ${badgeHTML}
+        ${p.emoji}
+      </div>
+      <div class="product-info">
+        <p class="product-cat">${p.category}</p>
+        <h3 class="product-name">${p.name}</h3>
+        <p class="product-mat">${p.material}</p>
+        <p class="product-price">${fmtPrice}</p>
+      </div>`;
+    grid.appendChild(card);
+  });
+  // Re-init reveal for new cards
+  setTimeout(() => initScrollReveal(), 50);
+}
+
+/* =============================================
+   PRODUCT DETAIL MODAL
+   ============================================= */
+let modalProduct = null;
+let modalQty     = 1;
+
+function openModal(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  modalProduct = p;
+  modalQty = 1;
+
+  document.getElementById('modalImage').textContent = p.emoji;
+  document.getElementById('modalCat').textContent    = p.category.toUpperCase();
+  document.getElementById('modalName').textContent   = p.name;
+  document.getElementById('modalPrice').textContent  = p.price.toLocaleString() + ' ' + CONFIG.currency;
+  document.getElementById('modalDesc').textContent   = p.desc;
+  document.getElementById('modalMat').textContent    = p.material;
+  document.getElementById('modalQty').textContent    = '1';
+
+  document.getElementById('modalBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function changeModalQty(d) {
+  modalQty = Math.max(1, modalQty + d);
+  document.getElementById('modalQty').textContent = modalQty;
+}
+
+function addFromModal() {
+  if (!modalProduct) return;
+  addToCart(modalProduct.id, modalQty);
+  closeModal();
+}
+
+/* =============================================
+   CART — localStorage
+   ============================================= */
+let cart = [];
+
+function loadCart() {
+  try { cart = JSON.parse(localStorage.getItem('jewelry_cart')) || []; }
+  catch { cart = []; }
+  renderCart();
+}
+
+function saveCart() {
+  localStorage.setItem('jewelry_cart', JSON.stringify(cart));
+}
+
+function addToCart(id, qty) {
+  const existing = cart.find(c => c.id === id);
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({ id, qty });
+  }
+  saveCart();
+  renderCart();
+  showToast('Added to cart ✓');
+  openCart();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  saveCart();
+  renderCart();
+}
+
+function changeCartQty(id, d) {
+  const item = cart.find(c => c.id === id);
+  if (!item) return;
+  item.qty = Math.max(1, item.qty + d);
+  saveCart();
+  renderCart();
+}
+
+function cartTotal() {
+  return cart.reduce((sum, c) => {
+    const p = PRODUCTS.find(x => x.id === c.id);
+    return sum + (p ? p.price * c.qty : 0);
+  }, 0);
+}
+
+function cartCount() {
+  return cart.reduce((s, c) => s + c.qty, 0);
+}
+
+function renderCart() {
+  const countEl  = document.getElementById('cartCount');
+  const total    = cartCount();
+  countEl.textContent = total;
+  countEl.classList.toggle('show', total > 0);
+
+  const itemsEl  = document.getElementById('cartItems');
+  const emptyEl  = document.getElementById('cartEmpty');
+
+  if (cart.length === 0) {
+    emptyEl.style.display = 'block';
+    itemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
+    document.getElementById('cartTotal').textContent = '0 ' + CONFIG.currency;
+    return;
+  }
+
+  emptyEl.style.display = 'none';
+  // Remove old items
+  itemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
+
+  cart.forEach(c => {
+    const p = PRODUCTS.find(x => x.id === c.id);
+    if (!p) return;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <div class="cart-item-thumb">${p.emoji}</div>
+      <div class="cart-item-info">
+        <p class="cart-item-name">${p.name}</p>
+        <p class="cart-item-price">${(p.price * c.qty).toLocaleString()} ${CONFIG.currency}</p>
+        <div class="cart-item-qty">
+          <button onclick="changeCartQty(${p.id},-1)">−</button>
+          <span>${c.qty}</span>
+          <button onclick="changeCartQty(${p.id},1)">+</button>
+        </div>
+        <span class="cart-item-remove" onclick="removeFromCart(${p.id})">Remove</span>
+      </div>`;
+    itemsEl.appendChild(div);
+  });
+
+  document.getElementById('cartTotal').textContent = cartTotal().toLocaleString() + ' ' + CONFIG.currency;
+}
+
+/* =============================================
+   CART DRAWER TOGGLE
+   ============================================= */
+function openCart() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('cartToggle').addEventListener('click', openCart);
+
+/* =============================================
+   CHECKOUT → TELEGRAM
+   ============================================= */
+function checkout() {
+  if (cart.length === 0) { showToast('Your cart is empty'); return; }
+
+  let lines = [];
+  lines.push('🛍 *' + CONFIG.brandName + ' — New Order*');
+  lines.push('');
+
+  cart.forEach(c => {
+    const p = PRODUCTS.find(x => x.id === c.id);
+    if (!p) return;
+    lines.push(`• ${p.name} × ${c.qty} — ${(p.price * c.qty).toLocaleString()} ${CONFIG.currency}`);
+  });
+
+  lines.push('');
+  lines.push(`*Total: ${cartTotal().toLocaleString()} ${CONFIG.currency}*`);
+  lines.push('');
+  lines.push('🙏 Please confirm this order.');
+
+  const msg   = encodeURIComponent(lines.join('\n'));
+  const tgUrl = 'https://' + CONFIG.telegramLink.replace(/^https?:\/\//,'') + '?start=' + encodeURIComponent('order');
+
+  // Open Telegram bot with pre-filled message via tg:// protocol
+  window.open('https://t.me/share/url?url=' + encodeURIComponent(CONFIG.telegramLink) + '&text=' + msg, '_blank');
+}
+
+/* =============================================
+   CONTACT FORM
+   ============================================= */
+function submitContact() {
+  const form = document.getElementById('contactForm');
+  const inputs = form.querySelectorAll('input, textarea');
+  const name    = inputs[0].value.trim();
+  const email   = inputs[1].value.trim();
+  const subject = inputs[2].value.trim();
+  const message = inputs[3].value.trim();
+
+  if (!name || !email) { showToast('Please fill in your name and email'); return; }
+
+  let lines = [];
+  lines.push('📩 *' + CONFIG.brandName + ' — Contact Form*');
+  lines.push('');
+  lines.push('Name: ' + name);
+  lines.push('Email: ' + email);
+  if (subject) lines.push('Subject: ' + subject);
+  lines.push('');
+  lines.push(message || '(No message)');
+
+  const msg = encodeURIComponent(lines.join('\n'));
+  window.open('https://t.me/share/url?url=' + encodeURIComponent(CONFIG.telegramLink) + '&text=' + msg, '_blank');
+
+  inputs.forEach(i => i.value = '');
+  showToast('Message sent via Telegram ✓');
+}
+
+/* =============================================
+   TOAST NOTIFICATION
+   ============================================= */
+function showToast(text) {
+  const t = document.getElementById('toast');
+  t.textContent = text;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+/* =============================================
+   SCROLL REVEAL
+   ============================================= */
+function initScrollReveal() {
+  const els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, { threshold: 0.12 });
+  els.forEach(el => obs.observe(el));
+}
+
+/* =============================================
+   KEYBOARD — ESC to close modals
+   ============================================= */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal();
+    closeCart();
+    hamburger.classList.remove('active');
+    navOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+</script>
+</body>
+</html>

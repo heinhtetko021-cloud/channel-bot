@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{NAME} — Makeup Artist & Beauty</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blush: #f9ebe9;
+  --blush-deep: #f0d5ce;
+  --rose: #d4918b;
+  --rose-dark: #c0716a;
+  --gold: #d4a853;
+  --gold-light: #f0d998;
+  --gold-dark: #b8903e;
+  --cream: #fdf8f6;
+  --warm-white: #fffaf9;
+  --charcoal: #3a3232;
+  --text: #4a3f3f;
+  --text-light: #7a6e6e;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Lato', 'Segoe UI', sans-serif;
+  --shadow-soft: 0 4px 20px rgba(180,140,120,0.12);
+  --shadow-card: 0 8px 32px rgba(180,140,120,0.15);
+  --shadow-glow: 0 0 30px rgba(212,168,83,0.18);
+  --radius: 12px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--warm-white);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===================== NAVBAR ===================== */
+.navbar {
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  background: rgba(253,248,246,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(212,168,83,0.15);
+  transition: var(--transition);
+}
+.navbar.scrolled {
+  box-shadow: var(--shadow-soft);
+}
+.nav-inner {
+  max-width:1100px; margin:auto; display:flex; align-items:center;
+  justify-content:space-between; padding:14px 24px;
+}
+.nav-logo {
+  font-family: var(--font-serif); font-size:1.35rem; font-weight:700;
+  color: var(--rose-dark); text-decoration:none; letter-spacing:0.5px;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display:flex; gap:28px; list-style:none; }
+.nav-links a {
+  text-decoration:none; color:var(--text); font-size:0.88rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:1.2px; position:relative;
+  transition: var(--transition);
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px;
+  background:var(--gold); transition: var(--transition);
+}
+.nav-links a:hover { color:var(--rose-dark); }
+.nav-links a:hover::after { width:100%; }
+
+.hamburger {
+  display:none; flex-direction:column; gap:5px; cursor:pointer;
+  background:none; border:none; padding:4px;
+}
+.hamburger span {
+  display:block; width:26px; height:2px; background:var(--charcoal);
+  transition: var(--transition); border-radius:2px;
+}
+.hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+.hamburger.active span:nth-child(2) { opacity:0; }
+.hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+.mobile-menu {
+  display:none; position:fixed; top:0; left:0; right:0; bottom:0;
+  background:rgba(253,248,246,0.97); backdrop-filter:blur(20px);
+  z-index:999; flex-direction:column; align-items:center;
+  justify-content:center; gap:28px;
+}
+.mobile-menu.open { display:flex; }
+.mobile-menu a {
+  font-family:var(--font-serif); font-size:1.5rem; color:var(--charcoal);
+  text-decoration:none; transition:var(--transition);
+}
+.mobile-menu a:hover { color:var(--rose); }
+
+@media(max-width:768px){
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:120px 24px 80px;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(249,235,233,0.8) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(240,217,152,0.15) 0%, transparent 40%),
+    linear-gradient(170deg, var(--cream) 0%, var(--blush) 40%, var(--warm-white) 100%);
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-100px; right:-100px;
+  width:400px; height:400px; border-radius:50%;
+  background: radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 70%);
+}
+.hero-content { max-width:680px; position:relative; z-index:1; }
+.hero-badge {
+  display:inline-block; padding:6px 22px; border:1px solid var(--gold);
+  border-radius:50px; font-size:0.78rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:2.5px; color:var(--gold-dark); margin-bottom:28px;
+  background:rgba(240,217,152,0.1);
+}
+.hero h1 {
+  font-family:var(--font-serif); font-size:clamp(2.6rem,6vw,4.2rem);
+  font-weight:700; line-height:1.15; color:var(--charcoal); margin-bottom:10px;
+}
+.hero h1 em { color:var(--rose); font-style:italic; }
+.hero .subtitle {
+  font-family:var(--font-serif); font-size:1.15rem; color:var(--text-light);
+  font-style:italic; margin-bottom:32px;
+}
+.hero .tagline {
+  font-size:0.95rem; color:var(--text-light); margin-bottom:36px;
+  line-height:1.8;
+}
+.btn-primary {
+  display:inline-block; padding:15px 42px; background:var(--rose);
+  color:#fff; border:none; border-radius:50px; font-family:var(--font-sans);
+  font-size:0.92rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:1.5px; cursor:pointer; text-decoration:none;
+  transition:var(--transition); box-shadow:0 4px 18px rgba(212,145,139,0.35);
+}
+.btn-primary:hover {
+  background:var(--rose-dark); transform:translateY(-2px);
+  box-shadow:0 6px 24px rgba(212,145,139,0.45);
+}
+.btn-outline {
+  display:inline-block; padding:13px 38px; background:transparent;
+  color:var(--gold-dark); border:2px solid var(--gold); border-radius:50px;
+  font-family:var(--font-sans); font-size:0.88rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:1.5px; cursor:pointer;
+  text-decoration:none; transition:var(--transition); margin-left:12px;
+}
+.btn-outline:hover {
+  background:var(--gold); color:#fff; transform:translateY(-2px);
+}
+
+/* ===================== SECTION COMMON ===================== */
+section { padding:90px 24px; }
+.section-inner { max-width:1000px; margin:auto; }
+.section-header { text-align:center; margin-bottom:56px; }
+.section-header h2 {
+  font-family:var(--font-serif); font-size:clamp(1.8rem,4vw,2.6rem);
+  color:var(--charcoal); margin-bottom:8px;
+}
+.section-header .accent-line {
+  width:50px; height:3px; background:var(--gold); border-radius:2px;
+  margin:14px auto;
+}
+.section-header p {
+  color:var(--text-light); font-size:1rem; max-width:520px; margin:auto;
+}
+
+/* ===================== ABOUT ===================== */
+#about { background:var(--cream); }
+.about-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+}
+.about-img {
+  width:100%; aspect-ratio:3/4; border-radius:var(--radius);
+  background: linear-gradient(135deg, var(--blush) 0%, var(--blush-deep) 100%);
+  display:flex; align-items:center; justify-content:center;
+  font-size:4rem; box-shadow:var(--shadow-card); position:relative;
+  overflow:hidden;
+}
+.about-img::after {
+  content:''; position:absolute; inset:8px; border:1px solid rgba(212,168,83,0.25);
+  border-radius:8px;
+}
+.about-text h3 {
+  font-family:var(--font-serif); font-size:1.5rem; margin-bottom:16px;
+  color:var(--charcoal);
+}
+.about-text p { color:var(--text); margin-bottom:14px; font-size:0.95rem; }
+.about-stats { display:flex; gap:32px; margin-top:24px; }
+.about-stat { text-align:center; }
+.about-stat .num {
+  font-family:var(--font-serif); font-size:2rem; font-weight:700; color:var(--rose);
+}
+.about-stat .lbl { font-size:0.8rem; color:var(--text-light); text-transform:uppercase; letter-spacing:1px; }
+
+@media(max-width:768px){
+  .about-grid { grid-template-columns:1fr; }
+  .about-img { max-width:320px; margin:auto; }
+}
+
+/* ===================== SERVICES ===================== */
+#services { background:var(--warm-white); }
+.services-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:28px;
+}
+.service-card {
+  background:#fff; border-radius:var(--radius); padding:36px 28px;
+  text-align:center; box-shadow:var(--shadow-soft);
+  border:1px solid rgba(240,217,152,0.2);
+  transition:var(--transition); position:relative; overflow:hidden;
+}
+.service-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--gold-light), var(--rose), var(--gold-light));
+  opacity:0; transition:var(--transition);
+}
+.service-card:hover {
+  transform:translateY(-6px); box-shadow:var(--shadow-card);
+}
+.service-card:hover::before { opacity:1; }
+.service-emoji { font-size:2.6rem; margin-bottom:14px; }
+.service-card h3 {
+  font-family:var(--font-serif); font-size:1.15rem; color:var(--charcoal);
+  margin-bottom:6px;
+}
+.service-duration {
+  font-size:0.78rem; color:var(--text-light); text-transform:uppercase;
+  letter-spacing:1px; margin-bottom:12px;
+}
+.service-price {
+  font-family:var(--font-serif); font-size:1.4rem; color:var(--rose);
+  font-weight:700; margin-bottom:18px;
+}
+.service-card .btn-outline {
+  padding:10px 28px; font-size:0.8rem; margin-left:0;
+}
+
+/* ===================== PORTFOLIO ===================== */
+#portfolio { background:var(--cream); }
+.portfolio-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+}
+.portfolio-item {
+  aspect-ratio:1; border-radius:var(--radius); overflow:hidden;
+  cursor:pointer; position:relative;
+  background:linear-gradient(135deg, var(--blush) 0%, var(--blush-deep) 100%);
+  display:flex; align-items:center; justify-content:center;
+  font-size:3rem; transition:var(--transition);
+}
+.portfolio-item::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(58,50,50,0.5) 0%, transparent 50%);
+  opacity:0; transition:var(--transition);
+}
+.portfolio-item:hover::after { opacity:1; }
+.portfolio-item .caption {
+  position:absolute; bottom:14px; left:14px; color:#fff;
+  font-size:0.82rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:1px; z-index:1; opacity:0; transition:var(--transition);
+}
+.portfolio-item:hover .caption { opacity:1; }
+.portfolio-item:hover { transform:scale(1.03); }
+
+@media(max-width:600px){
+  .portfolio-grid { grid-template-columns:repeat(2,1fr); }
+}
+
+/* Lightbox */
+.lightbox {
+  display:none; position:fixed; inset:0; z-index:2000;
+  background:rgba(58,50,50,0.92); backdrop-filter:blur(10px);
+  align-items:center; justify-content:center; padding:40px;
+}
+.lightbox.active { display:flex; }
+.lightbox-content {
+  max-width:700px; width:100%; aspect-ratio:4/3; border-radius:var(--radius);
+  background:linear-gradient(135deg, var(--blush) 0%, var(--blush-deep) 100%);
+  display:flex; align-items:center; justify-content:center; font-size:5rem;
+  position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.lightbox-close {
+  position:absolute; top:20px; right:24px; color:#fff; font-size:2rem;
+  cursor:pointer; background:none; border:none; line-height:1;
+  transition:var(--transition);
+}
+.lightbox-close:hover { color:var(--gold); }
+.lightbox-caption {
+  position:absolute; bottom:-40px; left:0; right:0; text-align:center;
+  color:rgba(255,255,255,0.8); font-size:0.9rem; font-style:italic;
+}
+
+/* ===================== PRICING ===================== */
+#pricing { background:var(--warm-white); }
+.pricing-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px;
+}
+.pricing-card {
+  background:#fff; border-radius:var(--radius); padding:40px 32px;
+  text-align:center; box-shadow:var(--shadow-soft);
+  border:1px solid rgba(240,217,152,0.2); transition:var(--transition);
+  position:relative;
+}
+.pricing-card.featured {
+  border-color:var(--gold);
+  box-shadow:var(--shadow-glow);
+}
+.pricing-card.featured::before {
+  content:'POPULAR'; position:absolute; top:-1px; left:50%; transform:translateX(-50%);
+  background:var(--gold); color:#fff; font-size:0.7rem; font-weight:700;
+  letter-spacing:1.5px; padding:5px 20px; border-radius:0 0 8px 8px;
+}
+.pricing-card h3 {
+  font-family:var(--font-serif); font-size:1.3rem; color:var(--charcoal);
+  margin-bottom:8px;
+}
+.pricing-card .price {
+  font-family:var(--font-serif); font-size:2.2rem; color:var(--rose); font-weight:700;
+  margin-bottom:4px;
+}
+.pricing-card .price-note { font-size:0.82rem; color:var(--text-light); margin-bottom:20px; }
+.pricing-card ul { list-style:none; text-align:left; margin-bottom:24px; }
+.pricing-card li {
+  padding:8px 0; font-size:0.9rem; color:var(--text);
+  border-bottom:1px solid rgba(240,217,152,0.2);
+}
+.pricing-card li::before { content:'✦ '; color:var(--gold); }
+.pricing-card .btn-primary { width:100%; }
+
+/* ===================== TESTIMONIALS ===================== */
+#testimonials { background:var(--cream); }
+.testimonials-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px;
+}
+.testimonial-card {
+  background:#fff; border-radius:var(--radius); padding:32px;
+  box-shadow:var(--shadow-soft); position:relative;
+  border:1px solid rgba(240,217,152,0.15);
+}
+.testimonial-card::before {
+  content:'"'; font-family:var(--font-serif); font-size:4rem;
+  color:var(--gold-light); position:absolute; top:12px; left:24px;
+  line-height:1;
+}
+.testimonial-card p {
+  font-style:italic; color:var(--text); margin-bottom:18px;
+  padding-top:20px; font-size:0.93rem;
+}
+.testimonial-author { display:flex; align-items:center; gap:12px; }
+.testimonial-avatar {
+  width:44px; height:44px; border-radius:50%; background:var(--blush-deep);
+  display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+}
+.testimonial-name { font-weight:700; font-size:0.9rem; color:var(--charcoal); }
+.testimonial-role { font-size:0.78rem; color:var(--text-light); }
+.testimonial-stars { color:var(--gold); font-size:0.85rem; letter-spacing:2px; }
+
+/* ===================== BOOKING ===================== */
+#booking {
+  background:linear-gradient(135deg, var(--charcoal) 0%, #4a3f3f 100%);
+  color:#fff;
+}
+#booking .section-header h2 { color:#fff; }
+#booking .section-header p { color:rgba(255,255,255,0.6); }
+.booking-form {
+  max-width:580px; margin:auto; display:grid; grid-template-columns:1fr 1fr; gap:16px;
+}
+.booking-form .full { grid-column:1/-1; }
+.booking-form label {
+  display:block; font-size:0.8rem; text-transform:uppercase; letter-spacing:1.2px;
+  margin-bottom:6px; color:rgba(255,255,255,0.7);
+}
+.booking-form input, .booking-form select, .booking-form textarea {
+  width:100%; padding:14px 18px; background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15); border-radius:8px;
+  color:#fff; font-family:var(--font-sans); font-size:0.92rem;
+  transition:var(--transition); outline:none;
+}
+.booking-form input::placeholder, .booking-form textarea::placeholder {
+  color:rgba(255,255,255,0.3);
+}
+.booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus {
+  border-color:var(--gold); background:rgba(255,255,255,0.12);
+}
+.booking-form select option { color:var(--charcoal); background:#fff; }
+.booking-form textarea { resize:vertical; min-height:80px; }
+.booking-form .btn-primary { grid-column:1/-1; margin-top:8px; }
+.booking-success {
+  display:none; text-align:center; padding:40px;
+}
+.booking-success.show { display:block; }
+.booking-success h3 {
+  font-family:var(--font-serif); font-size:1.5rem; margin-bottom:12px;
+}
+.booking-success p { color:rgba(255,255,255,0.7); margin-bottom:20px; }
+
+/* ===================== SOCIAL STRIP ===================== */
+.social-strip {
+  padding:60px 24px; text-align:center;
+  background:linear-gradient(135deg, var(--blush) 0%, var(--cream) 100%);
+}
+.social-strip h3 {
+  font-family:var(--font-serif); font-size:1.3rem; color:var(--charcoal); margin-bottom:6px;
+}
+.social-strip p { color:var(--text-light); font-size:0.9rem; margin-bottom:24px; }
+.social-icons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+.social-icons a {
+  display:flex; align-items:center; justify-content:center;
+  width:52px; height:52px; border-radius:50%;
+  background:#fff; box-shadow:var(--shadow-soft);
+  text-decoration:none; font-size:1.3rem; transition:var(--transition);
+}
+.social-icons a:hover {
+  transform:translateY(-3px); box-shadow:var(--shadow-card);
+}
+
+/* ===================== CONTACT ===================== */
+#contact { background:var(--warm-white); }
+.contact-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:40px;
+}
+.contact-info-card {
+  background:#fff; border-radius:var(--radius); padding:36px;
+  box-shadow:var(--shadow-soft); border:1px solid rgba(240,217,152,0.15);
+}
+.contact-info-card h3 {
+  font-family:var(--font-serif); font-size:1.3rem; margin-bottom:20px;
+  color:var(--charcoal);
+}
+.contact-item { display:flex; gap:14px; margin-bottom:18px; align-items:flex-start; }
+.contact-icon {
+  width:42px; height:42px; border-radius:50%; background:var(--blush);
+  display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+  flex-shrink:0;
+}
+.contact-item strong { display:block; font-size:0.85rem; color:var(--charcoal); margin-bottom:2px; }
+.contact-item span { font-size:0.9rem; color:var(--text-light); }
+.hours-list { list-style:none; }
+.hours-list li {
+  display:flex; justify-content:space-between; padding:10px 0;
+  border-bottom:1px solid rgba(240,217,152,0.2); font-size:0.9rem;
+}
+.hours-list li:last-child { border:none; }
+.hours-list .day { font-weight:700; color:var(--charcoal); }
+.map-placeholder {
+  width:100%; height:100%; min-height:320px; border-radius:var(--radius);
+  background:linear-gradient(135deg, var(--blush) 0%, var(--blush-deep) 100%);
+  display:flex; align-items:center; justify-content:center;
+  font-size:3rem; box-shadow:var(--shadow-soft);
+}
+
+@media(max-width:768px){
+  .contact-grid { grid-template-columns:1fr; }
+}
+
+/* ===================== FOOTER ===================== */
+.footer {
+  background:var(--charcoal); color:rgba(255,255,255,0.6);
+  text-align:center; padding:36px 24px; font-size:0.85rem;
+}
+.footer a { color:var(--gold-light); text-decoration:none; }
+
+/* ===================== SCROLL TOP ===================== */
+.scroll-top {
+  position:fixed; bottom:28px; right:28px; width:46px; height:46px;
+  border-radius:50%; background:var(--rose); color:#fff; border:none;
+  font-size:1.2rem; cursor:pointer; z-index:900;
+  box-shadow:0 4px 16px rgba(212,145,139,0.4);
+  opacity:0; transform:translateY(20px); transition:var(--transition);
+  display:flex; align-items:center; justify-content:center;
+}
+.scroll-top.visible { opacity:1; transform:translateY(0); }
+.scroll-top:hover { background:var(--rose-dark); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+  CONFIG: {NAME}, {PHONE}, {HOURS}, {TG_LINK}
+  Edit these values to customize the template.
+  Currency is set in JS CONFIG below.
+============================================================ -->
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">{NAME} <span>✦</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#booking">Book Now</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-close">About</a>
+  <a href="#services" class="mobile-close">Services</a>
+  <a href="#portfolio" class="mobile-close">Portfolio</a>
+  <a href="#pricing" class="mobile-close">Pricing</a>
+  <a href="#booking" class="mobile-close">Book Now</a>
+  <a href="#contact" class="mobile-close">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">✦ Professional Beauty Artist ✦</div>
+    <h1>Hi, I'm <em>{NAME}</em></h1>
+    <p class="subtitle">Makeup Artist & Beauty Specialist</p>
+    <p class="tagline">
+      ကိုယ့်အလှကို ကိုယ်ပဲ ဖန်တီးပါ။ Professional makeup နဲ့ သင့်အထူးအချိန်တွေကို ပိုမိုလှပအောင် ကူညီပေးပါတယ်။
+      Transform your look with professional artistry for weddings, events, and every special moment.
+    </p>
+    <a href="#booking" class="btn-primary">Book a Look</a>
+    <a href="#portfolio" class="btn-outline">View My Work</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img">💄</div>
+      <div class="about-text">
+        <h3>Beauty Is My Passion</h3>
+        <p>
+          I'm {NAME}, a professional makeup artist based in Myanmar with over 5 years of experience
+          creating stunning looks for brides, celebrities, and everyday women who want to feel beautiful.
+        </p>
+        <p>
+          ကျွန်မက professional makeup artist တစ်ယောက်ဖြစ်ပြီး wedding, party, photoshoot တွေမှာ
+          client တွေရဲ့ natural beauty ကို enhance လုပ်ပေးနေပါတယ်။ သင့်အတွက် အကောင်းဆုံး look ကို
+          ရွေးချယ်ပေးပါမယ်။
+        </p>
+        <p>
+          Using premium international and local products, I craft looks that highlight your unique
+          features and make you shine on your special day.
+        </p>
+        <div class="about-stats">
+          <div class="about-stat"><div class="num">500+</div><div class="lbl">Looks Done</div></div>
+          <div class="about-stat"><div class="num">5+</div><div class="lbl">Years Exp</div></div>
+          <div class="about-stat"><div class="num">100%</div><div class="lbl">Satisfaction</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2>My Services</h2>
+      <div class="accent-line"></div>
+      <p>Every look is crafted with love and precision ✦</p>
+    </div>
+    <div class="services-grid" id="servicesGrid">
+      <!-- Rendered by JS from SERVICES array below -->
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2>Portfolio</h2>
+      <div class="accent-line"></div>
+      <p>Before & after transformations — click to view</p>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid">
+      <!-- 6 placeholders rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2>Pricing Packages</h2>
+      <div class="accent-line"></div>
+      <p>Choose the perfect package for your special occasion</p>
+    </div>
+    <div class="pricing-grid" id="pricingGrid">
+      <!-- Rendered by JS from PRICING array -->
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2>What Clients Say</h2>
+      <div class="accent-line"></div>
+      <p>Happiness of my clients is my greatest reward</p>
+    </div>
+    <div class="testimonials-grid" id="testimonialsGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2>Book Your Look</h2>
+      <div class="accent-line"></div>
+      <p>Reserve your appointment today</p>
+    </div>
+    <div class="booking-form" id="bookingForm">
+      <div>
+        <label for="bkName">Your Name</label>
+        <input type="text" id="bkName" placeholder="Enter your name" required>
+      </div>
+      <div>
+        <label for="bkPhone">Phone Number</label>
+        <input type="tel" id="bkPhone" placeholder="09XXXXXXXXX" required>
+      </div>
+      <div>
+        <label for="bkDate">Preferred Date</label>
+        <input type="date" id="bkDate" required>
+      </div>
+      <div>
+        <label for="bkService">Service</label>
+        <select id="bkService" required>
+          <option value="">Select a service</option>
+        </select>
+      </div>
+      <div class="full">
+        <label for="bkNotes">Additional Notes</label>
+        <textarea id="bkNotes" placeholder="Tell me about your event or any special requests..."></textarea>
+      </div>
+      <button type="button" class="btn-primary" id="bkSubmit">Confirm Booking ✦</button>
+    </div>
+    <div class="booking-success" id="bookingSuccess">
+      <h3>Booking Confirmed! ✦</h3>
+      <p>Thank you! Your booking request has been received. I'll confirm via Telegram shortly.</p>
+      <a href="{TG_LINK}" target="_blank" class="btn-primary">Chat on Telegram</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL STRIP -->
+<div class="social-strip">
+  <h3>Follow My Journey ✦</h3>
+  <p>Daily beauty tips, transformations & behind the scenes</p>
+  <div class="social-icons">
+    <a href="#" title="Instagram">📸</a>
+    <a href="#" title="Facebook">👤</a>
+    <a href="#" title="TikTok">🎵</a>
+    <a href="#" title="YouTube">🎬</a>
+    <a href="{TG_LINK}" title="Telegram" target="_blank">✈️</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2>Get In Touch</h2>
+      <div class="accent-line"></div>
+      <p>Ready to glow? Let's talk!</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info-card">
+        <h3>Contact Info</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div><strong>Phone</strong><span>{PHONE}</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✈️</div>
+          <div><strong>Telegram</strong><span><a href="{TG_LINK}" target="_blank" style="color:var(--gold-dark)">{TG_LINK}</a></span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><strong>Address</strong><span>{ADDRESS}</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📸</div>
+          <div><strong>Instagram</strong><span>@{NAME_HANDLE}</span></div>
+        </div>
+      </div>
+      <div class="contact-info-card">
+        <h3>Working Hours</h3>
+        <ul class="hours-list">
+          <li><span class="day">Monday – Friday</span><span>{HOURS}</span></li>
+          <li><span class="day">Saturday</span><span>9:00 AM – 5:00 PM</span></li>
+          <li><span class="day">Sunday</span><span>By Appointment</span></li>
+        </ul>
+        <br>
+        <p style="font-size:0.88rem;color:var(--text-light);">
+          ✦ Walk-ins welcome on weekdays<br>
+          ✦ Home service available for bridal bookings<br>
+          ✦ Booking via Telegram preferred
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>&copy; 2026 {NAME}. All rights reserved. Crafted with 💕 in Myanmar</p>
+  <p style="margin-top:6px;">Powered by <a href="#">Your Brand</a> ✦ Makeup Artist Website</p>
+</footer>
+
+<!-- SCROLL TOP -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <span id="lightboxIcon"></span>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   ★ CONFIGURATION — EDIT HERE ★
+   Change values below to customize for your client.
+================================================================ */
+var CONFIG = {
+  name: "Hein Beauty Studio",
+  title: "Makeup Artist & Beauty Specialist",
+  phone: "+95 9 123 456 789",
+  hours: "9:00 AM – 6:00 PM",
+  address: "No.42, Bogyoke Road, Yangon, Myanmar",
+  telegramLink: "t.me/hein_public_ai_bot",
+  currency: "Ks",
+  igHandle: "heinbeautystudio"
+};
+
+/* ================================================================
+   ★ CUSTOMIZE YOUR SERVICES HERE ★
+   Each item: { emoji, name, price, duration }
+   price is a number — currency symbol auto-added from CONFIG.currency
+================================================================ */
+var SERVICES = [
+  { emoji: "👰", name: "Bridal Makeup", price: 150000, duration: "2–3 hours" },
+  { emoji: "🎉", name: "Party & Event Makeup", price: 80000, duration: "1–1.5 hours" },
+  { emoji: "📸", name: "Photoshoot Glam", price: 95000, duration: "1.5–2 hours" },
+  { emoji: "💇", name: "Hair Styling", price: 60000, duration: "1–2 hours" },
+  { emoji: "✨", name: "Natural Daily Look", price: 50000, duration: "45 min" },
+  { emoji: "💎", name: "Full Bridal Package", price: 250000, duration: "Half day" }
+];
+
+var PRICING = [
+  {
+    name: "Basic Glow",
+    price: 50000,
+    note: "Perfect for casual events",
+    features: ["Natural makeup look", "Lash application", "Basic touchup kit", "1 revision"]
+  },
+  {
+    name: "Bridal Elegance",
+    price: 150000,
+    note: "Most popular for weddings",
+    featured: true,
+    features: ["Full bridal makeup", "Hair styling included", "Touchup kit", "Trial session", "On-site service"]
+  },
+  {
+    name: "Celebrity Luxe",
+    price: 250000,
+    note: "Complete luxury experience",
+    features: ["Full glam makeup", "Premium hair styling", "Premium product lineup", "Personal assistant", "All-day support", "Photoshoot ready"]
+  }
+];
+
+var TESTIMONIALS = [
+  {
+    text: "Hein က ကျွန်မ မင်္ဂလာဆောင်မှာ အရမ်းလှအောင် လုပ်ပေးတယ်! All guests were amazed. Thank you so much!",
+    name: "Thin Thin Aye",
+    role: "Bride — March 2026",
+    avatar: "👰",
+    stars: "★★★★★"
+  },
+  {
+    text: "Professional, punctual, and incredibly talented. The makeup lasted all night through dancing and tears of joy!",
+    name: "May Su",
+    role: "Birthday Celebration",
+    avatar: "🎂",
+    stars: "★★★★★"
+  },
+  {
+    text: "Every photoshoot with Hein's makeup turns out stunning. She knows exactly how to make skin glow on camera.",
+    name: "Khin Myo Chit",
+    role: "Model & Influencer",
+    avatar: "📸",
+    stars: "★★★★★"
+  }
+];
+
+/* ================================================================
+   ★ PLACEHOLDER REPLACEMENTS ★
+================================================================ */
+function applyPlaceholders() {
+  var html = document.documentElement.innerHTML;
+  var replacements = {
+    '{NAME}': CONFIG.name,
+    '{PHONE}': CONFIG.phone,
+    '{HOURS}': CONFIG.hours,
+    '{ADDRESS}': CONFIG.address,
+    '{TG_LINK}': 'https://' + CONFIG.telegramLink,
+    '{NAME_HANDLE}': CONFIG.igHandle
+  };
+  for (var key in replacements) {
+    html = html.split(key).join(replacements[key]);
+  }
+  document.documentElement.innerHTML = html;
+}
+applyPlaceholders();
+
+/* ================================================================
+   ★ RENDER SERVICES ★
+================================================================ */
+function formatPrice(n) {
+  return n.toLocaleString() + ' ' + CONFIG.currency;
+}
+
+(function renderServices() {
+  var grid = document.getElementById('servicesGrid');
+  if (!grid) return;
+  var html = '';
+  SERVICES.forEach(function(s) {
+    html += '<div class="service-card">' +
+      '<div class="service-emoji">' + s.emoji + '</div>' +
+      '<h3>' + s.name + '</h3>' +
+      '<div class="service-duration">' + s.duration + '</div>' +
+      '<div class="service-price">' + formatPrice(s.price) + '</div>' +
+      '<a href="#booking" class="btn-outline">Book Now</a>' +
+    '</div>';
+  });
+  grid.innerHTML = html;
+
+  /* populate booking service dropdown */
+  var sel = document.getElementById('bkService');
+  if (sel) {
+    SERVICES.forEach(function(s) {
+      var opt = document.createElement('option');
+      opt.value = s.name;
+      opt.textContent = s.emoji + ' ' + s.name + ' — ' + formatPrice(s.price);
+      sel.appendChild(opt);
+    });
+  }
+})();
+
+/* ================================================================
+   ★ RENDER PORTFOLIO ★
+================================================================ */
+(function renderPortfolio() {
+  var grid = document.getElementById('portfolioGrid');
+  if (!grid) return;
+  var items = [
+    { icon: '👰', label: 'Bridal Glam' },
+    { icon: '🎉', label: 'Party Look' },
+    { icon: '📸', label: 'Photoshoot' },
+    { icon: '💄', label: 'Natural Beauty' },
+    { icon: '💎', label: 'Full Luxe' },
+    { icon: '💇', label: 'Hair Artistry' }
+  ];
+  var html = '';
+  items.forEach(function(item) {
+    html += '<div class="portfolio-item" data-label="' + item.label + '">' +
+      '<span>' + item.icon + '</span>' +
+      '<div class="caption">' + item.label + '</div>' +
+    '</div>';
+  });
+  grid.innerHTML = html;
+})();
+
+/* ================================================================
+   ★ RENDER PRICING ★
+================================================================ */
+(function renderPricing() {
+  var grid = document.getElementById('pricingGrid');
+  if (!grid) return;
+  var html = '';
+  PRICING.forEach(function(p) {
+    var cls = 'pricing-card' + (p.featured ? ' featured' : '');
+    var feats = p.features.map(function(f) { return '<li>' + f + '</li>'; }).join('');
+    html += '<div class="' + cls + '">' +
+      '<h3>' + p.name + '</h3>' +
+      '<div class="price">' + formatPrice(p.price) + '</div>' +
+      '<div class="price-note">' + p.note + '</div>' +
+      '<ul>' + feats + '</ul>' +
+      '<a href="#booking" class="btn-primary">Book Now</a>' +
+    '</div>';
+  });
+  grid.innerHTML = html;
+})();
+
+/* ================================================================
+   ★ RENDER TESTIMONIALS ★
+================================================================ */
+(function renderTestimonials() {
+  var grid = document.getElementById('testimonialsGrid');
+  if (!grid) return;
+  var html = '';
+  TESTIMONIALS.forEach(function(t) {
+    html += '<div class="testimonial-card">' +
+      '<p>' + t.text + '</p>' +
+      '<div class="testimonial-stars">' + t.stars + '</div>' +
+      '<div class="testimonial-author">' +
+        '<div class="testimonial-avatar">' + t.avatar + '</div>' +
+        '<div><div class="testimonial-name">' + t.name + '</div>' +
+        '<div class="testimonial-role">' + t.role + '</div></div>' +
+      '</div>' +
+    '</div>';
+  });
+  grid.innerHTML = html;
+})();
+
+/* ================================================================
+   ★ MOBILE MENU ★
+================================================================ */
+var hamburger = document.getElementById('hamburger');
+var mobileMenu = document.getElementById('mobileMenu');
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener('click', function() {
+    this.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  var closeLinks = mobileMenu.querySelectorAll('a');
+  closeLinks.forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
+
+/* ================================================================
+   ★ NAVBAR SCROLL EFFECT ★
+================================================================ */
+window.addEventListener('scroll', function() {
+  var nb = document.getElementById('navbar');
+  if (nb) nb.classList.toggle('scrolled', window.scrollY > 40);
+  var st = document.getElementById('scrollTop');
+  if (st) st.classList.toggle('visible', window.scrollY > 400);
+});
+
+var scrollTopBtn = document.getElementById('scrollTop');
+if (scrollTopBtn) {
+  scrollTopBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+/* ================================================================
+   ★ GALLERY LIGHTBOX ★
+================================================================ */
+var lightbox = document.getElementById('lightbox');
+document.getElementById('portfolioGrid').addEventListener('click', function(e) {
+  var item = e.target.closest('.portfolio-item');
+  if (!item) return;
+  var icon = item.querySelector('span').textContent;
+  var label = item.getAttribute('data-label');
+  document.getElementById('lightboxIcon').textContent = icon;
+  document.getElementById('lightboxCaption').textContent = label;
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', function(e) {
+  if (e.target === lightbox) closeLightbox();
+});
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+/* ================================================================
+   ★ BOOKING FORM ★
+================================================================ */
+document.getElementById('bkSubmit').addEventListener('click', function() {
+  var name = document.getElementById('bkName').value.trim();
+  var phone = document.getElementById('bkPhone').value.trim();
+  var date = document.getElementById('bkDate').value;
+  var service = document.getElementById('bkService').value;
+
+  if (!name || !phone || !date || !service) {
+    alert('Please fill in all required fields ✦');
+    return;
+  }
+
+  /* Show success */
+  document.getElementById('bookingForm').style.display = 'none';
+  var suc = document.getElementById('bookingSuccess');
+  suc.classList.add('show');
+
+  /* Optionally open Telegram */
+  var tgUrl = 'https://' + CONFIG.telegramLink +
+    '?text=' + encodeURIComponent(
+      'Hi ' + CONFIG.name + '! I would like to book:\n\n' +
+      'Name: ' + name + '\nPhone: ' + phone +
+      '\nDate: ' + date + '\nService: ' + service +
+      '\n\nThank you!'
+    );
+  setTimeout(function() { window.open(tgUrl, '_blank'); }, 600);
+});
+</script>
+</body>
+</html>

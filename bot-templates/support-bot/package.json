@@ -1,0 +1,27 @@
+{
+  "name": "htech-support-bot",
+  "version": "1.0.0",
+  "description": "H-Tech Studio - Pre-built Telegram Customer Support / FAQ Bot template (grammY + Vercel)",
+  "main": "api/bot.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node api/bot.js"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "grammy",
+    "vercel",
+    "faq",
+    "support",
+    "burmese"
+  ],
+  "author": "H-Tech Studio",
+  "license": "MIT",
+  "dependencies": {
+    "grammy": "^1.34.1"
+  }
+}

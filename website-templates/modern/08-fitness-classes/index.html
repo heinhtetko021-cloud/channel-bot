@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{STUDIO_NAME} — Fitness Classes & Booking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   FITNESS CLASSES — MODERN PREMIUM TEMPLATE
+   ------------------------------------------------------------
+   HOW TO CUSTOMIZE (Developer):
+   1. Edit the TOP JS CONFIG below (studio name, phone, links).
+   2. Edit the CLASSES / SCHEDULE / PRICING arrays (marked CUSTOMIZE HERE).
+   3. Fine-tune the CSS :root variables (colors, radius, shadows).
+   ============================================================ */
+:root{
+  /* ---- BRAND COLORS (edit here) ---- */
+  --violet:#7c3aed;
+  --violet-dark:#5b21b6;
+  --orange:#fb8c2c;
+  --orange-bright:#ff6a3d;
+  --ink:#16121f;
+  --muted:#6b6475;
+  --bg:#ffffff;
+  --soft:#f7f5fb;
+
+  /* ---- GRADIENT ACCENT ---- */
+  --grad:linear-gradient(120deg,#7c3aed 0%,#fb8c2c 55%,#ff6a3d 100%);
+  --grad-soft:linear-gradient(120deg,#6d28d9,#fb923c);
+
+  /* ---- SHARED ---- */
+  --radius:18px;
+  --radius-sm:12px;
+  --shadow:0 16px 40px -18px rgba(91,33,182,.35);
+  --shadow-sm:0 8px 24px -12px rgba(91,33,182,.28);
+  --font:'Montserrat',system-ui,-apple-system,Segoe UI,sans-serif;
+  --maxw:1180px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+section{padding:84px 0}
+
+/* ================= NAV ================= */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(124,58,237,.12);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.4px}
+.logo-badge{
+  width:38px;height:38px;border-radius:11px;background:var(--grad);
+  display:grid;place-items:center;color:#fff;font-size:18px;font-weight:900;
+  transform:skew(-8deg);
+}
+.nav-links{display:flex;align-items:center;gap:28px;font-weight:600;font-size:14px}
+.nav-links a{color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--violet)}
+.hamburger{display:none;background:none;border:none;font-size:26px;cursor:pointer;color:var(--ink)}
+
+/* ================= BUTTONS ================= */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font);font-weight:700;font-size:14px;
+  padding:13px 26px;border-radius:12px;border:none;cursor:pointer;
+  transition:transform .18s,box-shadow .18s;white-space:nowrap;
+}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:var(--shadow)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 45px -16px rgba(251,140,44,.6)}
+.btn-ghost{background:var(--soft);color:var(--violet)}
+.btn-ghost:hover{background:#eee9fb;transform:translateY(-2px)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{transform:translateY(-2px)}
+.btn-block{width:100%;justify-content:center}
+
+/* ================= HERO ================= */
+.hero{
+  position:relative;padding:120px 0 140px;overflow:hidden;
+  background:
+    radial-gradient(900px 500px at 85% 0%,rgba(124,58,237,.12),transparent 60%),
+    radial-gradient(700px 500px at 0% 100%,rgba(251,140,44,.14),transparent 55%),
+    var(--bg);
+}
+.hero::before,.hero::after{
+  content:"";position:absolute;
+  background:var(--grad);opacity:.9;
+}
+.hero::before{
+  width:420px;height:420px;top:-140px;right:-120px;
+  clip-path:polygon(25% 0,100% 0,100% 40%,0 100%,0 55%);
+}
+.hero::after{
+  width:380px;height:380px;bottom:-150px;left:-110px;
+  clip-path:polygon(0 0,100% 30%,100% 100%,0 65%);
+  opacity:.5;
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center;position:relative;z-index:2}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid rgba(124,58,237,.2);
+  color:var(--violet);font-weight:700;font-size:12px;letter-spacing:1px;
+  padding:8px 16px;border-radius:100px;text-transform:uppercase;margin-bottom:22px;
+}
+.hero h1{font-size:clamp(38px,5.5vw,64px);font-weight:900;line-height:1.05;letter-spacing:-1.5px}
+.hero h1 .hl{
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.tagline{color:var(--muted);font-size:17px;margin:22px 0 32px;max-width:520px}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:40px;margin-top:46px;flex-wrap:wrap}
+.stat b{font-size:26px;font-weight:800;display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat span{color:var(--muted);font-size:13px;font-weight:600}
+.hero-card{
+  background:#fff;border:1px solid rgba(124,58,237,.14);
+  border-radius:24px;padding:30px;box-shadow:var(--shadow);transform:rotate(2deg);
+}
+.hero-card::before{
+  content:"";position:absolute;inset:-16px;border-radius:28px;
+  background:var(--grad);z-index:-1;opacity:.18;transform:rotate(-3deg);
+}
+.hero-card{position:relative}
+.hc-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.hc-top .ico{width:52px;height:52px;border-radius:14px;background:var(--grad-soft);display:grid;place-items:center;font-size:24px}
+.hc-top b{font-size:16px;display:block}
+.hc-top small{color:var(--muted)}
+.hc-list li{display:flex;gap:12px;padding:11px 0;border-top:1px dashed rgba(124,58,237,.2);font-size:14px;font-weight:500}
+.hc-list .day{color:var(--violet);font-weight:700;min-width:70px}
+
+/* ================= SECTION HEADERS ================= */
+.sec-head{text-align:center;max-width:640px;margin:0 auto 54px}
+.sec-tag{
+  display:inline-block;background:rgba(124,58,237,.1);color:var(--violet);
+  font-weight:800;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:7px 16px;border-radius:100px;margin-bottom:16px;
+}
+.sec-head h2{font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-1px;line-height:1.1}
+.sec-head p{color:var(--muted);margin-top:14px;font-size:16px}
+
+/* ================= CLASSES ================= */
+.classes{background:var(--soft)}
+.class-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.class-card{
+  background:#fff;border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm);
+  display:flex;flex-direction:column;gap:14px;border:1px solid rgba(124,58,237,.06);
+  transition:transform .22s,box-shadow .22s;position:relative;overflow:hidden;
+}
+.class-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.class-emoji{
+  width:58px;height:58px;border-radius:14px;background:var(--soft);
+  display:grid;place-items:center;font-size:28px;transform:skew(-6deg);
+}
+.class-card h3{font-size:20px;font-weight:800;letter-spacing:-.4px}
+.cc-meta{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;font-weight:600;color:var(--muted)}
+.chip{background:var(--soft);padding:6px 11px;border-radius:100px;display:inline-flex;align-items:center;gap:5px}
+.chip.orange{background:rgba(251,140,44,.14);color:#c2560a}
+.chip.violet{background:rgba(124,58,237,.12);color:var(--violet)}
+.chip.green{background:rgba(34,197,94,.14);color:#15803d}
+.chip.red{background:rgba(239,68,68,.12);color:#b91c1c}
+.chip .bar{font-weight:800}
+.spots-bar{height:6px;background:var(--soft);border-radius:100px;overflow:hidden}
+.spots-fill{height:100%;background:var(--grad);border-radius:100px}
+.class-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
+.spots-txt{font-size:13px;font-weight:700;color:var(--muted)}
+.spots-txt.full{color:#dc2626}
+.booked-tag{color:#16a34a;font-weight:800;font-size:13px}
+
+/* ================= TRAINERS ================= */
+.trainers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.trainer{
+  text-align:center;background:#fff;border-radius:var(--radius);
+  padding:28px 20px;box-shadow:var(--shadow-sm);border:1px solid rgba(124,58,237,.06);
+}
+.trainer-ava{
+  width:84px;height:84px;margin:0 auto 16px;border-radius:50%;
+  background:var(--grad);display:grid;place-items:center;
+  font-size:34px;color:#fff;font-weight:800;box-shadow:var(--shadow-sm);
+}
+.trainer h3{font-size:16px;font-weight:800}
+.trainer .role{color:var(--orange-bright);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin:4px 0 10px}
+.trainer p{color:var(--muted);font-size:13px}
+.trainer .tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.trainer .tags span{background:var(--soft);font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;color:var(--violet)}
+
+/* ================= SCHEDULE ================= */
+.sched-bg{background:linear-gradient(160deg,#1b1229,#2a1740);color:#fff}
+.day-filter{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:36px}
+.day-btn{
+  background:rgba(255,255,255,.08);color:#d9d2e8;border:1px solid rgba(255,255,255,.12);
+  font-family:var(--font);font-weight:700;font-size:13px;padding:10px 18px;border-radius:100px;cursor:pointer;transition:.2s;
+}
+.day-btn:hover{background:rgba(255,255,255,.16)}
+.day-btn.active{background:var(--grad);color:#fff;border-color:transparent}
+.sched-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.sched-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:20px;backdrop-filter:blur(6px)}
+.sched-time{font-size:22px;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sched-card h3{font-size:17px;font-weight:800;margin:6px 0 4px}
+.sched-card p{color:#bcb0d1;font-size:13px}
+.sched-card .s-trainer{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:13px;font-weight:600;color:#e6defa}
+.sched-card .s-ava{width:32px;height:32px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:13px}
+.sched-card .btn{margin-top:16px;width:100%;justify-content:center}
+.empty-msg{text-align:center;color:#bcaadf;font-weight:600;padding:30px;display:none}
+
+/* ================= PRICING ================= */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch}
+.price-card{
+  background:#fff;border-radius:var(--radius);padding:34px 28px;box-shadow:var(--shadow-sm);
+  border:1px solid rgba(124,58,237,.08);display:flex;flex-direction:column;position:relative;transition:transform .22s,box-shadow .22s;
+}
+.price-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.price-card.popular{border:2px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--grad) border-box;box-shadow:var(--shadow)}
+.pop-badge{
+  position:absolute;top:18px;right:18px;background:var(--grad);color:#fff;
+  font-size:10px;font-weight:800;letter-spacing:1px;padding:5px 12px;border-radius:100px;text-transform:uppercase;
+}
+.price-card .plan{font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;font-size:13px}
+.price-card .amount{font-size:44px;font-weight:900;letter-spacing:-1px;margin:12px 0 4px}
+.price-card .amount span{font-size:16px;font-weight:700;color:var(--muted)}
+.price-fill{color:var(--violet);font-size:13px;font-weight:600;margin-bottom:18px}
+.price-feats{display:flex;flex-direction:column;gap:12px;margin:20px 0 28px;font-size:14px}
+.price-feats li{display:flex;gap:10px;align-items:center}
+.price-feats .yes{color:#16a34a;font-weight:800}
+.price-feats .no{color:#d1cade;font-weight:800}
+.price-card .btn{margin-top:auto}
+
+/* ================= TESTIMONIALS ================= */
+.testimonials{background:var(--soft)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.testi{
+  background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm);
+  display:flex;flex-direction:column;gap:16px;
+}
+.stars{color:var(--orange-bright);letter-spacing:2px;font-size:16px}
+.testi p{font-size:14.5px;color:var(--ink);font-style:italic}
+.testi-foot{display:flex;align-items:center;gap:12px;margin-top:auto}
+.testi-ava{width:46px;height:46px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800}
+.testi-foot b{font-size:14px;display:block}
+.testi-foot small{color:var(--muted);font-size:12px}
+
+/* ================= FORM / CONTACT ================= */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+.form-card{background:#fff;border-radius:var(--radius);padding:34px;box-shadow:var(--shadow);border:1px solid rgba(124,58,237,.08)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;font-weight:700;margin-bottom:8px;color:var(--violet-dark)}
+.field input,.field select,.field textarea{
+  width:100%;font-family:var(--font);font-size:14px;padding:13px 16px;
+  border:1.5px solid #e5e0f0;border-radius:12px;background:var(--soft);
+  outline:none;transition:.2s;color:var(--ink);
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--violet);background:#fff;box-shadow:0 0 0 4px rgba(124,58,237,.1)}
+.form-success{
+  display:none;margin-top:18px;padding:16px;border-radius:12px;
+  background:rgba(34,197,94,.12);color:#15803d;font-weight:700;font-size:14px;text-align:center;
+}
+.info-card{display:flex;flex-direction:column;gap:18px}
+.info-item{display:flex;gap:16px;align-items:flex-start;background:#fff;padding:20px;border-radius:var(--radius-sm);box-shadow:var(--shadow-sm)}
+.info-ico{width:46px;height:46px;border-radius:12px;background:var(--grad-soft);display:grid;place-items:center;color:#fff;font-size:20px;flex-shrink:0}
+.info-item b{font-size:15px;display:block;margin-bottom:3px}
+.info-item p{color:var(--muted);font-size:14px}
+.map{
+  margin-top:18px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);
+  border:1px solid rgba(124,58,237,.1);
+}
+.map iframe{width:100%;height:260px;border:0;display:block;filter:saturate(1.1)}
+
+/* ================= FOOTER ================= */
+footer{background:var(--ink);color:#cbc3da;padding:50px 0 34px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:34px}
+.foot-grid .logo{color:#fff}
+.foot-grid p{font-size:14px;margin-top:14px;line-height:1.7}
+.foot-grid h4{color:#fff;font-size:15px;margin-bottom:16px}
+.foot-grid ul{display:flex;flex-direction:column;gap:10px;font-size:14px}
+.foot-grid ul a:hover{color:#fff}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;text-align:center;font-size:13px;color:#8f86a0}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:992px){
+  .class-grid,.testi-grid{grid-template-columns:repeat(2,1fr)}
+  .trainers-grid{grid-template-columns:repeat(2,1fr)}
+  .pricing-grid{grid-template-columns:repeat(2,1fr)}
+  .sched-grid{grid-template-columns:repeat(2,1fr)}
+  .contact-wrap{grid-template-columns:1fr;gap:40px}
+}
+@media(max-width:768px){
+  section{padding:64px 0}
+  .nav-links{
+    display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;
+    background:#fff;padding:20px 24px;gap:18px;border-bottom:1px solid rgba(124,58,237,.12);
+    box-shadow:var(--shadow);
+  }
+  .nav-links.open{display:flex}
+  .hamburger{display:block}
+  .hero-grid{grid-template-columns:1fr}
+  .hero{padding:80px 0 100px}
+  .class-grid,.testi-grid,.pricing-grid,.sched-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr;gap:28px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#hero" class="logo"><span class="logo-badge">F</span>{STUDIO_NAME}</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#classes">Classes</a></li>
+      <li><a href="#trainers">Trainers</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#booking" class="btn btn-primary" style="padding:10px 20px">Book Class</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">&#9889; Train Hard. Sweat More.</span>
+      <h1>Shape Your Body,<br>Elevate Your <span class="hl">Energy</span></h1>
+      <p class="tagline">Professional fitness classes for every level — from HIIT and strength to yoga and dance. Book your spot in one tap and level up your routine. / မင်းရဲ့ စွမ်းအင် ကို အဆင့်မြှင့်လိုက်ပါ။</p>
+      <div class="hero-actions">
+        <a href="#booking" class="btn btn-primary">Book a Class &#10148;</a>
+        <a href="#schedule" class="btn btn-ghost">View Schedule</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>20+</b><span>Weekly Classes</span></div>
+        <div class="stat"><b>6</b><span>Pro Trainers</span></div>
+        <div class="stat"><b>2K+</b><span>Happy Members</span></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-top">
+        <span class="ico">&#128170;</span>
+        <div><b>Today's Top Classes</b><small>Book before spots fill up!</small></div>
+      </div>
+      <ul class="hc-list" id="heroTodayList"></ul>
+    </div>
+  </div>
+</header>
+
+<!-- ================= CLASSES ================= -->
+<section id="classes">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-tag">Class Catalog</span>
+      <h2>Find Your Perfect Class</h2>
+      <p>Browse our full catalog. Each class shows level, intensity, and real-time spots left. / အတန်းများကို ကြည့်ပြီး သင့်အတွက် ရွေးချယ်လိုက်ပါ။</p>
+    </div>
+    <div class="class-grid" id="classGrid"></div>
+  </div>
+</section>
+
+<!-- ================= TRAINERS ================= -->
+<section id="trainers" style="background:var(--soft)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-tag">Our Trainers</span>
+      <h2>Meet The Experts</h2>
+      <p>Certified, motivated, and ready to push you further. / လက်မှတ်ရ နည်းပြများနဲ့ အတူ လေ့ကျင့်လိုက်ပါ။</p>
+    </div>
+    <div class="trainers-grid" id="trainersGrid"></div>
+  </div>
+</section>
+
+<!-- ================= SCHEDULE ================= -->
+<section id="schedule" class="sched-bg">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-tag" style="background:rgba(251,140,44,.16);color:var(--orange-bright)">Weekly Timetable</span>
+      <h2>Class Schedule</h2>
+      <p style="color:#bcb0d1">Pick your day and find your slot. Weekly grid updates live. / သင့်အတွက် အဆင်ပြေတဲ့ ရက်ကို ရွေးလိုက်ပါ။</p>
+    </div>
+    <div class="day-filter" id="dayFilter"></div>
+    <div class="sched-grid" id="schedGrid"></div>
+    <p class="empty-msg" id="emptyMsg">No classes scheduled for this day yet. / ဒီရက်အတွက် အတန်း မရှိသေးပါ။</p>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section id="pricing">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-tag">Membership</span>
+      <h2>Simple, Flexible Pricing</h2>
+      <p>No hidden fees. Cancel anytime. Start today. / ဝှက်ထားတဲ့ အခကြေးငွေ မရှိပါ။</p>
+    </div>
+    <div class="pricing-grid" id="pricingGrid"></div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section id="testimonials" class="testimonials">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-tag">Testimonials</span>
+      <h2>What Members Say</h2>
+      <p>Real results from real members. / အဖွဲ့ဝင်များရဲ့ စကားသံများ။</p>
+    </div>
+    <div class="testi-grid" id="testiGrid"></div>
+  </div>
+</section>
+
+<!-- ================= BOOKING + CONTACT ================= -->
+<section id="booking">
+  <div class="container contact-wrap">
+    <div>
+      <span class="sec-tag" style="margin-bottom:12px">Reserve Your Spot</span>
+      <h2 style="font-size:clamp(26px,3.6vw,36px);font-weight:900;letter-spacing:-1px;line-height:1.15">Book a Class<br>in Under a Minute</h2>
+      <p style="color:var(--muted);margin:16px 0 32px;max-width:440px">Fill in your details, confirm, and we'll hold your spot. A confirmation is sent via Telegram. / သင့်ရဲ့ နေရာကို ကြိုတင်စာရင်းသွင်းလိုက်ပါ။</p>
+      <form class="form-card" id="bookingForm">
+        <div class="form-row">
+          <div class="field"><label for="bName">Full Name / နာမည်</label>
+            <input id="bName" type="text" placeholder="e.g. Aung Ko" required></div>
+          <div class="field"><label for="bPhone">Phone / ဖုန်း</label>
+            <input id="bPhone" type="tel" placeholder="09-XXX-XXX" required></div>
+        </div>
+        <div class="field"><label for="bClass">Choose Class / အတန်းရွေးပါ</label>
+          <select id="bClass" required></select></div>
+        <div class="field"><label for="bMsg">Notes (optional)</label>
+          <textarea id="bMsg" rows="3" placeholder="Any questions or requests..."></textarea></div>
+        <button type="submit" class="btn btn-primary btn-block">Confirm Booking &#10148;</button>
+        <div class="form-success" id="formSuccess">&#10003; Booking received! We'll confirm via Telegram shortly. / စာရင်းသွင်းပြီးပါပြီ။</div>
+      </form>
+    </div>
+    <div class="info-card">
+      <div class="info-item">
+        <span class="info-ico">&#128205;</span>
+        <div><b>Location / တည်နေရာ</b><p id="infoAddress"></p></div>
+      </div>
+      <div class="info-item">
+        <span class="info-ico">&#128222;</span>
+        <div><b>Phone</b><p id="infoPhone"></p></div>
+      </div>
+      <div class="info-item">
+        <span class="info-ico">&#128172;</span>
+        <div><b>Telegram</b><p id="infoTg"></p></div>
+      </div>
+      <div class="map">
+        <iframe src="https://maps.google.com/maps?q=Yangon%2C%20Myanmar&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="#hero" class="logo"><span class="logo-badge">F</span>{STUDIO_NAME}</a>
+        <p>Modern fitness classes, expert trainers, and a community that pushes you forward. Join us today. အသင်းဝင်ပြီး စတင်လိုက်ပါ။</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#classes">Classes</a></li>
+          <li><a href="#trainers">Trainers</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li id="footAddr"></li>
+          <li id="footPhone"></li>
+          <li><a id="footTg" href="#" target="_blank" rel="noopener">Telegram Chat</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">&copy; <span id="year"></span> {STUDIO_NAME}. All rights reserved. Crafted for champions.</div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   TOP JS CONFIG — CUSTOMIZE HERE
+   ------------------------------------------------------------
+   Edit studio name, contact details, and your Telegram bot link.
+   {STUDIO_NAME}, {PHONE}, {TG_LINK} placeholders are replaced here.
+   ============================================================ */
+const CONFIG = {
+  studioName: "{STUDIO_NAME}",
+  phone: "{PHONE}",
+  address: "No. 145, Mahabandoola Road, Yangon, Myanmar",
+  telegramLink: "{TG_LINK}", // e.g. "t.me/hein_public_ai_bot"
+  currency: "Ks"
+};
+
+/* ---- CLASSES — CUSTOMIZE HERE ------------------------------
+   id, name, emoji, time, duration, trainer, level, intensity,
+   spots (initial count). Booking decrements spots in-memory.  */
+const CLASSES = [
+  {id:1, name:"HIIT Blast",     emoji:"🔥", time:"6:30 AM", duration:"45 min", trainer:"Ma Ma",   level:"Advanced",   intensity:5, spots:8},
+  {id:2, name:"Power Yoga",     emoji:"🧘", time:"8:00 AM", duration:"60 min", trainer:"Ko Sai",  level:"All Levels", intensity:2, spots:15},
+  {id:3, name:"Strength Gym",   emoji:"🏋️", time:"10:00 AM",duration:"60 min", trainer:"U Tin",   level:"Intermediate",intensity:4, spots:6},
+  {id:4, name:"Zumba Dance",    emoji:"💃", time:"1:00 PM", duration:"50 min", trainer:"Ma Su",   level:"Beginner",   intensity:3, spots:12},
+  {id:5, name:"Boxing Fitness", emoji:"🥊", time:"4:00 PM", duration:"45 min", trainer:"Ko Hein", level:"Intermediate",intensity:5, spots:4},
+  {id:6, name:"Core & Pilates", emoji:"🧘‍♂️", time:"6:00 PM", duration:"50 min", trainer:"Ma Ma",   level:"All Levels", intensity:3, spots:10},
+  {id:7, name:"Cardio Burn",    emoji:"🏃", time:"7:00 PM", duration:"40 min", trainer:"U Tin",   level:"Advanced",   intensity:4, spots:5},
+  {id:8, name:"Yoga Flow Lite", emoji:"🌿", time:"9:00 AM", duration:"45 min", trainer:"Ma Su",   level:"Beginner",   intensity:2, spots:18},
+  {id:9, name:"Full Body Bootcamp", emoji:"💪",time:"5:30 PM",duration:"70 min", trainer:"Ko Hein",level:"Advanced",   intensity:5, spots:3}
+];
+
+/* ---- TRAINERS — CUSTOMIZE HERE ---------------------------- */
+const TRAINERS = [
+  {name:"Ko Hein", role:"Head Trainer",    emoji:"🥊", bio:"8 years of boxing & HIIT coaching.", tags:["HIIT","Boxing"]},
+  {name:"Ma Ma",   role:"Yoga Instructor", emoji:"🧘", bio:"Certified Vinyasa yoga teacher.",      tags:["Yoga","Core"]},
+  {name:"U Tin",   role:"Strength Coach",  emoji:"🏋️", bio:"Powerlifting & bodybuilding expert.",  tags:["Strength","Cardio"]},
+  {name:"Ma Su",   role:"Dance & Zumba",   emoji:"💃", bio:"Energetic dance fitness specialist.",  tags:["Zumba","Mobility"]}
+];
+
+/* ---- SCHEDULE — CUSTOMIZE HERE -----------------------------
+   day: "Mon","Tue"...  name must match a CLASSES name.       */
+const SCHEDULE = [
+  {day:"Mon", name:"HIIT Blast",     time:"6:30 AM", trainer:"Ko Hein"},
+  {day:"Mon", name:"Power Yoga",     time:"8:00 AM", trainer:"Ma Ma"},
+  {day:"Mon", name:"Zumba Dance",    time:"1:00 PM", trainer:"Ma Su"},
+  {day:"Tue", name:"Strength Gym",   time:"10:00 AM",trainer:"U Tin"},
+  {day:"Tue", name:"Cardio Burn",    time:"7:00 PM", trainer:"U Tin"},
+  {day:"Tue", name:"Yoga Flow Lite", time:"9:00 AM", trainer:"Ma Su"},
+  {day:"Wed", name:"Boxing Fitness", time:"4:00 PM", trainer:"Ko Hein"},
+  {day:"Wed", name:"Core & Pilates", time:"6:00 PM", trainer:"Ma Ma"},
+  {day:"Wed", name:"Power Yoga",     time:"8:00 AM", trainer:"Ma Ma"},
+  {day:"Thu", name:"Full Body Bootcamp",time:"5:30 PM",trainer:"Ko Hein"},
+  {day:"Thu", name:"Zumba Dance",    time:"1:00 PM", trainer:"Ma Su"},
+  {day:"Thu", name:"Strength Gym",   time:"10:00 AM",trainer:"U Tin"},
+  {day:"Fri", name:"HIIT Blast",     time:"6:30 AM", trainer:"Ko Hein"},
+  {day:"Fri", name:"Cardio Burn",    time:"7:00 PM", trainer:"U Tin"},
+  {day:"Fri", name:"Yoga Flow Lite", time:"9:00 AM", trainer:"Ma Su"},
+  {day:"Sat", name:"Boxing Fitness", time:"4:00 PM", trainer:"Ko Hein"},
+  {day:"Sat", name:"Full Body Bootcamp",time:"9:00 AM",trainer:"Ko Hein"},
+  {day:"Sat", name:"Zumba Dance",    time:"1:00 PM", trainer:"Ma Su"},
+  {day:"Sun", name:"Power Yoga",     time:"8:00 AM", trainer:"Ma Ma"},
+  {day:"Sun", name:"Core & Pilates", time:"6:00 PM", trainer:"Ma Ma"}
+];
+
+/* ---- PRICING — CUSTOMIZE HERE ------------------------------ */
+const PRICING = [
+  {plan:"Single Class",  price:5000,  unit:"/ class", popular:false, desc:"Perfect for trying a session.",
+   features:[{txt:"1 class pass",                ok:true},
+             {txt:"All class types",             ok:true},
+             {txt:"Equipment access",            ok:true},
+             {txt:"Trainer advice",              ok:false},
+             {txt:"Free shower & storage",       ok:false}]},
+  {plan:"Monthly Pass",  price:45000, unit:"/ month", popular:true,  desc:"Most popular. Unlimited energy.",
+   features:[{txt:"Unlimited classes",           ok:true},
+             {txt:"All class types",             ok:true},
+             {txt:"Equipment access",            ok:true},
+             {txt:"Trainer advice",              ok:true},
+             {txt:"Free shower & storage",       ok:false}]},
+  {plan:"Annual Plan",   price:480000,unit:"/ year", popular:false, desc:"Best value for hardcore athletes.",
+   features:[{txt:"Unlimited classes",           ok:true},
+             {txt:"All class types",             ok:true},
+             {txt:"Equipment access",            ok:true},
+             {txt:"Trainer advice",              ok:true},
+             {txt:"Free shower & storage",       ok:true}]}
+];
+
+/* ---- TESTIMONIALS — CUSTOMIZE HERE ------------------------- */
+const TESTIMONIALS = [
+  {name:"Aung Ko",  role:"Member · 1 year",  emoji:"🏃", text:"Lost 8kg in 4 months with HIIT Bootcamp. Trainers really care about your form and progress. Highly recommended!"},
+  {name:"Thiri",    role:"Member · 6 months",emoji:"🧘", text:"The yoga classes are a lifesaver. I feel calmer, stronger and more flexible. Best decision I made this year."},
+  {name:"Kaung Myat",role:"Member · 2 years",emoji:"💪", text:"Boxing Fitness is intense but incredibly rewarding. The energy here is unmatched. Worth every kyat!"}
+];
+
+const DAYS = ["All","Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+
+/* ================= RENDER LOGIC ================= */
+const classById = id => CLASSES.find(c => c.id === id);
+
+function spotsColor(c){
+  if(c.spots <= 0) return "red";
+  if(c.spots <= 5) return "orange";
+  return "green";
+}
+
+function renderClasses(){
+  const grid = document.getElementById("classGrid");
+  grid.innerHTML = CLASSES.map(c => {
+    const pct = Math.max(0, Math.min(100, (c.spots / 16) * 100));
+    const full = c.spots <= 0;
+    return `
+    <div class="class-card">
+      <div class="class-emoji">${c.emoji}</div>
+      <h3>${c.name}</h3>
+      <div class="cc-meta">
+        <span class="chip">🕐 ${c.time} · ${c.duration}</span>
+        <span class="chip violet">👤 ${c.trainer}</span>
+      </div>
+      <div class="cc-meta">
+        <span class="chip violet">Level: ${c.level}</span>
+        <span class="chip orange">Intensity: ${"★".repeat(c.intensity)}${"☆".repeat(5-c.intensity)}</span>
+      </div>
+      <div class="spots-bar"><div class="spots-fill" style="width:${full?0:pct}%"></div></div>
+      <div class="class-foot">
+        ${full ? `<span class="spots-txt full">Fully Booked</span>` : `<span class="spots-txt">${c.spots} spots left / နေရာ ${c.spots}</span>`}
+        <button class="btn btn-ghost" onclick="bookClass(${c.id}, this)">Book</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderTrainers(){
+  const grid = document.getElementById("trainersGrid");
+  grid.innerHTML = TRAINERS.map(t => `
+    <div class="trainer">
+      <div class="trainer-ava">${t.emoji}</div>
+      <h3>${t.name}</h3>
+      <div class="role">${t.role}</div>
+      <p>${t.bio}</p>
+      <div class="tags">${t.tags.map(x=>`<span>${x}</span>`).join("")}</div>
+    </div>`).join("");
+}
+
+function renderDayFilter(){
+  const filter = document.getElementById("dayFilter");
+  filter.innerHTML = DAYS.map((d,i) =>
+    `<button class="day-btn ${i===0?'active':''}" data-day="${d}" onclick="filterDay('${d}', this)">${d}</button>`
+  ).join("");
+}
+
+function renderSchedule(day = "All"){
+  const grid = document.getElementById("schedGrid");
+  const empty = document.getElementById("emptyMsg");
+  const items = day === "All" ? SCHEDULE : SCHEDULE.filter(s => s.day === day);
+  empty.style.display = items.length ? "none" : "block";
+  grid.innerHTML = items.map(s => {
+    const c = classById(s.id) || CLASSES.find(x => x.name === s.name);
+    const emoji = c ? c.emoji : "🏋️";
+    return `
+    <div class="sched-card">
+      <div class="sched-time">${s.time}</div>
+      <h3>${emoji} ${s.name}</h3>
+      <p>${s.day} · ${c ? c.duration : "60 min"} minute class</p>
+      <div class="s-trainer"><span class="s-ava">${(s.trainer||"").charAt(0)}</span> ${s.trainer || ""}</div>
+      <button class="btn btn-primary" onclick="bookClass(${c?c.id:1}, null, true)">Book</button>
+    </div>`;
+  }).join("");
+}
+
+function filterDay(day, btn){
+  document.querySelectorAll(".day-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderSchedule(day);
+}
+
+function renderPricing(){
+  const grid = document.getElementById("pricingGrid");
+  const cur = CONFIG.currency;
+  grid.innerHTML = PRICING.map(p => `
+    <div class="price-card ${p.popular?'popular':''}">
+      ${p.popular?'<span class="pop-badge">Popular</span>':''}
+      <div class="plan">${p.plan}</div>
+      <div class="amount">${p.price.toLocaleString()} <span>${cur}${p.unit}</span></div>
+      <div class="price-fill">${p.desc}</div>
+      <ul class="price-feats">
+        ${p.features.map(f => `<li><span class="${f.ok?'yes':'no'}">${f.ok?'✔':'✘'}</span> ${f.txt}</li>`).join("")}
+      </ul>
+      <button class="btn ${p.popular?'btn-primary':'btn-dark'} btn-block" onclick="scrollToBooking('${p.plan}')">Choose ${p.plan}</button>
+    </div>`).join("");
+}
+
+function renderTestimonials(){
+  const grid = document.getElementById("testiGrid");
+  grid.innerHTML = TESTIMONIALS.map(t => `
+    <div class="testi">
+      <div class="stars">★★★★★</div>
+      <p>"${t.text}"</p>
+      <div class="testi-foot">
+        <span class="testi-ava">${t.emoji}</span>
+        <div><b>${t.name}</b><small>${t.role}</small></div>
+      </div>
+    </div>`).join("");
+}
+
+function renderHeroToday(){
+  const list = document.getElementById("heroTodayList");
+  const today = SCHEDULE.slice(0,3);
+  list.innerHTML = today.map(s => {
+    const c = classById(s.id) || CLASSES.find(x => x.name === s.name);
+    return `<li><span class="day">${s.day}</span> ${s.time} — ${s.name} <span class="chip green">${c?c.spots:0} left</span></li>`;
+  }).join("");
+}
+
+function renderFormSelect(){
+  const sel = document.getElementById("bClass");
+  sel.innerHTML = CLASSES.map(c => `<option value="${c.name}">${c.name} — ${c.time} (${c.spots} left)</option>`).join("");
+}
+
+function renderContact(){
+  document.getElementById("infoAddress").textContent = CONFIG.address;
+  document.getElementById("infoPhone").textContent = CONFIG.phone;
+  document.getElementById("infoTg").textContent = CONFIG.telegramLink.replace("t.me/","@");
+  document.getElementById("footAddr").textContent = CONFIG.address;
+  document.getElementById("footPhone").textContent = CONFIG.phone;
+  document.getElementById("footTg").href = "https://" + CONFIG.telegramLink;
+  document.getElementById("footTg").textContent = "Telegram: @" + CONFIG.telegramLink.replace("t.me/","");
+}
+
+/* ================= BOOKING (in-memory spot decrement) ================= */
+function bookClass(id, btn, fromSchedule){
+  const c = classById(id);
+  if(!c) return;
+  if(c.spots <= 0){
+    alert("Sorry! This class is fully booked. / အတန်း ပြည့်သွားပါပြီ။");
+    return;
+  }
+  if(!confirm(`Book a spot for ${c.name} at ${c.time}? / ${c.name} အတန်းကို စာရင်းသွင်းမလား?`)) return;
+  c.spots--;
+  renderClasses();
+  renderSchedule(document.querySelector(".day-btn.active")?.dataset.day || "All");
+  renderFormSelect();
+  renderHeroToday();
+  if(btn) btn.blur();
+
+  const tgMsg = encodeURIComponent(
+    `🔥 New Booking%0AStudio: ${CONFIG.studioName}%0AClass: ${c.name}%0ATime: ${c.time}%0ATrainer: ${c.trainer}%0ASpots left: ${c.spots}`
+  );
+  window.open(`https://${CONFIG.telegramLink}?text=${tgMsg}`, "_blank");
+  alert(`Spot booked for ${c.name}! 🎉 / စာရင်းသွင်းပြီးပါပြီ။`);
+}
+
+function scrollToBooking(plan){
+  const sel = document.getElementById("bClass");
+  sel.value = sel.options[0].value;
+  document.getElementById("booking").scrollIntoView({behavior:"smooth"});
+}
+
+/* ================= FORM SUBMIT ================= */
+document.getElementById("bookingForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const name = document.getElementById("bName").value.trim();
+  const phone = document.getElementById("bPhone").value.trim();
+  const cls = document.getElementById("bClass").value;
+  const msg = document.getElementById("bMsg").value.trim();
+  const c = CLASSES.find(x => x.name === cls);
+
+  if(c && c.spots > 0){
+    c.spots--;
+    renderClasses(); renderSchedule(); renderFormSelect(); renderHeroToday();
+  }
+
+  const tgMsg = encodeURIComponent(
+    `📅 Booking Request%0A%0A👤 Name: ${name}%0A📞 Phone: ${phone}%0A🏋️ Class: ${cls}%0A📝 Notes: ${msg || "—"}%0A%0A📍 ${CONFIG.studioName}`
+  );
+  window.open(`https://${CONFIG.telegramLink}?text=${tgMsg}`, "_blank");
+
+  const s = document.getElementById("formSuccess");
+  s.style.display = "block";
+  this.reset();
+  renderFormSelect();
+  setTimeout(() => s.style.display = "none", 5000);
+});
+
+/* ================= NAV + INIT ================= */
+document.getElementById("hamburger").addEventListener("click", function(){
+  document.getElementById("navLinks").classList.toggle("open");
+});
+document.querySelectorAll("#navLinks a").forEach(a => a.addEventListener("click", () => {
+  document.getElementById("navLinks").classList.remove("open");
+}));
+document.title = `${CONFIG.studioName} — Fitness Classes & Booking`;
+document.getElementById("year").textContent = new Date().getFullYear();
+
+renderClasses();
+renderTrainers();
+renderDayFilter();
+renderSchedule();
+renderPricing();
+renderTestimonials();
+renderHeroToday();
+renderFormSelect();
+renderContact();
+</script>
+</body>
+</html>

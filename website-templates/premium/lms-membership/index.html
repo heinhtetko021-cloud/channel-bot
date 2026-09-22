@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{SCHOOL_NAME} — Premium Online Courses & Memberships</title>
+<!-- ============================================================
+  PREMIUM LMS / ONLINE COURSE MEMBERSHIP TEMPLATE
+  Made by H-Tech Studio (Myanmar Freelance Web Developer)
+  ─────────────────────────────────────────────────────────────
+  HOW TO CUSTOMIZE FOR YOUR CLIENT:
+  1. SCROLL DOWN TO THE <style> BLOCK → EDIT COLOR VARIABLES (:root)
+  2. FIND THE JS "CONFIG" OBJECT → EDIT schoolName, phone, currencyLabel, telegramLink
+  3. FIND "CUSTOMIZE YOUR COURSES HERE" → ADD/EDIT COURSES
+  4. SEARCH & REPLACE PLACEHOLDERS: {SCHOOL_NAME} {PHONE} {TG_LINK}
+  5. Save & open index.html in browser (no server needed)
+  ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ CONFIG / CSS VARIABLES (TOP CUSTOMIZATION) ============ */
+:root{
+  /* Brand Colors — change these to match your client */
+  --cream:#faf7f3;            /* background */
+  --cream-2:#f3ede5;          /* secondary background */
+  --terra:#c2775a;            /* MAIN ACCENT (terra cotta) */
+  --terra-dark:#a85f44;
+  --terra-light:#f5e6dd;      /* accent tint */
+  --ink:#2d2a26;              /* heading text */
+  --body:#6b6358;             /* body text */
+  --muted:#9b9185;
+  --line:#e8e0d6;             /* borders */
+  --white:#ffffff;
+  --gold:#e2a93b;
+  --green:#4c9a63;
+  --red:#d15b5b;
+  --radius:16px;
+  --radius-sm:10px;
+  --shadow:0 10px 30px rgba(140,110,90,.10);
+  --shadow-lg:0 24px 60px rgba(140,110,90,.18);
+  --font-head:'Plus Jakarta Sans',sans-serif;
+  --font-body:'Inter',sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--cream);
+  color:var(--body);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-head);color:var(--ink);line-height:1.15}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:600;font-size:15px;border-radius:12px;
+  padding:12px 22px;transition:.25s;white-space:nowrap;
+}
+.btn-primary{background:var(--terra);color:#fff;box-shadow:0 8px 20px rgba(194,119,90,.35)}
+.btn-primary:hover{background:var(--terra-dark);transform:translateY(-2px)}
+.btn-outline{border:2px solid var(--line);color:var(--ink);background:var(--white)}
+.btn-outline:hover{border-color:var(--terra);color:var(--terra)}
+.btn-ghost{color:var(--ink);font-weight:600}
+.btn-ghost:hover{color:var(--terra)}
+.btn-block{width:100%}
+.btn-sm{padding:8px 14px;font-size:13px;border-radius:9px}
+
+/* ============ HEADER ============ */
+.header{position:sticky;top:0;z-index:100;background:rgba(250,247,243,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-head);font-weight:800;font-size:19px;color:var(--ink)}
+.logo-icon{width:38px;height:38px;border-radius:11px;background:var(--terra);color:#fff;display:grid;place-items:center;font-size:19px;box-shadow:0 6px 16px rgba(194,119,90,.35)}
+.logo small{display:block;font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.5px}
+.nav{display:none;align-items:center;gap:24px}
+.nav a{font-weight:500;font-size:14.5px;color:var(--body);transition:.2s}
+.nav a:hover{color:var(--terra)}
+.header-actions{display:flex;align-items:center;gap:10px}
+.user-chip{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--ink)}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px}
+.menu-btn{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--white)}
+@media(min-width:900px){.nav{display:flex}.menu-btn{display:none}}
+
+/* Mobile drawer */
+.drawer{position:fixed;inset:0;z-index:200;background:rgba(45,42,38,.5);opacity:0;pointer-events:none;transition:.3s}
+.drawer.open{opacity:1;pointer-events:auto}
+.drawer-panel{position:absolute;top:0;right:0;width:min(320px,86%);height:100%;background:var(--white);padding:24px;display:flex;flex-direction:column;gap:18px;transform:translateX(100%);transition:.3s}
+.drawer.open .drawer-panel{transform:none}
+.drawer-panel a{font-weight:600;font-size:16px;color:var(--ink);padding:8px 0;border-bottom:1px solid var(--line)}
+
+/* ============ HERO ============ */
+.hero{padding:60px 0 70px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-120px;right:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,var(--terra-light),transparent 70%)}
+.hero::after{content:"";position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(226,169,59,.12),transparent 70%)}
+.hero-grid{display:grid;gap:40px;align-items:center;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--terra-light);color:var(--terra-dark);padding:7px 14px;border-radius:99px;font-size:13px;font-weight:600;margin-bottom:18px}
+.hero h1{font-size:clamp(30px,5vw,52px);font-weight:800;letter-spacing:-1px;margin-bottom:18px}
+.hero h1 span{color:var(--terra);position:relative}
+.hero p.lead{font-size:17px;max-width:520px;margin-bottom:30px;color:var(--body)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:34px}
+.hero-proof{display:flex;gap:22px;flex-wrap:wrap}
+.hero-proof .p{font-size:13px;color:var(--muted)}
+.hero-proof .p b{display:block;font-family:var(--font-head);font-size:20px;color:var(--ink);font-weight:800}
+.hero-card{position:relative;max-width:440px;margin:0 auto}
+.hero-card img{border-radius:24px;box-shadow:var(--shadow-lg)}
+.hero-float{position:absolute;background:var(--white);padding:12px 16px;border-radius:14px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:10px}
+.hero-float.f1{top:22px;left:-14px}
+.hero-float.f2{bottom:30px;right:-14px}
+.hero-float .ic{width:38px;height:38px;border-radius:11px;background:var(--terra-light);color:var(--terra);display:grid;place-items:center;font-size:18px}
+.hero-float b{font-family:var(--font-head);color:var(--ink);font-size:14px}
+.hero-float span{font-size:12px;color:var(--muted)}
+.wave{display:block;width:100%;height:60px;margin-bottom:-2px;color:var(--cream-2)}
+@media(min-width:900px){.hero{padding:80px 0 90px}.hero-grid{grid-template-columns:1.1fr 1fr}}
+
+/* ============ STATS ============ */
+.stats{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;padding:40px 0}
+.stat{text-align:center}
+.stat b{font-family:var(--font-head);font-size:clamp(26px,4vw,38px);font-weight:800;color:var(--terra)}
+.stat span{display:block;color:var(--muted);font-size:14px;margin-top:4px}
+@media(min-width:700px){.stats-grid{grid-template-columns:repeat(4,1fr)}}
+
+/* ============ SECTION HEADING ============ */
+.section{padding:70px 0}
+.sec-head{text-align:center;max-width:640px;margin:0 auto 44px}
+.sec-eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--terra);margin-bottom:10px}
+.sec-head h2{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.5px;margin-bottom:12px}
+.sec-head p{color:var(--muted);font-size:15.5px}
+
+/* ============ COURSE FILTERS ============ */
+.filter-bar{display:flex;flex-direction:column;gap:16px;margin-bottom:36px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.tab{padding:9px 18px;border-radius:99px;font-size:14px;font-weight:600;background:var(--white);border:1px solid var(--line);color:var(--body);transition:.2s}
+.tab:hover{border-color:var(--terra);color:var(--terra)}
+.tab.active{background:var(--terra);color:#fff;border-color:var(--terra)}
+.search-box{max-width:360px;margin:0 auto;position:relative;width:100%}
+.search-box input{width:100%;padding:12px 16px 12px 44px;border:1px solid var(--line);border-radius:12px;background:var(--white);font-size:14.5px;outline:none;transition:.2s;color:var(--ink)}
+.search-box input:focus{border-color:var(--terra);box-shadow:0 0 0 4px var(--terra-light)}
+.search-box .si{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+
+/* ============ COURSE GRID ============ */
+.course-grid{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:600px){.course-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.course-grid{grid-template-columns:repeat(3,1fr)}}
+.course-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.3s;display:flex;flex-direction:column}
+.course-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.course-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--cream-2)}
+.course-media img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.course-card:hover .course-media img{transform:scale(1.05)}
+.course-emoji{width:100%;height:100%;display:grid;place-items:center;font-size:64px;background:linear-gradient(135deg,var(--terra-light),#fdf3ec)}
+.course-badges{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;gap:8px}
+.badge{font-size:11.5px;font-weight:700;padding:5px 10px;border-radius:8px;letter-spacing:.3px}
+.badge-level{background:rgba(255,255,255,.92);color:var(--ink)}
+.badge-pop{background:var(--gold);color:#fff}
+.course-body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.course-cat{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--terra)}
+.course-title{font-size:17.5px;font-weight:700;margin:2px 0}
+.course-title:hover{color:var(--terra)}
+.course-instr{font-size:13.5px;color:var(--muted)}
+.course-instr b{color:var(--ink);font-weight:600}
+.course-meta{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px;margin-top:2px}
+.course-meta span{display:inline-flex;align-items:center;gap:5px}
+.course-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px}
+.rating{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--ink);font-weight:600;background:var(--cream-2);padding:5px 10px;border-radius:8px}
+.rating .star{color:var(--gold)}
+.price{display:flex;align-items:baseline;gap:7px}
+.price b{font-family:var(--font-head);font-size:19px;color:var(--ink);font-weight:800}
+.price del{color:var(--muted);font-size:13px}
+.no-result{grid-column:1/-1;text-align:center;padding:50px 0;color:var(--muted);font-size:16px}
+
+/* ============ MODAL (shared) ============ */
+.modal{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:16px;background:rgba(45,42,38,.55);opacity:0;pointer-events:none;transition:.25s}
+.modal.open{opacity:1;pointer-events:auto}
+.modal-box{background:var(--white);border-radius:20px;width:100%;max-height:92vh;overflow-y:auto;transform:translateY(24px);transition:.3s;max-width:760px}
+.modal.open .modal-box{transform:none}
+.modal-close{position:sticky;top:12px;margin-left:auto;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--cream-2);font-size:18px;color:var(--ink);z-index:2}
+.modal-close:hover{background:var(--terra);color:#fff}
+.modal-body{padding:6px 28px 30px}
+
+/* Course detail modal */
+.detail-hero{padding:0 28px 20px}
+.detail-hero img{width:100%;max-height:300px;object-fit:cover;border-radius:16px}
+.detail-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-top:18px}
+.detail-title{font-size:clamp(22px,4vw,30px);font-weight:800;margin-bottom:8px}
+.detail-sub{display:flex;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--muted);margin-bottom:16px}
+.detail-sub span{display:inline-flex;align-items:center;gap:5px}
+.detail-pricing{display:flex;align-items:baseline;gap:10px;background:var(--cream-2);padding:12px 18px;border-radius:12px}
+.detail-pricing b{font-size:30px;font-family:var(--font-head);color:var(--ink)}
+.detail-pricing del{color:var(--muted)}
+.save-tag{background:var(--green);color:#fff;font-size:12px;font-weight:700;padding:3px 9px;border-radius:7px}
+.sec-blk{margin-top:28px}
+.sec-blk h3{font-size:19px;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.check-list{display:grid;gap:10px}
+.check-list li{list-style:none;display:flex;gap:10px;font-size:14.5px}
+.check-list li::before{content:"✔";color:var(--green);font-weight:700;flex-shrink:0}
+.lessons{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.lesson{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);font-size:14px}
+.lesson:last-child{border-bottom:none}
+.lesson .lnum{width:28px;height:28px;border-radius:8px;background:var(--terra-light);color:var(--terra);display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0}
+.lesson .lt{display:flex;align-items:center;gap:11px}
+.lesson .dur{font-size:12px;color:var(--muted)}
+.instr-card{display:flex;gap:16px;align-items:center;background:var(--cream-2);padding:16px;border-radius:14px}
+.instr-av{width:54px;height:54px;border-radius:14px;background:var(--terra);color:#fff;display:grid;place-items:center;font-weight:700;font-size:20px}
+.instr-card h4{font-size:16px}
+.instr-card p{font-size:13px;color:var(--muted)}
+.review{display:flex;gap:14px;margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:14px}
+.review .av{width:42px;height:42px;border-radius:50%;background:var(--cream-2);color:var(--terra);display:grid;place-items:center;font-weight:700}
+.review h5{font-size:14px;margin-bottom:3px}
+.review .stars{color:var(--gold);font-size:13px;margin-bottom:5px}
+.review p{font-size:13.5px;color:var(--body)}
+
+/* ============ PAYMENT / LOGIN MODALS ============ */
+.form-step h2{font-size:24px;margin-bottom:6px}
+.form-step .fd{padding:14px 20px;text-align:center}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:7px}
+.field input,.field select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:11px;font-size:15px;outline:none;background:var(--white);color:var(--ink);transition:.2s}
+.field input:focus,.field select:focus{border-color:var(--terra);box-shadow:0 0 0 4px var(--terra-light)}
+.field .hint{font-size:12px;color:var(--muted);margin-top:5px}
+.field-error{color:var(--red);font-size:12.5px;margin-top:5px;display:none}
+.field.invalid input{border-color:var(--red)}
+.field.invalid .field-error{display:block}
+.pay-methods{display:grid;gap:12px;margin:18px 0}
+.pay-method{display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid var(--line);border-radius:13px;cursor:pointer;transition:.2s;background:var(--white)}
+.pay-method:hover{border-color:var(--terra)}
+.pay-method.sel{border-color:var(--terra);background:var(--terra-light)}
+.pay-method .ic{width:40px;height:40px;border-radius:10px;background:var(--cream-2);display:grid;place-items:center;font-size:19px}
+.pay-method b{font-family:var(--font-head);color:var(--ink);font-size:15px;display:block}
+.pay-method span{font-size:12.5px;color:var(--muted)}
+.pay-sum{background:var(--cream-2);padding:14px 16px;border-radius:12px;margin-bottom:16px}
+.pay-sum .row{display:flex;justify-content:space-between;font-size:14px;padding:4px 0}
+.pay-sum .row.total{font-weight:700;color:var(--ink);border-top:1px dashed var(--line);margin-top:6px;padding-top:10px}
+.auth-toggle{text-align:center;font-size:13.5px;margin-top:16px;color:var(--muted)}
+.auth-toggle a{color:var(--terra);font-weight:600}
+.switch-line{display:flex;gap:6px;margin-bottom:20px;background:var(--cream-2);padding:5px;border-radius:11px}
+.switch-line button{flex:1;padding:9px;border-radius:8px;font-weight:600;font-size:14px;color:var(--muted)}
+.switch-line button.active{background:var(--white);color:var(--terra);box-shadow:var(--shadow)}
+
+/* ============ SUCCESS SCREEN ============ */
+.success{text-align:center;padding:20px 8px}
+.success .tick{width:86px;height:86px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:44px;margin:0 auto 22px;animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.3)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.success h2{font-size:26px;margin-bottom:12px}
+.success p{color:var(--body);max-width:400px;margin:0 auto 6px;font-size:14.5px}
+.success .ref{display:inline-block;background:var(--cream-2);padding:6px 14px;border-radius:8px;font-family:var(--font-head);font-weight:700;color:var(--ink);margin:14px 0}
+.tg-box{margin-top:20px;background:var(--terra-light);border:1px dashed var(--terra);border-radius:14px;padding:18px}
+.tg-box p{font-size:13.5px;margin-bottom:12px}
+.tg-box small{color:var(--muted);font-size:12px}
+
+/* ============ MEMBERSHIP ============ */
+.members-grid{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:700px){.members-grid{grid-template-columns:repeat(3,1fr);max-width:900px;margin:0 auto}}
+.member-card{background:var(--white);border:2px solid var(--line);border-radius:20px;padding:30px 26px;position:relative;transition:.3s;display:flex;flex-direction:column}
+.member-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.member-card.featured{border-color:var(--terra);box-shadow:var(--shadow-lg)}
+.member-card .popflag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--terra);color:#fff;font-size:12px;font-weight:700;padding:6px 16px;border-radius:99px;white-space:nowrap}
+.member-name{font-size:15px;font-weight:600;color:var(--muted);margin-bottom:6px}
+.member-price{display:flex;align-items:baseline;gap:6px;margin-bottom:4px}
+.member-price b{font-size:34px;font-family:var(--font-head);color:var(--ink)}
+.member-price span{color:var(--muted);font-size:14px}
+.member-per{font-size:13px;color:var(--muted);margin-bottom:20px}
+.member-feats{list-style:none;display:grid;gap:11px;margin-bottom:26px;flex:1}
+.member-feats li{font-size:14px;display:flex;gap:9px}
+.member-feats li::before{content:"✔";color:var(--green);font-weight:700}
+
+/* ============ INSTRUCTORS ============ */
+.instr-grid{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:600px){.instr-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.instr-grid{grid-template-columns:repeat(4,1fr)}}
+.instr-card2{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px 20px;text-align:center;transition:.3s}
+.instr-card2:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.instr-av2{width:78px;height:78px;border-radius:22px;background:var(--terra-light);color:var(--terra);display:grid;place-items:center;margin:0 auto 15px;font-weight:800;font-size:30px;font-family:var(--font-head)}
+.instr-card2 h3{font-size:17px;margin-bottom:4px}
+.instr-card2 .role{font-size:13px;color:var(--terra);font-weight:600;margin-bottom:10px}
+.instr-card2 p{font-size:13px;color:var(--muted)}
+.instr-card2 .icount{display:inline-block;margin-top:12px;font-size:12px;font-weight:600;color:var(--ink);background:var(--cream-2);padding:5px 12px;border-radius:99px}
+
+/* ============ TESTIMONIALS ============ */
+.tes-grid{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:700px){.tes-grid{grid-template-columns:repeat(3,1fr)}}
+.tes-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.tes-stars{color:var(--gold);font-size:15px;margin-bottom:14px}
+.tes-card p{font-size:14.5px;font-style:italic;color:var(--body);margin-bottom:18px}
+.tes-who{display:flex;align-items:center;gap:12px}
+.tes-who .av{width:44px;height:44px;border-radius:12px;background:var(--terra-light);color:var(--terra);display:grid;place-items:center;font-weight:700}
+.tes-who b{display:block;font-size:14px;color:var(--ink)}
+.tes-who span{font-size:12.5px;color:var(--muted)}
+
+/* ============ FAQ ============ */
+.faq{max-width:720px;margin:0 auto}
+.faq-item{border:1px solid var(--line);border-radius:14px;margin-bottom:12px;background:var(--white);overflow:hidden}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 20px;font-weight:600;font-size:15px;color:var(--ink);text-align:left}
+.faq-q .ic{width:26px;height:26px;border-radius:8px;background:var(--terra-light);color:var(--terra);display:grid;place-items:center;font-size:17px;transition:.3s;flex-shrink:0}
+.faq-item.open .faq-q .ic{transform:rotate(45deg);background:var(--terra);color:#fff}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-a div{padding:0 20px 18px;font-size:14.5px;color:var(--body)}
+
+/* ============ DASHBOARD ============ */
+.dash-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+.dash-head h2{font-size:26px}
+.dash-grid{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:900px){.dash-grid{grid-template-columns:repeat(2,1fr)}}
+.dash-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.dash-card .dc-img{aspect-ratio:16/7;overflow:hidden;position:relative}
+.dash-card .dc-img img{width:100%;height:100%;object-fit:cover}
+.dash-card .dc-body{padding:20px}
+.dash-card h3{font-size:17px;margin-bottom:4px}
+.dash-card .dc-in{font-size:13px;color:var(--muted);margin-bottom:14px}
+.progress-top{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px}
+.progress-bar{height:9px;background:var(--cream-2);border-radius:99px;overflow:hidden;margin-bottom:18px}
+.progress-bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--terra),var(--terra-dark));border-radius:99px;transition:width .5s ease}
+.progress-bar.full>span{background:linear-gradient(90deg,var(--green),#3f7d50)}
+.lesson-check{display:flex;align-items:center;gap:11px;padding:10px 0;border-top:1px dashed var(--line);font-size:14px;cursor:pointer}
+.lesson-check input{width:18px;height:18px;accent-color:var(--terra)}
+.lesson-check.done span{color:var(--muted);text-decoration:line-through}
+.empty-state{text-align:center;padding:50px 20px}
+.empty-state .ic{font-size:52px;margin-bottom:16px}
+.empty-state h3{font-size:20px;margin-bottom:8px}
+.empty-state p{color:var(--muted);font-size:14.5px;margin-bottom:20px}
+
+/* ============ CTA BAND ============ */
+.cta-band{background:linear-gradient(135deg,var(--terra),var(--terra-dark));border-radius:24px;padding:48px 30px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-band::before,.cta-band::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.1)}
+.cta-band::before{width:220px;height:220px;top:-100px;left:-60px}
+.cta-band::after{width:260px;height:260px;bottom:-130px;right:-70px}
+.cta-band h2{color:#fff;font-size:clamp(26px,4vw,38px);margin-bottom:14px;position:relative}
+.cta-band p{color:rgba(255,255,255,.9);max-width:520px;margin:0 auto 26px;position:relative}
+.cta-band .btn{background:#fff;color:var(--terra-dark);position:relative}
+.cta-band .btn:hover{transform:translateY(-2px)}
+.cta-band .btn.btn-outline{border-color:rgba(255,255,255,.5);color:#fff;background:transparent}
+
+/* ============ FOOTER ============ */
+.footer{background:#28241f;color:#a79f93;padding:60px 0 28px;margin-top:20px}
+.footer-grid{display:grid;gap:34px;grid-template-columns:1fr;padding-bottom:40px}
+@media(min-width:800px){.footer-grid{grid-template-columns:2fr 1fr 1fr 1.2fr}}
+.footer .logo{color:#fff;margin-bottom:14px}
+.footer .logo small{color:#8a8175}
+.footer p{font-size:14px;max-width:320px}
+.footer h4{color:#fff;font-size:15px;margin-bottom:16px}
+.footer ul{list-style:none;display:grid;gap:10px}
+.footer ul a{font-size:14px;transition:.2s}
+.footer ul a:hover{color:var(--terra)}
+.footer .contact li{font-size:14px;display:flex;gap:9px;align-items:center;margin-bottom:10px}
+.footer .contact .ic{color:var(--terra)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;text-align:center;font-size:13px}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--ink);color:#fff;padding:13px 22px;border-radius:12px;font-size:14px;font-weight:600;z-index:500;transition:.35s;box-shadow:var(--shadow-lg);max-width:90%;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+@media(min-width:768px){.search-box{margin:0 auto}}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo" onclick="scrollToId('home');return false;">
+      <span class="logo-icon">🎓</span>
+      <span>{SCHOOL_NAME}<small>Online Learning Platform</small></span>
+    </a>
+    <nav class="nav">
+      <a href="#courses" onclick="scrollToId('courses')">Courses</a>
+      <a href="#membership" onclick="scrollToId('membership')">Membership</a>
+      <a href="#instructors" onclick="scrollToId('instructors')">Instructors</a>
+      <a href="#faq" onclick="scrollToId('faq')">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <div id="authArea"></div>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div class="drawer" id="drawer">
+  <div class="drawer-panel">
+    <button class="modal-close" id="drawerClose">✕</button>
+    <a href="#courses" onclick="closeDrawer();scrollToId('courses')">Courses</a>
+    <a href="#membership" onclick="closeDrawer();scrollToId('membership')">Membership</a>
+    <a href="#instructors" onclick="closeDrawer();scrollToId('instructors')">Instructors</a>
+    <a href="#faq" onclick="closeDrawer();scrollToId('faq')">FAQ</a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <span class="hero-badge">✨ 100% Online · Learn Anywhere · Certificate</span>
+      <h1>Learn <span>Digital Skills</span> That Grow Your Future</h1>
+      <p class="lead">Unlock world-class online courses from top Myanmar & international instructors. Learn at your own pace, track your progress, and earn certificates — all in one place.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="scrollToId('courses')">Browse Courses ↓</button>
+        <button class="btn btn-outline" id="heroSignup">Sign up Free</button>
+      </div>
+      <div class="hero-proof">
+        <div class="p"><b id="statStudents">12,500+</b>Active Students</div>
+        <div class="p"><b id="statCourses">180+</b>Premium Courses</div>
+        <div class="p"><b>4.8/5</b>Average Rating</div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="course-emoji" style="font-size:140px">📚</div>
+      <div class="hero-float f1"><span class="ic">📈</span><span><b>Progress since day 1</b><br><span>Personal dashboard</span></span></div>
+      <div class="hero-float f2"><span class="ic">🏆</span><span><b>Earn certificates</b><br><span>Share on LinkedIn</span></span></div>
+    </div>
+  </div>
+</section>
+<svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C240,70 480,0 720,20 C960,40 1200,60 1440,30 L1440,60 L0,60 Z" fill="currentColor"></path></svg>
+
+<!-- ============ STATS ============ -->
+<section class="stats">
+  <div class="container stats-grid">
+    <div class="stat"><b>12,500+</b><span>Total Students</span></div>
+    <div class="stat"><b>180+</b><span>Premium Courses</span></div>
+    <div class="stat"><b>24</b><span>Expert Instructors</span></div>
+    <div class="stat"><b>4.8★</b><span>Average Rating</span></div>
+  </div>
+</section>
+
+<!-- ============ COURSES ============ -->
+<section class="section" id="courses">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-eyebrow">Our Courses</span>
+      <h2>Explore Premium Courses</h2>
+      <p>Filter by category or search. Hover any course to see details and enroll in seconds.</p>
+    </div>
+    <div class="filter-bar">
+      <div class="tabs" id="filterTabs"></div>
+      <div class="search-box">
+        <span class="si">🔍</span>
+        <input type="text" id="courseSearch" placeholder="Search courses, topics, instructors...">
+      </div>
+    </div>
+    <div class="course-grid" id="courseGrid"></div>
+  </div>
+</section>
+
+<!-- ============ MEMBERSHIP ============ -->
+<section class="section" id="membership" style="background:var(--cream-2)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-eyebrow">Membership Plans</span>
+      <h2>Unlimited Learning with Membership</h2>
+      <p>Prefer one flat price? Subscribe and unlock our entire course library.</p>
+    </div>
+    <div class="members-grid" id="membersGrid"></div>
+  </div>
+</section>
+
+<!-- ============ INSTRUCTORS ============ -->
+<section class="section" id="instructors">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-eyebrow">Meet the Team</span>
+      <h2>Learn From Industry Experts</h2>
+      <p>Real practitioners with years of hands-on experience.</p>
+    </div>
+    <div class="instr-grid" id="instrGrid"></div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section" id="testimonials" style="background:var(--cream-2)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-eyebrow">Success Stories</span>
+      <h2>What Our Students Say</h2>
+      <p>Thousands of learners already growing their careers with us.</p>
+    </div>
+    <div class="tes-grid" id="tesGrid"></div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-eyebrow">FAQ</span>
+      <h2>Frequently Asked Questions</h2>
+      <p>Everything you need to know about learning with us.</p>
+    </div>
+    <div class="faq" id="faqList"></div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Ready to Start Learning Today?</h2>
+      <p>Join thousands of learners and unlock your future. Browse courses or grab a membership for unlimited access.</p>
+      <button class="btn" onclick="scrollToId('courses')">Browse Courses</button>
+      <button class="btn btn-outline" id="ctaSignup">Sign up Free</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#" class="logo"><span class="logo-icon">🎓</span><span>{SCHOOL_NAME}<small>Online Learning Platform</small></span></a>
+        <p>Premium online courses & memberships crafted to help learners and professionals grow. Made with ❤ by H-Tech Studio in Myanmar.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#courses" onclick="scrollToId('courses')">Courses</a></li>
+          <li><a href="#membership" onclick="scrollToId('membership')">Membership</a></li>
+          <li><a href="#instructors" onclick="scrollToId('instructors')">Instructors</a></li>
+          <li><a href="#faq" onclick="scrollToId('faq')">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Categories</h4>
+        <ul id="footCats"></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="contact">
+          <li><span class="ic">📞</span> {PHONE}</li>
+          <li><span class="ic">✉️</span> hello@{SCHOOL_NAME_LOWERCASE}.com</li>
+          <li><span class="ic">💬</span> <a href="{TG_LINK}" target="_blank">Telegram Support</a></li>
+          <li><span class="ic">📍</span> Yangon, Myanmar</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="year"></span> {SCHOOL_NAME} · Template by H-Tech Studio · All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- ============ MODALS ============ -->
+
+<!-- COURSE DETAIL MODAL -->
+<div class="modal" id="detailModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
+    <div class="modal-body" id="detailBody"></div>
+  </div>
+</div>
+
+<!-- ENROLL / PAYMENT MODAL -->
+<div class="modal" id="payModal">
+  <div class="modal-box" style="max-width:520px">
+    <button class="modal-close" onclick="closeModal('payModal')">✕</button>
+    <div class="modal-body" id="payBody">
+      <div class="form-step">
+        <h2 id="payTitle">Checkout</h2>
+        <p id="paySub" style="font-size:14px;color:var(--muted);margin-bottom:18px"></p>
+        <div class="pay-sum" id="paySum"></div>
+        <div class="field">
+          <label>Your Name</label>
+          <input type="text" id="payName" placeholder="e.g. Kyaw Zin">
+        </div>
+        <div class="field">
+          <label>Phone Number (for receipt)</label>
+          <input type="tel" id="payPhone" placeholder="09xxxxxxxxx">
+        </div>
+        <label style="font-size:13.5px;font-weight:600;color:var(--ink)">Select Payment Method</label>
+        <div class="pay-methods" id="payMethods"></div>
+        <button class="btn btn-primary btn-block" onclick="confirmPayment()">Confirm & Pay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal" id="successModal">
+  <div class="modal-box" style="max-width:520px">
+    <button class="modal-close" onclick="closeModal('successModal')">✕</button>
+    <div class="modal-body">
+      <div class="success">
+        <div class="tick">✓</div>
+        <h2>Enrollment Received! 🎉</h2>
+        <p>Thank you! Your enrollment has been recorded. To confirm your payment, please send the screenshot to our Telegram bot.</p>
+        <span class="ref" id="successRef"></span>
+        <div class="tg-box">
+          <p>Tap the button below to confirm your payment on Telegram and get instant access to your course.</p>
+          <a class="btn btn-primary btn-block" id="successTg" href="{TG_LINK}" target="_blank">💬 Confirm on Telegram</a>
+          <small style="display:block;margin-top:10px">Or <a href="#" onclick="goMyLearning();return false;">go to My Learning</a> dashboard.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL (login/register) -->
+<div class="modal" id="authModal">
+  <div class="modal-box" style="max-width:440px">
+    <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+    <div class="modal-body">
+      <div class="switch-line" id="authSwitch">
+        <button id="tabLogin" class="active" onclick="showAuth('login')">Login</button>
+        <button id="tabReg" onclick="showAuth('register')">Register</button>
+      </div>
+      <div class="form-step" id="authForm"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MY LEARNING MODAL -->
+<div class="modal" id="learnModal">
+  <div class="modal-box" style="max-width:860px">
+    <button class="modal-close" onclick="closeModal('learnModal')">✕</button>
+    <div class="modal-body" id="learnBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   CONFIG — TOP CUSTOMIZATION
+   Change these values to customize for your client.
+===================================================================== */
+const CONFIG = {
+  schoolName: "ScholarHub",            // 🎨 SCHOOL NAME (also replace {SCHOOL_NAME})
+  phone: "09 987 654 321",             // 📞 Contact phone (also replace {PHONE})
+  currencyLabel: "Ks",                 // 💰 Currency (Kyat)
+  telegramLink: "{TG_LINK}",           // 💬 Telegram support/confirm bot
+  supportPhone: "09-987-654-321",
+  email: "hello@scholarhub.mm"
+};
+
+/* =====================================================================
+   MEMBERSHIP PLANS — customize here
+===================================================================== */
+const MEMBERSHIP_PLANS = [
+  {
+    name: "Monthly",
+    price: "25,000",
+    period: "/month",
+    popular: false,
+    desc: "Perfect to start learning",
+    features: ["Access to all basic courses","4 new lessons / week","Community access","Certificate on completion"]
+  },
+  {
+    name: "Yearly",
+    price: "240,000",
+    period: "/year",
+    popular: true,
+    desc: "Best value — 2 months free",
+    features: ["Unlimited all courses","Everything in Monthly","Priority support","Exclusive bonus workshops","Offline downloads","2 Free certification exams"]
+  },
+  {
+    name: "Lifetime",
+    price: "899,000",
+    period: "one-time",
+    popular: false,
+    desc: "Pay once, learn forever",
+    features: ["Never expires","All current + future courses","1-on-1 mentor session","Portfolio review","Lifetime updates","Certificate for every course"]
+  }
+];
+
+/* =====================================================================
+   INSTRUCTORS — customize here
+===================================================================== */
+const INSTRUCTORS = [
+  {name:"Daw Su Su Hlaing", role:"Digital Marketing Lead", emoji:"👩‍💼", bio:"7+ yrs in social & performance marketing.", courses:"25 Courses"},
+  {name:"U Aung Ko", role:"Web Developer", emoji:"👨‍💻", bio:"Full-stack dev & bootcamp trainer since 2016.", courses:"32 Courses"},
+  {name:"Mg Thiha Zaw", role:"UI/UX Designer", emoji:"🧑‍🎨", bio:"Product designer at a leading fintech.", courses:"18 Courses"},
+  {name:"Daw Nandar", role:"Data Analyst", emoji:"👩‍🔬", bio:"Data science mentor & analytics consultant.", courses:"15 Courses"}
+];
+
+/* =====================================================================
+   TESTIMONIALS — customize here
+===================================================================== */
+const TESTIMONIALS = [
+  {name:"Wai Yan", who:"Web Dev Student", txt:"The Web Developer course changed my career. I got my first freelance job after 3 months of learning!"},
+  {name:"Khin Thandar", who:"Digital Marketing Student", txt:"Clear lessons, practical projects, and great support on Telegram. Definitely worth every kyat."},
+  {name:"Myo Min", who:"UI/UX Student", txt:"Best online learning experience I've had in Myanmar. The portfolio review was super helpful."}
+];
+
+/* =====================================================================
+   FAQ — customize here
+===================================================================== */
+const FAQS = [
+  {q:"How do I pay for a course?", a:"We accept KBZPay, WavePay, and Cash on Delivery (COD) within Yangon. After ordering, confirm payment on our Telegram bot and get instant access."},
+  {q:"When will I get access after payment?", a:"Access is unlocked right after we confirm your payment (usually within 10 minutes via Telegram). Your course appears in the My Learning dashboard."},
+  {q:"What is the Membership plan?", a:"Membership gives you unlimited access to all courses for a flat monthly/yearly fee — a great deal if you plan to learn many subjects."},
+  {q:"Do I get a certificate?", a:"Yes! Every course and membership includs a shareable certificate of completion when you finish the curriculum."},
+  {q:"Can I learn on mobile?", a:"Absolutely. The platform is fully responsive and works on phones, tablets, and laptops."},
+  {q:"What if I have questions during a course?", a:"You can ask instructors anytime via our Telegram support bot or the community group."}
+];
+
+/* =====================================================================
+   CUSTOMIZE YOUR COURSES HERE
+   Add / edit courses in this array. Each object:
+   id (unique), title, instructor, category, price (Ks), oldPrice,
+   level: Beginner|Intermediate|Advanced, duration, lessons (number),
+   rating, students, description, emoji (image placeholder),
+   features: [what you'll learn], curriculum: [{t, d}], reviews: [{n,s,t}],
+   featured (bool), popular (bool)
+===================================================================== */
+const COURSES = [
+  {
+    id:1, title:"Complete Web Development Bootcamp", instructor:"U Aung Ko",
+    category:"Development", price:"120,000", oldPrice:"200,000",
+    level:"Beginner", duration:"42 hours", lessons:36, rating:4.9, students:3200,
+    description:"Master HTML, CSS, JavaScript, React and Node.js by building 10 real projects. Perfect for absolute beginners.",
+    emoji:"💻", featured:true, popular:true,
+    features:["Build 10 real-world projects from scratch","HTML, CSS, JavaScript, React & Node.js","Version control with Git & GitHub","Deploy websites & apps for free","Career-ready portfolio & resume tips"],
+    curriculum:[
+      {t:"Getting Started & Setup", d:"18 min"},
+      {t:"HTML5 Fundamentals", d:"1 hr 40 min"},
+      {t:"CSS3 & Responsive Design", d:"3 hr"},
+      {t:"JavaScript Basics & DOM", d:"5 hr"},
+      {t:"Advanced JS & ES6+", d:"6 hr"},
+      {t:"React.js Mastery", d:"8 hr"},
+      {t:"Backend with Node.js & Express", d:"7 hr"},
+      {t:"Databases & API Integration", d:"6 hr"},
+      {t:"Final Capstone Project", d:"5 hr"}
+    ],
+    reviews:[
+      {n:"Wai Yan", s:5, t:"Easily the best course I've taken online. Aung Ko explains everything so clearly."},
+      {n:"Soe Moe", s:5, t:"Got a job as a junior dev right after finishing. Highly recommended!"}
+    ]
+  },
+  {
+    id:2, title:"Digital Marketing Fundamentals", instructor:"Daw Su Su Hlaing",
+    category:"Marketing", price:"85,000", oldPrice:"140,000",
+    level:"Beginner", duration:"18 hours", lessons:24, rating:4.8, students:4100,
+    description:"Learn SEO, Social Media, Google Ads & Email Marketing. Build complete campaigns from zero. No prior experience needed.",
+    emoji:"📣", featured:true, popular:false,
+    features:["SEO & Google ranking strategies","Facebook & Instagram advertising","Google Ads & Analytics","Email marketing funnels","Real campaign case studies"],
+    curriculum:[
+      {t:"Digital Marketing Overview", d:"20 min"},
+      {t:"SEO Basics & Keyword Research", d:"2 hr"},
+      {t:"Content Marketing Strategy", d:"2 hr 30 min"},
+      {t:"Social Media Advertising", d:"4 hr"},
+      {t:"Google Ads & Analytics", d:"4 hr"},
+      {t:"Email Marketing & Automation", d:"3 hr"},
+      {t:"Campaign Project & Review", d:"2 hr"}
+    ],
+    reviews:[
+      {n:"Khin Thandar", s:5, t:"Practical and easy to follow. I now manage ads for my own business!"}
+    ]
+  },
+  {
+    id:3, title:"UI/UX Design Masterclass", instructor:"Mg Thiha Zaw",
+    category:"Design", price:"95,000", oldPrice:"150,000",
+    level:"Intermediate", duration:"26 hours", lessons:30, rating:4.9, students:2100,
+    description:"Design beautiful, user-friendly interfaces using Figma. Cover wireframes, prototypes, and user research.",
+    emoji:"🎨", featured:true, popular:true,
+    features:["Figma from basics to advanced","User research & wireframing","Design systems & components","Interactive prototyping","Portfolio-ready interface project"],
+    curriculum:[
+      {t:"Intro to UI/UX", d:"25 min"},
+      {t:"Figma Essentials", d:"3 hr"},
+      {t:"Color, Typography & Spacing", d:"4 hr"},
+      {t:"Wireframing & User Flows", d:"4 hr"},
+      {t:"Building a Design System", d:"6 hr"},
+      {t:"Prototyping & Motion", d:"4 hr"},
+      {t:"Final Portfolio Project", d:"4 hr"}
+    ],
+    reviews:[
+      {n:"Myo Min", s:5, t:"Thiha's feedback on my final project helped me land a design internship."}
+    ]
+  },
+  {
+    id:4, title:"Data Analytics with Excel & Python", instructor:"Daw Nandar",
+    category:"Data Science", price:"110,000", oldPrice:"180,000",
+    level:"Intermediate", duration:"30 hours", lessons:28, rating:4.7, students:1800,
+    description:"Analyze real datasets, build dashboards, and automate reports using Excel and Python (Pandas).",
+    emoji:"📊", featured:false, popular:false,
+    features:["Excel dashboards & PivotTables","Python & Pandas fundamentals","Data cleaning & visualization","Automate reports with scripts","Real business datasets"],
+    curriculum:[
+      {t:"Excel for Data", d:"4 hr"},
+      {t:"Python Basics", d:"5 hr"},
+      {t:"Pandas Data Analysis", d:"7 hr"},
+      {t:"Data Visualization", d:"5 hr"},
+      {t:"Automation & Reporting", d:"5 hr"},
+      {t:"Capstone Project", d:"4 hr"}
+    ],
+    reviews:[
+      {n:"Phyu Phyu", s:5, t:"Nandar makes statistics feel simple. Great course!"}
+    ]
+  },
+  {
+    id:5, title:"Graphic Design & Photoshop", instructor:"Mg Thiha Zaw",
+    category:"Design", price:"75,000", oldPrice:"120,000",
+    level:"Beginner", duration:"16 hours", lessons:22, rating:4.6, students:2900,
+    description:"Create stunning posters, logos and social media graphics with Photoshop & Illustrator.",
+    emoji:"🖌️", featured:false, popular:false,
+    features:["Photoshop CC essentials","Illustrator for logos & vectors","Social media design templates","Color theory & composition","Print-ready artwork export"],
+    curriculum:[
+      {t:"Photoshop Interface & Tools", d:"3 hr"},
+      {t:"Photo Retouching", d:"3 hr"},
+      {t:"Illustrator Basics & Vectors", d:"4 hr"},
+      {t:"Logo & Brand Design", d:"3 hr"},
+      {t:"Social Media & Poster Design", d:"3 hr"}
+    ],
+    reviews:[
+      {n:"Htet Htet", s:5, t:"Now I design all my shop's promos myself!"}
+    ]
+  },
+  {
+    id:6, title:"English for Tech Professionals", instructor:"Daw Su Su Hlaing",
+    category:"Language", price:"65,000", oldPrice:"100,000",
+    level:"Beginner", duration:"14 hours", lessons:20, rating:4.8, students:5200,
+    description:"Build confidence in English for meetings, emails, interviews, and working in global teams.",
+    emoji:"🗣️", featured:true, popular:false,
+    features:["Business email writing","Meeting & call vocabulary","Job interview practice","Presentation skills","Real work scenarios & role-plays"],
+    curriculum:[
+      {t:"Business English Basics", d:"2 hr"},
+      {t:"Email & Chat Etiquette", d:"2 hr"},
+      {t:"Meeting & Video Call English", d:"3 hr"},
+      {t:"Interview Preparation", d:"3 hr"},
+      {t:"Presentations & Public Speaking", d:"4 hr"}
+    ],
+    reviews:[
+      {n:"Aye Chan", s:5, t:"My confidence in English calls has improved so much!"}
+    ]
+  },
+  {
+    id:7, title:"Advanced React & State Management", instructor:"U Aung Ko",
+    category:"Development", price:"140,000", oldPrice:"220,000",
+    level:"Advanced", duration:"24 hours", lessons:26, rating:4.9, students:950,
+    description:"Take your React skills to the next level with hooks, Context, Redux Toolkit and performance optimization.",
+    emoji:"⚛️", featured:false, popular:false,
+    features:["Advanced hooks & custom hooks","Redux Toolkit & state patterns","React Router & auth flows","Performance optimization","Testing with Jest & RTL"],
+    curriculum:[
+      {t:"Advanced React Patterns", d:"5 hr"},
+      {t:"Custom Hooks", d:"4 hr"},
+      {t:"Redux Toolkit", d:"5 hr"},
+      {t:"Routing & Authentication", d:"4 hr"},
+      {t:"Performance & Testing", d:"6 hr"}
+    ],
+    reviews:[]
+  },
+  {
+    id:8, title:"SEO & Content Strategy", instructor:"Daw Su Su Hlaing",
+    category:"Marketing", price:"70,000", oldPrice:"115,000",
+    level:"Intermediate", duration:"12 hours", lessons:18, rating:4.7, students:1600,
+    description:"Rank higher on Google with modern SEO, keyword research, and content that converts.",
+    emoji:"🔍", featured:false, popular:false,
+    features:["On-page & technical SEO","Keyword & competitor research","Content strategy & planning","Backlinks & authority building","SEO analytics & reporting"],
+    curriculum:[
+      {t:"How Search Engines Work", d:"1 hr 30 min"},
+      {t:"Keyword Research", d:"2 hr"},
+      {t:"On-Page SEO", d:"3 hr"},
+      {t:"Content Strategy", d:"3 hr"},
+      {t:"Link Building & Reporting", d:"2 hr 30 min"}
+    ],
+    reviews:[]
+  },
+  {
+    id:9, title:"Mobile App Dev with Flutter", instructor:"U Aung Ko",
+    category:"Development", price:"150,000", oldPrice:"250,000",
+    level:"Intermediate", duration:"38 hours", lessons:40, rating:4.8, students:1300,
+    description:"Build beautiful iOS & Android apps with Flutter and Dart. Publish your own app to the stores.",
+    emoji:"📱", featured:true, popular:true,
+    features:["Flutter & Dart fundamentals","Widgets & layout mastery","State management (Provider)","Firebase integration","Publish to Play Store & App Store"],
+    curriculum:[
+      {t:"Flutter & Dart Setup", d:"2 hr"},
+      {t:"Widgets & Layouts", d:"6 hr"},
+      {t:"State Management", d:"7 hr"},
+      {t:"Navigation & Forms", d:"5 hr"},
+      {t:"Firebase & Backend", d:"8 hr"},
+      {t:"APIs & Networking", d:"5 hr"},
+      {t:"Publishing Your App", d:"3 hr"}
+    ],
+    reviews:[
+      {n:"Nyi Nyi", s:5, t:"Published my first app to Play Store thanks to this course!"}
+    ]
+  },
+  {
+    id:10, title:"Public Speaking Mastery", instructor:"Daw Nandar",
+    category:"Soft Skills", price:"55,000", oldPrice:"90,000",
+    level:"Beginner", duration:"10 hours", lessons:15, rating:4.6, students:2400,
+    description:"Overcome stage fear, structure talks, and present with confidence in any setting.",
+    emoji:"🎤", featured:false, popular:false,
+    features:["Overcome public speaking anxiety","Structure compelling talks","Body language & voice control","Slide design & storytelling","Live practice & feedback"],
+    curriculum:[
+      {t:"Why Public Speaking Matters", d:"1 hr"},
+      {t:"Beating Stage Fright", d:"2 hr"},
+      {t:"Structuring Your Talk", d:"2 hr"},
+      {t:"Voice & Body Language", d:"2 hr"},
+      {t:"Slides & Storytelling", d:"2 hr"},
+      {t:"Practice & Feedback", d:"1 hr"}
+    ],
+    reviews:[]
+  }
+];
+
+/* =====================================================================
+   PAYMENT METHODS
+===================================================================== */
+const PAY_METHODS = [
+  {id:"kbz", name:"KBZPay", icon:"🏦", desc:"Scan & pay via KBZPay"},
+  {id:"wave", name:"WavePay", icon:"📱", desc:"Send money via WavePay"},
+  {id:"cod", name:"Cash on Delivery", icon:"💵", desc:"Pay in cash (Yangon)"}
+];
+
+/* =====================================================================
+   STATE + HELPERS
+===================================================================== */
+let currentUser = JSON.parse(localStorage.getItem('lms_user')||'null');
+let myCourses = JSON.parse(localStorage.getItem('lms_mycourses')||'[]'); // [{courseId, progress:{lessonIdx:done}, completed}]
+let currentFilter = "All";
+let pendingEnroll = null; // course or plan being purchased
+let perLessonCost = 0;    // reused for membership pricing math
+
+const $ = id => document.getElementById(id);
+
+function today(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function saveUsers(users){ localStorage.setItem('lms_users', JSON.stringify(users)); }
+function loadUsers(){ return JSON.parse(localStorage.getItem('lms_users')||'[]'); }
+
+/* =====================================================================
+   CLIPBOARD / TOAST
+===================================================================== */
+function toast(msg){
+  const t=$('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._tm); t._tm=setTimeout(()=>t.classList.remove('show'),2600);
+}
+function copyText(txt,label){
+  if(navigator.clipboard){ navigator.clipboard.writeText(txt).then(()=>toast(label||'Copied!')); }
+  else { toast(label||'Copied!'); }
+}
+
+/* =====================================================================
+   NAV / SCROLL
+===================================================================== */
+function scrollToId(id){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth'});
+}
+function closeDrawer(){ $('drawer').classList.remove('open'); }
+
+/* =====================================================================
+   MODALS
+===================================================================== */
+function openModal(id){ document.getElementById(id).classList.add('open'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal').forEach(m=>{
+  m.addEventListener('click',e=>{ if(e.target===m) m.classList.remove('open'); });
+});
+
+/* =====================================================================
+   AUTH (login / register) DEMO — localStorage
+===================================================================== */
+function showAuth(mode){
+  $('tabLogin').classList.toggle('active', mode==='login');
+  $('tabReg').classList.toggle('active', mode==='register');
+  if(mode==='login'){
+    $('authForm').innerHTML=`
+      <h2>Welcome back 👋</h2>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:18px">Log in to continue your learning.</p>
+      <div class="field"><label>Email</label><input type="email" id="auEmail" placeholder="you@email.com"><span class="field-error">Enter a valid email</span></div>
+      <div class="field"><label>Password</label><input type="password" id="auPass" placeholder="••••••••"><span class="field-error">Enter your password</span></div>
+      <button class="btn btn-primary btn-block" onclick="doLogin()">Login</button>
+      <div class="auth-toggle">New here? <a href="#" onclick="showAuth('register');return false;">Create an account</a></div>`;
+  } else {
+    $('authForm').innerHTML=`
+      <h2>Create account 🎓</h2>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:18px">Join {SCHOOL_NAME} for free.</p>
+      <div class="field"><label>Name</label><input type="text" id="auName" placeholder="e.g. Kyaw Zin"><span class="field-error">Your name is required</span></div>
+      <div class="field"><label>Email</label><input type="email" id="auEmail" placeholder="you@email.com"><span class="field-error">Enter a valid email</span></div>
+      <div class="field"><label>Password</label><input type="password" id="auPass" placeholder="Min. 6 characters"><span class="field-error">Password must be 6+ characters</span></div>
+      <button class="btn btn-primary btn-block" onclick="doRegister()">Sign up Free</button>
+      <div class="auth-toggle">Already have an account? <a href="#" onclick="showAuth('login');return false;">Login</a></div>`;
+  }
+}
+function mustAuth(action){
+  if(!currentUser){ openModal('authModal'); showAuth('login'); toast('Please login or register to continue'); return false; }
+  else if(action) action();
+  return true;
+}
+function doLogin(){
+  const email=$('auEmail').value.trim(), pass=$('auPass').value;
+  const u=loadUsers().find(x=>x.email===email && x.password===pass);
+  if(u){ currentUser=u; localStorage.setItem('lms_user',JSON.stringify(u)); closeModal('authModal'); renderAuth(); toast('Welcome back, '+u.name+'! 👋'); }
+  else toast('Invalid email or password ❌');
+}
+function doRegister(){
+  const name=$('auName').value.trim(), email=$('auEmail').value.trim(), pass=$('auPass').value;
+  if(!name){toast('Please enter your name');return;}
+  if(!/^\S+@\S+\.\S+$/.test(email)){toast('Please enter a valid email');return;}
+  if(pass.length<6){toast('Password must be 6+ characters');return;}
+  let users=loadUsers();
+  if(users.some(x=>x.email===email)){toast('Email already registered. Try login.');return;}
+  const nu={name,email,password,joined:today()};
+  users.push(nu); saveUsers(users);
+  currentUser=nu; localStorage.setItem('lms_user',JSON.stringify(nu));
+  closeModal('authModal'); renderAuth(); toast('Account created. Welcome '+name+'! 🎉');
+}
+function doLogout(){
+  currentUser=null; localStorage.removeItem('lms_user');
+  renderAuth(); toast('Logged out. See you soon! 👋');
+}
+function renderAuth(){
+  $('authArea').innerHTML = currentUser
+    ? `<div class="user-chip"><span class="avatar">${currentUser.name[0]}</span><span>${currentUser.name.split(' ')[0]}</span>
+       <button class="btn btn-sm btn-outline" onclick="openMyLearning()">My Courses</button>
+       <button class="btn btn-sm btn-outline" onclick="doLogout()">Logout</button></div>`
+    : `<button class="btn btn-outline btn-sm" onclick="openModal('authModal');showAuth('login')">Login</button>
+       <button class="btn btn-primary btn-sm" onclick="openModal('authModal');showAuth('register')">Sign up</button>`;
+}
+
+/* =====================================================================
+   COURSES RENDER
+===================================================================== */
+function courseCategories(){
+  const cats=["All"].concat([...new Set(COURSES.map(c=>c.category))]);
+  return cats;
+}
+function renderFilters(){
+  const cats=courseCategories();
+  $('filterTabs').innerHTML = cats.map(c=>
+    `<button class="tab ${c===currentFilter?'active':''}" onclick="setFilter('${c}')">${c}</button>`).join('');
+  $('footCats').innerHTML = cats.filter(c=>c!=="All").map(c=>`<li><a href="#courses" onclick="setFilter('${c}');scrollToId('courses')">${c}</a></li>`).join('');
+}
+function setFilter(cat){ currentFilter=cat; renderFilters(); renderCourses(); }
+function searchCourses(){
+  const q=$('courseSearch').value.toLowerCase();
+  $('courseSearch').addEventListener('input',()=>renderCourses());
+  return q;
+}
+function renderCourses(){
+  const q=($('courseSearch')||$('courseSearch')).value.toLowerCase();
+  let list=COURSES.filter(c=>{
+    const matchCat = currentFilter==="All" || c.category===currentFilter;
+    const matchQ = !q || (c.title+c.instructor+c.category+c.description).toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  const grid=$('courseGrid');
+  if(!list.length){ grid.innerHTML=`<div class="no-result">😕 No courses found. Try a different category or search.</div>`; return; }
+  grid.innerHTML = list.map(c=>`
+    <article class="course-card">
+      <div class="course-media" onclick="openDetail(${c.id})">
+        <div class="course-emoji">${c.emoji}</div>
+        <div class="course-badges">
+          <span class="badge badge-level">${c.level}</span>
+          ${c.popular?'<span class="badge badge-pop">🔥 Popular</span>':''}
+        </div>
+      </div>
+      <div class="course-body">
+        <span class="course-cat" style="cursor:pointer" onclick="setFilter('${c.category}')">${c.category}</span>
+        <h3 class="course-title" style="cursor:pointer" onclick="openDetail(${c.id})">${c.title}</h3>
+        <div class="course-instr">By <b>${c.instructor}</b></div>
+        <div class="course-meta">
+          <span>⏱ ${c.duration}</span>
+          <span>📚 ${c.lessons} lessons</span>
+          <span>👥 ${c.students.toLocaleString()} students</span>
+        </div>
+        <div class="course-foot">
+          <span class="rating"><span class="star">★</span> ${c.rating}</span>
+          <div class="price"><b>${c.price} ${CONFIG.currencyLabel}</b>${c.oldPrice?`<del>${c.oldPrice} Ks</del>`:''}</div>
+        </div>
+        <button class="btn btn-primary btn-block" style="margin-top:6px" onclick="openDetail(${c.id})">Enroll Now</button>
+      </div>
+    </article>`).join('');
+}
+
+/* =====================================================================
+   COURSE DETAIL MODAL
+===================================================================== */
+function openDetail(id){
+  const c=COURSES.find(x=>x.id===id);
+  if(!c) return;
+  const features=c.features.map(f=>`<li>${f}</li>`).join('');
+  const lessons=c.curriculum.map((l,i)=>`
+    <div class="lesson"><div class="lt"><span class="lnum">${i+1}</span><span>${l.t}</span></div><span class="dur">${l.d}</span></div>`).join('');
+  const reviews=(c.reviews&&c.reviews.length)?c.reviews.map(r=>`
+    <div class="review"><div class="av">${r.n[0]}</div><div>
+      <h5>${r.n}</h5><div class="stars">${'★'.repeat(r.s)}${'☆'.repeat(5-r.s)}</div>
+      <p>${r.t}</p></div></div>`).join('') : `<p style="color:var(--muted);font-size:14px;margin-top:8px">No reviews yet — be the first!</p>`;
+  const discount=c.oldPrice?Math.round((1-(toNum(c.price)/toNum(c.oldPrice)))*100):0;
+  $('detailBody').innerHTML=`
+    <div class="detail-hero">
+      <div class="course-emoji" style="height:220px;font-size:90px;border-radius:16px">${c.emoji}</div>
+      <div class="detail-head">
+        <div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+            <span class="badge badge-level">${c.level}</span>
+            <span class="badge" style="background:var(--terra-light);color:var(--terra-dark)">${c.category}</span>
+            ${c.popular?'<span class="badge badge-pop">🔥 Popular</span>':''}
+          </div>
+          <h2 class="detail-title">${c.title}</h2>
+          <div class="detail-sub">
+            <span>👨‍🏫 ${c.instructor}</span>
+            <span>⏱ ${c.duration}</span>
+            <span>📚 ${c.lessons} lessons</span>
+            <span>👥 ${c.students.toLocaleString()} students</span>
+            <span><span class="star" style="color:var(--gold)">★</span> ${c.rating}</span>
+          </div>
+          <p style="font-size:14.5px">${c.description}</p>
+        </div>
+      </div>
+      <div class="detail-pricing" style="margin-top:16px">
+        <b>${c.price} ${CONFIG.currencyLabel}</b>
+        ${c.oldPrice?`<del>${c.oldPrice} Ks</del>`:''}
+        ${discount?`<span class="save-tag">Save ${discount}%</span>`:''}
+      </div>
+    </div>
+    <div class="sec-blk">
+      <h3>📌 What you'll learn</h3>
+      <ul class="check-list">${features}</ul>
+    </div>
+    <div class="sec-blk">
+      <h3>📚 Curriculum (${c.curriculum.length} lessons)</h3>
+      <div class="lessons">${lessons}</div>
+    </div>
+    <div class="sec-blk">
+      <h3>👨‍🏫 Your instructor</h3>
+      <div class="instr-card">
+        <div class="instr-av">${c.instructor.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+        <div><h4>${c.instructor}</h4><p>Expert ${c.category} instructor with years of industry experience.</p></div>
+      </div>
+    </div>
+    <div class="sec-blk">
+      <h3>⭐ Student reviews</h3>
+      ${reviews}
+    </div>
+    <button class="btn btn-primary btn-block" style="margin-top:24px;font-size:16px;padding:15px" onclick="startEnroll(${c.id})">Enroll Now · ${c.price} ${CONFIG.currencyLabel}</button>`;
+  openModal('detailModal');
+}
+
+/* =====================================================================
+   ENROLL / PAYMENT FLOW
+===================================================================== */
+function toNum(str){ return parseInt(String(str).replace(/[^0-9]/g,''))||0; }
+
+function startEnroll(id){
+  const c=COURSES.find(x=>x.id===id);
+  if(!c) return;
+  if(!mustAuth(()=>openPayment({type:'course', course:c}))) return;
+  openPayment({type:'course', course:c});
+}
+function subscribePlan(index){
+  const p=MEMBERSHIP_PLANS[index];
+  if(!p) return;
+  if(!mustAuth(()=>openPayment({type:'plan', plan:p, index}))) return;
+  openPayment({type:'plan', plan:p, index});
+}
+function openPayment(pkg){
+  pendingEnroll=pkg;
+  if(pkg.type==='course'){
+    const c=pkg.course;
+    $('payTitle').textContent='Enroll in Course';
+    $('paySub').textContent=c.title;
+    $('paySum').innerHTML=`
+      <div class="row"><span>${c.title}</span><span>${c.price} ${CONFIG.currencyLabel}</span></div>
+      ${c.oldPrice?`<div class="row"><span></span><del>${c.oldPrice} Ks</del></div>`:''}
+      <div class="row total"><span>Total due</span><span>${c.price} ${CONFIG.currencyLabel}</span></div>`;
+    $('payName').value = currentUser.name||'';
+  } else {
+    const p=pkg.plan;
+    $('payTitle').textContent='Subscribe — '+p.name+' Plan';
+    $('paySub').textContent=p.desc;
+    $('paySum').innerHTML=`
+      <div class="row"><span>${p.name} Membership</span><span>${p.price} ${CONFIG.currencyLabel}</span></div>
+      <div class="row total"><span>Total due</span><span>${p.price} ${CONFIG.currencyLabel}</span></div>`;
+    $('payName').value = currentUser.name||'';
+  }
+  $('payMethods').innerHTML=PAY_METHODS.map((m,i)=>`
+    <div class="pay-method ${i===0?'sel':''}" data-id="${m.id}" onclick="selectPay(this)">
+      <span class="ic">${m.icon}</span>
+      <span><b>${m.name}</b><span>${m.desc}</span></span>
+    </div>`).join('');
+  closeModal('detailModal');
+  openModal('payModal');
+}
+function selectPay(el){
+  document.querySelectorAll('.pay-method').forEach(x=>x.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function confirmPayment(){
+  if(!pendingEnroll){ toast('Something went wrong'); return; }
+  const name=$('payName').value.trim(), phone=$('payPhone').value.trim();
+  if(!name){toast('Please enter your name');return;}
+  if(!phone){toast('Please enter your phone number');return;}
+
+  if(pendingEnroll.type==='course'){
+    const c=pendingEnroll.course;
+    if(!myCourses.find(m=>m.courseId===c.id)){
+      myCourses.push({courseId:c.id, title:c.title, emoji:c.emoji, enrollDate:today(), done:{}, complete:false});
+      localStorage.setItem('lms_mycourses',JSON.stringify(myCourses));
+    }
+    $('successRef').textContent='Order #'+randomRef();
+  } else {
+    const p=pendingEnroll.plan;
+    if(!myCourses.find(m=>m.plan===p.name)){
+      myCourses.push({plan:p.name, title:p.name+' Membership', emoji:'🎫', enrollDate:today(), done:{}, complete:false, isPlan:true});
+      localStorage.setItem('lms_mycourses',JSON.stringify(myCourses));
+    }
+    $('successRef').textContent='Order #'+randomRef();
+  }
+  closeModal('payModal');
+  openModal('successModal');
+  toast('Enrollment received! Confirm on Telegram. 💬');
+}
+function randomRef(){ return 'HT'+(100000+Math.floor(Math.random()*900000)); }
+
+/* =====================================================================
+   MY LEARNING DASHBOARD
+===================================================================== */
+function openMyLearning(){
+  if(!mustAuth(()=>{})) return;
+  goMyLearning();
+}
+function goMyLearning(){
+  if(!currentUser){ openModal('authModal'); showAuth('login'); return; }
+  closeModal('successModal');
+  const enrolled=myCourses;
+
+  if(!enrolled.length){
+    $('learnBody').innerHTML=`
+      <div class="dash-head"><h2>My Learning</h2><button class="btn btn-primary" onclick="closeModal('learnModal');scrollToId('courses')">Browse Courses</button></div>
+      <div class="empty-state">
+        <div class="ic">📚</div>
+        <h3>You haven't enrolled yet</h3>
+        <p>Browse our courses or grab a membership to start learning today.</p>
+        <button class="btn btn-primary" onclick="closeModal('learnModal');scrollToId('courses')">Explore Courses</button>
+      </div>`;
+    openModal('learnModal');
+    return;
+  }
+
+  $('learnBody').innerHTML=`
+    <div class="dash-head">
+      <h2>Welcome, ${currentUser.name.split(' ')[0]} 👋</h2>
+      <button class="btn btn-outline btn-sm" onclick="closeModal('learnModal');scrollToId('courses')">+ Browse more</button>
+    </div>
+    <div class="dash-grid" id="dashGrid">${renderDashItems(enrolled)}</div>`;
+  openModal('learnModal');
+}
+function renderDashItems(enrolled){
+  return enrolled.map((m,i)=>{
+    if(m.isPlan){
+      return `<div class="dash-card"><div class="dc-img"><div class="course-emoji" style="font-size:70px">🎫</div></div>
+        <div class="dc-body">
+          <h3>${m.title}</h3>
+          <div class="dc-in">Unlimited access · enrolled ${m.enrollDate}</div>
+          <p style="font-size:14px;color:var(--muted)">You have unlimited access to all courses with this membership. Enjoy learning!</p>
+          <button class="btn btn-primary btn-sm" onclick="closeModal('learnModal');scrollToId('courses')">Start Learning</button>
+        </div></div>`;
+    }
+    const c=COURSES.find(x=>x.id===m.courseId)||{curriculum:[]};
+    const total=c.curriculum.length;
+    const doneCount=Object.keys(m.done||{}).length;
+    const pct=total?Math.round(doneCount/total*100):0;
+    const lessons=c.curriculum.map((l,li)=>{ const d=!!(m.done&&m.done[li]);
+      return `<label class="lesson-check ${d?'done':''}">
+        <input type="checkbox" ${d?'checked':''} onchange="toggleLesson(${i},${li})">
+        <span>${l.t} <span style="color:var(--muted)">(${l.d})</span></span>
+      </label>`;}).join('');
+    return `<div class="dash-card">
+      <div class="dc-img"><div class="course-emoji" style="font-size:64px">${m.emoji}</div></div>
+      <div class="dc-body">
+        <h3>${m.title}</h3>
+        <div class="dc-in">Enrolled ${m.enrollDate} · ${doneCount}/${total} lessons complete</div>
+        <div class="progress-top"><span>${pct}% complete</span><span>${m.complete?'✓ Certificate earned':''}</span></div>
+        <div class="progress-bar ${pct===100?'full':''}"><span style="width:${pct}%"></span></div>
+        <div style="font-weight:600;font-size:14px;color:var(--ink);margin-bottom:6px">Mark lessons as complete:</div>
+        ${lessons}
+      </div>
+    </div>`;
+  }).join('');
+}
+function toggleLesson(dashIdx, lesIdx){
+  const m=myCourses[dashIdx];
+  if(!m) return;
+  if(!m.done) m.done={};
+  m.done[lesIdx]=!m.done[lesIdx];
+  const c=COURSES.find(x=>x.id===m.courseId)||{curriculum:[]};
+  const total=c.curriculum.length;
+  const doneCount=Object.keys(m.done).length;
+  if(total && doneCount>=total) m.complete=true;
+  localStorage.setItem('lms_mycourses',JSON.stringify(myCourses));
+  goMyLearning();
+  if(m.complete) toast('🎉 Course completed! Certificate earned!');
+}
+
+/* =====================================================================
+   MEMBERSHIP RENDER
+===================================================================== */
+function renderMembers(){
+  $('membersGrid').innerHTML=MEMBERSHIP_PLANS.map((p,i)=>`
+    <div class="member-card ${p.popular?'featured':''}">
+      ${p.popular?'<span class="popflag">⭐ Most Popular</span>':''}
+      <div class="member-name">${p.name}</div>
+      <div class="member-price"><b>${p.price}</b><span>${CONFIG.currencyLabel} ${p.period}</span></div>
+      <div class="member-per">${p.desc}</div>
+      <ul class="member-feats">${p.features.map(f=>`<li>${f}</li>`).join('')}</ul>
+      <button class="btn ${p.popular?'btn-primary':'btn-outline'} btn-block" onclick="subscribePlan(${i})">Choose ${p.name}</button>
+    </div>`).join('');
+}
+
+/* =====================================================================
+   INSTRUCTORS / TESTIMONIALS / FAQ RENDER
+===================================================================== */
+function renderInstructors(){
+  $('instrGrid').innerHTML=INSTRUCTORS.map(ins=>`
+    <div class="instr-card2">
+      <div class="instr-av2">${ins.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+      <h3>${ins.name}</h3>
+      <div class="role">${ins.role}</div>
+      <p>${ins.bio}</p>
+      <span class="icount">📚 ${ins.courses}</span>
+    </div>`).join('');
+}
+function renderTestimonials(){
+  $('tesGrid').innerHTML=TESTIMONIALS.map(t=>`
+    <div class="tes-card">
+      <div class="tes-stars">★★★★★</div>
+      <p>"${t.txt}"</p>
+      <div class="tes-who"><div class="av">${t.name[0]}</div><div><b>${t.name}</b><span>${t.who}</span></div></div>
+    </div>`).join('');
+}
+function renderFaq(){
+  $('faqList').innerHTML=FAQS.map((f,i)=>`
+    <div class="faq-item" id="faq-${i}">
+      <button class="faq-q" onclick="toggleFaq(${i})">${f.q}<span class="ic">+</span></button>
+      <div class="faq-a" id="faqa-${i}"><div>${f.a}</div></div>
+    </div>`).join('');
+}
+function toggleFaq(i){
+  const item=$('faq-'+i), body=$('faqa-'+i);
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(x=>{x.classList.remove('open'); x.querySelector('.faq-a').style.maxHeight=null;});
+  if(!open){ item.classList.add('open'); body.style.maxHeight=body.scrollHeight+'px'; }
+}
+
+/* =====================================================================
+   INIT
+===================================================================== */
+function init(){
+  renderAuth();
+  renderFilters();
+  renderCourses();
+  renderMembers();
+  renderInstructors();
+  renderTestimonials();
+  renderFaq();
+  $('year').textContent=new Date().getFullYear();
+  $('courseSearch').addEventListener('input',()=>renderCourses());
+  $('menuBtn').addEventListener('click',()=>$('drawer').classList.add('open'));
+  $('drawerClose').addEventListener('click',closeDrawer);
+  $('drawer').addEventListener('click',e=>{if(e.target.id==='drawer')closeDrawer();});
+  $('heroSignup').addEventListener('click',()=>{openModal('authModal');showAuth('register');});
+  $('ctaSignup').addEventListener('click',()=>{currentUser?goMyLearning():openModal('authModal');});
+  // dynamic per-lesson cost for potential membership price estimator
+  const tot=COURSES.reduce((s,c)=>s+toNum(c.price),0);
+  perLessonCost=tot/(COURSES.reduce((s,c)=>s+(c.curriculum?c.curriculum.length:12),0)||1);
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>

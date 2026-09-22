@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel | H-Tech Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+/* ============================================================
+   THEME VARIABLES — customize brand colors here
+   ============================================================ */
+:root{
+  --bg:#f6f2ea;
+  --surface:#ffffff;
+  --surface-2:#fbf8f1;
+  --sidebar:#2b2620;
+  --sidebar-text:#cfc7ba;
+  --sidebar-active:#e8a87c;
+  --sidebar-active-bg:rgba(232,168,124,.14);
+  --brand:#c96f43;          /* terra cotta */
+  --brand-dark:#a9532e;
+  --brand-light:#f7e2d3;
+  --text:#2b2620;
+  --muted:#8a8177;
+  --border:#e7dfd1;
+  --green:#3d9970;
+  --green-bg:#e4f3ea;
+  --red:#d9534f;
+  --red-bg:#fbe8e7;
+  --amber:#e0a527;
+  --amber-bg:#fdf3dd;
+  --blue:#4a7fc4;
+  --blue-bg:#e8f0fa;
+  --shadow:0 6px 24px rgba(43,38,32,.08);
+  --radius:14px;
+  --px:24px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Inter','Noto Sans Myanmar',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);
+  font-size:14px;-webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit}
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:#cdc2ae;border-radius:9px}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ============ LOGIN ============ */
+#login{
+  position:fixed;inset:0;background:var(--bg);z-index:200;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+#login.show{display:flex}
+.login-card{
+  background:var(--surface);border-radius:20px;box-shadow:var(--shadow);
+  padding:44px 40px;width:100%;max-width:400px;text-align:center;
+}
+.login-logo{
+  width:64px;height:64px;border-radius:18px;background:var(--brand);
+  color:#fff;font-size:30px;font-weight:800;display:flex;align-items:center;
+  justify-content:center;margin:0 auto 16px;
+}
+.login-card h1{font-size:20px;margin-bottom:4px}
+.login-card p{color:var(--muted);margin-bottom:26px;font-size:13px}
+.field{text-align:left;margin-bottom:16px}
+.field label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.field input,.field select{
+  width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;
+  font-size:14px;background:var(--bg);outline:none;transition:.2s;
+}
+.field input:focus,.field select:focus{border-color:var(--brand);background:#fff}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 18px;border:none;border-radius:10px;font-weight:600;font-size:14px;
+  transition:.2s;border:1.5px solid transparent;
+}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-primary:hover{background:var(--brand-dark)}
+.btn-ghost{background:var(--bg);color:var(--text);border-color:var(--border)}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn-danger{background:var(--red);color:#fff}
+.btn-danger:hover{background:#c13a35}
+.btn-sm{padding:7px 12px;font-size:13px}
+.btn-block{width:100%}
+.login-hint{margin-top:18px;font-size:12px;color:var(--muted)}
+
+/* ============ LAYOUT ============ */
+#app{display:none}
+#app.show{display:block}
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:250px;background:var(--sidebar);color:var(--sidebar-text);
+  position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:100;
+  transition:transform .3s;
+}
+.side-brand{padding:22px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.side-brand .logo{
+  width:40px;height:40px;border-radius:11px;background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;
+}
+.side-brand .name{font-weight:700;color:#fff;font-size:15px;line-height:1.2}
+.side-brand .sub{font-size:11px;color:var(--sidebar-text);opacity:.7}
+.nav{padding:14px 12px;flex:1;overflow-y:auto}
+.nav-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--sidebar-text);opacity:.55;padding:10px 10px 6px}
+.nav-item{
+  display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:10px;
+  color:var(--sidebar-text);font-weight:500;margin-bottom:2px;transition:.2s;cursor:pointer;font-size:14px;
+}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav-item.active{background:var(--sidebar-active-bg);color:var(--sidebar-active);font-weight:600}
+.nav-item .ico{font-size:18px;width:22px;text-align:center}
+.nav-item.active .ico{filter:drop-shadow(0 0 4px rgba(232,168,124,.5))}
+.side-foot{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:var(--sidebar-text);opacity:.7}
+.logout-item{color:#e0867f!important}
+.logout-item:hover{background:rgba(233,103,96,.14)!important;color:#ff9a94!important}
+
+.main{flex:1;margin-left:250px;display:flex;flex-direction:column;min-height:100vh}
+.topbar{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:14px var(--px);display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:50;
+}
+.menu-btn{display:none;background:none;border:none;font-size:24px;color:var(--text);cursor:pointer}
+.top-title{font-size:18px;font-weight:700;flex:1}
+.top-user{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500}
+.top-user .avatar{
+  width:38px;height:38px;border-radius:50%;background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;
+}
+.content{padding:var(--px);flex:1}
+
+/* ============ VIEWS ============ */
+.view{display:none;animation:fade .25s}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* stats cards */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+.stat{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px;display:flex;align-items:center;gap:16px;position:relative;overflow:hidden;
+}
+.stat .s-ico{
+  width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;
+}
+.stat .s-val{font-size:22px;font-weight:800;line-height:1.1}
+.stat .s-lbl{font-size:12px;color:var(--muted);font-weight:500;margin-top:3px}
+.stat.alert .s-ico{background:var(--red-bg)}
+.stat.alert .s-val{color:var(--red)}
+.s-mini{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* panels */
+.grid-2{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:22px}
+.grid-2-half{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px;flex-wrap:wrap}
+.panel-head h3{font-size:15px;font-weight:700}
+.panel-head .muted{font-size:12px;color:var(--muted)}
+
+/* tables */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:12px;border-bottom:1px solid var(--surface-2);vertical-align:middle;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface-2)}
+.cell-prod{display:flex;align-items:center;gap:10px}
+.cell-prod .p-img{width:38px;height:38px;border-radius:9px;background:var(--brand-light);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.cell-prod .p-name{font-weight:600}
+.cell-prod .p-cat{font-size:11px;color:var(--muted)}
+.money{font-weight:700;color:var(--brand-dark)}
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.badge.green{background:var(--green-bg);color:var(--green)}
+.badge.red{background:var(--red-bg);color:var(--red)}
+.badge.amber{background:var(--amber-bg);color:var(--amber)}
+.badge.blue{background:var(--blue-bg);color:var(--blue)}
+.badge.gray{background:var(--bg);color:var(--muted)}
+.low{background:var(--red-bg)!important;color:var(--red);font-weight:700}
+.link-btn{background:none;border:none;color:var(--brand);font-weight:600;font-size:13px;cursor:pointer}
+.link-btn:hover{text-decoration:underline}
+.link-btn.danger{color:var(--red)}
+.row-actions{display:flex;gap:6px}
+
+/* quick actions */
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.quick .qa{
+  border:1.5px dashed var(--border);background:var(--surface-2);border-radius:12px;
+  padding:16px;text-align:left;transition:.2s;font-weight:600;font-size:13px;color:var(--text);display:flex;flex-direction:column;gap:6px;
+}
+.quick .qa:hover{border-color:var(--brand);background:var(--brand-light);transform:translateY(-2px)}
+.quick .qa .q-ico{font-size:22px}
+
+/* filters */
+.filters{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.search{
+  flex:1;min-width:200px;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;
+  background:var(--surface);outline:none;font-size:13px;
+}
+.search:focus{border-color:var(--brand)}
+select.inline{padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface);outline:none;font-size:13px}
+select.inline:focus{border-color:var(--brand)}
+select.status{
+  border-radius:20px;padding:5px 10px;font-weight:700;font-size:11px;border:1.5px solid;outline:none;cursor:pointer;background:var(--surface);
+}
+.empty{padding:34px;text-align:center;color:var(--muted);font-size:13px}
+
+/* summary cards */
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px}
+.sum-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
+.sum-card .v{font-size:24px;font-weight:800}
+.sum-card .l{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* ============ MODAL ============ */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(20,15,10,.5);backdrop-filter:blur(2px);z-index:300;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal-bg.show{display:flex}
+.modal{
+  background:var(--surface);border-radius:16px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;
+  box-shadow:var(--shadow);animation:pop .2s;
+}
+@keyframes pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+.modal-head{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-head h3{font-size:16px}
+.modal-close{background:none;border:none;font-size:22px;color:var(--muted);cursor:pointer}
+.modal-body{padding:20px}
+.modal-foot{padding:16px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ============ TOAST ============ */
+#toasts{position:fixed;bottom:20px;right:20px;z-index:400;display:flex;flex-direction:column;gap:10px}
+.toast{
+  background:var(--text);color:#fff;padding:13px 18px;border-radius:11px;font-size:13px;font-weight:500;
+  box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;animation:slide .3s;max-width:340px;
+}
+.toast.success{border-left:4px solid var(--green)}
+.toast.error{border-left:4px solid var(--red)}
+.toast.info{border-left:4px solid var(--blue)}
+@keyframes slide{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.toast.fade{opacity:0;transition:opacity .4s}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1024px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid-2,.grid-2-half,.summary-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  :root{--px:16px}
+  .sidebar{transform:translateX(-100%);width:260px}
+  .sidebar.open{transform:translateX(0);box-shadow:0 0 40px rgba(0,0,0,.3)}
+  .menu-btn{display:block}
+  .main{margin-left:0}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90;display:none}
+  .overlay.show{display:block}
+  .stats{grid-template-columns:1fr}
+  .quick{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .top-title{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="login">
+  <div class="login-card">
+    <div class="login-logo">H</div>
+    <h1 id="loginTitle">H-Tech Admin</h1>
+    <p id="loginSub">Staff Panel — စီမံခန့်ခွဲမှုစနစ်</p>
+    <form id="loginForm">
+      <div class="field">
+        <label for="loginName">အမည် / Name</label>
+        <input id="loginName" type="text" placeholder="Enter your name" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="loginPw">စကားဝှက် / Password</label>
+        <input id="loginPw" type="password" placeholder="Enter password (optional)" autocomplete="off">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:6px">Log In / ဝင်ရောက်မည်</button>
+    </form>
+    <div class="login-hint">Demo — any name &amp; password works · မည်သည့်နာမည်မဆို ဝင်လို့ရပါသည်</div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app">
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="side-brand">
+        <div class="logo" id="sideLogo">H</div>
+        <div>
+          <div class="name" id="sideName">H-Tech Studio</div>
+          <div class="sub">Admin Panel</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <div class="nav-label">Main</div>
+        <div class="nav-item active" data-view="dashboard"><span class="ico">📊</span> Dashboard</div>
+        <div class="nav-item" data-view="products"><span class="ico">📦</span> Products</div>
+        <div class="nav-item" data-view="orders"><span class="ico">🛒</span> Orders</div>
+        <div class="nav-item" data-view="customers"><span class="ico">👥</span> Customers</div>
+        <div class="nav-item" data-view="reports"><span class="ico">📈</span> Reports</div>
+        <div class="nav-label">System</div>
+        <div class="nav-item" data-view="settings"><span class="ico">⚙️</span> Settings</div>
+        <div class="nav-item logout-item" id="logoutBtn"><span class="ico">🚪</span> Logout</div>
+      </nav>
+      <div class="side-foot" id="sideUser">•</div>
+    </aside>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main -->
+    <div class="main">
+      <div class="topbar">
+        <button class="menu-btn" id="menuBtn">☰</button>
+        <div class="top-title" id="pageTitle">Dashboard</div>
+        <div class="top-user">
+          <span id="topUserName">Admin</span>
+          <div class="avatar" id="topAvatar">A</div>
+        </div>
+      </div>
+      <div class="content" id="content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal" id="modalBox">
+    <div class="modal-head">
+      <h3 id="modalTitle">Title</h3>
+      <button class="modal-close" id="modalClose">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="modalCancel">Cancel</button>
+      <button class="btn btn-primary" id="modalSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="toasts"></div>
+
+<script>
+/* ============================================================
+   CONFIG — edit site name, currency, telegram, theme
+   ============================================================ */
+const CONFIG = {
+  siteName: "H-Tech Studio",           // site/brand name
+  currencyLabel: "Ks",                 // currency symbol
+  telegramLink: "https://t.me/HtechStudio",
+  storeTitle: "H-Tech Admin",          // login screen title
+};
+
+/* ============================================================
+   DEFAULT DATA — customize these arrays for your business
+   ============================================================ */
+const DEFAULT_PRODUCTS = [
+  { id:1, name:"နွေဦးပန်း Dress", category:"Women", price:45000, stock:34, status:"Active" },
+  { id:2, name:"Shein Blouse", category:"Women", price:28000, stock:8, status:"Active" },
+  { id:3, name:"Men Polo Shirt", category:"Men", price:22000, stock:50, status:"Active" },
+  { id:4, name:"Leather Sneakers", category:"Shoes", price:65000, stock:4, status:"Active" },
+  { id:5, name:"Gold Watch", category:"Accessories", price:150000, stock:12, status:"Active" },
+  { id:6, name:"Cotton T-Shirt (Pack)", category:"Men", price:30000, stock:0, status:"Inactive" },
+  { id:7, name:"Silk Scarf", category:"Accessories", price:18000, stock:25, status:"Active" },
+  { id:8, name:"Sandals", category:"Shoes", price:19000, stock:15, status:"Active" },
+  { id:9, name:"Denim Jeans", category:"Men", price:48000, stock:2, status:"Active" },
+  { id:10, name:"Handbag", category:"Accessories", price:56000, stock:11, status:"Active" },
+];
+
+const DEFAULT_ORDERS = [
+  { id:"ORD-1001", customer:"Ma Su", items:"Dress + Scarf", total:48000, status:"Completed", date:"2026-08-20" },
+  { id:"ORD-1002", customer:"Ko Zaw", items:"Polo Shirt", total:22000, status:"Processing", date:"2026-08-22" },
+  { id:"ORD-1003", customer:"Daw Aye", items:"Sneakers", total:65000, status:"Shipped", date:"2026-08-23" },
+  { id:"ORD-1004", customer:"U Myint", items:"Watch", total:150000, status:"Pending", date:"2026-08-24" },
+  { id:"ORD-1005", customer:"Ma Hnin", items:"Blouse + Jeans", total:72000, status:"Processing", date:"2026-08-25" },
+  { id:"ORD-1006", customer:"Ko Thuta", items:"T-Shirt Pack", total:30000, status:"Completed", date:"2026-08-26" },
+  { id:"ORD-1007", customer:"Ma Kyi", items:"Handbag", total:56000, status:"Pending", date:"2026-08-27" },
+  { id:"ORD-1008", customer:"Ko Aung", items:"Sandals", total:19000, status:"Shipped", date:"2026-08-27" },
+];
+
+const DEFAULT_CUSTOMERS = [
+  { id:1, name:"Ma Su", phone:"09-12345678", email:"masu@gmail.com", orders:12, spent:580000 },
+  { id:2, name:"Ko Zaw", phone:"09-23456789", email:"kozaw@gmail.com", orders:8, spent:320000 },
+  { id:3, name:"Daw Aye", phone:"09-34567890", email:"dawaye@gmail.com", orders:15, spent:890000 },
+  { id:4, name:"U Myint", phone:"09-45678901", email:"umyint@gmail.com", orders:5, spent:210000 },
+  { id:5, name:"Ma Hnin", phone:"09-56789012", email:"mahnin@gmail.com", orders:9, spent:430000 },
+  { id:6, name:"Ko Thuta", phone:"09-67890123", email:"kothuta@gmail.com", orders:20, spent:1250000 },
+  { id:7, name:"Ma Kyi", phone:"09-78901234", email:"makyi@gmail.com", orders:7, spent:295000 },
+  { id:8, name:"Ko Aung", phone:"09-89012345", email:"koaung@gmail.com", orders:11, spent:510000 },
+];
+
+/* ============================================================
+   STATE & STORAGE
+   ============================================================ */
+const LS = { products:"amp_products", orders:"amp_orders", customers:"amp_customers", settings:"amp_settings", user:"amp_user" };
+const load=(k,f)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}};
+const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+
+let PRODUCTS=[]; let ORDERS=[]; let CUSTOMERS=[];
+function initData(){
+  if(!localStorage.getItem(LS.products)) save(LS.products,DEFAULT_PRODUCTS);
+  if(!localStorage.getItem(LS.orders)) save(LS.orders,DEFAULT_ORDERS);
+  if(!localStorage.getItem(LS.customers)) save(LS.customers,DEFAULT_CUSTOMERS);
+  PRODUCTS=load(LS.products,[]); ORDERS=load(LS.orders,[]); CUSTOMERS=load(LS.customers,[]);
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+const fmt=n=>n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+const money=n=>fmt(n)+" "+CONFIG.currencyLabel;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const today=()=>new Date().toISOString().slice(0,10);
+
+function toast(msg,type="success"){
+  const icons={success:"✅",error:"⚠️",info:"ℹ️"};
+  const t=document.createElement("div");
+  t.className="toast "+type; t.innerHTML=icons[type]+" "+esc(msg);
+  document.getElementById("toasts").appendChild(t);
+  setTimeout(()=>{t.classList.add("fade");setTimeout(()=>t.remove(),400)},2600);
+}
+
+function avatarLetter(name){const n=(name||"A").trim();return n.charAt(0).toUpperCase()}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+let modalAction=null, modalSubmit=null;
+function openModal(title,bodyHTML,onSave){
+  document.getElementById("modalTitle").textContent=title;
+  document.getElementById("modalBody").innerHTML=bodyHTML;
+  document.getElementById("modalBg").classList.add("show");
+  modalSubmit=onSave;
+}
+function closeModal(){document.getElementById("modalBg").classList.remove("show");modalSubmit=null}
+document.getElementById("modalClose").onclick=closeModal;
+document.getElementById("modalCancel").onclick=closeModal;
+document.getElementById("modalBg").addEventListener("click",e=>{if(e.target.id==="modalBg")closeModal()});
+document.getElementById("modalSave").onclick=()=>{if(modalSubmit)modalSubmit()};
+
+/* ============================================================
+   VIEW SWITCHING
+   ============================================================ */
+const titles={dashboard:"Dashboard",products:"Products / ပစ္စည်းများ",orders:"Orders / မှာယူမှုများ",customers:"Customers / ဝယ်ယူသူများ",reports:"Reports / အစီရင်ခံစာ",settings:"Settings / ဆက်တင်"};
+function switchView(name){
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.dataset.view===name));
+  document.getElementById("pageTitle").textContent=titles[name]||"Dashboard";
+  const c=document.getElementById("content");
+  if(name==="dashboard")c.innerHTML=viewDashboard();
+  else if(name==="products")c.innerHTML=viewProducts();
+  else if(name==="orders")c.innerHTML=viewOrders();
+  else if(name==="customers")c.innerHTML=viewCustomers();
+  else if(name==="reports")c.innerHTML=viewReports();
+  else if(name==="settings")c.innerHTML=viewSettings();
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.dataset.view===name));
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+  if(name==="dashboard"||name==="reports"){setTimeout(drawCharts,50)}
+}
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+function viewDashboard(){
+  const totalSales=ORDERS.filter(o=>o.status!=="Pending").reduce((s,o)=>s+Number(o.total||0),0);
+  const lowStock=PRODUCTS.filter(p=>p.stock>0&&p.stock<=5);
+  const recent=ORDERS.slice(0,5);
+  return `
+  <div class="view" data-view="dashboard">
+    <div class="stats">
+      <div class="stat"><div class="s-ico" style="background:var(--brand-light)">💰</div>
+        <div><div class="s-val">${money(totalSales)}</div><div class="s-lbl">စုစုပေါင်းရောင်းရ / Total Sales</div></div></div>
+      <div class="stat"><div class="s-ico" style="background:var(--blue-bg)">🛒</div>
+        <div><div class="s-val">${ORDERS.length}</div><div class="s-lbl">မှာယူမှု / Orders</div></div></div>
+      <div class="stat"><div class="s-ico" style="background:var(--green-bg)">📦</div>
+        <div><div class="s-val">${PRODUCTS.length}</div><div class="s-lbl">ပစ္စည်း / Products</div></div></div>
+      <div class="stat ${lowStock.length>0?'alert':''}"><div class="s-ico" style="background:${lowStock.length>0?'var(--red-bg)':'var(--amber-bg)'}">⚠️</div>
+        <div><div class="s-val">${lowStock.length}</div><div class="s-lbl">ကုန်ပြီးလုနီး / Low Stock</div></div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>Weekly Sales / အပတ်စဉ်ရောင်းအား</h3><span class="muted">Last 7 days</span></div>
+        <div style="height:280px"><canvas id="salesChart"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Quick Actions / လျင်မြန်သောလုပ်ဆောင်ချက်</h3></div>
+        <div class="quick">
+          <button class="qa" onclick="addProductUI()"><span class="q-ico">➕</span>Add Product</button>
+          <button class="qa" onclick="switchTo('products')"><span class="q-ico">📦</span>Manage Products</button>
+          <button class="qa" onclick="addOrderUI()"><span class="q-ico">🧾</span>New Order</button>
+          <button class="qa" onclick="switchTo('reports')"><span class="q-ico">📈</span>View Reports</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Recent Orders / မကြာသေးသောမှာယူမှုများ</h3>
+        <button class="link-btn" onclick="switchTo('orders')">View all →</button></div>
+      <div class="table-wrap"><table>
+        <tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr>
+        ${recent.map(o=>`<tr>
+          <td><b>${o.id}</b></td><td>${esc(o.customer)}</td><td>${esc(o.items)}</td>
+          <td class="money">${money(o.total)}</td>
+          <td>${statusBadge(o.status)}</td><td>${o.date}</td>
+        </tr>`).join("")}
+      </table></div>
+    </div>
+  </div>`;
+}
+
+function statusBadge(s){
+  const m={Pending:["amber","⏳"],Processing:["blue","🔄"],Shipped:["gray","🚚"],Completed:["green","✅"]};
+  const [c,i]=m[s]||["gray","•"];
+  return `<span class="badge ${c}">${i} ${s}</span>`;
+}
+
+function drawCharts(){
+  // sales chart
+  if(document.getElementById("salesChart")){
+    const days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+    const c=document.getElementById("salesChart");
+    if(window.chartSales)window.chartSales.destroy();
+    window.chartSales=new Chart(c,{type:"bar",data:{labels:days,datasets:[{label:"Sales "+CONFIG.currencyLabel,data:[225000,180000,340000,290000,410000,520000,380000],backgroundColor:"#c96f43",borderRadius:8}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+        scales:{y:{grid:{color:"#eee7d9"},ticks:{callback:v=>v/1000+"K"}},x:{grid:{display:false}}}}});
+  }
+  if(document.getElementById("monthChart")){
+    const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const c=document.getElementById("monthChart");
+    if(window.monthChart)window.monthChart.destroy();
+    window.monthChart=new Chart(c,{type:"line",data:{labels:months,datasets:[{label:"Sales",data:[1200,940,1500,1320,1650,1900,1720,2050,1880,0,0,0],borderColor:"#c96f43",backgroundColor:"rgba(201,111,67,.12)",fill:true,tension:.4,pointBackgroundColor:"#c96f43"}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:"#eee7d9"},ticks:{callback:v=>v/1000+"K"}},x:{grid:{display:false}}}}});
+  }
+}
+
+/* ============================================================
+   PRODUCTS
+   ============================================================ */
+function viewProducts(q="",cat="All"){
+  let list=PRODUCTS;
+  if(q)list=list.filter(p=>p.name.toLowerCase().includes(q.toLowerCase())||p.category.toLowerCase().includes(q.toLowerCase()));
+  if(cat!=="All")list=list.filter(p=>p.category===cat);
+  const cats=["All",...new Set(PRODUCTS.map(p=>p.category))];
+  return `
+  <div class="view" data-view="products">
+    <div class="panel">
+      <div class="panel-head"><h3>All Products / ပစ္စည်းများ (${list.length})</h3>
+        <button class="btn btn-primary btn-sm" onclick="addProductUI()">➕ Add Product</button></div>
+      <div class="filters">
+        <input class="search" id="pSearch" placeholder="🔍 Search products..." value="${esc(q)}" oninput="renderProducts(this.value,document.getElementById('pCat').value)">
+        <select class="inline" id="pCat" onchange="renderProducts(document.getElementById('pSearch').value,this.value)">
+          ${cats.map(c=>`<option ${c===cat?"selected":""}>${c}</option>`).join("")}
+        </select>
+      </div>
+      <div class="table-wrap"><table>
+        <tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr>
+        ${list.length?list.map(p=>`<tr>
+          <td><div class="cell-prod"><div class="p-img">${productEmoji(p.name)}</div>
+            <div><div class="p-name">${esc(p.name)}</div><div class="p-cat">ID: ${p.id}</div></div></div></td>
+          <td>${esc(p.category)}</td>
+          <td class="money">${money(p.price)}</td>
+          <td class="${p.stock<=5?(p.stock===0?"low":""):""}">${p.stock}</td>
+          <td>${p.status==="Active"?'<span class="badge green">Active</span>':'<span class="badge gray">Inactive</span>'}</td>
+          <td><div class="row-actions">
+            <button class="link-btn" onclick="editProductUI(${p.id})">Edit</button>
+            <button class="link-btn danger" onclick="deleteProduct(${p.id})">Delete</button>
+          </div></td>
+        </tr>`).join(""):`<tr><td colspan="6"><div class="empty">No products found / ပစ္စည်းမတွေ့ပါ</div></td></tr>`}
+      </table></div>
+    </div>
+  </div>`;
+}
+function renderProducts(q,cat){document.getElementById("content").innerHTML=viewProducts(q,cat);document.querySelectorAll(".view").forEach(v=>v.classList.add("active"))}
+function productEmoji(n){
+  const w=["dress","blouse","scarf","top","shirt","polo"];const s=["shoe","sneaker","sandal","boot"];
+  const a=["watch","bangle","ring","bag","wallet","necklace"];const p=["pant","jean","short"];const t=["t-shirt","tee"];
+  const low=n.toLowerCase();
+  if(a.some(x=>low.includes(x)))return "💍";
+  if(s.some(x=>low.includes(x)))return "👟";
+  if(p.some(x=>low.includes(x)))return "👖";
+  if(t.some(x=>low.includes(x))||w.some(x=>low.includes(x)))return "👕";
+  return "🛍️";
+}
+function addProductUI(){
+  openModal("Add Product / ပစ္စည်းအသစ်",`
+    <div class="form-row">
+      <div class="field" style="grid-column:1/-1"><label>Name / အမည်</label><input id="fName" placeholder="Product name"></div>
+      <div class="field"><label>Category / အမျိုးအစား</label><input id="fCat" placeholder="Men / Women / Shoes..."></div>
+      <div class="field"><label>Price (${CONFIG.currencyLabel}) / ဈေးနှုန်း</label><input id="fPrice" type="number" min="0" placeholder="45000"></div>
+      <div class="field"><label>Stock / ကုန်လက်ကျန်</label><input id="fStock" type="number" min="0" value="10"></div>
+      <div class="field"><label>Status</label><select id="fStatus"><option>Active</option><option>Inactive</option></select></div>
+    </div>`,()=>{
+    const name=document.getElementById("fName").value.trim();
+    const cat=document.getElementById("fCat").value.trim();
+    const price=parseInt(document.getElementById("fPrice").value)||0;
+    const stock=parseInt(document.getElementById("fStock").value)||0;
+    if(!name||!cat){toast("Please fill name & category","error");return}
+    PRODUCTS.push({id:Date.now(),name,category:cat,price,stock,status:document.getElementById("fStatus").value});
+    save(LS.products,PRODUCTS);closeModal();toast("Product added ✅");switchView("products");
+  });
+}
+function editProductUI(id){
+  const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
+  openModal("Edit Product / ပစ္စည်းပြင်ရန်",`
+    <div class="form-row">
+      <div class="field" style="grid-column:1/-1"><label>Name</label><input id="fName" value="${esc(p.name)}"></div>
+      <div class="field"><label>Category</label><input id="fCat" value="${esc(p.category)}"></div>
+      <div class="field"><label>Price (${CONFIG.currencyLabel})</label><input id="fPrice" type="number" value="${p.price}"></div>
+      <div class="field"><label>Stock</label><input id="fStock" type="number" value="${p.stock}"></div>
+      <div class="field"><label>Status</label><select id="fStatus"><option ${p.status==="Active"?"selected":""}>Active</option><option ${p.status==="Inactive"?"selected":""}>Inactive</option></select></div>
+    </div>`,()=>{
+    p.name=document.getElementById("fName").value.trim();
+    p.category=document.getElementById("fCat").value.trim();
+    p.price=parseInt(document.getElementById("fPrice").value)||0;
+    p.stock=parseInt(document.getElementById("fStock").value)||0;
+    p.status=document.getElementById("fStatus").value;
+    save(LS.products,PRODUCTS);closeModal();toast("Product updated ✅");switchView("products");
+  });
+}
+function deleteProduct(id){
+  if(!confirm("Delete this product? / ဖျက်မှာသေချာလား?"))return;
+  PRODUCTS=PRODUCTS.filter(p=>p.id!==id);save(LS.products,PRODUCTS);toast("Product deleted 🗑️");switchView("products");
+}
+
+/* ============================================================
+   ORDERS
+   ============================================================ */
+function viewOrders(f="All"){
+  let list=ORDERS;
+  if(f!=="All")list=list.filter(o=>o.status===f);
+  return `
+  <div class="view" data-view="orders">
+    <div class="panel">
+      <div class="panel-head"><h3>All Orders / မှာယူမှုများ (${list.length})</h3>
+        <button class="btn btn-primary btn-sm" onclick="addOrderUI()">➕ New Order</button></div>
+      <div class="filters">
+        <select class="inline" onchange="renderOrders(this.value)">
+          ${["All","Pending","Processing","Shipped","Completed"].map(s=>`<option ${s===f?"selected":""}>${s}</option>`).join("")}
+        </select>
+        <span class="muted">Click status to change / Status ပြောင်းရန် နှိပ်ပါ</span>
+      </div>
+      <div class="table-wrap"><table>
+        <tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr>
+        ${list.length?list.map(o=>`<tr>
+          <td><b>${o.id}</b></td><td>${esc(o.customer)}</td><td>${esc(o.items)}</td>
+          <td class="money">${money(o.total)}</td>
+          <td><select class="status" style="${statusStyle(o.status)}" onchange="changeStatus('${o.id}',this.value)">
+            ${["Pending","Processing","Shipped","Completed"].map(s=>`<option ${s===o.status?"selected":""}>${s}</option>`).join("")}
+          </select></td><td>${o.date}</td>
+        </tr>`).join(""):`<tr><td colspan="6"><div class="empty">No orders found</div></td></tr>`}
+      </table></div>
+    </div>
+  </div>`;
+}
+function statusStyle(s){
+  const m={Pending:"color:var(--amber);border-color:var(--amber)",Processing:"color:var(--blue);border-color:var(--blue)",Shipped:"color:var(--muted);border-color:var(--border)",Completed:"color:var(--green);border-color:var(--green)"};
+  return m[s]||"";
+}
+function renderOrders(f){document.getElementById("content").innerHTML=viewOrders(f);document.querySelectorAll(".view").forEach(v=>v.classList.add("active"))}
+function changeStatus(id,val){
+  const o=ORDERS.find(x=>x.id===id);if(!o)return;
+  o.status=val;save(LS.orders,ORDERS);toast("Order "+id+" → "+val+" ✅");renderOrders("All");
+}
+function addOrderUI(){
+  const customers=CUSTOMERS.map(c=>`<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
+  openModal("New Order / မှာယူမှုအသစ်",`
+    <div class="form-row">
+      <div class="field" style="grid-column:1/-1"><label>Customer</label><input id="fOCust" list="custList" placeholder="Type or choose">
+        <datalist id="custList">${customers}</datalist></div>
+      <div class="field" style="grid-column:1/-1"><label>Items / ပစ္စည်း</label><input id="fOItems" placeholder="e.g. Dress + Scarf"></div>
+      <div class="field"><label>Total (${CONFIG.currencyLabel})</label><input id="fOTotal" type="number" min="0" placeholder="45000"></div>
+      <div class="field"><label>Status</label><select id="fOStatus"><option>Pending</option><option>Processing</option><option>Shipped</option><option>Completed</option></select></div>
+    </div>`,()=>{
+    const cust=document.getElementById("fOCust").value.trim();
+    const items=document.getElementById("fOItems").value.trim();
+    const total=parseInt(document.getElementById("fOTotal").value)||0;
+    if(!cust||!items){toast("Please fill customer & items","error");return}
+    const next=parseInt((ORDERS.reduce((m,o)=>Math.max(m,parseInt(o.id.replace(/\D/g,"")||0)),1000))+1);
+    ORDERS.unshift({id:"ORD-"+next,customer:cust,items,total,status:document.getElementById("fOStatus").value,date:today()});
+    save(LS.orders,ORDERS);closeModal();toast("Order created ✅");switchView("orders");
+  });
+}
+
+/* ============================================================
+   CUSTOMERS
+   ============================================================ */
+function viewCustomers(q=""){
+  let list=CUSTOMERS;
+  if(q)list=list.filter(c=>c.name.toLowerCase().includes(q.toLowerCase())||c.phone.includes(q)||c.email.toLowerCase().includes(q.toLowerCase()));
+  const total=ORDERS.filter(o=>o.status!=="Pending").reduce((s,o)=>s+Number(o.total||0),0);
+  const avg=ORDERS.length?Math.round(total/ORDERS.length):0;
+  return `
+  <div class="view" data-view="customers">
+    <div class="stats">
+      <div class="stat"><div class="s-ico" style="background:var(--green-bg)">👥</div>
+        <div><div class="s-val">${CUSTOMERS.length}</div><div class="s-lbl">Total Customers</div></div></div>
+      <div class="stat"><div class="s-ico" style="background:var(--brand-light)">💰</div>
+        <div><div class="s-val">${money(total)}</div><div class="s-lbl">Total Revenue</div></div></div>
+      <div class="stat"><div class="s-ico" style="background:var(--blue-bg)">🧾</div>
+        <div><div class="s-val">${avg.toLocaleString()}</div><div class="s-lbl">Avg Order Value</div></div></div>
+      <div class="stat"><div class="s-ico" style="background:var(--amber-bg)">⭐</div>
+        <div><div class="s-val">${CUSTOMERS.filter(c=>c.spent>=500000).length}</div><div class="s-lbl">VIP Customers</div></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Customers / ဝယ်ယူသူများ</h3></div>
+      <div class="filters">
+        <input class="search" placeholder="🔍 Search name / phone / email..." value="${esc(q)}" oninput="renderCustomers(this.value)">
+      </div>
+      <div class="table-wrap"><table>
+        <tr><th>Name</th><th>Phone</th><th>Email</th><th>Orders</th><th>Total Spent</th><th>Tier</th></tr>
+        ${list.length?list.map(c=>`<tr>
+          <td><div class="cell-prod"><div class="p-img" style="background:var(--green-bg)">${avatarLetter(c.name)}</div><div class="p-name">${esc(c.name)}</div></div></td>
+          <td>${esc(c.phone)}</td><td>${esc(c.email)}</td><td>${c.orders}</td>
+          <td class="money">${money(c.spent)}</td>
+          <td>${c.spent>=500000?'<span class="badge amber">⭐ VIP</span>':c.spent>=300000?'<span class="badge blue">Gold</span>':'<span class="badge gray">Regular</span>'}</td>
+        </tr>`).join(""):`<tr><td colspan="6"><div class="empty">No customers found</div></td></tr>`}
+      </table></div>
+    </div>
+  </div>`;
+}
+function renderCustomers(q){document.getElementById("content").innerHTML=viewCustomers(q);document.querySelectorAll(".view").forEach(v=>v.classList.add("active"))}
+
+/* ============================================================
+   REPORTS
+   ============================================================ */
+function viewReports(){
+  const total=ORDERS.filter(o=>o.status!=="Pending").reduce((s,o)=>s+Number(o.total||0),0);
+  const completed=ORDERS.filter(o=>o.status==="Completed");
+  const cRevenue=completed.reduce((s,o)=>s+Number(o.total||0),0);
+  const topP=PRODUCTS.filter(p=>p.status==="Active").slice().sort((a,b)=>b.stock-a.stock).slice(0,5);
+  return `
+  <div class="view" data-view="reports">
+    <div class="summary-grid">
+      <div class="sum-card"><div class="v" style="color:var(--brand-dark)">${money(total)}</div><div class="l">Total Revenue / စုစုပေါင်း</div></div>
+      <div class="sum-card"><div class="v" style="color:var(--green)">${completed.length}</div><div class="l">Completed Orders</div></div>
+      <div class="sum-card"><div class="v" style="color:var(--blue)">${money(cRevenue)}</div><div class="l">Completed Revenue</div></div>
+    </div>
+    <div class="grid-2-half">
+      <div class="panel">
+        <div class="panel-head"><h3>Sales by Month / လအလိုက်ရောင်းအား</h3></div>
+        <div style="height:300px"><canvas id="monthChart"></canvas></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Top Products / လူကြိုက်များသောပစ္စည်း</h3></div>
+        <div class="table-wrap"><table>
+          <tr><th>Product</th><th>Stock</th><th>Price</th></tr>
+          ${topP.map(p=>`<tr><td><div class="cell-prod"><div class="p-img">${productEmoji(p.name)}</div><div class="p-name">${esc(p.name)}</div></div></td><td>${p.stock}</td><td class="money">${money(p.price)}</td></tr>`).join("")}
+        </table></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Order Status Breakdown / အခြေအနေအလိုက်</h3></div>
+      <div class="table-wrap"><table>
+        <tr><th>Status</th><th>Count</th><th>Graph</th></tr>
+        ${["Pending","Processing","Shipped","Completed"].map(s=>{
+          const n=ORDERS.filter(o=>o.status===s).length;
+          const pc=ORDERS.length?Math.round(n/ORDERS.length*100):0;
+          return `<tr><td>${statusBadge(s)}</td><td><b>${n}</b></td>
+            <td style="white-space:nowrap"><div style="display:inline-block;width:200px;height:8px;background:var(--bg);border-radius:8px;vertical-align:middle"><div style="width:${pc}%;height:8px;background:var(--brand);border-radius:8px"></div></div> ${pc}%</td></tr>`;
+        }).join("")}
+      </table></div>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+function viewSettings(){
+  const s=load(LS.settings,CONFIG);
+  return `
+  <div class="view" data-view="settings">
+    <div class="panel" style="max-width:620px">
+      <div class="panel-head"><h3>Settings / ဆက်တင်</h3><span class="muted">Saved to localStorage</span></div>
+      <div class="field"><label>Site Name / ဆိုက်အမည်</label><input id="sName" value="${esc(s.siteName)}"></div>
+      <div class="field"><label>Currency Symbol / ငွေကြေးသင်္ကေတ</label><input id="sCur" value="${esc(s.currencyLabel)}"></div>
+      <div class="field"><label>Telegram Link</label><input id="sTg" value="${esc(s.telegramLink)}"></div>
+      <div style="margin-top:8px"><button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings</button></div>
+    </div>
+  </div>`;
+}
+function saveSettings(){
+  CONFIG.siteName=document.getElementById("sName").value.trim()||CONFIG.siteName;
+  CONFIG.currencyLabel=document.getElementById("sCur").value.trim()||"Ks";
+  CONFIG.telegramLink=document.getElementById("sTg").value.trim();
+  save(LS.settings,CONFIG);
+  document.getElementById("sideName").textContent=CONFIG.siteName;
+  document.getElementById("loginTitle").textContent=CONFIG.storeTitle;
+  toast("Settings saved ✅");
+  switchView("settings");
+}
+function switchTo(name){switchView(name)}
+
+/* ============================================================
+   AUTH & INIT
+   ============================================================ */
+function initAuth(){
+  const saved=load(LS.user,null);
+  if(saved){
+    document.getElementById("login").classList.remove("show");
+    document.getElementById("app").classList.add("show");
+    document.getElementById("topUserName").textContent=saved.name;
+    document.getElementById("topAvatar").textContent=avatarLetter(saved.name);
+    document.getElementById("sideUser").textContent="Logged in as "+saved.name;
+  }else{
+    document.getElementById("login").classList.add("show");
+  }
+}
+document.getElementById("loginForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=document.getElementById("loginName").value.trim()||"Admin";
+  const pw=document.getElementById("loginPw").value;
+  // Demo: accept anything. Store a simple 4-digit-ish hash for realism.
+  const hash=(""+pw).split("").reduce((a,c)=>a+a-(c.charCodeAt(0)||0),7);
+  save(LS.user,{name,pin:hash});
+  toast("Welcome, "+name+" 👋","info");
+  initAuth();
+});
+document.getElementById("logoutBtn").addEventListener("click",()=>{
+  localStorage.removeItem(LS.user);
+  toast("Logged out","info");
+  initAuth();
+});
+document.getElementById("menuBtn").addEventListener("click",()=>{
+  document.getElementById("sidebar").classList.add("open");
+  document.getElementById("overlay").classList.add("show");
+});
+document.getElementById("overlay").addEventListener("click",()=>{
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+});
+document.querySelectorAll(".nav-item").forEach(n=>{
+  n.addEventListener("click",()=>{if(n.dataset.view)switchView(n.dataset.view)});
+});
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+initData();
+initAuth();
+refreshBrand();
+switchView("dashboard");
+
+function refreshBrand(){
+  const s=load(LS.settings,CONFIG);
+  document.getElementById("sideName").textContent=s.siteName||CONFIG.siteName;
+  const first=(s.siteName||CONFIG.siteName).charAt(0).toUpperCase();
+  document.getElementById("sideLogo").textContent=first;
+  document.getElementById("loginLogo")&&(document.getElementById("loginLogo").textContent=first);
+  CONFIG.currencyLabel=s.currencyLabel||CONFIG.currencyLabel;
+}
+</script>
+</body>
+</html>

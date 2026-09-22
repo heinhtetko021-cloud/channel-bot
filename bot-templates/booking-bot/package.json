@@ -1,0 +1,25 @@
+{
+  "name": "htech-booking-bot",
+  "version": "1.0.0",
+  "description": "Telegram Booking / Appointment Bot — H-Tech Studio Template",
+  "main": "api/bot.js",
+  "type": "module",
+  "scripts": {
+    "start": "node api/bot.js",
+    "deploy": "vercel --prod",
+    "set-webhook": "node scripts/set-webhook.js"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "booking",
+    "appointment",
+    "grammy",
+    "vercel"
+  ],
+  "author": "H-Tech Studio",
+  "license": "MIT",
+  "dependencies": {
+    "grammy": "^1.21.1"
+  }
+}

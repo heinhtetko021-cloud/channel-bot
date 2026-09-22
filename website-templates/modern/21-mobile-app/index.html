@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{APP_NAME} - Modern Mobile App Landing Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#7c3aed;--primary-light:#a78bfa;--accent:#ec4899;--accent-light:#f472b6;--gradient:linear-gradient(135deg,#7c3aed,#ec4899);--gradient-soft:linear-gradient(135deg,rgba(124,58,237,.12),rgba(236,72,153,.08));--bg:#fafafa;--card:#ffffff;--text:#1a1a2e;--text-secondary:#6b7280;--border:rgba(0,0,0,.06);--glass:rgba(255,255,255,.7);--shadow:0 4px 24px rgba(0,0,0,.06);--shadow-lg:0 12px 48px rgba(124,58,237,.12);--radius:16px;--radius-sm:12px;--radius-full:9999px;--nav-h:72px;--font:'Inter',system-ui,-apple-system,sans-serif;--max-w:1200px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h)}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:1000;transition:box-shadow .3s}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.nav-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:100%}
+.nav-logo{font-size:1.35rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:.875rem;font-weight:500;color:var(--text-secondary);transition:color .2s}
+.nav-links a:hover{color:var(--primary)}
+.nav-cta{padding:10px 24px;background:var(--gradient);color:#fff;border:none;border-radius:var(--radius-full);font-weight:600;font-size:.875rem;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:var(--shadow-lg)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:24px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--card);border-bottom:1px solid var(--border);padding:24px;flex-direction:column;gap:20px;z-index:999}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:1rem;font-weight:500;color:var(--text-secondary);padding:8px 0}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;border-radius:var(--radius-full);font-weight:600;font-size:1rem;cursor:pointer;transition:all .3s;border:none;font-family:var(--font)}
+.btn-primary{background:var(--gradient);color:#fff;box-shadow:0 4px 20px rgba(124,58,237,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(124,58,237,.4)}
+.btn-outline{background:transparent;color:var(--text);border:2px solid var(--border)}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+.btn-sm{padding:12px 24px;font-size:.875rem}
+.btn-icon{width:24px;height:24px}
+
+/* HERO */
+.hero{padding:calc(var(--nav-h) + 80px) 0 100px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.08) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(236,72,153,.06) 0%,transparent 70%);pointer-events:none}
+.hero .container{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--gradient-soft);border:1px solid rgba(124,58,237,.15);border-radius:var(--radius-full);font-size:.8rem;font-weight:600;color:var(--primary);margin-bottom:24px}
+.hero-badge span{width:8px;height:8px;background:var(--primary);border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(2.5rem,5vw,3.75rem);font-weight:900;line-height:1.1;margin-bottom:20px}
+.hero h1 .gradient{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.15rem;color:var(--text-secondary);max-width:480px;margin-bottom:36px;line-height:1.7}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.store-btn{display:flex;align-items:center;gap:12px;padding:14px 28px;background:var(--text);color:#fff;border-radius:var(--radius);transition:all .3s;font-weight:600;font-size:.95rem}
+.store-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.store-btn svg{width:28px;height:28px;fill:#fff}
+.store-btn small{font-size:.65rem;font-weight:400;display:block;opacity:.8}
+.hero-stats{display:flex;gap:40px}
+.hero-stats div{font-size:.85rem;color:var(--text-secondary)}
+.hero-stats strong{display:block;font-size:1.5rem;font-weight:800;color:var(--text)}
+
+/* PHONE MOCKUP */
+.phone-wrapper{display:flex;justify-content:center;align-items:center;position:relative}
+.phone{width:280px;height:560px;background:linear-gradient(145deg,#1a1a2e,#2d2d44);border-radius:40px;padding:12px;box-shadow:0 20px 60px rgba(0,0,0,.2),0 0 0 1px rgba(255,255,255,.1) inset;position:relative;animation:float 6s ease-in-out infinite}
+.phone-notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:120px;height:28px;background:#1a1a2e;border-radius:0 0 16px 16px;z-index:2}
+.phone-screen{width:100%;height:100%;background:linear-gradient(180deg,#f0ecff 0%,#fce7f3 50%,#e0f2fe 100%);border-radius:30px;overflow:hidden;position:relative;padding:48px 16px 16px}
+.phone-screen .screen-header{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:6px}
+.phone-screen .screen-sub{font-size:.65rem;color:var(--text-secondary);margin-bottom:20px}
+.phone-card{background:var(--glass);backdrop-filter:blur(10px);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,.6);transition:transform .3s}
+.phone-card:hover{transform:scale(1.03)}
+.phone-card-icon{font-size:1.2rem;margin-bottom:6px}
+.phone-card-title{font-size:.7rem;font-weight:700;color:var(--text)}
+.phone-card-bar{height:6px;border-radius:3px;background:rgba(124,58,237,.15);margin-top:8px;overflow:hidden}
+.phone-card-bar span{display:block;height:100%;border-radius:3px;background:var(--gradient);animation:barFill 3s ease-in-out infinite alternate}
+.phone-card:nth-child(2) .phone-card-bar span{width:70%;animation-delay:.5s}
+.phone-card:nth-child(3) .phone-card-bar span{width:45%;animation-delay:1s}
+.phone-float{position:absolute;background:var(--glass);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.5);border-radius:var(--radius-sm);padding:12px 16px;font-size:.75rem;font-weight:600;color:var(--text);box-shadow:var(--shadow);animation:float 4s ease-in-out infinite;white-space:nowrap}
+.phone-float.f1{top:60px;left:-40px;animation-delay:1s}
+.phone-float.f2{bottom:100px;right:-50px;animation-delay:2s}
+.phone-float .pf-icon{font-size:1.2rem;margin-right:6px;vertical-align:middle}
+
+/* SECTIONS */
+section{padding:100px 0}
+.section-label{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:var(--gradient-soft);border:1px solid rgba(124,58,237,.12);border-radius:var(--radius-full);font-size:.75rem;font-weight:600;color:var(--primary);margin-bottom:16px}
+.section-title{font-size:clamp(2rem,4vw,2.75rem);font-weight:800;margin-bottom:16px;line-height:1.2}
+.section-desc{font-size:1.05rem;color:var(--text-secondary);max-width:560px;line-height:1.7}
+
+/* FEATURES */
+.features{background:var(--gradient-soft)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;transition:all .4s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
+.feature-card:hover::before{transform:scaleX(1)}
+.feature-icon{width:56px;height:56px;border-radius:var(--radius-sm);background:var(--gradient-soft);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px}
+.feature-card h3{font-size:1.15rem;font-weight:700;margin-bottom:10px}
+.feature-card p{font-size:.9rem;color:var(--text-secondary);line-height:1.6}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:48px;position:relative}
+.steps::before{content:'';position:absolute;top:40px;left:15%;right:15%;height:2px;background:linear-gradient(90deg,var(--primary-light),var(--accent-light));opacity:.3}
+.step{text-align:center;position:relative}
+.step-num{width:80px;height:80px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:#fff;margin:0 auto 20px;position:relative;z-index:1;box-shadow:0 4px 20px rgba(124,58,237,.25)}
+.step h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.step p{font-size:.85rem;color:var(--text-secondary);line-height:1.6}
+
+/* SOCIAL PROOF */
+.social{background:var(--gradient-soft)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin:48px 0;text-align:center}
+.stat-card{background:var(--card);border-radius:var(--radius);padding:32px;border:1px solid var(--border)}
+.stat-num{font-size:2.5rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:.85rem;color:var(--text-secondary);margin-top:4px}
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.testimonial{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;transition:all .3s}
+.testimonial:hover{box-shadow:var(--shadow)}
+.testimonial-stars{color:#f59e0b;font-size:.9rem;margin-bottom:12px;letter-spacing:2px}
+.testimonial p{font-size:.9rem;color:var(--text-secondary);line-height:1.7;margin-bottom:16px;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:12px}
+.testimonial-avatar{width:40px;height:40px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem}
+.testimonial-name{font-weight:600;font-size:.85rem}
+.testimonial-role{font-size:.75rem;color:var(--text-secondary)}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:700px;margin:48px auto 0}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:40px;text-align:center;transition:all .3s}
+.price-card.featured{border-color:var(--primary);position:relative;box-shadow:var(--shadow-lg)}
+.price-card.featured::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gradient);color:#fff;padding:4px 16px;border-radius:var(--radius-full);font-size:.7rem;font-weight:700;letter-spacing:1px}
+.price-card h3{font-size:1.25rem;font-weight:700;margin-bottom:8px}
+.price-card .price{font-size:3rem;font-weight:900;margin:16px 0 4px}
+.price-card .price span{font-size:1rem;font-weight:500;color:var(--text-secondary)}
+.price-card .price-desc{font-size:.85rem;color:var(--text-secondary);margin-bottom:24px}
+.price-features{list-style:none;text-align:left;margin-bottom:32px}
+.price-features li{padding:10px 0;font-size:.9rem;color:var(--text-secondary);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.price-features li::before{content:'✓';color:var(--primary);font-weight:700}
+
+/* SCREENSHOTS */
+.screenshots-carousel{display:flex;gap:24px;margin-top:48px;overflow-x:auto;padding-bottom:20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.screenshots-carousel::-webkit-scrollbar{height:6px}
+.screenshots-carousel::-webkit-scrollbar-track{background:var(--border);border-radius:3px}
+.screenshots-carousel::-webkit-scrollbar-thumb{background:var(--primary-light);border-radius:3px}
+.screenshot-item{min-width:240px;height:440px;border-radius:28px;background:linear-gradient(145deg,#1a1a2e,#2d2d44);padding:8px;scroll-snap-align:start;flex-shrink:0;box-shadow:0 8px 32px rgba(0,0,0,.15);transition:transform .3s}
+.screenshot-item:hover{transform:translateY(-4px)}
+.screenshot-inner{width:100%;height:100%;border-radius:22px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:600;color:var(--text-secondary)}
+.si-1{background:linear-gradient(180deg,#ede9fe,#fce7f3)}
+.si-2{background:linear-gradient(180deg,#e0f2fe,#ede9fe)}
+.si-3{background:linear-gradient(180deg,#fce7f3,#ecfdf5)}
+.si-4{background:linear-gradient(180deg,#ecfdf5,#e0f2fe)}
+.si-5{background:linear-gradient(180deg,#fef3c7,#fce7f3)}
+
+/* CTA */
+.cta-section{text-align:center;position:relative;overflow:hidden}
+.cta-box{background:var(--gradient);border-radius:24px;padding:80px 40px;color:#fff;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:rgba(255,255,255,.1);border-radius:50%}
+.cta-box::after{content:'';position:absolute;bottom:-60px;left:-60px;width:200px;height:200px;background:rgba(255,255,255,.08);border-radius:50%}
+.cta-box h2{font-size:clamp(2rem,4vw,2.75rem);font-weight:800;margin-bottom:16px;position:relative;z-index:1}
+.cta-box p{font-size:1.1rem;opacity:.9;margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.cta-box .btn{background:#fff;color:var(--primary);position:relative;z-index:1}
+.cta-box .btn:hover{box-shadow:0 8px 32px rgba(0,0,0,.2)}
+
+/* FAQ */
+.faq-list{max-width:700px;margin:48px auto 0}
+.faq-item{border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:12px;overflow:hidden;transition:all .3s}
+.faq-item.active{border-color:var(--primary-light);box-shadow:0 2px 12px rgba(124,58,237,.08)}
+.faq-q{padding:20px 24px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600;font-size:.95rem;background:var(--card);transition:background .3s}
+.faq-q:hover{background:#f9f9fb}
+.faq-arrow{font-size:1.2rem;transition:transform .3s;color:var(--primary)}
+.faq-item.active .faq-arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s;padding:0 24px;font-size:.9rem;color:var(--text-secondary);line-height:1.7}
+.faq-item.active .faq-a{max-height:200px;padding:0 24px 20px}
+
+/* NEWSLETTER */
+.newsletter{text-align:center}
+.newsletter-form{display:flex;gap:12px;max-width:440px;margin:32px auto 0}
+.newsletter-form input{flex:1;padding:14px 20px;border:2px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:.9rem;transition:border-color .3s;outline:none}
+.newsletter-form input:focus{border-color:var(--primary)}
+.newsletter-success{display:none;color:var(--primary);font-weight:600;margin-top:16px;font-size:.9rem}
+
+/* FOOTER */
+footer{background:var(--text);color:rgba(255,255,255,.7);padding:60px 0 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand .nav-logo{font-size:1.5rem;margin-bottom:12px;display:block}
+.footer-brand p{font-size:.85rem;line-height:1.7;max-width:280px}
+.footer-col h4{color:#fff;font-size:.9rem;font-weight:700;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px}
+.footer-col a{display:block;font-size:.85rem;padding:4px 0;transition:color .2s}
+.footer-col a:hover{color:var(--primary-light)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:.8rem}
+.footer-social{display:flex;gap:16px}
+.footer-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .3s}
+.footer-social a:hover{background:var(--primary);color:#fff}
+
+/* ANIMATIONS */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes barFill{0%{width:90%}100%{width:60%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+.hero .container{grid-template-columns:1fr;text-align:center}
+.hero-sub{margin-left:auto;margin-right:auto}
+.hero-buttons{justify-content:center}
+.hero-stats{justify-content:center}
+.phone-wrapper{margin-top:40px}
+.features-grid{grid-template-columns:repeat(2,1fr)}
+.steps{grid-template-columns:repeat(2,1fr)}
+.steps::before{display:none}
+.stats-row{grid-template-columns:repeat(2,1fr)}
+.testimonials{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+nav .nav-links,nav .nav-cta{display:none}
+.hamburger{display:flex}
+.features-grid{grid-template-columns:1fr}
+.steps{grid-template-columns:1fr}
+.stats-row{grid-template-columns:1fr 1fr}
+.pricing-grid{grid-template-columns:1fr}
+.phone{width:240px;height:480px}
+.phone-float{display:none}
+.cta-box{padding:60px 24px}
+.newsletter-form{flex-direction:column}
+.footer-grid{grid-template-columns:1fr}
+.footer-bottom{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== TOP CONFIG — EDIT HERE ==================== -->
+<script>
+/*  ╔══════════════════════════════════════════════════════════════╗
+    ║  APP LANDING PAGE — CONFIGURATION                          ║
+    ║  Edit the values below to customize your landing page.     ║
+    ║  {APP_NAME} and {EMAIL} placeholders auto-replace on save. ║
+    ╚══════════════════════════════════════════════════════════════╝ */
+
+const CONFIG = {
+  appName: "{APP_NAME}",
+  tagline: "Your smarter daily companion — track habits, stay focused, grow better.",
+  email: "{EMAIL}",
+  telegramLink: "t.me/hein_public_ai_bot", /* {TG_LINK} */
+  currency: "$"
+};
+
+/* ── CUSTOMIZE YOUR FEATURES HERE ─────────────────────────── */
+const FEATURES = [
+  { icon: "⚡", title: "Lightning Fast", desc: "Built with native performance in mind. Instant load times, zero lag — even on older devices." },
+  { icon: "🔒", title: "Secure & Private", desc: "End-to-end encryption and zero data selling. Your data stays yours, always." },
+  { icon: "📊", title: "Smart Analytics", desc: "AI-powered insights that learn your patterns and suggest optimizations for your workflow." },
+  { icon: "🎨", title: "Beautiful Design", desc: "Pixel-perfect UI crafted with care. Light & dark themes, fully customizable layouts." },
+  { icon: "🔔", title: "Smart Notifications", desc: "Context-aware reminders that adapt to your schedule. Never miss what matters." },
+  { icon: "☁️", title: "Cloud Sync", desc: "Seamlessly sync across all your devices. Start on phone, continue on tablet or desktop." }
+];
+</script>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" id="navLogo">{APP_NAME}</a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#download" class="nav-cta">Get the App</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features">Features</a>
+  <a href="#how-it-works">How It Works</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#faq">FAQ</a>
+  <a href="#download" class="btn btn-primary btn-sm" style="text-align:center;justify-content:center">Get the App</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge"><span></span> Now Available Worldwide</div>
+      <h1>Meet <span class="gradient">{APP_NAME}</span> — Your Smarter Daily Companion</h1>
+      <p class="hero-sub">{APP_NAME} helps you build better habits, stay focused, and track your personal growth — all in one beautifully designed app.</p>
+      <div class="hero-buttons">
+        <a href="#" class="store-btn" id="appStoreBtn">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div><small>Download on the</small>App Store</div>
+        </a>
+        <a href="#" class="store-btn" id="playStoreBtn">
+          <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.24-.84-.76-.84-1.35zm13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27zm.91-.91L19.59 12l-1.87-2.21-2.27 2.27 2.27 2.15zM6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z"/></svg>
+          <div><small>Get it on</small>Google Play</div>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div><strong id="heroStat1">10K+</strong>Downloads</div>
+        <div><strong id="heroStat2">4.9★</strong>App Rating</div>
+        <div><strong id="heroStat3">50+</strong>Countries</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-wrapper">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="screen-header" id="phoneAppName">{APP_NAME}</div>
+            <div class="screen-sub">Your daily dashboard</div>
+            <div class="phone-card">
+              <div class="phone-card-icon">🎯</div>
+              <div class="phone-card-title">Daily Goal: 87% Complete</div>
+              <div class="phone-card-bar"><span style="width:87%"></span></div>
+            </div>
+            <div class="phone-card">
+              <div class="phone-card-icon">🔥</div>
+              <div class="phone-card-title">12-Day Streak — Keep going!</div>
+              <div class="phone-card-bar"><span style="width:70%"></span></div>
+            </div>
+            <div class="phone-card">
+              <div class="phone-card-icon">📈</div>
+              <div class="phone-card-title">Weekly Progress +24%</div>
+              <div class="phone-card-bar"><span style="width:55%"></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-float f1"><span class="pf-icon">✨</span> AI Insights Ready</div>
+        <div class="phone-float f2"><span class="pf-icon">🏆</span> New Achievement!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-label">✨ Features</div>
+    <h2 class="section-title">Everything You Need, Nothing You Don't</h2>
+    <p class="section-desc">Powerful features wrapped in a simple, intuitive interface.</p>
+    <div class="features-grid" id="featuresGrid"></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="section-label">🚀 Getting Started</div>
+    <h2 class="section-title">Up and Running in Minutes</h2>
+    <p class="section-desc">Four simple steps to transform your daily routine.</p>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <h3>Download</h3>
+        <p>Get <span class="app-name">{APP_NAME}</span> from App Store or Google Play in seconds.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <h3>Set Up</h3>
+        <p>Create your profile and choose your goals. The AI learns your preferences instantly.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <h3>Track Daily</h3>
+        <p>Log activities with a single tap. Smart reminders keep you on track effortlessly.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <h3>Grow</h3>
+        <p>Watch your insights unfold. Celebrate streaks and build lasting positive habits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social" id="social">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-label">💙 Social Proof</div>
+      <h2 class="section-title">Loved by Thousands Worldwide</h2>
+      <p class="section-desc" style="margin:0 auto">Real results from real people across the globe.</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card reveal"><div class="stat-num" id="stat1">10,000+</div><div class="stat-label">Happy Users</div></div>
+      <div class="stat-card reveal"><div class="stat-num" id="stat2">4.9/5</div><div class="stat-label">Average Rating</div></div>
+      <div class="stat-card reveal"><div class="stat-num" id="stat3">50+</div><div class="stat-label">Countries</div></div>
+      <div class="stat-card reveal"><div class="stat-num" id="stat4">99%</div><div class="stat-label">Uptime</div></div>
+    </div>
+    <div class="testimonials">
+      <div class="testimonial reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"{APP_NAME} completely changed how I structure my day. The AI suggestions are surprisingly accurate."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">M</div>
+          <div><div class="testimonial-name">Mya M.</div><div class="testimonial-role">Product Designer, Yangon</div></div>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"Finally an app that's both beautiful AND functional. I've tried dozens — this one sticks."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">J</div>
+          <div><div class="testimonial-name">James T.</div><div class="testimonial-role">Software Engineer, Singapore</div></div>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"The cloud sync is seamless. I switch between my phone and tablet without missing a beat."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">S</div>
+          <div><div class="testimonial-name">Suki A.</div><div class="testimonial-role">Freelancer, Tokyo</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-label">💎 Pricing</div>
+      <h2 class="section-title">Simple, Honest Pricing</h2>
+      <p class="section-desc" style="margin:0 auto">Start free. Upgrade when you're ready for more power.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <h3>Free</h3>
+        <div class="price">$0<span>/forever</span></div>
+        <p class="price-desc">Perfect for getting started</p>
+        <ul class="price-features">
+          <li>Basic habit tracking</li>
+          <li>3 active goals</li>
+          <li>Daily reminders</li>
+          <li>Community access</li>
+        </ul>
+        <a href="#" class="btn btn-outline" style="width:100%;justify-content:center">Get Started Free</a>
+      </div>
+      <div class="price-card featured reveal">
+        <h3>Pro</h3>
+        <div class="price">$4.99<span>/month</span></div>
+        <p class="price-desc">Unlock your full potential</p>
+        <ul class="price-features">
+          <li>Unlimited goals & tracking</li>
+          <li>AI-powered insights</li>
+          <li>Advanced analytics</li>
+          <li>Priority support</li>
+          <li>Cloud sync & backup</li>
+          <li>Custom themes</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="width:100%;justify-content:center">Start 7-Day Free Trial</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section id="screenshots" style="background:var(--gradient-soft)">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-label">📱 Screenshots</div>
+      <h2 class="section-title">See It in Action</h2>
+      <p class="section-desc" style="margin:0 auto">A sneak peek at the {APP_NAME} experience.</p>
+    </div>
+    <div class="screenshots-carousel">
+      <div class="screenshot-item"><div class="screenshot-inner si-1">Dashboard</div></div>
+      <div class="screenshot-item"><div class="screenshot-inner si-2">Analytics</div></div>
+      <div class="screenshot-item"><div class="screenshot-inner si-3">Habits</div></div>
+      <div class="screenshot-item"><div class="screenshot-inner si-4">Settings</div></div>
+      <div class="screenshot-item"><div class="screenshot-inner si-5">Profile</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="download">
+  <div class="container">
+    <div class="cta-box">
+      <h2>Ready to Transform Your Daily Routine?</h2>
+      <p>Join 10,000+ users already building better habits with {APP_NAME}.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1">
+        <a href="#" class="btn btn-sm" id="ctaAppStore">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+        <a href="#" class="btn btn-sm" id="ctaPlayStore">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor"><path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.24-.84-.76-.84-1.35zm13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27zm.91-.91L19.59 12l-1.87-2.21-2.27 2.27 2.27 2.15zM6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z"/></svg>
+          Google Play
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-label">❓ FAQ</div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item active">
+        <div class="faq-q" onclick="toggleFaq(this)">Is {APP_NAME} really free? <span class="faq-arrow">▾</span></div>
+        <div class="faq-a">Yes! The core app is completely free forever. Pro features like AI insights, unlimited goals, and cloud sync are available with our affordable Pro plan.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Does it work offline? <span class="faq-arrow">▾</span></div>
+        <div class="faq-a">Absolutely. {APP_NAME} is designed to work fully offline. Your data syncs automatically when you're back online.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Is my data private? <span class="faq-arrow">▾</span></div>
+        <div class="faq-a">We take privacy seriously. All data is encrypted end-to-end. We never sell or share your personal information with third parties.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Can I cancel my Pro subscription anytime? <span class="faq-arrow">▾</span></div>
+        <div class="faq-a">Yes, you can cancel anytime with no questions asked. You'll keep Pro access until the end of your billing period, then revert to the free plan.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Which platforms are supported? <span class="faq-arrow">▾</span></div>
+        <div class="faq-a">{APP_NAME} is available on iOS (iPhone & iPad) and Android. A web version is coming soon!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter" style="background:var(--gradient-soft)">
+  <div class="container">
+    <div class="section-label">📬 Stay Updated</div>
+    <h2 class="section-title">Get the Latest News & Tips</h2>
+    <p class="section-desc" style="margin:0 auto">Join our newsletter for product updates, productivity tips, and exclusive offers.</p>
+    <form class="newsletter-form" id="newsletterForm" onsubmit="return handleNewsletter(event)">
+      <input type="email" placeholder="Enter your email address" required aria-label="Email address">
+      <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+    </form>
+    <p class="newsletter-success" id="newsletterSuccess">✓ Thanks for subscribing! Check your inbox.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="nav-logo" id="footerLogo">{APP_NAME}</span>
+        <p>Your smarter daily companion. Built with care to help you build better habits and live intentionally.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#download">Download</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#faq">FAQ</a>
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 <span class="app-name">{APP_NAME}</span>. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="GitHub">⌨</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== INLINE SCRIPTS ==================== -->
+<script>
+(function(){
+  /* Replace placeholders with CONFIG values */
+  const appName = CONFIG.appName || "{APP_NAME}";
+  const email = CONFIG.email || "{EMAIL}";
+  const tgLink = CONFIG.telegramLink || "#";
+
+  function replaceText(root){
+    root.querySelectorAll('*').forEach(function(el){
+      if(el.children.length===0 && el.textContent.indexOf('{')!==-1){
+        el.textContent = el.textContent.replace(/\{APP_NAME\}/g, appName).replace(/\{EMAIL\}/g, email).replace(/\{TG_LINK\}/g, tgLink);
+      }
+    });
+  }
+  document.querySelectorAll('.app-name').forEach(function(e){e.textContent=appName});
+  document.title = document.title.replace(/\{APP_NAME\}/g, appName);
+  document.getElementById('navLogo').textContent = appName;
+  document.getElementById('footerLogo').textContent = appName;
+  document.getElementById('phoneAppName').textContent = appName;
+  replaceText(document.body);
+
+  /* Render Features from CONFIG */
+  var grid = document.getElementById('featuresGrid');
+  FEATURES.forEach(function(f){
+    var card = document.createElement('div');
+    card.className = 'feature-card reveal';
+    card.innerHTML = '<div class="feature-icon">' + f.icon + '</div><h3>' + f.title + '</h3><p>' + f.desc + '</p>';
+    grid.appendChild(card);
+  });
+
+  /* Sticky nav scroll effect */
+  var nav = document.getElementById('navbar');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  /* Hamburger menu */
+  var hamburger = document.getElementById('hamburgerBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', function(){
+    mobileMenu.classList.toggle('open');
+    var spans = hamburger.querySelectorAll('span');
+    if(mobileMenu.classList.contains('open')){
+      spans[0].style.transform='rotate(45deg) translate(5px,5px)';
+      spans[1].style.opacity='0';
+      spans[2].style.transform='rotate(-45deg) translate(5px,-5px)';
+    } else {
+      spans[0].style.transform=''; spans[1].style.opacity=''; spans[2].style.transform='';
+    }
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      var spans = hamburger.querySelectorAll('span');
+      spans[0].style.transform=''; spans[1].style.opacity=''; spans[2].style.transform='';
+    });
+  });
+
+  /* Scroll reveal animations */
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  reveals.forEach(function(el){ observer.observe(el); });
+
+  /* FAQ toggle */
+  window.toggleFaq = function(q){
+    var item = q.parentElement;
+    var wasActive = item.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('active')});
+    if(!wasActive) item.classList.add('active');
+  };
+
+  /* Newsletter form */
+  window.handleNewsletter = function(e){
+    e.preventDefault();
+    document.getElementById('newsletterForm').style.display='none';
+    document.getElementById('newsletterSuccess').style.display='block';
+    return false;
+  };
+
+  /* App Store / Play Store placeholder links — edit these URLs */
+  var storeLinks = {
+    appStore: "#",
+    playStore: "#"
+  };
+  ['appStoreBtn','ctaAppStore'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.href = storeLinks.appStore;
+  });
+  ['playStoreBtn','ctaPlayStore'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.href = storeLinks.playStore;
+  });
+
+  /* Smooth scroll for nav links */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var target = document.querySelector(this.getAttribute('href'));
+      if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

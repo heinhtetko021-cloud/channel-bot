@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{BUSINESS_NAME} - Myanmar Business Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- ============================================================
+     CUSTOMIZATION GUIDE (for H-Tech Studio developers):
+     1. Edit <style> CSS variables below (--primary, --accent, etc.)
+     2. Edit the <script id="site-config"> JSON object below
+     3. All text on the page pulls from the config — no need to edit HTML
+     4. Replace placeholder images (data-src="placeholder") with real URLs
+     5. Replace the map src with a real Google Maps embed URL
+     ============================================================ -->
+<style>
+/* ==========================================================
+   CONFIGURATION BLOCK — Edit these variables to re-theme the site
+   ========================================================== */
+:root {
+  --primary: #faf7f3;        /* Background cream          */
+  --accent: #c2775a;         /* Terra cotta accent        */
+  --accent-dark: #a8603f;    /* Darker accent for hover   */
+  --text: #2d2926;           /* Main text color           */
+  --text-light: #6b6560;     /* Secondary text            */
+  --card-bg: #ffffff;        /* Card / section bg         */
+  --border: #e8e2dc;         /* Subtle borders            */
+  --font: 'Poppins', sans-serif;
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(45,41,38,.08);
+  --shadow-lg: 0 8px 40px rgba(45,41,38,.12);
+}
+
+/* ==========================================================
+   RESET & BASE
+   ========================================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--font);color:var(--text);background:var(--primary);line-height:1.7;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+.container{width:min(1160px,92%);margin-inline:auto}
+.section{padding:80px 0}
+.section-title{text-align:center;margin-bottom:56px}
+.section-title h2{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;margin-bottom:12px;position:relative;display:inline-block}
+.section-title h2::after{content:'';display:block;width:56px;height:4px;background:var(--accent);border-radius:4px;margin:12px auto 0}
+.section-title p{color:var(--text-light);max-width:560px;margin-inline:auto;font-size:.98rem}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:var(--radius);font-weight:600;font-size:.95rem;transition:.3s;border:none;cursor:pointer;font-family:var(--font)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 6px 20px rgba(194,119,90,.35)}
+.btn-outline{border:2px solid var(--accent);color:var(--accent);background:transparent}
+.btn-outline:hover{background:var(--accent);color:#fff}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+
+/* ==========================================================
+   HEADER / NAV
+   ========================================================== */
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(250,247,243,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:.3s}
+.header .container{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.25rem}
+.logo-icon{width:40px;height:40px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.1rem}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-size:.92rem;font-weight:500;position:relative;transition:.3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:.3s}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;z-index:1001}
+.hamburger span{width:26px;height:2.5px;background:var(--text);border-radius:3px;transition:.3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* ==========================================================
+   HERO
+   ========================================================== */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:72px}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(194,119,90,.12) 0%,transparent 70%);border-radius:50%}
+.hero::after{content:'';position:absolute;bottom:-150px;left:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(194,119,90,.08) 0%,transparent 70%);border-radius:50%}
+.hero .container{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.hero-content h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.2;margin-bottom:20px}
+.hero-content h1 span{color:var(--accent)}
+.hero-content p{color:var(--text-light);font-size:1.05rem;margin-bottom:32px;max-width:480px}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
+.hero-visual{display:flex;justify-content:center}
+.hero-image-placeholder{width:100%;max-width:440px;aspect-ratio:4/3;background:linear-gradient(135deg,rgba(194,119,90,.1),rgba(194,119,90,.04));border:2px dashed var(--border);border-radius:20px;display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:.9rem;text-align:center;padding:24px}
+.hero-stats{display:flex;gap:40px;margin-top:40px;padding-top:32px;border-top:1px solid var(--border)}
+.hero-stat h3{font-size:1.8rem;font-weight:700;color:var(--accent)}
+.hero-stat p{font-size:.82rem;color:var(--text-light);margin-top:2px}
+
+/* ==========================================================
+   ABOUT
+   ========================================================== */
+.about{background:var(--card-bg)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.about-image-placeholder{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,rgba(194,119,90,.08),rgba(194,119,90,.02));border:2px dashed var(--border);border-radius:20px;display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:.9rem;text-align:center;padding:24px}
+.about-content h3{font-size:1.5rem;font-weight:600;margin-bottom:16px}
+.about-content p{color:var(--text-light);margin-bottom:16px;font-size:.95rem}
+.mission-list{margin-top:24px;display:flex;flex-direction:column;gap:14px}
+.mission-list li{display:flex;align-items:flex-start;gap:12px;font-size:.95rem}
+.mission-list li::before{content:'✓';flex-shrink:0;width:28px;height:28px;background:rgba(194,119,90,.1);color:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem}
+
+/* ==========================================================
+   SERVICES
+   ========================================================== */
+.service-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px;transition:.3s;position:relative;overflow:hidden}
+.service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--accent)}
+.service-icon{width:56px;height:56px;background:rgba(194,119,90,.1);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px;transition:.3s}
+.service-card:hover .service-icon{background:var(--accent);color:#fff}
+.service-card h3{font-size:1.15rem;font-weight:600;margin-bottom:10px}
+.service-card p{color:var(--text-light);font-size:.9rem;line-height:1.6}
+
+/* ==========================================================
+   GALLERY
+   ========================================================== */
+.gallery{background:var(--card-bg)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.gallery-item{aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;cursor:pointer;position:relative;border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(194,119,90,.06),rgba(194,119,90,.01))}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.gallery-item:hover img{transform:scale(1.05)}
+.gallery-overlay{position:absolute;inset:0;background:rgba(45,41,38,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:.3s}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay span{color:#fff;font-weight:600;font-size:.95rem}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s}
+.lightbox.active{opacity:1;pointer-events:auto}
+.lightbox img{max-width:90%;max-height:85vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.4)}
+.lightbox-close{position:absolute;top:24px;right:32px;color:#fff;font-size:2rem;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:.3s}
+.lightbox-close:hover{background:rgba(255,255,255,.15)}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:2rem;cursor:pointer;padding:12px;border-radius:50%;transition:.3s;width:48px;height:48px;display:flex;align-items:center;justify-content:center}
+.lightbox-nav:hover{background:rgba(255,255,255,.15)}
+.lightbox-prev{left:16px}
+.lightbox-next{right:16px}
+
+/* ==========================================================
+   STATS
+   ========================================================== */
+.stats{background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#fff;padding:64px 0;text-align:center}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:32px}
+.stats-item h3{font-size:clamp(2rem,4vw,2.8rem);font-weight:700}
+.stats-item p{font-size:.9rem;opacity:.85;margin-top:4px}
+
+/* ==========================================================
+   TESTIMONIALS
+   ========================================================== */
+.testimonial-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:32px;position:relative}
+.testimonial-card::before{content:'"';font-size:4rem;color:var(--accent);opacity:.2;position:absolute;top:12px;left:24px;font-family:serif;line-height:1}
+.testimonial-text{color:var(--text-light);font-size:.93rem;font-style:italic;margin-bottom:20px;padding-top:20px;line-height:1.7}
+.testimonial-author{display:flex;align-items:center;gap:12px}
+.testimonial-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1rem;flex-shrink:0}
+.testimonial-info strong{font-size:.92rem;display:block}
+.testimonial-info span{font-size:.8rem;color:var(--text-light)}
+.testimonial-stars{color:#e8a838;font-size:.85rem;margin-bottom:8px;letter-spacing:2px}
+
+/* ==========================================================
+   CONTACT
+   ========================================================== */
+.contact{background:var(--card-bg)}
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
+.contact-form{display:flex;flex-direction:column;gap:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:.85rem;font-weight:500}
+.form-group input,.form-group textarea,.form-group select{padding:14px 16px;border:1px solid var(--border);border-radius:10px;font-family:var(--font);font-size:.92rem;transition:.3s;background:var(--primary)}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(194,119,90,.12)}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-success{display:none;padding:16px;background:rgba(76,175,80,.1);border:1px solid #4caf50;border-radius:10px;color:#2e7d32;font-size:.92rem;text-align:center;font-weight:500}
+.contact-info{display:flex;flex-direction:column;gap:24px}
+.info-card{display:flex;gap:16px;align-items:flex-start;padding:20px;background:var(--primary);border-radius:var(--radius)}
+.info-icon{width:48px;height:48px;background:rgba(194,119,90,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.info-card h4{font-size:.95rem;font-weight:600;margin-bottom:4px}
+.info-card p{font-size:.85rem;color:var(--text-light)}
+.info-card a{color:var(--accent);font-weight:500}
+.info-card a:hover{text-decoration:underline}
+.map-placeholder{width:100%;height:220px;border:2px dashed var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:.88rem;background:var(--primary)}
+.map-placeholder iframe{width:100%;height:100%;border:0;border-radius:var(--radius)}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+.footer{background:var(--text);color:rgba(255,255,255,.75);padding:64px 0 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer-brand .logo{color:#fff;margin-bottom:16px}
+.footer-brand .logo-icon{background:var(--accent)}
+.footer-brand p{font-size:.88rem;line-height:1.7;max-width:280px}
+.footer-col h4{color:#fff;font-size:.95rem;margin-bottom:20px;font-weight:600}
+.footer-col li{margin-bottom:10px}
+.footer-col a{font-size:.88rem;transition:.3s}
+.footer-col a:hover{color:var(--accent)}
+.footer-social{display:flex;gap:12px;margin-top:20px}
+.footer-social a{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:.3s}
+.footer-social a:hover{background:var(--accent);color:#fff}
+.footer-bottom{margin-top:48px;padding:20px 0;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:.82rem}
+.footer-bottom a{color:var(--accent)}
+
+/* ==========================================================
+   SCROLL TO TOP
+   ========================================================== */
+.scroll-top{position:fixed;bottom:32px;right:32px;width:48px;height:48px;background:var(--accent);color:#fff;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;opacity:0;transform:translateY(20px);transition:.3s;z-index:999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(194,119,90,.4)}
+.scroll-top.visible{opacity:1;transform:translateY(0)}
+.scroll-top:hover{background:var(--accent-dark);transform:translateY(-2px)}
+
+/* ==========================================================
+   RESPONSIVE (Mobile-First Breakpoints)
+   ========================================================== */
+@media(max-width:968px){
+  .hero .container{grid-template-columns:1fr;text-align:center}
+  .hero-content p{margin-inline:auto}
+  .hero-buttons{justify-content:center}
+  .hero-visual{display:none}
+  .hero-stats{justify-content:center}
+  .about-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .section{padding:56px 0}
+  .nav-links{position:fixed;top:0;right:-100%;width:min(320px,85%);height:100vh;background:var(--primary);flex-direction:column;padding:100px 40px 40px;gap:24px;transition:.4s;box-shadow:-4px 0 30px rgba(0,0,0,.1)}
+  .nav-links.active{right:0}
+  .hamburger{display:flex}
+  .hero{min-height:auto;padding:120px 0 60px}
+  .hero-stats{flex-wrap:wrap;gap:24px}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .hero-content h1{font-size:1.7rem}
+  .stats-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SITE CONFIGURATION — Edit this JSON to customize all content
+     ============================================================ -->
+<script id="site-config" type="application/json">
+{
+  "businessName": "H-Tech Studio",
+  "businessNameShort": "HT",
+  "tagline": "Digital Solutions အတွက် Myanmar ရဲ့ Trusted Partner",
+  "heroTitle": "Business ကို Digital လောကမှာ",
+  "heroHighlight": "အကောင်းဆုံး ဖြစ်အောင်",
+  "heroSubtitle": "Professional website, mobile app, နှင့် digital marketing solutions များကို တစ်နေရာတည်းမှာ ရရှိပါ။ Myanmar စီးပွားရေးလုပ်ငန်းများအတွက် အထူးပြုဝန်ဆောင်မှု။",
+  "heroCTA1": "စတင်ရန်",
+  "heroCTA2": "ပိုမိုသိရှိရန်",
+  "address": "42, Pyay Road, Hlaing Township, Yangon, Myanmar",
+  "phone": "+95 9 1234 56789",
+  "email": "info@htechstudio.com",
+  "telegramLink": "https://t.me/hein_public_ai_bot",
+  "mapEmbed": "",
+  "footerText": "© {YEAR} {BUSINESS_NAME}. All rights reserved. Myanmar.",
+  "aboutTitle": "ကျွန်တော်တို့ အကြောင်း",
+  "aboutSubtitle": "H-Tech Studio ကို ဘာကြောင့် ရွေးချယ်သင့်သလဲ",
+  "aboutText1": "H-Tech Studio သည် Myanmar တွင် ထိပ်တန်း digital agency အဖြစ် ၅ နှစ်ကျော် ဝန်ဆောင်မှုပေးလျက်ရှိပါသည်။",
+  "aboutText2": "ကျွန်တော်တို့သည် web development, mobile apps, နှင့် digital marketing တို့တွင် ကျွမ်းကျင်ပါသည်။",
+  "aboutText3": "ကျွန်တော်တို့ရဲ့ ရည်မှန်းချက်မှာ Myanmar စီးပွားရေးလုပ်ငန်းများကို digital ခေတ်သို့ ပို့ဆောင်ရေး ဖြစ်ပါသည်။",
+  "missionItems": [
+    "Customer-first approach ဖြင့် ဝန်ဆောင်မှုပေးခြင်း",
+    "Quality code နှင့် professional design ဖြင့် ဖန်တီးခြင်း",
+    "24/7 technical support ပေးခြင်း",
+    "Affordable pricing ဖြင့် ဝန်ဆောင်မှုပေးခြင်း"
+  ],
+  "servicesTitle": "ဝန်ဆောင်မှုများ",
+  "servicesSubtitle": "သင့် Business အတွက် လိုအပ်သမျှ Digital Solutions",
+  "services": [
+    {"icon": "🌐", "title": "Web Development", "desc": "Responsive website များ၊ e-commerce site များ၊ web application များ ဖန်တီးပေးပါသည်။"},
+    {"icon": "📱", "title": "Mobile Apps", "desc": "Android & iOS app development များ၊ React Native ၊ Flutter ဖြင့် ဖန်တီးပေးပါသည်။"},
+    {"icon": "📊", "title": "Digital Marketing", "desc": "Social media marketing, SEO, Google Ads campaign များ စီမံပေးပါသည်။"},
+    {"icon": "🛡️", "title": "IT Consulting", "desc": "Business အတွက် အကောင်းဆုံး IT strategy နှင့် solutions များ အကြံပေးပါသည်။"},
+    {"icon": "☁️", "title": "Cloud Services", "desc": "Cloud hosting, server management, backup solutions များ စီမံပေးပါသည်။"},
+    {"icon": "🔧", "title": "Maintenance & Support", "desc": "Website ၊ app maintenance, updates, troubleshooting များ အမြဲတမ်း ကူညီပေးပါသည်။"}
+  ],
+  "galleryTitle": "Portfolio",
+  "gallerySubtitle": "ကျွန်တော်တို့ ဖန်တီးထားသော Project များ",
+  "galleryImages": [
+    {"src": "", "alt": "Project 1 - E-commerce Website"},
+    {"src": "", "alt": "Project 2 - Mobile App"},
+    {"src": "", "alt": "Project 3 - Corporate Website"},
+    {"src": "", "alt": "Project 4 - Social Media Campaign"},
+    {"src": "", "alt": "Project 5 - Cloud Dashboard"},
+    {"src": "", "alt": "Project 6 - POS System"}
+  ],
+  "stats": [
+    {"number": "150+", "label": "Projects Completed"},
+    {"number": "100+", "label": "Happy Clients"},
+    {"number": "5+", "label": "Years Experience"},
+    {"number": "24/7", "label": "Support Available"}
+  ],
+  "testimonialsTitle": "ဖောက်သည်များ ထောက်ခံချက်",
+  "testimonials": [
+    {"text": "H-Tech Studio က ကျွန်မရဲ့ business website ကို တကယ်ကောင်းအောင် ဖန်တီးပေးပါတယ်။ Professional design နှင့် fast loading speed ရှိပါတယ်။", "name": "ဒေါက်တာ မြင့်မြင့်ခိုင်", "role": "CEO, Myanmar Health Clinic", "avatar": "မခ"},
+    {"text": "Mobile app development အတွက် H-Tech Studio ကိုပဲ ရွေးချယ်ပါတယ်။ Quality ကောင်းပြီး delivery time မြန်ပါတယ်။", "name": "ကိုဇော်မျိုးသန့်", "role": "Founder, Yangon Delivery", "avatar": "ဇမ"},
+    {"text": "Digital marketing campaign ကြောင့် ကျွန်တော့် online sales ၃ ဆတိုးလာပါတယ်။ အရမ်းကျေးဇူးတင်ပါတယ်။", "name": "ဒေါ်အေးအေးဝင်း", "role": "Manager, Golden Star Shop", "avatar": "အဝ"}
+  ],
+  "contactTitle": "ဆက်သွယ်ရန်",
+  "contactSubtitle": "သင့် Project အကြောင်း ဆွေးနွေးလိုပါက ဆက်သွယ်ပါ",
+  "formName": "အမည်",
+  "formPhone": "ဖုန်းနံပါတ်",
+  "formEmail": "အီးမေးလ်",
+  "formMessage": "မက်ဆေ့",
+  "formSubmit": "ပေးပို့ရန်",
+  "formSuccess": "Message ပေးပို့ပြီးပါပြီ! ကျေးဇူးတင်ပါတယ်။ ကျွန်တော်တို့ မကြာမီ ဆက်သွယ်ပါမည်။"
+}
+</script>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="header" id="header">
+  <div class="container">
+    <a href="#" class="logo">
+      <div class="logo-icon" data-config="businessNameShort"></div>
+      <span data-config="businessName"></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#gallery">Portfolio</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO SECTION
+     ============================================================ -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <h1 data-config="heroTitle"></h1>
+      <p data-config="heroSubtitle"></p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary" data-config="heroCTA1"></a>
+        <a href="#about" class="btn btn-outline" data-config="heroCTA2"></a>
+      </div>
+      <div class="hero-stats" id="heroStats"></div>
+    </div>
+    <div class="hero-visual">
+      <!-- Replace this placeholder with a real hero image or illustration -->
+      <div class="hero-image-placeholder">[ Hero Image / Illustration Placeholder ]<br>Replace with your image</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT SECTION
+     ============================================================ -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-placeholder">[ About Image Placeholder ]<br>Replace with team/company photo</div>
+      <div class="about-content">
+        <h2 data-config="aboutTitle"></h2>
+        <h3 data-config="aboutSubtitle"></h3>
+        <p data-config="aboutText1"></p>
+        <p data-config="aboutText2"></p>
+        <p data-config="aboutText3"></p>
+        <ul class="mission-list" id="missionList"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES SECTION
+     ============================================================ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-title">
+      <h2 data-config="servicesTitle"></h2>
+      <p data-config="servicesSubtitle"></p>
+    </div>
+    <div class="grid-3" id="servicesGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GALLERY SECTION
+     ============================================================ -->
+<section class="section gallery" id="gallery">
+  <div class="container">
+    <div class="section-title">
+      <h2 data-config="galleryTitle"></h2>
+      <p data-config="gallerySubtitle"></p>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS SECTION
+     ============================================================ -->
+<section class="stats" id="stats">
+  <div class="container">
+    <div class="stats-grid" id="statsGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS SECTION
+     ============================================================ -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="section-title">
+      <h2 data-config="testimonialsTitle"></h2>
+      <p>ကျွန်တော်တို့ဖောက်သည်များရဲ့ အတွေ့အကြုံများ</p>
+    </div>
+    <div class="grid-3" id="testimonialsGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT SECTION
+     ============================================================ -->
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2 data-config="contactTitle"></h2>
+      <p data-config="contactSubtitle"></p>
+    </div>
+    <div class="contact-grid">
+      <form class="contact-form" id="contactForm" onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group">
+            <label data-config="formName"></label>
+            <input type="text" required placeholder="Your name...">
+          </div>
+          <div class="form-group">
+            <label data-config="formPhone"></label>
+            <input type="tel" required placeholder="+95 9 ...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-config="formEmail"></label>
+          <input type="email" required placeholder="you@email.com">
+        </div>
+        <div class="form-group">
+          <label data-config="formMessage"></label>
+          <textarea required placeholder="Your message..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" data-config="formSubmit"></button>
+        <div class="form-success" id="formSuccess"></div>
+      </form>
+      <div class="contact-info">
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div>
+            <h4>Address</h4>
+            <p data-config="address"></p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📞</div>
+          <div>
+            <h4>Phone</h4>
+            <p><a id="phoneLink"></a></p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <p><a id="emailLink"></a></p>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">💬</div>
+          <div>
+            <h4>Telegram</h4>
+            <p><a id="tgLink"></a></p>
+          </div>
+        </div>
+        <div class="map-placeholder" id="mapPlaceholder">
+          <!-- If mapEmbed in config is set, this will be replaced with an iframe -->
+          [ Map Placeholder — Add Google Maps embed URL in config ]
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon" data-config="businessNameShort"></div>
+          <span data-config="businessName"></span>
+        </div>
+        <p data-config="heroSubtitle"></p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">📘</a>
+          <a id="footerTgLink" aria-label="Telegram">💬</a>
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="Viber">📞</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Portfolio</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul id="footerServices"></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a id="footerPhone"></a></li>
+          <li><a id="footerEmail"></a></li>
+          <li><a href="#" id="footerTg">Telegram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom" id="footerBottom"></div>
+  </div>
+</footer>
+
+<!-- Lightbox overlay (injected by JS) -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightboxClose">✕</span>
+  <span class="lightbox-nav lightbox-prev" id="lightboxPrev">❮</span>
+  <span class="lightbox-nav lightbox-next" id="lightboxNext">❯</span>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- Scroll to top button -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+<!-- ============================================================
+     JAVASCRIPT — All functionality inline
+     ============================================================ -->
+<script>
+(function(){
+  /* ==========================================================
+     1. LOAD CONFIG & POPULATE
+     ========================================================== */
+  var cfg = {};
+  try {
+    cfg = JSON.parse(document.getElementById('site-config').textContent);
+  } catch(e) { console.warn('Config parse error:', e); }
+
+  // Helper: set text content from config
+  function fillText(sel, key) {
+    var els = document.querySelectorAll(sel);
+    els.forEach(function(el) {
+      if (cfg[key] !== undefined) el.textContent = cfg[key];
+    });
+  }
+
+  // Replace {BUSINESS_NAME}, {ADDRESS}, etc. in any element with data-config
+  var configEls = document.querySelectorAll('[data-config]');
+  configEls.forEach(function(el) {
+    var key = el.getAttribute('data-config');
+    if (cfg[key] !== undefined) el.textContent = cfg[key];
+  });
+
+  // Title
+  document.title = cfg.businessName + ' — ' + (cfg.tagline || '');
+
+  // Phone link
+  var pl = document.getElementById('phoneLink');
+  if (pl) { pl.textContent = cfg.phone; pl.href = 'tel:' + cfg.phone; }
+
+  // Email link
+  var el2 = document.getElementById('emailLink');
+  if (el2) { el2.textContent = cfg.email; el2.href = 'mailto:' + cfg.email; }
+
+  // Telegram link
+  var tgl = document.getElementById('tgLink');
+  if (tgl) { tgl.textContent = 'Chat on Telegram'; tgl.href = cfg.telegramLink; tgl.target = '_blank'; }
+  var ftg = document.getElementById('footerTg');
+  if (ftg) { ftg.href = cfg.telegramLink; ftg.target = '_blank'; }
+  var ftgL = document.getElementById('footerTgLink');
+  if (ftgL) { ftgL.href = cfg.telegramLink; ftgL.target = '_blank'; }
+
+  // Footer contact
+  var fp = document.getElementById('footerPhone');
+  if (fp) { fp.textContent = cfg.phone; fp.href = 'tel:' + cfg.phone; }
+  var fe = document.getElementById('footerEmail');
+  if (fe) { fe.textContent = cfg.email; fe.href = 'mailto:' + cfg.email; }
+
+  // Footer bottom
+  var fb = document.getElementById('footerBottom');
+  if (fb) { fb.innerHTML = (cfg.footerText || '').replace('{YEAR}', new Date().getFullYear()).replace('{BUSINESS_NAME}', cfg.businessName); }
+
+  // Footer services list
+  var fsl = document.getElementById('footerServices');
+  if (fsl && cfg.services) {
+    cfg.services.forEach(function(s) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#services';
+      a.textContent = s.title;
+      li.appendChild(a);
+      fsl.appendChild(li);
+    });
+  }
+
+  // Map
+  var mp = document.getElementById('mapPlaceholder');
+  if (mp && cfg.mapEmbed) {
+    mp.innerHTML = '<iframe src="' + cfg.mapEmbed + '" allowfullscreen loading="lazy"></iframe>';
+  }
+
+  /* ==========================================================
+     2. HERO STATS
+     ========================================================== */
+  var hs = document.getElementById('heroStats');
+  if (hs && cfg.stats) {
+    cfg.stats.slice(0,2).forEach(function(s) {
+      var div = document.createElement('div');
+      div.className = 'hero-stat';
+      div.innerHTML = '<h3>' + s.number + '</h3><p>' + s.label + '</p>';
+      hs.appendChild(div);
+    });
+  }
+
+  /* ==========================================================
+     3. ABOUT — MISSION LIST
+     ========================================================== */
+  var ml = document.getElementById('missionList');
+  if (ml && cfg.missionItems) {
+    cfg.missionItems.forEach(function(item) {
+      var li = document.createElement('li');
+      li.textContent = item;
+      ml.appendChild(li);
+    });
+  }
+
+  /* ==========================================================
+     4. SERVICES GRID
+     ========================================================== */
+  var sg = document.getElementById('servicesGrid');
+  if (sg && cfg.services) {
+    cfg.services.forEach(function(s) {
+      var card = document.createElement('div');
+      card.className = 'service-card';
+      card.innerHTML = '<div class="service-icon">' + s.icon + '</div><h3>' + s.title + '</h3><p>' + s.desc + '</p>';
+      sg.appendChild(card);
+    });
+  }
+
+  /* ==========================================================
+     5. GALLERY GRID
+     ========================================================== */
+  var gg = document.getElementById('galleryGrid');
+  if (gg && cfg.galleryImages) {
+    cfg.galleryImages.forEach(function(img, i) {
+      var item = document.createElement('div');
+      item.className = 'gallery-item';
+      item.setAttribute('data-index', i);
+      if (img.src) {
+        item.innerHTML = '<img src="' + img.src + '" alt="' + img.alt + '" loading="lazy"><div class="gallery-overlay"><span>' + img.alt + '</span></div>';
+      } else {
+        item.innerHTML = '<span style="color:var(--text-light);font-size:.88rem;text-align:center;padding:16px">[ Image ' + (i+1) + ' Placeholder ]<br>' + img.alt + '</span>';
+      }
+      gg.appendChild(item);
+    });
+  }
+
+  /* ==========================================================
+     6. STATS GRID
+     ========================================================== */
+  var stg = document.getElementById('statsGrid');
+  if (stg && cfg.stats) {
+    cfg.stats.forEach(function(s) {
+      var div = document.createElement('div');
+      div.className = 'stats-item';
+      div.innerHTML = '<h3>' + s.number + '</h3><p>' + s.label + '</p>';
+      stg.appendChild(div);
+    });
+  }
+
+  /* ==========================================================
+     7. TESTIMONIALS GRID
+     ========================================================== */
+  var tg = document.getElementById('testimonialsGrid');
+  if (tg && cfg.testimonials) {
+    cfg.testimonials.forEach(function(t) {
+      var card = document.createElement('div');
+      card.className = 'testimonial-card';
+      card.innerHTML =
+        '<div class="testimonial-stars">★★★★★</div>' +
+        '<p class="testimonial-text">"' + t.text + '"</p>' +
+        '<div class="testimonial-author">' +
+          '<div class="testimonial-avatar">' + t.avatar + '</div>' +
+          '<div class="testimonial-info"><strong>' + t.name + '</strong><span>' + t.role + '</span></div>' +
+        '</div>';
+      tg.appendChild(card);
+    });
+  }
+
+  /* ==========================================================
+     8. FORM LABELS
+     ========================================================== */
+  var formLabels = document.querySelectorAll('.contact-form label');
+  var labelKeys = ['formName','formPhone','formEmail','formMessage'];
+  formLabels.forEach(function(l, i) {
+    if (cfg[labelKeys[i]]) l.textContent = cfg[labelKeys[i]];
+  });
+  var submitBtn = document.querySelector('.contact-form .btn');
+  if (submitBtn && cfg.formSubmit) submitBtn.textContent = cfg.formSubmit;
+
+  /* ==========================================================
+     MOBILE MENU
+     ========================================================== */
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+  navLinks.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('active');
+    });
+  });
+
+  /* ==========================================================
+     SMOOTH SCROLL (fallback for older browsers)
+     ========================================================== */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  /* ==========================================================
+     SCROLL TO TOP BUTTON
+     ========================================================== */
+  var scrollBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 400) {
+      scrollBtn.classList.add('visible');
+    } else {
+      scrollBtn.classList.remove('visible');
+    }
+  });
+  scrollBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ==========================================================
+     GALLERY LIGHTBOX
+     ========================================================== */
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var currentIndex = 0;
+  var galleryItems = [];
+
+  function openLightbox(index) {
+    if (!cfg.galleryImages || !cfg.galleryImages[index] || !cfg.galleryImages[index].src) return;
+    currentIndex = index;
+    lightboxImg.src = cfg.galleryImages[index].src;
+    lightboxImg.alt = cfg.galleryImages[index].alt;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function navLightbox(dir) {
+    if (!cfg.galleryImages) return;
+    var imgs = cfg.galleryImages.filter(function(i) { return i.src; });
+    if (imgs.length === 0) return;
+    currentIndex = (currentIndex + dir + imgs.length) % imgs.length;
+    lightboxImg.src = imgs[currentIndex].src;
+    lightboxImg.alt = imgs[currentIndex].alt;
+  }
+
+  document.querySelectorAll('.gallery-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      openLightbox(parseInt(this.getAttribute('data-index')));
+    });
+  });
+
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.getElementById('lightboxPrev').addEventListener('click', function(e) {
+    e.stopPropagation(); navLightbox(-1);
+  });
+  document.getElementById('lightboxNext').addEventListener('click', function(e) {
+    e.stopPropagation(); navLightbox(1);
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+  });
+
+  /* ==========================================================
+     CONTACT FORM HANDLER
+     ========================================================== */
+  var contactForm = document.getElementById('contactForm');
+  var formSuccess = document.getElementById('formSuccess');
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Simulate form submission
+    contactForm.style.display = 'none';
+    formSuccess.style.display = 'block';
+    formSuccess.textContent = cfg.formSuccess || 'Message sent successfully! We will contact you soon.';
+    // Reset after 5 seconds
+    setTimeout(function() {
+      contactForm.style.display = 'flex';
+      formSuccess.style.display = 'none';
+      contactForm.reset();
+    }, 5000);
+  });
+
+  /* ==========================================================
+     HEADER SCROLL EFFECT
+     ========================================================== */
+  var header = document.getElementById('header');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) {
+      header.style.boxShadow = '0 2px 20px rgba(45,41,38,.08)';
+    } else {
+      header.style.boxShadow = 'none';
+    }
+  });
+
+})();
+</script>
+</body>
+</html>

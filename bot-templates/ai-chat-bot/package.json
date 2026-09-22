@@ -1,0 +1,17 @@
+{
+  "name": "htech-ai-chat-bot",
+  "version": "1.0.0",
+  "description": "H-Tech Studio — AI Chat Bot template (grammY + Vercel)",
+  "main": "api/bot.js",
+  "scripts": {
+    "test": "node --check api/bot.js && node --check api/webhook.js"
+  },
+  "dependencies": {
+    "grammy": "^1.35.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "H-Tech Studio",
+  "license": "MIT"
+}

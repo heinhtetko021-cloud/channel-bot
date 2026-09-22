@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{BRAND_NAME} — Fine Fragrances</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS VARIABLES — CUSTOMIZE YOUR PALETTE HERE
+   ============================================================ */
+:root {
+  /* --- Brand Colors --- */
+  --color-bg:           #1a1a1a;
+  --color-bg-deep:      #111111;
+  --color-bg-card:      #222222;
+  --color-bg-elevated:  #2a2a2a;
+  --color-bg-modal:     #1e1e1e;
+  --color-nude:         #d4b89c;
+  --color-nude-light:   #e8d5c0;
+  --color-nude-muted:   #c4a888;
+  --color-gold:         #b8956a;
+  --color-gold-bright:  #d4a96a;
+  --color-text:         #f0ece8;
+  --color-text-muted:   #9a9490;
+  --color-text-dim:     #6a6460;
+  --color-border:       #333333;
+  --color-border-light: #3a3a3a;
+  --color-white:        #ffffff;
+  --color-overlay:      rgba(0,0,0,0.65);
+  --color-success:      #7a9a6a;
+  --color-badge-new:    #b8956a;
+  --color-badge-bestseller: #9a7a5a;
+
+  /* --- Typography --- */
+  --font-serif:  'Cormorant Garamond', 'Georgia', serif;
+  --font-sans:   'Outfit', 'Helvetica Neue', sans-serif;
+
+  /* --- Spacing --- */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  2rem;
+  --space-lg:  4rem;
+  --space-xl:  6rem;
+  --space-2xl: 8rem;
+
+  /* --- Layout --- */
+  --max-width:  1200px;
+  --nav-height: 70px;
+  --radius:     2px;
+  --radius-lg:  8px;
+
+  /* --- Transitions --- */
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration: 0.4s;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; color: inherit; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+input, select, textarea { font-family: inherit; color: inherit; }
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.section {
+  padding: var(--space-xl) 0;
+}
+
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-sm);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  max-width: 520px;
+  line-height: 1.7;
+}
+
+.gold-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--color-gold);
+  margin: var(--space-md) 0;
+}
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  background: rgba(26,26,26,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--duration) var(--ease),
+              background var(--duration) var(--ease);
+}
+.nav.scrolled {
+  border-bottom-color: var(--color-border);
+  background: rgba(26,26,26,0.95);
+}
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-brand {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--color-nude-light);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+.nav-links a {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: color var(--duration) var(--ease);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--color-gold);
+  transition: width var(--duration) var(--ease);
+}
+.nav-links a:hover { color: var(--color-nude-light); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cart-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: color var(--duration) var(--ease);
+}
+.nav-cart-btn:hover { color: var(--color-nude-light); }
+.nav-cart-btn svg { width: 18px; height: 18px; }
+.cart-count {
+  position: absolute;
+  top: -6px; right: -10px;
+  background: var(--color-gold);
+  color: var(--color-bg);
+  font-size: 0.55rem;
+  font-weight: 600;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s var(--ease);
+}
+.cart-count.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Mobile menu toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px; height: 1px;
+  background: var(--color-text-muted);
+  transition: all 0.3s var(--ease);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(184,149,106,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 40%, rgba(212,184,156,0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 80% at 50% 100%, rgba(184,149,106,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-lg) var(--space-md);
+}
+.hero-label {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-md);
+  opacity: 0;
+  animation: fadeUp 1s 0.3s var(--ease) forwards;
+}
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--color-nude-light);
+  margin-bottom: var(--space-sm);
+  opacity: 0;
+  animation: fadeUp 1s 0.5s var(--ease) forwards;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--color-gold);
+}
+.hero-tagline {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+  animation: fadeUp 1s 0.7s var(--ease) forwards;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  padding: 16px 40px;
+  border: 1px solid var(--color-gold);
+  transition: all var(--duration) var(--ease);
+  opacity: 0;
+  animation: fadeUp 1s 0.9s var(--ease) forwards;
+}
+.hero-cta:hover {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+.hero-cta svg { width: 14px; height: 14px; transition: transform 0.3s var(--ease); }
+.hero-cta:hover svg { transform: translateX(4px); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: var(--space-md);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s var(--ease) forwards;
+}
+.hero-scroll span {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--color-gold), transparent);
+  animation: scrollPulse 2s infinite;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 1; }
+}
+
+/* ============================================================
+   FRAGRANCE COLLECTION
+   ============================================================ */
+.collection { background: var(--color-bg-deep); }
+
+.collection-header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  flex-wrap: wrap;
+}
+.filter-btn {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  color: var(--color-text-dim);
+  border: 1px solid var(--color-border);
+  transition: all var(--duration) var(--ease);
+}
+.filter-btn:hover {
+  color: var(--color-nude-muted);
+  border-color: var(--color-text-dim);
+}
+.filter-btn.active {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+  background: rgba(184,149,106,0.08);
+}
+
+.fragrance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-md);
+}
+
+.fragrance-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: all var(--duration) var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.fragrance-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(184,149,106,0.05), transparent);
+  opacity: 0;
+  transition: opacity var(--duration) var(--ease);
+}
+.fragrance-card:hover {
+  border-color: var(--color-nude-muted);
+  transform: translateY(-4px);
+}
+.fragrance-card:hover::before { opacity: 1; }
+
+.fragrance-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  z-index: 1;
+}
+.fragrance-badge.new {
+  background: var(--color-badge-new);
+  color: var(--color-bg);
+}
+.fragrance-badge.bestseller {
+  background: var(--color-badge-bestseller);
+  color: var(--color-white);
+}
+
+.fragrance-emoji {
+  font-size: 3.5rem;
+  text-align: center;
+  padding: var(--space-md) 0;
+  filter: grayscale(0.2);
+  transition: filter 0.3s var(--ease);
+}
+.fragrance-card:hover .fragrance-emoji {
+  filter: grayscale(0);
+}
+
+.fragrance-name {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  text-align: center;
+  color: var(--color-nude-light);
+  margin-bottom: 4px;
+}
+.fragrance-notes-preview {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-sm);
+  line-height: 1.5;
+}
+.fragrance-price {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-gold);
+  margin-bottom: 4px;
+}
+.fragrance-size {
+  text-align: center;
+  font-size: 0.65rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.fragrance-card:hover .fragrance-name { color: var(--color-gold-bright); }
+
+/* ============================================================
+   PRODUCT DETAIL MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: var(--color-overlay);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: var(--color-bg-modal);
+  border: 1px solid var(--color-border);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.4s var(--ease);
+}
+.modal-overlay.open .modal {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-text-dim);
+  font-size: 1.2rem;
+  z-index: 1;
+  transition: color 0.3s var(--ease);
+}
+.modal-close:hover { color: var(--color-gold); }
+
+.modal-emoji {
+  text-align: center;
+  font-size: 4rem;
+  padding: var(--space-lg) var(--space-md) var(--space-sm);
+}
+.modal-name {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-nude-light);
+  padding: 0 var(--space-md);
+}
+.modal-category {
+  text-align: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: var(--space-xs) 0 var(--space-md);
+}
+
+.modal-notes {
+  padding: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+.modal-notes-title {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  margin-bottom: var(--space-sm);
+}
+.note-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(51,51,51,0.5);
+}
+.note-row:last-child { border-bottom: none; }
+.note-type {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-nude-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.note-value {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.modal-description {
+  padding: 0 var(--space-md) var(--space-md);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.modal-actions {
+  padding: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.size-select-group {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.size-option {
+  padding: 10px 20px;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  transition: all 0.3s var(--ease);
+}
+.size-option:hover,
+.size-option.active {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  background: rgba(184,149,106,0.06);
+}
+
+.modal-price {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-gold);
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--color-gold);
+  color: var(--color-bg);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all var(--duration) var(--ease);
+}
+.add-to-cart-btn:hover {
+  background: var(--color-gold-bright);
+}
+
+/* ============================================================
+   CART DRAWER
+   ============================================================ */
+.cart-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  background: var(--color-overlay);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+.cart-drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0; right: 0;
+  bottom: 0;
+  z-index: 2501;
+  width: 400px;
+  max-width: 90vw;
+  background: var(--color-bg-modal);
+  border-left: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.4s var(--ease);
+}
+.cart-drawer-overlay.open + .cart-drawer,
+.cart-drawer.open {
+  transform: translateX(0);
+}
+
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+.cart-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--color-nude-light);
+}
+.cart-close {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-text-dim);
+  font-size: 1.2rem;
+  transition: color 0.3s var(--ease);
+}
+.cart-close:hover { color: var(--color-gold); }
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-md);
+}
+.cart-empty {
+  text-align: center;
+  padding: var(--space-lg) 0;
+  color: var(--color-text-dim);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+.cart-item {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.cart-item-emoji { font-size: 2rem; }
+.cart-item-details { flex: 1; }
+.cart-item-name {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--color-nude-muted);
+  margin-bottom: 2px;
+}
+.cart-item-meta {
+  font-size: 0.7rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.05em;
+}
+.cart-item-price {
+  font-size: 0.85rem;
+  color: var(--color-gold);
+  margin-top: 4px;
+}
+.cart-item-remove {
+  font-size: 0.65rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 6px;
+  transition: color 0.3s var(--ease);
+}
+.cart-item-remove:hover { color: #cc6666; }
+
+.cart-footer {
+  padding: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+.cart-total-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.cart-total-value {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--color-gold);
+}
+.cart-checkout-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--color-gold);
+  color: var(--color-bg);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all var(--duration) var(--ease);
+}
+.cart-checkout-btn:hover { background: var(--color-gold-bright); }
+
+/* ============================================================
+   ABOUT / OUR STORY
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+.about-visual {
+  aspect-ratio: 3/4;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  position: relative;
+  overflow: hidden;
+}
+.about-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(184,149,106,0.08), transparent);
+}
+.about-text .section-subtitle {
+  margin-bottom: var(--space-md);
+}
+.about-stats {
+  display: flex;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+}
+.about-stat-number {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--color-gold);
+}
+.about-stat-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  margin-top: 2px;
+}
+
+/* ============================================================
+   SCENT QUIZ
+   ============================================================ */
+.quiz { background: var(--color-bg-deep); }
+.quiz-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.quiz-question {
+  margin-top: var(--space-md);
+}
+.quiz-q-text {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-nude-light);
+  margin-bottom: var(--space-md);
+}
+.quiz-q-number {
+  font-size: 0.6rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.quiz-option {
+  padding: 16px 24px;
+  border: 1px solid var(--color-border);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-align: left;
+  transition: all 0.3s var(--ease);
+}
+.quiz-option:hover {
+  border-color: var(--color-nude-muted);
+  color: var(--color-nude-light);
+  background: rgba(184,149,106,0.04);
+}
+.quiz-option.selected {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  background: rgba(184,149,106,0.08);
+}
+
+.quiz-result {
+  display: none;
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  border: 1px solid var(--color-gold);
+  background: rgba(184,149,106,0.05);
+}
+.quiz-result.visible { display: block; }
+.quiz-result-emoji { font-size: 3rem; margin-bottom: var(--space-sm); }
+.quiz-result-name {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-nude-light);
+  margin-bottom: 4px;
+}
+.quiz-result-notes {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-bottom: var(--space-sm);
+}
+.quiz-result-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  border: 1px solid var(--color-gold);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  transition: all 0.3s var(--ease);
+}
+.quiz-result-btn:hover {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+.quiz-restart {
+  margin-top: var(--space-sm);
+  font-size: 0.7rem;
+  color: var(--color-text-dim);
+  transition: color 0.3s var(--ease);
+}
+.quiz-restart:hover { color: var(--color-gold); }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+.testimonial-card {
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+}
+.testimonial-stars {
+  color: var(--color-gold);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  margin-bottom: var(--space-sm);
+}
+.testimonial-text {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-sm);
+}
+.testimonial-author {
+  font-size: 0.7rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact { background: var(--color-bg-deep); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+.contact-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+.contact-icon {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-border);
+  color: var(--color-gold);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.contact-info-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  margin-bottom: 2px;
+}
+.contact-info-value {
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+.form-group input,
+.form-group textarea {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.3s var(--ease);
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--color-gold);
+}
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-submit {
+  padding: 16px;
+  background: var(--color-gold);
+  color: var(--color-bg);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all var(--duration) var(--ease);
+}
+.form-submit:hover { background: var(--color-gold-bright); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  padding: var(--space-lg) 0 var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+.footer-brand {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--color-nude-muted);
+  margin-bottom: var(--space-xs);
+}
+.footer-tagline {
+  font-size: 0.75rem;
+  color: var(--color-text-dim);
+  font-style: italic;
+  font-family: var(--font-serif);
+}
+.footer-links {
+  display: flex;
+  gap: var(--space-md);
+}
+.footer-links a {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  transition: color 0.3s var(--ease);
+}
+.footer-links a:hover { color: var(--color-gold); }
+.footer-bottom {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+.footer-copy {
+  font-size: 0.65rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.05em;
+}
+.footer-socials {
+  display: flex;
+  gap: 12px;
+}
+.footer-socials a {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-border);
+  font-size: 0.8rem;
+  color: var(--color-text-dim);
+  transition: all 0.3s var(--ease);
+}
+.footer-socials a:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0; right: 0;
+    background: rgba(17,17,17,0.97);
+    backdrop-filter: blur(20px);
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+    gap: var(--space-sm);
+  }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-visual { aspect-ratio: 16/9; font-size: 4rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .fragrance-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .fragrance-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 2.8rem; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--color-border); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-dim); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     TOP CONFIG — CUSTOMIZE HERE
+     ============================================================ -->
+<script>
+/*
+ * ============================================================
+ *  CONFIGURATION — EDIT THESE VALUES
+ * ============================================================
+ */
+const CONFIG = {
+  brandName:    "Maison Lumière",
+  tagline:      "Where scent becomes memory",
+  phone:        "+95 9 123 456 789",
+  email:        "hello@maisonlumiere.mm",
+  telegramLink: "t.me/hein_public_ai_bot",
+  currency:     "Ks",
+  currencyCode: "MMK",
+};
+
+/*
+ * ============================================================
+ *  CUSTOMIZE YOUR FRAGRANCES HERE
+ *  Each object represents one fragrance product.
+ *  badge: "New" | "Best Seller" | "" (empty for no badge)
+ *  category: "Floral" | "Woody" | "Fresh" | "Oriental"
+ *  notes: { top, heart, base }
+ *  sizes: [{ label, price }]  — price in Ks
+ * ============================================================
+ */
+const FRAGRANCES = [
+  {
+    name: "Jardin de Minuit",
+    category: "Floral",
+    emoji: "\u{1F33C}",
+    badge: "Best Seller",
+    notes: { top: "Bergamot, Black Currant", heart: "Jasmine Sambac, Rose Absolute", base: "White Musk, Sandalwood" },
+    description: "A midnight garden in bloom — dark florals with a luminous heart.",
+    sizes: [
+      { label: "30 ml", price: 120000 },
+      { label: "50 ml", price: 185000 },
+      { label: "100 ml", price: 280000 },
+    ],
+  },
+  {
+    name: "Bois Sacré",
+    category: "Woody",
+    emoji: "\u{1F332}",
+    badge: "",
+    notes: { top: "Pink Pepper, Cardamom", heart: "Cedarwood, Vetiver", base: "Oud, Amber, Tonka Bean" },
+    description: "Sacred woods wrapped in incense smoke and ancient warmth.",
+    sizes: [
+      { label: "30 ml", price: 135000 },
+      { label: "50 ml", price: 198000 },
+      { label: "100 ml", price: 265000 },
+    ],
+  },
+  {
+    name: "Brise Marine",
+    category: "Fresh",
+    emoji: "\u{1F30A}",
+    badge: "New",
+    notes: { top: "Sea Salt, Lemon Zest", heart: "Water Lily, Iris", base: "Driftwood, Ambergris" },
+    description: "The sea breeze captured in a bottle — clean, salty, unforgettable.",
+    sizes: [
+      { label: "30 ml", price: 120000 },
+      { label: "50 ml", price: 175000 },
+      { label: "100 ml", price: 250000 },
+    ],
+  },
+  {
+    name: "Ambre Éternel",
+    category: "Oriental",
+    emoji: "\u{1F525}",
+    badge: "",
+    notes: { top: "Saffron, Cinnamon Bark", heart: "Labdanum, Myrrh", base: "Benzoin, Vanilla Absolute" },
+    description: "Eternal amber — rich, resinous, and deeply intoxicating.",
+    sizes: [
+      { label: "30 ml", price: 145000 },
+      { label: "50 ml", price: 210000 },
+      { label: "100 ml", price: 280000 },
+    ],
+  },
+  {
+    name: "Pétales Rose",
+    category: "Floral",
+    emoji: "\u{1F339}",
+    badge: "",
+    notes: { top: "Lychee, Grapefruit", heart: "Centifolia Rose, Peony", base: "Blonde Woods, Skin Musk" },
+    description: "Soft petals on bare skin — romantic, modern, effortlessly elegant.",
+    sizes: [
+      { label: "30 ml", price: 125000 },
+      { label: "50 ml", price: 188000 },
+      { label: "100 ml", price: 268000 },
+    ],
+  },
+  {
+    name: "Forêt Noire",
+    category: "Woody",
+    emoji: "\u{1F341}",
+    badge: "Best Seller",
+    notes: { top: "Juniper Berry, Black Pepper", heart: "Patchouli, Violet Leaf", base: "Birch Tar, Musk" },
+    description: "Dark forest depths — earthy, smoky, profoundly grounding.",
+    sizes: [
+      { label: "30 ml", price: 130000 },
+      { label: "50 ml", price: 195000 },
+      { label: "100 ml", price: 275000 },
+    ],
+  },
+  {
+    name: "Zéphyr d'Orange",
+    category: "Fresh",
+    emoji: "\u{1F34A}",
+    badge: "New",
+    notes: { top: "Blood Orange, Ginger", heart: "Neroli, Mint", base: "Cedar Leaf, White Amber" },
+    description: "A warm Mediterranean wind — bright, zestful, effortlessly alive.",
+    sizes: [
+      { label: "30 ml", price: 118000 },
+      { label: "50 ml", price: 170000 },
+      { label: "100 ml", price: 245000 },
+    ],
+  },
+  {
+    name: "Opium Noir",
+    category: "Oriental",
+    emoji: "\u{2728}",
+    badge: "",
+    notes: { top: "Black Oud, Cinnamon", heart: "Turkish Rose, Incense", base: "Amber, Patchouli, Civet" },
+    description: "Dark opulence — an intoxicating oriental elixir for the bold.",
+    sizes: [
+      { label: "30 ml", price: 150000 },
+      { label: "50 ml", price: 220000 },
+      { label: "100 ml", price: 280000 },
+    ],
+  },
+];
+</script>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand" id="nav-brand"></a>
+    <div class="nav-links" id="nav-links">
+      <a href="#collection">Collection</a>
+      <a href="#story">Our Story</a>
+      <a href="#quiz">Find Your Scent</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+      <button class="nav-cart-btn" onclick="toggleCart()" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span>Bag</span>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <p class="hero-label">Eau de Parfum &middot; Artisan Fragrances</p>
+    <h1 class="hero-title">Maison<br><em>Lumière</em></h1>
+    <p class="hero-tagline">Where scent becomes memory</p>
+    <a href="#collection" class="hero-cta">
+      Discover the Collection
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FRAGRANCE COLLECTION
+     ============================================================ -->
+<section class="section collection" id="collection">
+  <div class="container">
+    <div class="collection-header">
+      <p class="section-label">La Collection</p>
+      <h2 class="section-title">Our Fragrances</h2>
+      <p class="section-subtitle" style="margin:0 auto">
+        Each scent tells a story. Handcrafted in small batches, composed with the finest ingredients from around the world.
+      </p>
+      <div class="gold-divider" style="margin:var(--space-md) auto"></div>
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" data-filter="All">All</button>
+        <button class="filter-btn" data-filter="Floral">Floral</button>
+        <button class="filter-btn" data-filter="Woody">Woody</button>
+        <button class="filter-btn" data-filter="Fresh">Fresh</button>
+        <button class="filter-btn" data-filter="Oriental">Oriental</button>
+      </div>
+    </div>
+    <div class="fragrance-grid" id="fragrance-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRODUCT DETAIL MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-emoji" id="modal-emoji"></div>
+    <h2 class="modal-name" id="modal-name"></h2>
+    <p class="modal-category" id="modal-category"></p>
+    <div class="modal-notes">
+      <p class="modal-notes-title">Fragrance Notes</p>
+      <div class="note-row">
+        <span class="note-type">Top</span>
+        <span class="note-value" id="modal-top"></span>
+      </div>
+      <div class="note-row">
+        <span class="note-type">Heart</span>
+        <span class="note-value" id="modal-heart"></span>
+      </div>
+      <div class="note-row">
+        <span class="note-type">Base</span>
+        <span class="note-value" id="modal-base"></span>
+      </div>
+    </div>
+    <p class="modal-description" id="modal-desc"></p>
+    <div class="modal-actions">
+      <p class="modal-notes-title">Select Size</p>
+      <div class="size-select-group" id="modal-sizes"></div>
+      <p class="modal-price" id="modal-price"></p>
+      <button class="add-to-cart-btn" id="modal-add-cart">Add to Bag</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CART DRAWER
+     ============================================================ -->
+<div class="cart-drawer-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <h3>Your Bag</h3>
+    <button class="cart-close" onclick="toggleCart()" aria-label="Close cart">&times;</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <p class="cart-empty">Your bag is empty.</p>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-value" id="cart-total"></span>
+    </div>
+    <button class="cart-checkout-btn" onclick="checkoutTelegram()">Checkout via Telegram</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     OUR STORY
+     ============================================================ -->
+<section class="section" id="story">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual">&#128367;&#65039;</div>
+      <div class="about-text">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">Born from a<br>love of <em>beauty</em></h2>
+        <div class="gold-divider"></div>
+        <p class="section-subtitle">
+          Founded in Yangon, Maison Lumière was born from a belief that fragrance is the most intimate form of self-expression. We compose our eau de parfums with the finest natural ingredients sourced from Grasse, India, and Southeast Asia.
+        </p>
+        <p class="section-subtitle" style="margin-top:var(--space-sm)">
+          Every bottle is a journey — a memory waiting to be made. Myanmar မြန်မာနိုင်ငံရဲ့ ပထမဆုံး artisan fragrance house ဖြစ်ပါတယ်။
+        </p>
+        <div class="about-stats">
+          <div>
+            <div class="about-stat-number">50+</div>
+            <div class="about-stat-label">Unique Ingredients</div>
+          </div>
+          <div>
+            <div class="about-stat-number">8</div>
+            <div class="about-stat-label">Signature Scents</div>
+          </div>
+          <div>
+            <div class="about-stat-number">100%</div>
+            <div class="about-stat-label">Artisan Crafted</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FIND YOUR SCENT QUIZ
+     ============================================================ -->
+<section class="section quiz" id="quiz">
+  <div class="container">
+    <div class="quiz-container">
+      <p class="section-label" style="text-align:center">Find Your Scent</p>
+      <h2 class="section-title" style="text-align:center">Which fragrance<br>suits <em>you</em>?</h2>
+      <div class="gold-divider" style="margin:0 auto var(--space-md)"></div>
+      <div id="quiz-area">
+        <div class="quiz-question" id="quiz-question">
+          <p class="quiz-q-number" id="quiz-q-number"></p>
+          <p class="quiz-q-text" id="quiz-q-text"></p>
+          <div class="quiz-options" id="quiz-options"></div>
+        </div>
+        <div class="quiz-result" id="quiz-result">
+          <div class="quiz-result-emoji" id="quiz-result-emoji"></div>
+          <p class="section-label" style="text-align:center">We Recommend</p>
+          <p class="quiz-result-name" id="quiz-result-name"></p>
+          <p class="quiz-result-notes" id="quiz-result-notes"></p>
+          <button class="quiz-result-btn" id="quiz-result-btn">View in Collection</button>
+          <br>
+          <button class="quiz-restart" id="quiz-restart">Start Over</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="collection-header">
+      <p class="section-label">Testimonials</p>
+      <h2 class="section-title">What They Say</h2>
+      <div class="gold-divider" style="margin:var(--space-sm) auto"></div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Jardin de Minuit က ညဘက်မှာ ဝတ်တဲ့ fragrance အဖြစ် အကောင်းဆုံးပဲ။ Everyone asks what I'm wearing."</p>
+        <p class="testimonial-author">— Thandar K., Yangon</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Bois Sacré is unlike anything I've smelled before. The oud is smooth, not overpowering. Absolutely luxurious."</p>
+        <p class="testimonial-author">— James M., Singapore</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Brise Marine က နွေရာသီအတွက် အကောင်းဆုံး။ Fresh, clean, နဲ့ တကယ် elegant. Myanmar မှာ ဒီလောက်ကောင်းတဲ့ perfume ရှိတယ်ဆိုတာ ဂုဏ်ယူပါတယ်။"</p>
+        <p class="testimonial-author">— Aung Myo T., Mandalay</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label">Get in Touch</p>
+        <h2 class="section-title">We'd Love to<br>Hear from You</h2>
+        <div class="gold-divider"></div>
+        <p class="section-subtitle">
+          Questions about our fragrances, custom orders, or wholesale inquiries? Reach out anytime.
+        </p>
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="contact-icon">&#9743;</div>
+            <div>
+              <p class="contact-info-label">Phone</p>
+              <p class="contact-info-value">{PHONE}</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">&#9993;</div>
+            <div>
+              <p class="contact-info-label">Email</p>
+              <p class="contact-info-value">{EMAIL}</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">&#9900;</div>
+            <div>
+              <p class="contact-info-label">Telegram</p>
+              <p class="contact-info-value"><a href="{TG_LINK}" style="color:var(--color-gold)">{TG_LINK}</a></p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">&#9962;</div>
+            <div>
+              <p class="contact-info-label">Visit Us</p>
+              <p class="contact-info-value">No. 42, Pyay Road, Yangon, Myanmar</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <form class="contact-form" onsubmit="handleContactForm(event)">
+          <div class="form-group">
+            <label for="c-name">Your Name</label>
+            <input type="text" id="c-name" placeholder="e.g. Thandar" required>
+          </div>
+          <div class="form-group">
+            <label for="c-email">Email Address</label>
+            <input type="email" id="c-email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="c-subject">Subject</label>
+            <input type="text" id="c-subject" placeholder="Custom order, inquiry...">
+          </div>
+          <div class="form-group">
+            <label for="c-message">Message</label>
+            <textarea id="c-message" placeholder="Tell us what you're looking for..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand" id="footer-brand"></p>
+        <p class="footer-tagline">Where scent becomes memory</p>
+      </div>
+      <div class="footer-links">
+        <a href="#collection">Collection</a>
+        <a href="#story">Our Story</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy" id="footer-copy"></p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">ig</a>
+        <a href="#" aria-label="Telegram"><a href="{TG_LINK}" target="_blank" aria-label="Telegram">tg</a></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     INLINE JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ============================================================
+   INIT — Populate placeholders from CONFIG
+   ============================================================ */
+(function init() {
+  const C = CONFIG;
+  document.querySelectorAll('#nav-brand').forEach(el => el.textContent = C.brandName);
+  document.querySelectorAll('.hero-title').forEach(el => {
+    el.innerHTML = C.brandName.split(' ').join('<br><em>' + (C.brandName.split(' ').pop()) + '</em>');
+  });
+  document.querySelectorAll('.hero-tagline').forEach(el => el.textContent = C.tagline);
+  document.querySelectorAll('#footer-brand').forEach(el => el.textContent = C.brandName);
+  document.getElementById('footer-copy').textContent = `© ${new Date().getFullYear()} ${C.brandName}. All rights reserved.`;
+  document.title = `${C.brandName} — Fine Fragrances`;
+
+  // Replace global placeholders
+  document.body.innerHTML = document.body.innerHTML
+    .replace(/\{BRAND_NAME\}/g, C.brandName)
+    .replace(/\{PHONE\}/g, C.phone)
+    .replace(/\{EMAIL\}/g, C.email)
+    .replace(/\{TG_LINK\}/g, C.telegramLink);
+
+  renderFragrances();
+  initNav();
+  initQuiz();
+  loadCart();
+})();
+
+/* ============================================================
+   FRAGRANCE CARDS
+   ============================================================ */
+let activeFilter = 'All';
+let currentModalIndex = null;
+let currentSizeIndex = 0;
+
+function renderFragrances() {
+  const grid = document.getElementById('fragrance-grid');
+  grid.innerHTML = '';
+  const filtered = activeFilter === 'All'
+    ? FRAGRANCES
+    : FRAGRANCES.filter(f => f.category === activeFilter);
+
+  filtered.forEach((f, i) => {
+    const realIndex = FRAGRANCES.indexOf(f);
+    const lowestPrice = f.sizes[0].price;
+    const card = document.createElement('div');
+    card.className = 'fragrance-card';
+    card.setAttribute('data-category', f.category);
+    card.onclick = () => openModal(realIndex);
+    card.innerHTML = `
+      ${f.badge ? `<span class="fragrance-badge ${f.badge.toLowerCase().replace(' ','')}">${f.badge}</span>` : ''}
+      <div class="fragrance-emoji">${f.emoji}</div>
+      <h3 class="fragrance-name">${f.name}</h3>
+      <p class="fragrance-notes-preview">${f.notes.heart}</p>
+      <p class="fragrance-price">${formatPrice(lowestPrice)} ${CONFIG.currency}</p>
+      <p class="fragrance-size">from ${f.sizes[0].label}</p>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function formatPrice(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+/* Filter buttons */
+document.getElementById('filter-bar').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  renderFragrances();
+});
+
+/* ============================================================
+   PRODUCT MODAL
+   ============================================================ */
+function openModal(index) {
+  currentModalIndex = index;
+  currentSizeIndex = 0;
+  const f = FRAGRANCES[index];
+  document.getElementById('modal-emoji').textContent = f.emoji;
+  document.getElementById('modal-name').textContent = f.name;
+  document.getElementById('modal-category').textContent = f.category;
+  document.getElementById('modal-top').textContent = f.notes.top;
+  document.getElementById('modal-heart').textContent = f.notes.heart;
+  document.getElementById('modal-base').textContent = f.notes.base;
+  document.getElementById('modal-desc').textContent = f.description;
+
+  const sizesEl = document.getElementById('modal-sizes');
+  sizesEl.innerHTML = '';
+  f.sizes.forEach((s, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'size-option' + (i === 0 ? ' active' : '');
+    btn.textContent = s.label;
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      currentSizeIndex = i;
+      sizesEl.querySelectorAll('.size-option').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('modal-price').textContent = formatPrice(s.price) + ' ' + CONFIG.currency;
+    };
+    sizesEl.appendChild(btn);
+  });
+
+  document.getElementById('modal-price').textContent = formatPrice(f.sizes[0].price) + ' ' + CONFIG.currency;
+
+  document.getElementById('modal-add-cart').onclick = (e) => {
+    e.stopPropagation();
+    addToCart(index, currentSizeIndex);
+  };
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-overlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { closeModal(); toggleCart(false); }
+});
+
+/* ============================================================
+   CART — localStorage
+   ============================================================ */
+let cart = [];
+
+function loadCart() {
+  try {
+    cart = JSON.parse(localStorage.getItem('maisonlumiere_cart') || '[]');
+  } catch { cart = []; }
+  renderCart();
+}
+
+function saveCart() {
+  localStorage.setItem('maisonlumiere_cart', JSON.stringify(cart));
+  renderCart();
+}
+
+function addToCart(fragranceIndex, sizeIndex) {
+  const f = FRAGRANCES[fragranceIndex];
+  const s = f.sizes[sizeIndex];
+  const key = fragranceIndex + '-' + sizeIndex;
+  const existing = cart.find(item => item.key === key);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({
+      key,
+      fragIndex: fragranceIndex,
+      sizeIndex,
+      name: f.name,
+      emoji: f.emoji,
+      sizeLabel: s.label,
+      price: s.price,
+      qty: 1,
+    });
+  }
+  saveCart();
+  closeModal();
+}
+
+function removeFromCart(key) {
+  cart = cart.filter(item => item.key !== key);
+  saveCart();
+}
+
+function renderCart() {
+  const itemsEl = document.getElementById('cart-items');
+  const footerEl = document.getElementById('cart-footer');
+  const countEl = document.getElementById('cart-count');
+  const totalEl = document.getElementById('cart-total');
+
+  const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+  countEl.textContent = totalQty;
+  countEl.classList.toggle('visible', totalQty > 0);
+
+  if (cart.length === 0) {
+    itemsEl.innerHTML = '<p class="cart-empty">Your bag is empty.</p>';
+    footerEl.style.display = 'none';
+    return;
+  }
+
+  itemsEl.innerHTML = '';
+  let total = 0;
+  cart.forEach(item => {
+    total += item.price * item.qty;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <span class="cart-item-emoji">${item.emoji}</span>
+      <div class="cart-item-details">
+        <p class="cart-item-name">${item.name}</p>
+        <p class="cart-item-meta">${item.sizeLabel} &times; ${item.qty}</p>
+        <p class="cart-item-price">${formatPrice(item.price * item.qty)} ${CONFIG.currency}</p>
+        <button class="cart-item-remove" data-key="${item.key}">Remove</button>
+      </div>
+    `;
+    itemsEl.appendChild(div);
+  });
+
+  itemsEl.querySelectorAll('.cart-item-remove').forEach(btn => {
+    btn.addEventListener('click', () => removeFromCart(btn.dataset.key));
+  });
+
+  totalEl.textContent = formatPrice(total) + ' ' + CONFIG.currency;
+  footerEl.style.display = 'block';
+}
+
+function toggleCart(force) {
+  const overlay = document.getElementById('cart-overlay');
+  const drawer = document.getElementById('cart-drawer');
+  const isOpen = overlay.classList.contains('open');
+  const shouldOpen = force !== undefined ? force : !isOpen;
+  overlay.classList.toggle('open', shouldOpen);
+  drawer.classList.toggle('open', shouldOpen);
+  document.body.style.overflow = shouldOpen ? 'hidden' : '';
+}
+
+/* ============================================================
+   CHECKOUT — Telegram
+   ============================================================ */
+function checkoutTelegram() {
+  if (cart.length === 0) return;
+  let total = 0;
+  let lines = [`Order from ${CONFIG.brandName}\n`];
+  cart.forEach(item => {
+    const subtotal = item.price * item.qty;
+    total += subtotal;
+    lines.push(`${item.emoji} ${item.name} (${item.sizeLabel}) x${item.qty} = ${formatPrice(subtotal)} ${CONFIG.currency}`);
+  });
+  lines.push(`\nTotal: ${formatPrice(total)} ${CONFIG.currency}`);
+  lines.push(`\nPlease confirm this order. Thank you!`);
+
+  const text = encodeURIComponent(lines.join('\n'));
+  window.open(`${CONFIG.telegramLink}?start=&text=${text}`, '_blank');
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function initNav() {
+  const nav = document.getElementById('nav');
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  toggle.addEventListener('click', () => {
+    links.classList.toggle('mobile-open');
+  });
+
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => links.classList.remove('mobile-open'));
+  });
+}
+
+/* ============================================================
+   SCENT QUIZ
+   ============================================================ */
+const QUIZ_QUESTIONS = [
+  {
+    q: "Which setting makes you feel most at peace?",
+    options: [
+      { text: "A flower garden after the rain", scores: { Floral: 3, Fresh: 1 } },
+      { text: "Deep in an ancient forest", scores: { Woody: 3, Oriental: 1 } },
+      { text: "By the ocean at sunrise", scores: { Fresh: 3, Floral: 1 } },
+      { text: "A candlelit room with velvet curtains", scores: { Oriental: 3, Woody: 1 } },
+    ],
+  },
+  {
+    q: "What's your ideal evening?",
+    options: [
+      { text: "Rooftop dinner under the stars", scores: { Floral: 2, Oriental: 1 } },
+      { text: "Bonfire with close friends", scores: { Woody: 2, Fresh: 1 } },
+      { text: "Beach walk at twilight", scores: { Fresh: 2, Floral: 1 } },
+      { text: "Wine tasting in a dimly lit cellar", scores: { Oriental: 3, Woody: 1 } },
+    ],
+  },
+  {
+    q: "Pick a fabric that appeals to you:",
+    options: [
+      { text: "Soft silk", scores: { Floral: 3 } },
+      { text: "Raw linen", scores: { Fresh: 3 } },
+      { text: "Rich velvet", scores: { Oriental: 3 } },
+      { text: "Warm wool", scores: { Woody: 3 } },
+    ],
+  },
+  {
+    q: "Which season speaks to your soul?",
+    options: [
+      { text: "Spring — renewal, blossoms, new beginnings", scores: { Floral: 3, Fresh: 1 } },
+      { text: "Summer — warmth, energy, adventure", scores: { Fresh: 2, Floral: 1 } },
+      { text: "Autumn — depth, change, reflection", scores: { Woody: 3, Oriental: 1 } },
+      { text: "Winter — mystery, intimacy, allure", scores: { Oriental: 3, Woody: 1 } },
+    ],
+  },
+];
+
+let quizStep = 0;
+let quizScores = { Floral: 0, Woody: 0, Fresh: 0, Oriental: 0 };
+
+function initQuiz() {
+  quizStep = 0;
+  quizScores = { Floral: 0, Woody: 0, Fresh: 0, Oriental: 0 };
+  renderQuizStep();
+
+  document.getElementById('quiz-restart').addEventListener('click', () => {
+    quizStep = 0;
+    quizScores = { Floral: 0, Woody: 0, Fresh: 0, Oriental: 0 };
+    document.getElementById('quiz-result').classList.remove('visible');
+    document.getElementById('quiz-question').style.display = 'block';
+    renderQuizStep();
+  });
+}
+
+function renderQuizStep() {
+  if (quizStep >= QUIZ_QUESTIONS.length) {
+    showQuizResult();
+    return;
+  }
+  const q = QUIZ_QUESTIONS[quizStep];
+  document.getElementById('quiz-q-number').textContent = `Question ${quizStep + 1} of ${QUIZ_QUESTIONS.length}`;
+  document.getElementById('quiz-q-text').textContent = q.q;
+
+  const optsEl = document.getElementById('quiz-options');
+  optsEl.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = opt.text;
+    btn.addEventListener('click', () => {
+      btn.classList.add('selected');
+      setTimeout(() => {
+        Object.entries(opt.scores).forEach(([cat, pts]) => {
+          quizScores[cat] = (quizScores[cat] || 0) + pts;
+        });
+        quizStep++;
+        renderQuizStep();
+      }, 250);
+    });
+    optsEl.appendChild(btn);
+  });
+}
+
+function showQuizResult() {
+  document.getElementById('quiz-question').style.display = 'none';
+  const best = Object.entries(quizScores).sort((a, b) => b[1] - a[1])[0][0];
+  const candidates = FRAGRANCES.filter(f => f.category === best);
+  const pick = candidates[Math.floor(Math.random() * candidates.length)];
+
+  document.getElementById('quiz-result-emoji').textContent = pick.emoji;
+  document.getElementById('quiz-result-name').textContent = pick.name;
+  document.getElementById('quiz-result-notes').textContent =
+    `${pick.category} — ${pick.notes.top} / ${pick.notes.heart} / ${pick.notes.base}`;
+
+  const resultBtn = document.getElementById('quiz-result-btn');
+  resultBtn.onclick = () => {
+    const idx = FRAGRANCES.indexOf(pick);
+    openModal(idx);
+    document.getElementById('collection').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  document.getElementById('quiz-result').classList.add('visible');
+}
+
+/* ============================================================
+   CONTACT FORM (demo)
+   ============================================================ */
+function handleContactForm(e) {
+  e.preventDefault();
+  const name = document.getElementById('c-name').value;
+  const email = document.getElementById('c-email').value;
+  const subject = document.getElementById('c-subject').value;
+  const message = document.getElementById('c-message').value;
+
+  const text = encodeURIComponent(
+    `Contact Form Submission\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`
+  );
+  window.open(`${CONFIG.telegramLink}?text=${text}`, '_blank');
+  e.target.reset();
+  alert('Thank you! Your message has been sent via Telegram.');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{RESTAURANT_NAME} - Restaurant &amp; Café</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   🎨 CSS CUSTOMIZATION VARIABLES
+   Change these to match your client's brand!
+   ============================================ */
+:root {
+  --primary: #faf7f3;       /* Background color */
+  --accent: #c2775a;        /* Terra cotta accent */
+  --accent-hover: #a8603f;  /* Accent hover state */
+  --text: #3d3229;          /* Body text color */
+  --text-light: #7a6e63;    /* Secondary text */
+  --white: #ffffff;
+  --card-bg: #ffffff;
+  --border: #e8e0d8;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --shadow: 0 2px 20px rgba(61,50,41,0.08);
+  --shadow-lg: 0 8px 40px rgba(61,50,41,0.12);
+  --radius: 12px;
+  --transition: 0.3s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--primary);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--accent); text-decoration: none; transition: var(--transition); }
+a:hover { color: var(--accent-hover); }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  background: var(--accent);
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+.btn:hover { background: var(--accent-hover); color: var(--white); transform: translateY(-2px); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+}
+.btn-outline:hover { background: var(--accent); color: var(--white); }
+
+.section { padding: 80px 0; }
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.section-title h2 { font-size: 2.5rem; color: var(--text); margin-bottom: 10px; }
+.section-title p { color: var(--text-light); font-size: 1.1rem; max-width: 500px; margin: 0 auto; }
+.section-title .accent-line {
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  margin: 15px auto 0;
+  border-radius: 2px;
+}
+
+/* ===== HEADER / NAV ===== */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(250,247,243,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+header.scrolled { box-shadow: var(--shadow); }
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.nav-logo span { color: var(--accent); }
+
+.nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
+.nav-links a {
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.95rem;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: var(--transition);
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--accent); }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 5px;
+}
+.hamburger span {
+  width: 25px;
+  height: 2px;
+  background: var(--text);
+  transition: var(--transition);
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 20px 80px;
+  background: linear-gradient(135deg, var(--primary) 0%, #f0ebe4 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(194,119,90,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: rgba(194,119,90,0.1);
+  color: var(--accent);
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+.hero h1 {
+  font-size: 4rem;
+  color: var(--text);
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.hero h1 span { color: var(--accent); }
+.hero-tagline {
+  font-size: 1.25rem;
+  color: var(--text-light);
+  max-width: 550px;
+  margin: 0 auto 35px;
+  line-height: 1.7;
+}
+.hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+.hero-scroll span { display: block; width: 20px; height: 20px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(45deg); }
+
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ===== ABOUT ===== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.about-image {
+  width: 100%;
+  height: 450px;
+  background: linear-gradient(135deg, #e8d5c8 0%, #d4b8a5 100%);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  box-shadow: var(--shadow-lg);
+}
+.about-text h2 { font-size: 2.2rem; margin-bottom: 20px; }
+.about-text h2 span { color: var(--accent); }
+.about-text p { color: var(--text-light); margin-bottom: 15px; line-height: 1.8; }
+.about-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+}
+.about-stat h3 { font-size: 2rem; color: var(--accent); }
+.about-stat p { font-size: 0.9rem; color: var(--text-light); }
+
+/* ===== MENU ===== */
+.menu-section { background: var(--white); }
+
+.menu-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.menu-tab {
+  padding: 10px 24px;
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.menu-tab:hover { border-color: var(--accent); color: var(--accent); }
+.menu-tab.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--primary);
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+.menu-item:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.menu-item-emoji { font-size: 2.5rem; flex-shrink: 0; }
+.menu-item-info { flex: 1; }
+.menu-item-name { font-weight: 600; font-size: 1.05rem; margin-bottom: 4px; }
+.menu-item-desc { font-size: 0.85rem; color: var(--text-light); }
+.menu-item-price {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* ===== GALLERY ===== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+.gallery-item {
+  position: relative;
+  height: 250px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+}
+.gallery-item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+  height: 100%;
+}
+.gallery-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  transition: var(--transition);
+}
+.gallery-item:nth-child(1) .gallery-placeholder { background: linear-gradient(135deg, #c2775a33, #c2775a11); }
+.gallery-item:nth-child(2) .gallery-placeholder { background: linear-gradient(135deg, #d4b8a544, #e8d5c822); }
+.gallery-item:nth-child(3) .gallery-placeholder { background: linear-gradient(135deg, #a8603f22, #c2775a11); }
+.gallery-item:nth-child(4) .gallery-placeholder { background: linear-gradient(135deg, #e8d5c833, #d4b8a511); }
+.gallery-item:nth-child(5) .gallery-placeholder { background: linear-gradient(135deg, #c2775a22, #a8603f11); }
+.gallery-item:hover .gallery-placeholder { transform: scale(1.05); }
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(61,50,41,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition);
+  color: var(--white);
+  font-size: 2rem;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+/* ===== TESTIMONIALS ===== */
+.testimonials-section { background: var(--white); }
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 25px;
+}
+.testimonial-card {
+  padding: 35px;
+  background: var(--primary);
+  border-radius: var(--radius);
+  position: relative;
+}
+.testimonial-card::before {
+  content: '\201C';
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  color: var(--accent);
+  opacity: 0.3;
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  line-height: 1;
+}
+.testimonial-text { font-size: 1rem; color: var(--text-light); line-height: 1.8; margin-bottom: 20px; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.testimonial-name { font-weight: 600; font-size: 0.95rem; }
+.testimonial-role { font-size: 0.8rem; color: var(--text-light); }
+.testimonial-stars { color: #f0a500; margin-top: 8px; font-size: 0.9rem; }
+
+/* ===== RESERVATION ===== */
+.reservation-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.reservation-info h3 { font-size: 1.8rem; margin-bottom: 15px; }
+.reservation-info p { color: var(--text-light); line-height: 1.8; margin-bottom: 25px; }
+.reservation-contact-item { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+.reservation-contact-item span:first-child { font-size: 1.3rem; }
+.reservation-contact-item span:last-child { color: var(--text-light); }
+
+.reservation-form {
+  background: var(--white);
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+.reservation-form h3 { font-size: 1.5rem; margin-bottom: 25px; text-align: center; }
+
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--primary);
+  transition: var(--transition);
+}
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--white);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+.booking-confirm {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+.booking-confirm.show { display: block; }
+.booking-confirm .icon { font-size: 3.5rem; margin-bottom: 15px; }
+.booking-confirm h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--accent); }
+.booking-confirm p { color: var(--text-light); margin-bottom: 20px; line-height: 1.7; }
+
+/* ===== CONTACT ===== */
+.contact-section { background: var(--white); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.contact-details { display: flex; flex-direction: column; gap: 25px; }
+.contact-card {
+  display: flex;
+  gap: 16px;
+  padding: 25px;
+  background: var(--primary);
+  border-radius: var(--radius);
+}
+.contact-card-icon { font-size: 1.8rem; flex-shrink: 0; }
+.contact-card h4 { font-size: 1rem; margin-bottom: 5px; }
+.contact-card p { font-size: 0.9rem; color: var(--text-light); }
+
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+  background: linear-gradient(135deg, #e8d5c8, #d4b8a5);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.map-placeholder span:first-child { font-size: 3rem; }
+.map-placeholder span:last-child { color: var(--text-light); font-size: 0.9rem; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--text);
+  color: rgba(255,255,255,0.7);
+  padding: 60px 0 30px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+.footer-brand h3 { font-size: 1.5rem; color: var(--white); margin-bottom: 12px; }
+.footer-brand h3 span { color: var(--accent); }
+.footer-brand p { font-size: 0.9rem; line-height: 1.7; }
+.footer-col h4 { color: var(--white); font-size: 1rem; margin-bottom: 15px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 8px; }
+.footer-col ul li a { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+.footer-col ul li a:hover { color: var(--accent); }
+
+.footer-social { display: flex; gap: 12px; margin-top: 20px; }
+.footer-social a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 1.1rem;
+}
+.footer-social a:hover { background: var(--accent); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 25px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.footer-bottom span { color: var(--accent); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 968px) {
+  .hero h1 { font-size: 2.8rem; }
+  .about-grid,
+  .reservation-wrapper,
+  .contact-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .gallery-item:first-child { grid-column: span 3; grid-row: span 1; height: 250px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--primary);
+    flex-direction: column;
+    padding: 80px 30px 30px;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+    gap: 20px;
+  }
+  .nav-links.open { right: 0; }
+  .hamburger { display: flex; }
+  .hero h1 { font-size: 2.2rem; }
+  .hero-tagline { font-size: 1.05rem; }
+  .section { padding: 60px 0; }
+  .section-title h2 { font-size: 2rem; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-item:first-child { grid-column: span 2; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .about-stats { gap: 20px; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.8rem; }
+  .hero-buttons { flex-direction: column; align-items: center; }
+  .btn { width: 100%; max-width: 280px; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-item:first-child { grid-column: span 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER / NAVIGATION
+     ============================================================ -->
+<header id="header">
+  <nav class="container">
+    <a href="#" class="nav-logo">{RESTAURANT_NAME}</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" onclick="closeNav()">About</a></li>
+      <li><a href="#menu" onclick="closeNav()">Menu</a></li>
+      <li><a href="#gallery" onclick="closeNav()">Gallery</a></li>
+      <li><a href="#testimonials" onclick="closeNav()">Reviews</a></li>
+      <li><a href="#reservation" onclick="closeNav()">Reservation</a></li>
+      <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO SECTION
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🍽️ Myanmar's Finest Dining</div>
+    <h1>{RESTAURANT_NAME}</h1>
+    <p class="hero-tagline">Authentic Myanmar flavors blended with modern culinary artistry. Every dish tells a story of tradition, crafted with love and the freshest local ingredients.</p>
+    <div class="hero-buttons">
+      <a href="#reservation" class="btn">Reserve a Table</a>
+      <a href="#menu" class="btn btn-outline">View Menu</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span></span></div>
+</section>
+
+<!-- ============================================================
+     ABOUT SECTION
+     ============================================================ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image">🍜</div>
+      <div class="about-text">
+        <h2>Our <span>Story</span></h2>
+        <p>Founded in the heart of Myanmar, {RESTAURANT_NAME} brings together the rich culinary traditions of our homeland with contemporary dining experiences. Our chefs use only the freshest locally sourced ingredients.</p>
+        <p>Whether you're craving the comforting warmth of mohinga, the bold flavors of tea leaf salad, or an expertly mixed cocktail, our menu offers something special for every palate and occasion.</p>
+        <div class="about-stats">
+          <div class="about-stat">
+            <h3>10+</h3>
+            <p>Years of Excellence</p>
+          </div>
+          <div class="about-stat">
+            <h3>50+</h3>
+            <p>Menu Items</p>
+          </div>
+          <div class="about-stat">
+            <h3>10K+</h3>
+            <p>Happy Customers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MENU SECTION
+     ============================================================ -->
+<section class="section menu-section" id="menu">
+  <div class="container">
+    <div class="section-title">
+      <h2>Our Menu</h2>
+      <p>Explore our carefully crafted dishes, each prepared with passion and the finest ingredients</p>
+      <div class="accent-line"></div>
+    </div>
+    <div class="menu-tabs" id="menuTabs"></div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GALLERY SECTION
+     ============================================================ -->
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-title">
+      <h2>Gallery</h2>
+      <p>A glimpse into the {RESTAURANT_NAME} experience</p>
+      <div class="accent-line"></div>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-placeholder">🍜</div>
+        <div class="gallery-overlay">+</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">🥗</div>
+        <div class="gallery-overlay">+</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">🍲</div>
+        <div class="gallery-overlay">+</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">🍹</div>
+        <div class="gallery-overlay">+</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">🍰</div>
+        <div class="gallery-overlay">+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS SECTION
+     ============================================================ -->
+<section class="section testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="section-title">
+      <h2>What Our Guests Say</h2>
+      <p>Real reviews from our beloved customers</p>
+      <div class="accent-line"></div>
+    </div>
+    <div class="testimonials-grid" id="testimonialsGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RESERVATION SECTION
+     ============================================================ -->
+<section class="section" id="reservation">
+  <div class="container">
+    <div class="section-title">
+      <h2>Make a Reservation</h2>
+      <p>Book your table and enjoy an unforgettable dining experience</p>
+      <div class="accent-line"></div>
+    </div>
+    <div class="reservation-wrapper">
+      <div class="reservation-info">
+        <h3>We'd Love to Host You</h3>
+        <p>Whether it's a romantic dinner for two, a family celebration, or a business gathering, we'll make your visit special. Reserve your table today and let us take care of the rest.</p>
+        <div class="reservation-contact-item">
+          <span>📞</span>
+          <span>{PHONE}</span>
+        </div>
+        <div class="reservation-contact-item">
+          <span>📍</span>
+          <span>{ADDRESS}</span>
+        </div>
+        <div class="reservation-contact-item">
+          <span>💬</span>
+          <span>Or message us on <a href="{TG_LINK}" target="_blank">Telegram</a></span>
+        </div>
+      </div>
+
+      <div class="reservation-form" id="reservationForm">
+        <h3>Book Your Table</h3>
+        <form id="bookingForm" onsubmit="handleBooking(event)">
+          <div class="form-group">
+            <label for="bookName">Full Name</label>
+            <input type="text" id="bookName" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="bookPhone">Phone Number</label>
+            <input type="tel" id="bookPhone" placeholder="09 XXX XXX XXX" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bookDate">Date</label>
+              <input type="date" id="bookDate" required>
+            </div>
+            <div class="form-group">
+              <label for="bookTime">Time</label>
+              <select id="bookTime" required>
+                <option value="">Select time</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">1:00 PM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="17:00">5:00 PM</option>
+                <option value="18:00">6:00 PM</option>
+                <option value="19:00">7:00 PM</option>
+                <option value="20:00">8:00 PM</option>
+                <option value="21:00">9:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="bookParty">Party Size</label>
+            <select id="bookParty" required>
+              <option value="">Number of guests</option>
+              <option value="1">1 Person</option>
+              <option value="2">2 People</option>
+              <option value="3">3 People</option>
+              <option value="4">4 People</option>
+              <option value="5">5 People</option>
+              <option value="6">6 People</option>
+              <option value="7">7 People</option>
+              <option value="8">8+ People</option>
+            </select>
+          </div>
+          <button type="submit" class="btn" style="width:100%; margin-top:5px;">Confirm Reservation</button>
+        </form>
+
+        <div class="booking-confirm" id="bookingConfirm">
+          <div class="icon">✅</div>
+          <h3>Reservation Confirmed!</h3>
+          <p>Thank you! Your table has been reserved. We'll send you a confirmation shortly.</p>
+          <a href="{TG_LINK}" target="_blank" class="btn">Contact us on Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT SECTION
+     ============================================================ -->
+<section class="section contact-section" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>Get In Touch</h2>
+      <p>Visit us, call us, or send a message — we're always happy to hear from you</p>
+      <div class="accent-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-details">
+        <div class="contact-card">
+          <div class="contact-card-icon">📍</div>
+          <div>
+            <h4>Address</h4>
+            <p>{ADDRESS}</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon">📞</div>
+          <div>
+            <h4>Phone</h4>
+            <p>{PHONE}</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon">🕐</div>
+          <div>
+            <h4>Opening Hours</h4>
+            <p id="hoursDisplay"></p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon">💬</div>
+          <div>
+            <h4>Telegram</h4>
+            <p><a href="{TG_LINK}" target="_blank">Message us on Telegram</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <span>🗺️</span>
+        <span>Map — Replace with Google Maps embed</span>
+        <span style="font-size:0.8rem; margin-top:5px; opacity:0.6;">Paste iframe code here</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>{RESTAURANT_NAME}</h3>
+        <p>Authentic Myanmar flavors and modern dining experiences, crafted with passion and the freshest local ingredients.</p>
+        <div class="footer-social">
+          <a href="{TG_LINK}" target="_blank" aria-label="Telegram">💬</a>
+          <a href="#" aria-label="Facebook">📘</a>
+          <a href="#" aria-label="Instagram">📷</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#menu">Our Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reservation">Reservations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#menu">Starters</a></li>
+          <li><a href="#menu">Main Courses</a></li>
+          <li><a href="#menu">Drinks</a></li>
+          <li><a href="#menu">Desserts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:{PHONE}">{PHONE}</a></li>
+          <li><a href="{TG_LINK}" target="_blank">Telegram</a></li>
+          <li><a href="#">{ADDRESS}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="footerYear"></span> {RESTAURANT_NAME}. All rights reserved. | Built by <a href="https://t.me/hein_public_ai_bot" target="_blank" style="color:var(--accent);">H-Tech Studio</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ==============================================================
+   ⚙️ SITE CONFIGURATION — CUSTOMIZE THIS!
+   ==============================================================
+   Change these values to match your client's restaurant.
+   All placeholders in HTML ({RESTAURANT_NAME}, etc.) are
+   replaced automatically by this config.
+   ============================================================== */
+const CONFIG = {
+  restaurantName: "The Golden Leaf",
+  phone: "09 123 456 789",
+  address: "No.42, Bogyoke Street, Yangon, Myanmar",
+  telegramLink: "https://t.me/hein_public_ai_bot",
+  currencyLabel: "Ks",
+  hours: "Mon–Sun: 10:00 AM – 10:00 PM"
+};
+
+/* ==============================================================
+   🍽️ CUSTOMIZE YOUR MENU HERE
+   ==============================================================
+   Each item: { category, name, price, desc, emoji }
+   - category must match a tab (Starters, Main, Drinks, Desserts)
+   - price is displayed with CONFIG.currencyLabel (Ks)
+   - emoji is shown next to each item
+   ============================================================== */
+const MENU = [
+  // ---- Starters ----
+  { category: "Starters", name: "Tea Leaf Salad (Lahpet Thoke)", price: 3500, desc: "Fermented tea leaves with nuts & garlic", emoji: "🥗" },
+  { category: "Starters", name: "Samosa (Tofu)", price: 2500, desc: "Crispy tofu samosa with tamarind sauce", emoji: "🥟" },
+  { category: "Starters", name: "Fried Spring Rolls", price: 3000, desc: "Vegetable spring rolls with sweet chili", emoji: "🥠" },
+  { category: "Starters", name: "Chicken Wings", price: 4000, desc: "Spiced & grilled chicken wings", emoji: "🍗" },
+  { category: "Starters", name: "Mango Salad", price: 3000, desc: "Fresh green mango with chili & lime", emoji: "🥭" },
+
+  // ---- Main ----
+  { category: "Main", name: "Mohinga", price: 4500, desc: "Myanmar's beloved fish noodle soup", emoji: "🍜" },
+  { category: "Main", name: "Shan Noodles", price: 4000, desc: "Rice noodles in tomato chicken broth", emoji: "🍝" },
+  { category: "Main", name: "Chicken Khow Suey", price: 5000, desc: "Coconut chicken curry with crispy noodles", emoji: "🍛" },
+  { category: "Main", name: "Fried Rice (Chicken)", price: 4500, desc: "Wok-fried rice with egg, chicken & veggies", emoji: "🍚" },
+  { category: "Main", name: "Pork Rib Stew", price: 6000, desc: "Slow-cooked pork ribs in soy & star anise", emoji: "🥩" },
+  { category: "Main", name: "Burmese Curry Platter", price: 5500, desc: "Pork curry with rice, salad & soup", emoji: "🍲" },
+
+  // ---- Drinks ----
+  { category: "Drinks", name: "Milk Tea", price: 1500, desc: "Classic Myanmar sweet milk tea", emoji: "🍵" },
+  { category: "Drinks", name: "Fresh Lime Soda", price: 2000, desc: "Freshly squeezed lime with soda water", emoji: "🍋" },
+  { category: "Drinks", name: "Iced Coffee", price: 2500, desc: "Strong local coffee over ice", emoji: "☕" },
+  { category: "Drinks", name: "Avocado Shake", price: 3000, desc: "Creamy blended avocado with condensed milk", emoji: "🥑" },
+  { category: "Drinks", name: "Passion Fruit Juice", price: 2500, desc: "Fresh passion fruit with ice", emoji: "🧃" },
+
+  // ---- Desserts ----
+  { category: "Desserts", name: "Shwe Yin Aye", price: 2500, desc: "Traditional ice dessert with jelly & bread", emoji: "🍧" },
+  { category: "Desserts", name: "Coconut Cake", price: 3500, desc: "Moist coconut sponge with cream frosting", emoji: "🍰" },
+  { category: "Desserts", name: "Banana Fritters", price: 2000, desc: "Crispy fried banana in palm sugar syrup", emoji: "🍌" },
+  { category: "Desserts", name: "Mango Sticky Rice", price: 4000, desc: "Sweet sticky rice with fresh ripe mango", emoji: "🥭" }
+];
+
+/* ==============================================================
+   ⭐ TESTIMONIALS — Add/edit customer reviews here
+   ============================================================== */
+const TESTIMONIALS = [
+  { name: "Aung Myo", initials: "AM", text: "Best Mohinga in Yangon! The flavors remind me of my grandmother's cooking. Truly authentic and delicious.", stars: 5 },
+  { name: "Thin Thin", initials: "TT", text: "Amazing atmosphere and the Tea Leaf Salad is to die for. We come here every weekend with family.", stars: 5 },
+  { name: "David L.", initials: "DL", text: "A hidden gem! The staff is wonderful and the Shan Noodles are the best I've ever had. Highly recommend!", stars: 5 }
+];
+
+/* ==============================================================
+   🔧 APPLICATION LOGIC (no need to edit below)
+   ============================================================== */
+
+// --- Apply CONFIG to page placeholders ---
+document.addEventListener('DOMContentLoaded', function() {
+  // Replace placeholders in all text nodes
+  document.body.innerHTML = document.body.innerHTML
+    .replace(/\{RESTAURANT_NAME\}/g, CONFIG.restaurantName)
+    .replace(/\{PHONE\}/g, CONFIG.phone)
+    .replace(/\{ADDRESS\}/g, CONFIG.address)
+    .replace(/\{TG_LINK\}/g, CONFIG.telegramLink);
+
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+  document.getElementById('hoursDisplay').textContent = CONFIG.hours;
+  document.querySelector('.nav-logo').textContent = CONFIG.restaurantName;
+  document.querySelector('.footer-brand h3').innerHTML = CONFIG.restaurantName;
+
+  // Set minimum date for reservation
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('bookDate').setAttribute('min', today);
+
+  initMenu();
+  initTestimonials();
+});
+
+// --- Hamburger Menu ---
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('open');
+});
+
+function closeNav() {
+  hamburger.classList.remove('active');
+  navLinks.classList.remove('open');
+}
+
+// --- Header scroll effect ---
+window.addEventListener('scroll', () => {
+  document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// --- Menu Rendering & Filter ---
+function initMenu() {
+  const categories = [...new Set(MENU.map(item => item.category))];
+  const tabsContainer = document.getElementById('menuTabs');
+  const gridContainer = document.getElementById('menuGrid');
+
+  // Create tabs
+  tabsContainer.innerHTML = '<button class="menu-tab active" data-category="all">All</button>' +
+    categories.map(cat =>
+      `<button class="menu-tab" data-category="${cat}">${cat}</button>`
+    ).join('');
+
+  // Render menu items
+  function renderMenu(category) {
+    const items = category === 'all' ? MENU : MENU.filter(item => item.category === category);
+    gridContainer.innerHTML = items.map(item => `
+      <div class="menu-item">
+        <div class="menu-item-emoji">${item.emoji}</div>
+        <div class="menu-item-info">
+          <div class="menu-item-name">${item.name}</div>
+          <div class="menu-item-desc">${item.desc}</div>
+        </div>
+        <div class="menu-item-price">${item.price.toLocaleString()} ${CONFIG.currencyLabel}</div>
+      </div>
+    `).join('');
+  }
+
+  // Initial render
+  renderMenu('all');
+
+  // Tab click handlers
+  tabsContainer.addEventListener('click', function(e) {
+    if (e.target.classList.contains('menu-tab')) {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      e.target.classList.add('active');
+      renderMenu(e.target.dataset.category);
+    }
+  });
+}
+
+// --- Testimonials ---
+function initTestimonials() {
+  const container = document.getElementById('testimonialsGrid');
+  container.innerHTML = TESTIMONIALS.map(t => `
+    <div class="testimonial-card">
+      <p class="testimonial-text">${t.text}</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">${t.initials}</div>
+        <div>
+          <div class="testimonial-name">${t.name}</div>
+          <div class="testimonial-stars">${'★'.repeat(t.stars)}${'☆'.repeat(5 - t.stars)}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// --- Reservation Form Handler ---
+function handleBooking(e) {
+  e.preventDefault();
+  const form = document.getElementById('bookingForm');
+  const confirm = document.getElementById('bookingConfirm');
+
+  form.style.display = 'none';
+  confirm.classList.add('show');
+
+  // Smooth scroll to confirmation
+  confirm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+</body>
+</html>

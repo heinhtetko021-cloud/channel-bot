@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H-Tech Studio — Premium Multi-Language Blog</title>
+<meta name="description" content="Premium multi-language (English + Burmese) business website with blog template for Myanmar web developers.">
+
+<!-- ============================================================
+  🌟 PREMIUM MULTI-LANGUAGE BUSINESS WEBSITE + BLOG
+  Price range: 400K–900K Ks
+  Brand: H-Tech Studio (Myanmar freelance web developer)
+
+  ✅ Easy to customize: CSS variables + JS CONFIG + BLOG array
+  ✅ Genuine EN/MM language switcher (all UI + content)
+  ✅ Blog listing + category filter + search (both languages)
+  ✅ Blog modal + comments + share + related posts
+  ✅ Newsletter + contact forms
+  -->=============================================================
+
+<style>
+/* ============================================================
+   🎨 CUSTOMIZE YOUR COLORS HERE (CSS Variables)
+   Change the values below to rebrand instantly.
+   ============================================================ */
+:root{
+  --bg:#faf7f3;            /* Cream background */
+  --bg-soft:#f3ede5;       /* Slightly darker cream */
+  --card:#ffffff;
+  --accent:#c2775a;        /* Terra cotta primary */
+  --accent-dark:#a85f45;   /* Terra cotta darker */
+  --accent-soft:#f5e3da;   /* Terra cotta tint */
+  --text:#3b2f28;          /* Warm dark brown text */
+  --text-muted:#8a7a6e;    /* Muted text */
+  --border:#e8ded2;        /* Soft borders */
+  --shadow:0 10px 30px rgba(194,119,90,.12);
+  --radius:16px;
+  --radius-sm:10px;
+  --maxw:1200px;
+  --font:'Plus Jakarta Sans',-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  font-size:16px;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{line-height:1.25;font-weight:800}
+[data-my],html[lang="my"] [data-en]{display:none}
+html[lang="my"] [data-my]{display:inline}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.section{padding:70px 0}
+.section-title{text-align:center;font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:10px}
+.section-sub{text-align:center;color:var(--text-muted);max-width:640px;margin:0 auto 40px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:13px 26px;
+  border:none;border-radius:50px;cursor:pointer;font-weight:700;font-size:15px;
+  font-family:var(--font);transition:.25s;
+}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px)}
+.btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent)}
+.btn-outline:hover{background:var(--accent);color:#fff}
+
+/* ============ HEADER ============ */
+header{
+  position:sticky;top:0;z-index:100;background:rgba(250,247,243,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--border);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;max-width:var(--maxw);margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem}
+.brand-logo{width:42px;height:42px;border-radius:12px;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.2rem}
+.nav-links{display:flex;align-items:center;gap:26px}
+.nav-links a{font-weight:600;position:relative;padding:4px 0}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--accent);transition:.25s}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:12px}
+.lang-toggle{
+  position:relative;background:var(--card);border:1px solid var(--border);border-radius:50px;
+  padding:3px;display:flex;cursor:pointer;font-weight:700;font-size:13px;
+}
+.lang-toggle button{
+  border:none;background:transparent;padding:6px 12px;border-radius:50px;cursor:pointer;
+  color:var(--text-muted);font-weight:700;font-family:var(--font);transition:.25s;
+}
+.lang-toggle button.active{background:var(--accent);color:#fff}
+.hamburger{display:none;border:none;background:transparent;cursor:pointer;padding:6px}
+.hamburger span{display:block;width:24px;height:2.5px;background:var(--text);margin:5px 0;transition:.3s;border-radius:2px}
+
+/* ============ HERO ============ */
+.hero{
+  background:linear-gradient(135deg,var(--bg-soft) 0%,var(--bg) 50%);
+  padding:80px 20px 90px;
+}
+.hero-inner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);color:var(--accent-dark);
+  padding:7px 16px;border-radius:50px;font-weight:700;font-size:.85rem;margin-bottom:20px;
+}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);margin-bottom:18px}
+.hero h1 .accent{color:var(--accent)}
+.hero p{color:var(--text-muted);font-size:1.1rem;max-width:520px;margin-bottom:30px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:30px;margin-top:40px;flex-wrap:wrap}
+.stat strong{font-size:1.7rem;color:var(--accent);display:block}
+.stat span{color:var(--text-muted);font-size:.9rem}
+.hero-visual{
+  background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:30px;text-align:center;position:relative;
+}
+.hero-visual .emoji{font-size:4rem;margin-bottom:10px}
+
+/* ============ ABOUT ============ */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about-img{
+  background:var(--accent-soft);border-radius:var(--radius);padding:50px;text-align:center;
+  font-size:4.5rem;box-shadow:var(--shadow);
+}
+.about-text h2{font-size:2rem;margin-bottom:16px}
+.about-text p{color:var(--text-muted);margin-bottom:14px}
+.feature-list{list-style:none;margin:18px 0}
+.feature-list li{padding:8px 0;font-weight:600;display:flex;align-items:flex-start;gap:10px}
+.feature-list li::before{content:'✓';color:var(--accent);font-weight:800}
+
+/* ============ SERVICES ============ */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px}
+.service{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:30px;transition:.3s;
+}
+.service:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--accent)}
+.service .icon{font-size:2.5rem;margin-bottom:16px}
+.service h3{margin-bottom:10px}
+.service p{color:var(--text-muted);font-size:.95rem}
+
+/* ============ BLOG ============ */
+.blog-toolbar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:30px}
+.filter-wrap{display:flex;flex-wrap:wrap;gap:8px}
+.filter-btn{
+  border:1px solid var(--border);background:var(--card);border-radius:50px;padding:9px 18px;
+  cursor:pointer;font-weight:700;font-size:.85rem;font-family:var(--font);transition:.25s;
+}
+.filter-btn.active,.filter-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.search-box{position:relative;flex:1;min-width:220px;max-width:340px}
+.search-box input{
+  width:100%;padding:13px 16px 13px 42px;border:1px solid var(--border);border-radius:50px;
+  font-family:var(--font);font-size:.95rem;background:var(--card);
+}
+.search-box .icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-muted)}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px}
+.post{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;cursor:pointer;transition:.3s;display:flex;flex-direction:column;
+}
+.post:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.post-thumb{height:190px;display:flex;align-items:center;justify-content:center;font-size:4rem;background:linear-gradient(135deg,var(--accent-soft),var(--bg-soft))}
+.post-body{padding:22px;display:flex;flex-direction:column;flex:1}
+.post-meta{display:flex;gap:12px;align-items:center;font-size:.8rem;color:var(--text-muted);margin-bottom:10px;flex-wrap:wrap}
+.post-cat{background:var(--accent-soft);color:var(--accent-dark);padding:3px 10px;border-radius:50px;font-weight:700}
+.post.featured{border:2px solid var(--accent)}
+.post.featured .post-body::after{content:'★';color:var(--accent);font-size:1.2rem;position:absolute;top:12px;right:16px}
+.post-body{position:relative}
+.post-title{font-size:1.2rem;margin-bottom:8px}
+.post-excerpt{color:var(--text-muted);font-size:.92rem;margin-bottom:16px;flex:1}
+.post-footer{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-muted);font-weight:600}
+.post-footer .dots{font-size:1.2rem}
+.empty-state{grid-column:1/-1;text-align:center;color:var(--text-muted);padding:40px;font-size:1.1rem}
+
+/* ============ MODAL ============ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(59,47,40,.6);backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;z-index:200;padding:20px;
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:var(--bg);border-radius:var(--radius);max-width:760px;width:100%;
+  max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;
+}
+.modal-head{position:sticky;top:0;background:var(--bg);padding:20px 30px;border-bottom:1px solid var(--border);z-index:2}
+.modal-close{
+  position:absolute;top:16px;right:16px;background:var(--accent);color:#fff;border:none;
+  width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.3rem;font-weight:800;
+}
+.modal-close:hover{background:var(--accent-dark)}
+.modal-thumb{height:200px;display:flex;align-items:center;justify-content:center;font-size:5rem;
+  background:linear-gradient(135deg,var(--accent-soft),var(--bg-soft))}
+.modal-body{padding:30px}
+.modal-body h2{font-size:1.8rem;margin-bottom:6px}
+.modal-content{margin-top:22px}
+.modal-content p{margin-bottom:16px;color:#55473c}
+.modal-content h3{color:var(--accent);margin:24px 0 10px;font-size:1.2rem}
+.modal-content ul{margin:0 0 16px 20px;color:#55473c}
+.modal-content blockquote{border-left:4px solid var(--accent);background:var(--accent-soft);padding:14px 20px;border-radius:0 10px 10px 0;margin:16px 0;font-style:italic}
+.share{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0;padding-top:20px;border-top:1px solid var(--border)}
+.share span{font-weight:700;align-self:center}
+.share-btn{border:none;padding:10px 16px;border-radius:50px;cursor:pointer;font-weight:700;font-size:.85rem;color:#fff;font-family:var(--font)}
+.share-fb{background:#1877f2}.share-tw{background:#000}.share-wa{background:#25d366}.share-msg{background:#0084ff}
+.related{margin:26px 0}
+.related h3{margin-bottom:14px;color:var(--accent)}
+.related-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.related-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;cursor:pointer;transition:.25s}
+.related-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.related-card .emoji{font-size:1.8rem}
+.related-card strong{display:block;font-size:.9rem;margin:8px 0 4px}
+.related-card span{font-size:.8rem;color:var(--text-muted)}
+.comments{margin-top:16px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+.comments h3{margin-bottom:14px;color:var(--accent)}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-weight:600;margin-bottom:6px;font-size:.9rem}
+.form-group input,.form-group textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-family:var(--font);font-size:.95rem;background:var(--bg);
+}
+.form-group textarea{min-height:110px;resize:vertical}
+.form-success{background:#e6f4ea;border:1px solid #34a853;color:#1e7a34;padding:14px 18px;border-radius:var(--radius-sm);margin-top:12px;font-weight:600;display:none}
+.form-success a{color:var(--accent-dark);text-decoration:underline}
+
+/* ============ NEWSLETTER ============ */
+.newsletter{background:linear-gradient(135deg,var(--accent),var(--accent-dark));border-radius:var(--radius);padding:50px;text-align:center;color:#fff;margin:0 0 30px}
+.newsletter h2{font-size:1.8rem;margin-bottom:10px}
+.newsletter p{opacity:.9;margin-bottom:24px}
+.news-form{display:flex;gap:10px;max-width:460px;margin:0 auto;flex-wrap:wrap}
+.news-form input{flex:1;min-width:200px;padding:14px 18px;border:none;border-radius:50px;font-family:var(--font);font-size:.95rem}
+.news-form .btn{background:#fff;color:var(--accent)}
+.news-success{color:#fff;font-weight:700;display:none;padding:12px;background:rgba(255,255,255,.2);border-radius:50px;margin-top:10px}
+
+/* ============ CONTACT ============ */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.contact-info h2{font-size:2rem;margin-bottom:14px}
+.contact-info>p{color:var(--text-muted);margin-bottom:24px}
+.info-item{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.info-item .icon{background:var(--accent-soft);color:var(--accent-dark);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.info-item strong{display:block}
+.info-item span,.info-item a{color:var(--text-muted);font-size:.95rem}
+.info-item a:hover{color:var(--accent)}
+.contact-form{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+.contact-form h3{margin-bottom:16px;color:var(--accent)}
+.map{
+  margin-top:30px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);
+  height:300px;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;
+  color:var(--text-muted);text-align:center;padding:20px;
+}
+
+/* ============ FOOTER ============ */
+footer{background:#33281f;color:#d8cec4;padding:50px 0 30px;margin-top:40px}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;margin-bottom:30px}
+.footer-grid h4{color:#fff;margin-bottom:14px}
+.footer-grid p,.footer-grid a{color:#a89a8d;font-size:.93rem}
+.footer-grid a{display:block;margin-bottom:8px}
+.footer-grid a:hover{color:var(--accent)}
+.footer-social{display:flex;gap:10px;margin-top:12px}
+.soc{width:38px;height:38px;border-radius:50%;background:#43362b;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:.25s}
+.soc:hover{background:var(--accent)}
+.copyright{text-align:center;border-top:1px solid #43362b;padding-top:20px;font-size:.85rem;color:#8a7a6e}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:900px){
+  .hero-inner,.about,.contact-wrap{grid-template-columns:1fr}
+  .hero-visual{order:-1;max-width:420px;margin:0 auto}
+}
+@media(max-width:768px){
+  .nav-links{
+    position:fixed;top:66px;right:-100%;flex-direction:column;background:var(--card);
+    width:min(300px,80%);height:calc(100vh-66px);padding:30px;gap:22px;box-shadow:-10px 0 30px rgba(0,0,0,.12);
+    transition:.35s;align-items:flex-start;border-left:1px solid var(--border);
+  }
+  .nav-links.open{right:0}
+  .nav-links a{font-size:1.1rem}
+  .hamburger{display:block}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .section{padding:50px 0}
+  .hereo{padding:60px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HEADER / NAV ==================== -->
+<header>
+  <nav class="nav">
+    <div class="brand">
+      <div class="brand-logo">H</div>
+      <span data-i18n="siteName">H-Tech Studio</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" data-i18n="navHome">Home</a></li>
+      <li><a href="#about" data-i18n="navAbout">About</a></li>
+      <li><a href="#services" data-i18n="navServices">Services</a></li>
+      <li><a href="#blog" data-i18n="navBlog">Blog</a></li>
+      <li><a href="#contact" data-i18n="navContact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle" id="langToggle">
+        <button id="btn-en" class="active">EN</button>
+        <button id="btn-my">မြန်မာ</button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">🚀 <span data-i18n="heroBadge">Premium Web Development</span></div>
+      <h1><span data-i18n="heroTitle1">Build Your Business</span><br><span class="accent" data-i18n="heroTitleAccent">Beautiful Website</span></h1>
+      <p data-i18n="heroDesc">Professional, modern, and feature-rich websites with full English &amp; Burmese support. We craft digital experiences that grow your brand and convert visitors into customers.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary" data-i18n="heroCta1">Get Started</a>
+        <a href="#blog" class="btn btn-outline" data-i18n="heroCta2">Read Our Blog</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong>120+</strong><span data-i18n="stat1">Projects Delivered</span></div>
+        <div class="stat"><strong>5 Years</strong><span data-i18n="stat2">Experience</span></div>
+        <div class="stat"><strong>98%</strong><span data-i18n="stat3">Happy Clients</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="emoji">💼</div>
+      <h3 data-i18n="heroVisualTitle">Your Success, Our Mission</h3>
+      <p data-i18n="heroVisualDesc">From landing pages to full e-commerce platforms — we bring your vision to life.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section class="section" id="about">
+  <div class="container">
+    <h2 class="section-title" data-i18n="aboutTitle">About Us</h2>
+    <p class="section-sub" data-i18n="aboutSub">Who we are and what we stand for.</p>
+    <div class="about">
+      <div class="about-img">🏆</div>
+      <div class="about-text">
+        <h2 data-i18n="aboutHeading">We Build Digital Excellence</h2>
+        <p data-i18n="aboutP1">H-Tech Studio is a passionate Myanmar freelance web development team committed to delivering high-quality, modern websites for small businesses, startups, and enterprises.</p>
+        <p data-i18n="aboutP2">From clean landing pages to full content-driven blog platforms with multi-language support, we combine beautiful design with rock-solid functionality.</p>
+        <ul class="feature-list">
+          <li data-i18n="aboutF1">Fully responsive, mobile-first design</li>
+          <li data-i18n="aboutF2">English + Burmese language support</li>
+          <li data-i18n="aboutF3">Fast, SEO-friendly, modern code</li>
+          <li data-i18n="aboutF4">Ongoing support &amp; maintenance</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" data-i18n="aboutCta">Talk to Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SERVICES ==================== -->
+<section class="section" id="services" style="background:var(--bg-soft)">
+  <div class="container">
+    <h2 class="section-title" data-i18n="servicesTitle">Our Services</h2>
+    <p class="section-sub" data-i18n="servicesSub">Everything you need to succeed online.</p>
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
+</section>
+
+<!-- ==================== BLOG ==================== -->
+<section class="section" id="blog">
+  <div class="container">
+    <h2 class="section-title" data-i18n="blogTitle">Latest Blog</h2>
+    <p class="section-sub" data-i18n="blogSub">Tips, insights &amp; news to grow your business.</p>
+
+    <div class="blog-toolbar">
+      <div class="filter-wrap" id="filterWrap"></div>
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input type="text" id="blogSearch" data-i18n-placeholder="searchPlaceholder" placeholder="Search articles...">
+      </div>
+    </div>
+
+    <div class="blog-grid" id="blogGrid"></div>
+  </div>
+</section>
+
+<!-- ==================== NEWSLETTER ==================== -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="newsletter">
+      <h2 data-i18n="newsTitle">Subscribe to Our Newsletter</h2>
+      <p data-i18n="newsDesc">Get the latest articles and exclusive tips delivered straight to your inbox.</p>
+      <form class="news-form" id="newsForm">
+        <input type="email" required id="newsEmail" data-i18n-placeholder="newsPlaceholder" placeholder="Enter your email">
+        <button type="submit" class="btn" data-i18n="newsBtn">Subscribe</button>
+      </form>
+      <div class="news-success" id="newsSuccess"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section class="section" id="contact">
+  <div class="container">
+    <h2 class="section-title" data-i18n="contactTitle">Contact Us</h2>
+    <p class="section-sub" data-i18n="contactSub">We'd love to hear from you — let's build something great together.</p>
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h2 data-i18n="contactHeading">Get In Touch</h2>
+        <p data-i18n="contactDesc">Have a project in mind or need a quote? Reach out using any of the channels below.</p>
+        <div class="info-item">
+          <div class="icon">📞</div>
+          <div><strong data-i18n="contactPhoneLabel">Phone</strong><span id="footerPhone"></span></div>
+        </div>
+        <div class="info-item">
+          <div class="icon">📍</div>
+          <div><strong data-i18n="contactAddrLabel">Address</strong><span id="footerAddr"></span></div>
+        </div>
+        <div class="info-item">
+          <div class="icon">📧</div>
+          <div><strong data-i18n="contactEmailLabel">Email</strong><a id="footerEmail" href="#contact"></a></div>
+        </div>
+        <div class="info-item">
+          <div class="icon">💬</div>
+          <div><strong data-i18n="contactTgLabel">Telegram</strong><a id="footerTg" href="#" target="_blank" rel="noopener"></a></div>
+        </div>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <h3 data-i18n="contactFormTitle">Send Us a Message</h3>
+        <div class="form-group">
+          <label data-i18n="contactName">Name</label>
+          <input type="text" id="cName" data-i18n-placeholder="contactNamePh" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label data-i18n="contactEmail">Email</label>
+          <input type="email" id="cEmail" data-i18n-placeholder="contactEmailPh" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label data-i18n="contactMsg">Message</label>
+          <textarea id="cMsg" data-i18n-placeholder="contactMsgPh" placeholder="Tell us about your project..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" data-i18n="contactSend">Send Message</button>
+        <div class="form-success" id="contactSuccess"></div>
+      </form>
+    </div>
+    <div class="map">
+      <div>
+        <div style="font-size:2.5rem;margin-bottom:8px">🗺️</div>
+        <strong data-i18n="mapTitle">Map Placeholder</strong><br>
+        <span data-i18n="mapDesc">Embed your Google Map here</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4 data-i18n="footBrand">H-Tech Studio</h4>
+        <p data-i18n="footAbout">Professional web development for businesses that want to grow online — with full English &amp; Burmese support.</p>
+        <div class="footer-social">
+          <a class="soc" href="#" aria-label="Facebook">f</a>
+          <a class="soc" href="#" aria-label="Instagram">◎</a>
+          <a class="soc" href="#" aria-label="LinkedIn">in</a>
+          <a class="soc" href="#" aria-label="Telegram">✈</a>
+        </div>
+      </div>
+      <div>
+        <h4 data-i18n="footQuick">Quick Links</h4>
+        <a href="#home" data-i18n="navHome">Home</a>
+        <a href="#about" data-i18n="navAbout">About</a>
+        <a href="#services" data-i18n="navServices">Services</a>
+        <a href="#blog" data-i18n="navBlog">Blog</a>
+      </div>
+      <div>
+        <h4 data-i18n="footContact">Contact</h4>
+        <a href="tel:" id="footPhoneLink"></a>
+        <a id="footEmailLink" href="#contact"></a>
+        <a id="footTgLink" href="#" target="_blank" rel="noopener"></a>
+      </div>
+    </div>
+    <div class="copyright">
+      <span data-i18n="copyright">© 2026 H-Tech Studio. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== BLOG MODAL ==================== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+    <div class="modal-thumb" id="modalThumb">📝</div>
+    <div class="modal-body">
+      <div class="post-meta">
+        <span class="post-cat" id="modalCat"></span>
+        <span id="modalDate"></span>
+      </div>
+      <h2 id="modalTitle"></h2>
+      <div id="modalAuthor" style="color:var(--text-muted);font-size:.9rem;margin-top:6px"></div>
+
+      <div class="modal-content" id="modalContent"></div>
+
+      <div class="share">
+        <span data-i18n="shareTitle">Share:</span>
+        <button class="share-btn share-fb" data-share="fb">Facebook</button>
+        <button class="share-btn share-tw" data-share="tw">X / Twitter</button>
+        <button class="share-btn share-wa" data-share="wa">WhatsApp</button>
+        <button class="share-btn share-msg" data-share="msg">Telegram</button>
+      </div>
+
+      <div class="related">
+        <h3 data-i18n="relatedTitle">Related Posts</h3>
+        <div class="related-list" id="relatedList"></div>
+      </div>
+
+      <div class="comments">
+        <h3 data-i18n="commentsTitle">Leave a Comment</h3>
+        <form id="commentForm">
+          <div class="form-group">
+            <label data-i18n="commentName">Name</label>
+            <input type="text" id="commentName" data-i18n-placeholder="commentNamePh" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label data-i18n="commentMsg">Comment</label>
+            <textarea id="commentMsg" data-i18n-placeholder="commentMsgPh" placeholder="Write your comment..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" data-i18n="commentBtn">Post Comment</button>
+          <div class="form-success" id="commentSuccess"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   ⚙️ CUSTOMIZE YOUR WEBSITE HERE (JS CONFIG)
+   Change site name, phone, address, email, and Telegram link.
+   ================================================================ */
+const CONFIG = {
+  siteName: "H-Tech Studio",
+  phone: "+95 9 123 456 789",
+  address: "Yangon, Myanmar",
+  email: "hello@htechstudio.com",
+  telegramLink: "https://t.me/htechstudio",
+  whatsapp: "959123456789"
+};
+
+/* ================================================================
+   🌐 CUSTOMIZE YOUR TRANSLATIONS HERE
+   Every UI string in both English and Burmese.
+   ================================================================ */
+const TRANSLATIONS = {
+  en: {
+    siteName: CONFIG.siteName,
+    langLabel: "English",
+    navHome: "Home", navAbout: "About", navServices: "Services",
+    navBlog: "Blog", navContact: "Contact",
+    heroBadge: "Premium Web Development",
+    heroTitle1: "Build Your Business", heroTitleAccent: "Beautiful Website",
+    heroDesc: "Professional, modern, and feature-rich websites with full English & Burmese support. We craft digital experiences that grow your brand and convert visitors into customers.",
+    heroCta1: "Get Started", heroCta2: "Read Our Blog",
+    stat1: "Projects Delivered", stat2: "Experience", stat3: "Happy Clients",
+    heroVisualTitle: "Your Success, Our Mission",
+    heroVisualDesc: "From landing pages to full e-commerce platforms — we bring your vision to life.",
+    aboutTitle: "About Us", aboutSub: "Who we are and what we stand for.",
+    aboutHeading: "We Build Digital Excellence",
+    aboutP1: "H-Tech Studio is a passionate Myanmar freelance web development team committed to delivering high-quality, modern websites for small businesses, startups, and enterprises.",
+    aboutP2: "From clean landing pages to full content-driven blog platforms with multi-language support, we combine beautiful design with rock-solid functionality.",
+    aboutF1: "Fully responsive, mobile-first design",
+    aboutF2: "English + Burmese language support",
+    aboutF3: "Fast, SEO-friendly, modern code",
+    aboutF4: "Ongoing support & maintenance",
+    aboutCta: "Talk to Us",
+    servicesTitle: "Our Services",
+    servicesSub: "Everything you need to succeed online.",
+    services:[
+      {icon:"🌐", title:"Web Design", desc:"Stunning, modern website designs tailored to your brand and audience."},
+      {icon:"💻", title:"Web Development", desc:"Fast, secure, and scalable websites with clean, maintainable code."},
+      {icon:"🛒", title:"E-Commerce", desc:"Online stores with payments, product management, and Myanmar support."},
+      {icon:"✍️", title:"Content & Blog", desc:"Engaging blog platforms with multi-language content management."}
+    ],
+    blogTitle: "Latest Blog", blogSub: "Tips, insights & news to grow your business.",
+    searchPlaceholder: "Search articles...",
+    allFilter: "All",
+    noResults: "No articles found. Try a different search or filter.",
+    readMore: "Read more",
+    shareTitle: "Share:",
+    relatedTitle: "Related Posts",
+    commentsTitle: "Leave a Comment",
+    commentName: "Name", commentNamePh: "Your name",
+    commentMsg: "Comment", commentMsgPh: "Write your comment...",
+    commentBtn: "Post Comment",
+    commentSuccess: "✅ Thank you! Your comment has been received.",
+    commentTg: "You will be contacted shortly. For a faster reply, message us on",
+    newsTitle: "Subscribe to Our Newsletter",
+    newsDesc: "Get the latest articles and exclusive tips delivered straight to your inbox.",
+    newsPlaceholder: "Enter your email",
+    newsBtn: "Subscribe",
+    newsSuccess: "🎉 Thank you for subscribing! Check your email to confirm.",
+    contactTitle: "Contact Us", contactSub: "We'd love to hear from you — let's build something great together.",
+    contactHeading: "Get In Touch",
+    contactDesc: "Have a project in mind or need a quote? Reach out using any of the channels below.",
+    contactPhoneLabel: "Phone", contactAddrLabel: "Address",
+    contactEmailLabel: "Email", contactTgLabel: "Telegram",
+    contactFormTitle: "Send Us a Message",
+    contactName: "Name", contactNamePh: "Your name",
+    contactEmail: "Email", contactEmailPh: "you@example.com",
+    contactMsg: "Message", contactMsgPh: "Tell us about your project...",
+    contactSend: "Send Message",
+    contactSuccessLabel: "✅ Thank you! Your message has been sent.",
+    contactSuccessTg: "We will reply soon. For faster response, reach us on",
+    mapTitle: "Map Placeholder", mapDesc: "Embed your Google Map here",
+    footBrand: "H-Tech Studio",
+    footAbout: "Professional web development for businesses that want to grow online — with full English & Burmese support.",
+    footQuick: "Quick Links", footContact: "Contact",
+    copyright: "© 2026 H-Tech Studio. All rights reserved.",
+    commentsDemo: "Comments",
+    authorBy: "By"
+  },
+
+  my: {
+    siteName: CONFIG.siteName,
+    langLabel: "မြန်မာ",
+    navHome: "ပင်မ", navAbout: "အကြောင်း", navServices: "ဝန်ဆောင်မှုများ",
+    navBlog: "ဘလော့", navContact: "ဆက်သွယ်ရန်",
+    heroBadge: "ပရီမီယံ ဝက်ဘ်တီထွင်မှု",
+    heroTitle1: "သင့်လုပ်ငန်းအတွက်", heroTitleAccent: "လှပသော ဝက်ဘ်ဆိုက်",
+    heroDesc: "အင်္ဂလိပ် + မြန်မာ နှစ်ဘာသာလုံး အပြည့်အဝ ပံ့ပိုးပေးသော ခေတ်မီ၊ ပရော်ဖက်ရှင်နယ် ဝက်ဘ်ဆိုက်များကို ဖန်တီးပေးပါသည်။ ။",
+    heroCta1: "စတင်လိုက်ပါ", heroCta2: "ဘလော့ဖတ်ရန်",
+    stat1: "ပြီးစီးသော ပရောဂျက်", stat2: "အတွေ့အကြုံ", stat3: "ကျေနပ်သော ဖောက်သည်",
+    heroVisualTitle: "သင့်အောင်မြင်မှုသည် ကျွန်ုပ်တို့၏ရည်မှန်းချက်",
+    heroVisualDesc: "Landing Page မှ e-commerce ပလက်ဖောင်းအပြည့်အစုံအထိ — သင့်အိပ်မက်ကို အသက်ဝင်စေပါသည်။",
+    aboutTitle: "ကျွန်ုပ်တို့အကြောင်း", aboutSub: "ကျွန်ုပ်တို့ ဘယ်သူလဲ၊ ဘာအတွက် ရပ်တည်နေလဲ။",
+    aboutHeading: "ဒစ်ဂျစ်တယ် ထူးချွန်မှုကို ဖန်တီးသည်",
+    aboutP1: "H-Tech Studio သည် မြန်မာနိုင်ငံမှ လွတ်လပ်သော ဝက်ဘ်တီထွင်သူအဖွဲ့ဖြစ်ပြီး စားသုံးသူများ၊ startup များနှင့် စီးပွားရေးလုပ်ငန်းများအတွက် အရည်အသွေးမြင့် ဝက်ဘ်ဆိုက်များ ဖန်တီးပေးပါသည်။",
+    aboutP2: "ရိုးရှင်းသော landing page မှ ဘာသာစကားမျိုးစုံ ပံ့ပိုးပေးသော ဘလော့ပလက်ဖောင်းများအထိ — လှပသော ဒီဇိုင်းနှင့် ခိုင်မာသော လုပ်ဆောင်ချက်များကို ပေါင်းစပ်ပေးပါသည်။",
+    aboutF1: "Mobile-first ဖြင့် ပြည့်စုံစွာ ပံ့ပိုးပြီး responsive ဒီဇိုင်း",
+    aboutF2: "အင်္ဂလိပ် + မြန်မာ ဘာသာစကား ပံ့ပိုးမှု",
+    aboutF3: "မြန်ဆန်၍ SEO-friendly ခေတ်မီကုဒ်",
+    aboutF4: "ဆက်လက်ပံ့ပိုးမှုနှင့် ပြုပြင်ထိန်းသိမ်းမှု",
+    aboutCta: "ဆက်သွယ်ရန်",
+    servicesTitle: "ကျွန်ုပ်တို့၏ ဝန်ဆောင်မှုများ",
+    servicesSub: "အွန်လိုင်းတွင် အောင်မြင်ရန် လိုအပ်သမျှ။",
+    services:[
+      {icon:"🌐", title:"ဝက်ဘ်ဒီဇိုင်း", desc:"သင့်အမှတ်တံဆိပ်နှင့် ပရိသတ်အတွက် လှပခေတ်မီသော ဒီဇိုင်းများ။"},
+      {icon:"💻", title:"ဝက်ဘ်တီထွင်မှု", desc:"မြန်ဆန်၊ လုံခြုံ၍ ချဲ့ထွင်နိုင်သော သန့်ရှင်းသည့် ကုဒ်များဖြင့် ဝက်ဘ်ဆိုက်များ။"},
+      {icon:"🛒", title:"E-Commerce", desc:"ငွေပေးချေမှု၊ ကုန်ပစ္စည်းစီမံမှုနှင့် မြန်မာ့ပံ့ပိုးမှုပါသော အွန်လိုင်းဆိုင်။"},
+      {icon:"✍️", title:"Content & Blog", desc:"ဘာသာစကားမျိုးစုံ စီမံနိုင်သော ဆွဲဆောင်မှုရှိသည့် ဘလော့ပလက်ဖောင်းများ။"}
+    ],
+    blogTitle: "နောက်ဆုံးဘလော့များ", blogSub: "လုပ်ငန်းတိုးတက်ရန် အကြံပြုချက်များနှင့် သတင်းများ။",
+    searchPlaceholder: "ဆောင်းပါးရှာရန်...",
+    allFilter: "အားလုံး",
+    noResults: "ဆောင်းပါးမတွေ့ပါ။ အခြား ရှာဖွေမှု သို့မဟုတ် စစ်ထုတ်မှုဖြင့် စမ်းကြည့်ပါ။",
+    readMore: "ဆက်ဖတ်ရန်",
+    shareTitle: "မျှဝေရန်:",
+    relatedTitle: "ဆက်စပ်ဆောင်းပါးများ",
+    commentsTitle: "မှတ်ချက်ရေးရန်",
+    commentName: "အမည်", commentNamePh: "သင့်အမည်",
+    commentMsg: "မှတ်ချက်", commentMsgPh: "သင့်မှတ်ချက် ရေးပါ...",
+    commentBtn: "မှတ်ချက်တင်ရန်",
+    commentSuccess: "✅ ကျေးဇူးတင်ပါတယ်! သင့်မှတ်ချက်ကို လက်ခံရရှိပါပြီ။",
+    commentTg: "မကြာမီ ဆက်သွယ်ပါမည်။ အမြန်အကြောင်းပြန်လိုပါက Telegram တွင် ဆက်သွယ်ပါ",
+    newsTitle: "ကျွန်ုပ်တို့ Newsletters စာရင်းသွင်းပါ",
+    newsDesc: "နောက်ဆုံးဆောင်းပါးများနှင့် အထူးအကြံပြုချက်များကို သင့် inbox သို့ ပို့ဆောင်ပေးပါမည်။",
+    newsPlaceholder: "သင့်အီးမေးလ် ထည့်ပါ",
+    newsBtn: "စာရင်းသွင်းရန်",
+    newsSuccess: "🎉 စာရင်းသွင်းသည့်အတွက် ကျေးဇူးတင်ပါတယ်! အတည်ပြုရန် သင့်အီးမေးလ်ကို စစ်ဆေးပါ။",
+    contactTitle: "ဆက်သွယ်ရန်", contactSub: "သင်နှင့် ကောင်းမွန်သော အရာတစ်ခုကို အတူတကွ တည်ဆောက်ချင်ပါသည်။",
+    contactHeading: "ဆက်သွယ်ပါ",
+    contactDesc: "ပရောဂျက်တစ်ခု ရှိသည် သို့မဟုတ် ဈေးနှုန်းလိုအပ်ပါက အောက်ပါနည်းလမ်းများဖြင့် ဆက်သွယ်ပါ။",
+    contactPhoneLabel: "ဖုန်း", contactAddrLabel: "လိပ်စာ",
+    contactEmailLabel: "အီးမေးလ်", contactTgLabel: "Telegram",
+    contactFormTitle: "မက်ဆေ့ချ်ပို့ရန်",
+    contactName: "အမည်", contactNamePh: "သင့်အမည်",
+    contactEmail: "အီးမေးလ်", contactEmailPh: "you@example.com",
+    contactMsg: "မက်ဆေ့ချ်", contactMsgPh: "သင့်ပရောဂျက်အကြောင်း ပြောပြပါ...",
+    contactSend: "မက်ဆေ့ချ်ပို့ရန်",
+    contactSuccessLabel: "✅ ကျေးဇူးတင်ပါတယ်! သင့်မက်ဆေ့ချ် ပို့ပြီးပါပြီ။",
+    contactSuccessTg: "မကြာမီ အကြောင်းပြန်ပါမည်။ အမြန်ပြန်လိုပါက Telegram တွင် ဆက်သွယ်ပါ",
+    mapTitle: "မြေပုံနေရာ", mapDesc: "သင့် Google Map ကို ဤနေရာတွင် ထည့်သွင်းပါ",
+    footBrand: "H-Tech Studio",
+    footAbout: "အွန်လိုင်းတွင် တိုးတက်လိုသော စီးပွားရေးလုပ်ငန်းများအတွက် ပရော်ဖက်ရှင်နယ် ဝက်ဘ်တီထွင်မှု — အင်္ဂလိပ် + မြန်မာ ပံ့ပိုးမှု။",
+    footQuick: "အမြန်လင့်များ", footContact: "ဆက်သွယ်ရန်",
+    copyright: "© 2026 H-Tech Studio. မူပိုင်ခွင့်အားလုံး လက်ဝယ်ရှိသည်။",
+    commentsDemo: "မှတ်ချက်များ",
+    authorBy: "ရေးသားသူ"
+  }
+};
+
+/* ================================================================
+   ✍️ CUSTOMIZE YOUR BLOG POSTS HERE
+   Each post needs English (en) and Burmese (my) content.
+   - title: localized title
+   - slug: url-friendly id
+   - category: e.g. "Web Design"
+   - date, author
+   - excerpt: localized summary (shown in grid)
+   - content: localized full text (array of blocks for the modal)
+   - emoji: thumbnail emoji
+   - tags: array
+   - featured: true/false (shows ★ badge)
+   ================================================================ */
+const BLOG = [
+  {
+    slug:"why-your-business-needs-a-multilingual-website",
+    category:"Web Development",
+    date:"2026-08-15",
+    author:"H-Tech Team",
+    emoji:"🌍",
+    tags:["SEO","Multilingual","Business"],
+    featured:true,
+    title:{
+      en:"Why Your Business Needs a Multilingual Website",
+      my:"သင့်လုပ်ငန်းအတွက် ဘာသာစကားမျိုးစုံ ဝက်ဘ်ဆိုက် ဘာကြောင့် လိုအပ်သလဲ"
+    },
+    excerpt:{
+      en:"In Myanmar, reaching both English and Burmese speakers can double your audience. Here's why a bilingual site is a game-changer.",
+      my:"မြန်မာနိုင်ငံတွင် အင်္ဂလိပ်နှင့် မြန်မာလို ပြောဆိုသူ နှစ်ဦးစလုံးကို ရောက်ရှိနိုင်ပါက သင့်ပရိသတ် နှစ်ဆတိုးနိုင်သည်။"
+    },
+    content:{
+      en:[
+        {type:"p", text:"Myanmar is home to a rapidly growing digital audience. While many businesses still build English-only websites, the smartest brands are investing in bilingual platforms that speak both English and Burmese."},
+        {type:"h3", text:"Reach Twice as Many Customers"},
+        {type:"p", text:"When users are greeted in their native language, they trust you more. Burmese-speaking customers are far more likely to read, click, and buy when the content is in Burmese. English speakers get a professional experience too."},
+        {type:"h3", text:"Better SEO in Both Languages"},
+        {type:"p", text:"A multilingual site opens up two search markets. Burmese-language content helps you rank in local Google searches, while English content targets international audiences."},
+        {type:"blockquote", text:"Your website should speak to every customer equally — in the language they understand best."},
+        {type:"h3", text:"Build Trust and Credibility"},
+        {type:"ul", text:["Customers feel valued when you respect their language.","A bilingual site signals professionalism and care.","You stand out from competitors with English-only sites."]}
+      ],
+      my:[
+        {type:"p", text:"မြန်မာနိုင်ငံတွင် ဒစ်ဂျစ်တယ်ပရိသတ်များ လျင်မြန်စွာ တိုးတက်နေပါသည်။ စီးပွားရေးလုပ်ငန်းအများစုသည် အင်္ဂလိပ်တစ်ဘာသာတည်း ဝက်ဘ်ဆိုက်များ ဆောက်နေသော်လည်း ထက်မြက်သော အမှတ်တံဆိပ်များသည် အင်္ဂလိပ်နှင့် မြန်မာ နှစ်ဘာသာလုံး ပြောဆိုနိုင်သော ပလက်ဖောင်းများတွင် ရင်းနှီးမြှုပ်နှံနေကြသည်။"},
+        {type:"h3", text:"ဖောက်သည်များ နှစ်ဆ ရောက်ရှိခြင်း"},
+        {type:"p", text:"အသုံးပြုသူများကို ၎င်းတို့၏ မိခင်ဘာသာစကားဖြင့် နှုတ်ဆက်သောအခါ ယုံကြည်မှု ပိုတိုးလာပါသည်။ မြန်မာလိုပြောဆိုသူများသည် အကြောင်းအရာကို မြန်မာလိုဖြစ်နေပါက ဖတ်ရန်၊ နှိပ်ရန်နှင့် ဝယ်ရန် ပိုမိုအလားအလာရှိသည်။"},
+        {type:"h3", text:"ဘာသာစကားနှစ်ခုလုံးတွင် SEO ပိုကောင်းသည်"},
+        {type:"p", text:"ဘာသာစကားမျိုးစုံ ဝက်ဘ်ဆိုက်သည် ရှာဖွေရေးဈေးကွက် နှစ်ခုကို ဖွင့်ပေးသည်။ မြန်မာလို အကြောင်းအရာများက ဒေသတွင်း Google ရှာဖွေမှုတွင် ရပ်တည်နိုင်ပြီး အင်္ဂလိပ်လိုအကြောင်းအရာများက နိုင်ငံတကာ ပရိသတ်ကို ပစ်မှတ်ထားသည်။"},
+        {type:"blockquote", text:"သင့်ဝက်ဘ်ဆိုက်သည် ဖောက်သည်တိုင်းကို ၎င်းတို့ နားလည်နိုင်ဆုံးသော ဘာသာစကားဖြင့် တန်းတူရည်တူ ပြောဆိုသင့်သည်။"},
+        {type:"h3", text:"ယုံကြည်မှုနှင့် ဂုဏ်သတင်း တည်ဆောက်ခြင်း"},
+        {type:"ul", text:["ဖောက်သည်များ၏ ဘာသာစကားကို လေးစားသောအခါ တန်ဖိုးထားခံရသည်ဟု ခံစားရသည်။","ဘာသာနှစ်မျိုး ဝက်ဘ်ဆိုက်သည် ပရော်ဖက်ရှင်နယ်မှုနှင့် ဂရုစိုက်မှုကို ဖော်ပြသည်။","အင်္ဂလိပ်တစ်ဘာသာတည်းရှိသော ပြိုင်ဘက်များထက် ထင်ရှားစေသည်။"]}
+      ]
+    }
+  },
+
+  {
+    slug:"top-trends-web-design-2026",
+    category:"Web Design",
+    date:"2026-08-10",
+    author:"Aye Chan",
+    emoji:"🎨",
+    tags:["Design","Trends","2026"],
+    featured:false,
+    title:{
+      en:"Top Web Design Trends for 2026",
+      my:"2026 ခုနှစ်အတွက် ထိပ်တန်း ဝက်ဘ်ဒီဇိုင်း ခေတ်စားမှုများ"
+    },
+    excerpt:{
+      en:"From creamy minimalism to bold terra cotta palettes, discover the design trends shaping modern websites this year.",
+      my:"ခေတ်မီ ဝက်ဘ်ဆိုက်များကို ပုံဖော်နေသော ဒီဇိုင်းခေတ်ရေစီးကြောင်းများကို ရှာဖွေကြည့်ပါ။"
+    },
+    content:{
+      en:[
+        {type:"p", text:"Web design evolves fast, and 2026 is all about warmth, personality, and speed. Creamy color palettes, earthy accents like terra cotta, and bold typography are leading the charge."},
+        {type:"h3", text:"Creamy, Warm Minimalism"},
+        {type:"p", text:"Gone are the harsh all-white layouts. Warm cream backgrounds with soft shadows create a welcoming, premium feel that keeps visitors engaged."},
+        {type:"h3", text:"Terra Cotta & Earth Tones"},
+        {type:"p", text:"Earthy accent colors add warmth and human touch. Terra cotta pairs beautifully with neutral creams and works across both English and non-Latin scripts."},
+        {type:"h3", text:"Mobile-First Always"},
+        {type:"ul", text:["The majority of Myanmar users browse on mobile.","Design for small screens first, then enhance for desktop.","Fast loading times are non-negotiable."]}
+      ],
+      my:[
+        {type:"p", text:"ဝက်ဘ်ဒီဇိုင်းသည် လျင်မြန်စွာ ပြောင်းလဲနေပြီး 2026 တွင် နွေးထွေးမှု၊ ကိုယ်ရည်ကိုယ်သွေးနှင့် မြန်ဆန်မှုတို့ကို ဦးစားပေးသည်။ Cream ရောင်စုံများ၊ terra cotta ကဲ့သို့သော မြေသားရောင်များနှင့် ရဲရင့်သော စာလုံးပုံစံများက ဦးဆောင်နေသည်။"},
+        {type:"h3", text:"နွေးထွေးသော Minimalism"},
+        {type:"p", text:"ဖြူဖွေးသော အပြင်အဆင်များ ကွယ်ပျောက်သွားပါပြီ။ နွေးထွေးသော cream နောက်ခံနှင့် ပျော့ပျောင်းသော အရိပ်များက ကြိုဆိုမှုရှိသော ပရီမီယံ ခံစားမှုကို ဖန်တီးပေးသည်။"},
+        {type:"h3", text:"Terra Cotta နှင့် Earth Tones"},
+        {type:"p", text:"မြေသားရောင် accent များက နွေးထွေးမှုနှင့် လူသားဆန်မှုကို ပေါင်းထည့်သည်။ Terra cotta သည် neutral cream များနှင့် လှပစွာ ပေါင်းစပ်ပြီး အင်္ဂလိပ်နှင့် မြန်မာစာလုံးများတွင် အကောင်းဆုံး အလုပ်လုပ်သည်။"},
+        {type:"h3", text:"Mobile-First အမြဲတမ်း"},
+        {type:"ul", text:["မြန်မာ့အသုံးပြုသူ အများစုသည် mobile ဖြင့် ကြည့်ရှုကြသည်။","အသေးစား မျက်နှာပြင်အတွက် ဦးစွာ ဒီဇိုင်းဆွဲပြီး desktop အတွက် မြှင့်တင်ပါ။","မြန်ဆန်သော loading အချိန်သည် မဖြစ်မနေလိုအပ်သည်။"]}
+      ]
+    }
+  },
+
+  {
+    slug:"guide-launch-online-store-myanmar",
+    category:"E-Commerce",
+    date:"2026-08-02",
+    author:"Nyi Nyi",
+    emoji:"🛒",
+    tags:["E-Commerce","Business","Guide"],
+    featured:false,
+    title:{
+      en:"A Beginner's Guide to Launching an Online Store in Myanmar",
+      my:"မြန်မာနိုင်ငံတွင် အွန်လိုင်းဆိုင် ဖွင့်ရန် စတင်သူများအတွက် လမ်းညွှန်"
+    },
+    excerpt:{
+      en:"Everything you need to know — from choosing a platform to accepting payments and building trust with customers.",
+      my:"ပလက်ဖောင်းရွေးချယ်ခြင်းမှ ငွေပေးချေမှုနှင့် ယုံကြည်မှုတည်ဆောက်ခြင်းအထိ သိရန် လိုအပ်သမျှ။"
+    },
+    content:{
+      en:[
+        {type:"p", text:"Selling online in Myanmar is booming. With growing internet access and mobile wallets, now is the perfect time to open your digital storefront."},
+        {type:"h3", text:"Choose the Right Platform"},
+        {type:"p", text:"For many small businesses, a custom website with simple product management is ideal. It gives you full control, brand consistency, and no monthly fees."},
+        {type:"h3", text:"Accept Local Payments"},
+        {type:"p", text:"Support popular local methods like KBZ Pay, Wave Money, and CB Pay alongside cards. Trust is built when customers can pay the way they prefer."},
+        {type:"h3", text:"Build Trust"},
+        {type:"blockquote", text:"A professional store with clear policies and quick responses turns first-time buyers into loyal customers."}
+      ],
+      my:[
+        {type:"p", text:"မြန်မာနိုင်ငံတွင် အွန်လိုင်းရောင်းချမှုသည် လျင်မြန်စွာ တိုးတက်နေသည်။ အင်တာနက်နှင့် mobile wallet များ တိုးပွားလာခြင်းနှင့်အတူ သင့်ဒစ်ဂျစ်တယ်ဆိုင်ကို ဖွင့်ရန် အချိန်ကောင်းဖြစ်သည်။"},
+        {type:"h3", text:"မှန်ကန်သော ပလက်ဖောင်း ရွေးချယ်ခြင်း"},
+        {type:"p", text:"စီးပွားရေးလုပ်ငန်းငယ်များစွာအတွက် ရိုးရှင်းသော ကုန်ပစ္စည်းစီမံမှုပါသော စိတ်ကြိုက်ဝက်ဘ်ဆိုက်သည် အကောင်းဆုံးဖြစ်သည်။ ၎င်းက သင့်အား အပြည့်အဝ ထိန်းချုပ်မှု၊ အမှတ်တံဆိပ် ညီညွတ်မှုနှင့် လစဉ် ကြေးမရှိခြင်းတို့ကို ပေးသည်။"},
+        {type:"h3", text:"ပြည်တွင်း ငွေပေးချေမှုများကို လက်ခံခြင်း"},
+        {type:"p", text:"KBZ Pay၊ Wave Money နှင့် CB Pay ကဲ့သို့သော လူကြိုက်များသည့် နည်းလမ်းများကို bank card များနှင့်အတူ ပံ့ပိုးပါ။ ဖောက်သည်များ သက်တောင့်သက်သာရှိသော နည်းဖြင့် ပေးချေနိုင်သောအခါ ယုံကြည်မှု တည်ဆောက်သည်။"},
+        {type:"h3", text:"ယုံကြည်မှု တည်ဆောက်ခြင်း"},
+        {type:"blockquote", text:"ရှင်းလင်းသော မူဝါဒများနှင့် မြန်ဆန်သော တုံ့ပြန်မှုရှိသော ပရော်ဖက်ရှင်နယ်ဆိုင်သည် ပထမဆုံးဝယ်သူများကို သစ္စာရှိဖောက်သည်များအဖြစ် ပြောင်းလဲစေသည်။"}
+      ]
+    }
+  },
+
+  {
+    slug:"seo-tips-ranking-google-myanmar",
+    category:"Marketing",
+    date:"2026-07-25",
+    author:"Su Su",
+    emoji:"📈",
+    tags:["SEO","Marketing","Google"],
+    featured:false,
+    title:{
+      en:"7 SEO Tips to Rank Higher on Google in Myanmar",
+      my:"မြန်မာနိုင်ငံတွင် Google ပေါ်မှာ ပိုမိုရှေ့ရောက်ရန် SEO အကြံပြုချက် ၇ ချက်"
+    },
+    excerpt:{
+      en:"Simple, practical SEO strategies to get your business discovered by local customers searching online.",
+      my:"အွန်လိုင်းတွင် ရှာဖွေနေသော ဒေသခံဖောက်သည်များက သင့်လုပ်ငန်းကို တွေ့ရှိစေရန် လက်တွေ့ SEO နည်းဗျူဟာများ။"
+    },
+    content:{
+      en:[
+        {type:"p", text:"Local search is powerful. When someone near you searches for your service, you want to be the first result they see. These tips will help."},
+        {type:"ul", text:["Use Burmese keywords in your content and meta tags.","Claim and optimize your Google Business Profile.","Ensure your site loads fast on mobile.","Write useful, original content regularly.","Get listed in local directories.","Add clear location details to your pages.","Build quality backlinks from Myanmar websites."]}
+      ],
+      my:[
+        {type:"p", text:"ဒေသတွင်း ရှာဖွေမှုသည် အစွမ်းထက်သည်။ သင့်အနီးရှိသူတစ်ဦးက သင့်ဝန်ဆောင်မှုကို ရှာဖွေသောအခါ သူတို့မြင်ရသော ပထမဆုံးရလဒ်ဖြစ်လိုသည်။ ဤအကြံပြုချက်များက ကူညီပါမည်။"},
+        {type:"ul", text:["အကြောင်းအရာနှင့် meta tag များတွင် မြန်မာစကားလုံးများ သုံးပါ။","Google Business Profile ကို ဖွင့်၍ အကောင်းဆုံးဖြစ်အောင် ပြုလုပ်ပါ။","Mobile ပေါ်တွင် ဆိုက် မြန်မြန်ပွင့်ပါစေ။","အသုံးဝင်သော မူရင်းအကြောင်းအရာများကို ပုံမှန် ရေးပါ။","ဒေသတွင်း directory များတွင် စာရင်းသွင်းပါ။","စာမျက်နှာများတွင် ရှင်းလင်းသော လိပ်စာအချက်အလက်များ ထည့်ပါ။","မြန်မာဝဘ်ဆိုက်များမှ အရည်အသွေးရှိသော backlink များ တည်ဆောက်ပါ။"]}
+      ]
+    }
+  },
+
+  {
+    slug:"build-trust-online-business",
+    category:"Business",
+    date:"2026-07-18",
+    author:"H-Tech Team",
+    emoji:"🤝",
+    tags:["Trust","Business","Tips"],
+    featured:false,
+    title:{
+      en:"How to Build Trust with Customers Online",
+      my:"အွန်လိုင်းတွင် ဖောက်သည်များနှင့် ယုံကြည်မှု တည်ဆောက်နည်း"
+    },
+    excerpt:{
+      en:"Trust is the currency of online business. Learn practical ways to earn it and keep customers coming back.",
+      my:"ယုံကြည်မှုသည် အွန်လိုင်းစီးပွားရေး၏ ငွေကြေးဖြစ်သည်။ ၎င်းကို ရရှိရန်နှင့် ဖောက်သည်များကို ပြန်လည်လာရန် လက်တွေ့နည်းလမ်းများ။"
+    },
+    content:{
+      en:[
+        {type:"p", text:"People buy from brands they trust. Building that trust takes consistency and genuine effort — here's how to start."},
+        {type:"h3", text:"Show Real Identity"},
+        {type:"p", text:"Display your real phone number, address, and a photo or story about your team. Customers recognize real people behind the screen."},
+        {type:"h3", text:"Be Responsive"},
+        {type:"p", text:"Reply to messages quickly via Telegram, Messenger, or phone. Fast replies build confidence and close more sales."},
+        {type:"h3", text:"Deliver Quality Consistently"},
+        {type:"blockquote", text:"Trust is built in drops and lost in buckets. Consistency is everything."}
+      ],
+      my:[
+        {type:"p", text:"လူများသည် ယုံကြည်ရသော အမှတ်တံဆိပ်များမှ ဝယ်ယူကြသည်။ ထိုယုံကြည်မှုကို တည်ဆောက်ရန် ညီညွတ်မှုနှင့် စစ်မှန်သော ကြိုးစားမှု လိုအပ်သည် — ဤနည်းဖြင့် စတင်ပါ။"},
+        {type:"h3", text:"စစ်မှန်သော ကိုယ်ပိုင်လက္ခဏာ ပြသခြင်း"},
+        {type:"p", text:"သင့်တကယ့်ဖုန်းနံပါတ်၊ လိပ်စာနှင့် သင့်အဖွဲ့၏ ဓာတ်ပုံ သို့မဟုတ် ဇာတ်လမ်းကို ပြသပါ။ ဖောက်သည်များသည် မျက်နှာပြင်နောက်ကွယ်မှ လူသားအစစ်များကို အသိအမှတ်ပြုကြသည်။"},
+        {type:"h3", text:"မြန်ဆန်စွာ တုံ့ပြန်ခြင်း"},
+        {type:"p", text:"Telegram၊ Messenger သို့မဟုတ် ဖုန်းဖြင့် မက်ဆေ့ချ်များကို မြန်မြန်ဆန်ဆန် ပြန်ကြားပါ။ လျင်မြန်သော တုံ့ပြန်မှုက ယုံကြည်မှုတည်ဆောက်ပြီး အရောင်းများကို ပိုမိုပိတ်စေသည်။"},
+        {type:"h3", text:"အရည်အသွေး ညီညွတ်စွာ ပေးပို့ခြင်း"},
+        {type:"blockquote", text:"ယုံကြည်မှုသည် တစ်စက်ချင်း တည်ဆောက်ပြီး ပုံးလိုက် ဆုံးရှုံးသည်။ ညီညွတ်မှုသည် အရာအားလုံးပင်။"}
+      ]
+    }
+  },
+
+  {
+    slug:"using-telegram-connect-customers",
+    category:"Marketing",
+    date:"2026-07-05",
+    author:"Aye Chan",
+    emoji:"💬",
+    tags:["Telegram","Customer","Communication"],
+    featured:false,
+    title:{
+      en:"Using Telegram to Connect with Your Customers",
+      my:"ဖောက်သည်များနှင့် ဆက်သွယ်ရန် Telegram အသုံးပြုခြင်း"
+    },
+    excerpt:{
+      en:"Telegram is Myanmar's favorite messaging app. Discover how to use it for customer support and sales.",
+      my:"Telegram သည် မြန်မာ့အကြိုက်ဆုံး messaging app ဖြစ်သည်။ ဖောက်သည်ဝန်ဆောင်မှုနှင့် အရောင်းအတွက် အသုံးပြုနည်း။"
+    },
+    content:{
+      en:[
+        {type:"p", text:"In Myanmar, Telegram is everywhere. Businesses that are reachable on Telegram feel closer and more responsive to customers."},
+        {type:"h3", text:"Fast, Friendly Support"},
+        {type:"p", text:"Offer instant answers to questions. Being available on the platform your customers already use removes friction and builds loyalty."},
+        {type:"h3", text:"Channels & Groups"},
+        {type:"p", text:"Create a Telegram channel to broadcast offers and updates, and a group for community and support."},
+        {type:"ul", text:["Share product photos and behind-the-scenes.","Announce promotions first to your channel.","Answer questions publicly in groups — it helps everyone."]}
+      ],
+      my:[
+        {type:"p", text:"မြန်မာနိုင်ငံတွင် Telegram ကို နေရာတိုင်း သုံးနေကြသည်။ Telegram ပေါ်တွင် ရောက်ရှိနိုင်သော လုပ်ငန်းများသည် ဖောက်သည်များနှင့် ပိုမိုနီးကပ်ပြီး ပိုမိုတုံ့ပြန်မှုရှိသည်ဟု ခံစားရသည်။"},
+        {type:"h3", text:"မြန်ဆန်၍ ဖော်ရွေသော ဝန်ဆောင်မှု"},
+        {type:"p", text:"မေးခွန်းများအတွက် ချက်ချင်း အဖြေပေးပါ။ ဖောက်သည်များအသုံးပြုနေသော ပလက်ဖောင်းတွင် ရောက်ရှိနေခြင်းက တားဆီးမှုများကို ဖယ်ရှားပြီး သစ္စာရှိမှုကို တည်ဆောက်သည်။"},
+        {type:"h3", text:"Channels နှင့် Groups"},
+        {type:"p", text:"ကမ်းလှမ်းမှုများနှင့် အပ်ဒိတ်များကို ထုတ်လွှင့်ရန် Telegram channel နှင့် community/support အတွက် group တစ်ခု ဖန်တီးပါ။"},
+        {type:"ul", text:["ကုန်ပစ္စည်းဓာတ်ပုံများနှင့် behind-the-scenes များကို မျှဝေပါ။","ပရိုမိုးရှင်းများကို သင့် channel တွင် ဦးစွာ ကြေညာပါ။","Group များတွင် မေးခွန်းများကို လူသိရှင်ကြား ဖြေပါ — လူတိုင်းကို အကျိုးပြုသည်။"]}
+      ]
+    }
+  }
+];
+
+/* ================================================================
+   APP LOGIC — no need to edit below this line
+   ================================================================ */
+let currentLang = localStorage.getItem('htech_lang') || 'en';
+let activeFilter = 'All';
+let searchTerm = '';
+
+const i18n = (key) => (TRANSLATIONS[currentLang][key] ?? TRANSLATIONS.en[key] ?? key);
+
+function applyTranslations(){
+  document.body.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    el.textContent = i18n(key);
+  });
+  document.body.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    el.setAttribute('placeholder', i18n(el.getAttribute('data-i18n-placeholder')));
+  });
+  document.documentElement.lang = currentLang;
+  document.title = (currentLang==='my' ? "H-Tech Studio — မြန်မာ" : "H-Tech Studio — Premium") + " Blog";
+  document.getElementById('btn-en').classList.toggle('active', currentLang==='en');
+  document.getElementById('btn-my').classList.toggle('active', currentLang==='my');
+}
+
+function setLang(lang){
+  currentLang = lang;
+  localStorage.setItem('htech_lang', lang);
+  applyTranslations();
+  renderServices();
+  renderBlog();
+  renderFilters();
+  if(openSlug) renderModal(openSlug);
+  if(activeCategoryPath) renderRelated();
+}
+
+/* ---- Services ---- */
+function renderServices(){
+  const grid = document.getElementById('servicesGrid');
+  const services = TRANSLATIONS[currentLang].services;
+  grid.innerHTML = services.map(s=>`
+    <div class="service">
+      <div class="icon">${s.icon}</div>
+      <h3>${s.title}</h3>
+      <p>${s.desc}</p>
+    </div>`).join('');
+}
+
+/* ---- Contact/footer info ---- */
+function renderContactInfo(){
+  document.getElementById('footerPhone').textContent = CONFIG.phone;
+  document.getElementById('footerAddr').textContent = CONFIG.address;
+  document.getElementById('footerEmail').textContent = CONFIG.email;
+  document.getElementById('footerEmail').setAttribute('href','mailto:'+CONFIG.email);
+  document.getElementById('footerTg').textContent = '@'+CONFIG.telegramLink.replace('https://t.me/','');
+  document.getElementById('footerTg').setAttribute('href',CONFIG.telegramLink);
+  document.getElementById('footPhoneLink').textContent = CONFIG.phone;
+  document.getElementById('footPhoneLink').setAttribute('href','tel:'+CONFIG.phone.replace(/[^+\d]/g,''));
+  document.getElementById('footEmailLink').textContent = CONFIG.email;
+  document.getElementById('footEmailLink').setAttribute('href','mailto:'+CONFIG.email);
+  document.getElementById('footTgLink').textContent = CONFIG.telegramLink.replace('https://t.me/','@');
+  document.getElementById('footTgLink').setAttribute('href',CONFIG.telegramLink);
+}
+
+/* ---- Blog filters ---- */
+function getCategories(){
+  return ['All', ...new Set(BLOG.map(p=>p.category))];
+}
+
+function renderFilters(){
+  const wrap = document.getElementById('filterWrap');
+  wrap.innerHTML = getCategories().map(c=>`
+    <button class="filter-btn ${c===activeFilter?'active':''}" data-filter="${c}">${c==='All'?i18n('allFilter'):c}</button>`).join('');
+  wrap.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.onclick = ()=>{ activeFilter = btn.dataset.filter; renderFilters(); renderBlog(); };
+  });
+}
+
+function getFilteredPosts(){
+  let posts = BLOG.slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
+  if(activeFilter!=='All') posts = posts.filter(p=>p.category===activeFilter);
+  if(searchTerm){
+    const t = searchTerm.toLowerCase();
+    posts = posts.filter(p=>
+      p.title[currentLang].toLowerCase().includes(t) ||
+      p.title.en.toLowerCase().includes(t) ||
+      p.title.my.toLowerCase().includes(t) ||
+      p.excerpt[currentLang].toLowerCase().includes(t) ||
+      p.tags.some(tag=>tag.toLowerCase().includes(t))
+    );
+  }
+  return posts;
+}
+
+/* ---- Blog grid ---- */
+function renderBlog(){
+  const grid = document.getElementById('blogGrid');
+  const posts = getFilteredPosts();
+  if(!posts.length){
+    grid.innerHTML = `<div class="empty-state">${i18n('noResults')}</div>`;
+    return;
+  }
+  grid.innerHTML = posts.map(p=>`
+    <article class="post ${p.featured?'featured':''}" data-open="${p.slug}">
+      <div class="post-thumb">${p.emoji}</div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-cat">${p.category}</span>
+          <span>${p.date}</span>
+          <span>•</span>
+          <span>${i18n('authorBy')} ${p.author}</span>
+        </div>
+        <h3 class="post-title">${p.title[currentLang]}</h3>
+        <p class="post-excerpt">${p.excerpt[currentLang]}</p>
+        <div class="post-footer">
+          <span>${i18n('readMore')} →</span>
+        </div>
+      </div>
+    </article>`).join('');
+  grid.querySelectorAll('.post').forEach(post=>{
+    post.onclick = ()=> openModal(post.dataset.open);
+  });
+}
+
+/* ---- Modal ---- */
+let openSlug = null;
+
+function openModal(slug){
+  openSlug = slug;
+  renderModal(slug);
+  renderRelated();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderModal(slug){
+  const post = BLOG.find(p=>p.slug===slug);
+  if(!post) return;
+  document.getElementById('modalThumb').textContent = post.emoji;
+  document.getElementById('modalCat').textContent = post.category;
+  document.getElementById('modalDate').textContent = post.date;
+  document.getElementById('modalTitle').textContent = post.title[currentLang];
+  document.getElementById('modalAuthor').textContent = `${i18n('authorBy')} ${post.author}`;
+  const blocks = post.content[currentLang];
+  document.getElementById('modalContent').innerHTML = blocks.map(b=>{
+    if(b.type==='h3') return `<h3>${b.text}</h3>`;
+    if(b.type==='blockquote') return `<blockquote>${b.text}</blockquote>`;
+    if(b.type==='ul') return `<ul>${b.text.map(li=>`<li>${li}</li>`).join('')}</ul>`;
+    return `<p>${b.text}</p>`;
+  }).join('');
+}
+
+function renderRelated(){
+  if(!openSlug) return;
+  const post = BLOG.find(p=>p.slug===openSlug);
+  const related = BLOG.filter(p=>p.slug!==openSlug && p.tags.some(t=>post.tags.includes(t))).slice(0,3);
+  const list = document.getElementById('relatedList');
+  const fallback = BLOG.filter(p=>p.slug!==openSlug).slice(0,3);
+  const items = related.length?related:fallback;
+  list.innerHTML = items.map(p=>`
+    <div class="related-card" data-open="${p.slug}">
+      <div class="emoji">${p.emoji}</div>
+      <strong>${p.title[currentLang]}</strong>
+      <span>${p.category}</span>
+    </div>`).join('');
+  list.querySelectorAll('.related-card').forEach(card=>{
+    card.onclick = ()=>{ openSlug = card.dataset.open; renderModal(card.dataset.open); renderRelated(); };
+  });
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  openSlug = null;
+}
+
+/* ---- Share buttons ---- */
+function attachShare(){
+  document.querySelectorAll('.share-btn').forEach(btn=>{
+    btn.onclick = ()=>{
+      const post = BLOG.find(p=>p.slug===openSlug);
+      const url = encodeURIComponent(location.href);
+      const text = encodeURIComponent(post?post.title[currentLang]:CONFIG.siteName);
+      const net = btn.dataset.share;
+      if(net==='fb') window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`,'_blank');
+      if(net==='tw') window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`,'_blank');
+      if(net==='wa') window.open(`https://wa.me/?text=${text}%20${url}`,'_blank');
+      if(net==='msg') window.open(`https://t.me/share/url?url=${url}&text=${text}`,'_blank');
+    };
+  });
+}
+
+/* ---- Forms ---- */
+function attachForms(){
+  document.getElementById('newsForm').onsubmit = (e)=>{
+    e.preventDefault();
+    document.getElementById('newsSuccess').style.display='block';
+    document.getElementById('newsSuccess').textContent = i18n('newsSuccess');
+    e.target.reset();
+    setTimeout(()=>document.getElementById('newsSuccess').style.display='none',5000);
+  };
+
+  document.getElementById('contactForm').onsubmit = (e)=>{
+    e.preventDefault();
+    const box = document.getElementById('contactSuccess');
+    box.style.display='block';
+    box.innerHTML = `${i18n('contactSuccessLabel')} <a href="${CONFIG.telegramLink}" target="_blank" rel="noopener">${i18n('contactSuccessTg')} ↗</a>`;
+    e.target.reset();
+    setTimeout(()=>box.style.display='none',7000);
+  };
+
+  document.getElementById('commentForm').onsubmit = (e)=>{
+    e.preventDefault();
+    const box = document.getElementById('commentSuccess');
+    box.style.display='block';
+    box.innerHTML = `${i18n('commentSuccess')} <a href="${CONFIG.telegramLink}" target="_blank" rel="noopener">${i18n('commentTg')} ↗</a>`;
+    e.target.reset();
+    setTimeout(()=>box.style.display='none',7000);
+  };
+}
+
+/* ---- Header / misc ---- */
+function attachHeader(){
+  document.getElementById('btn-en').onclick = ()=>setLang('en');
+  document.getElementById('btn-my').onclick = ()=>setLang('my');
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.onclick = ()=>{
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  };
+  navLinks.querySelectorAll('a').forEach(a=>{
+    a.onclick = ()=>{
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    };
+  });
+  document.getElementById('modalClose').onclick = closeModal;
+  document.getElementById('modalOverlay').onclick = (e)=>{
+    if(e.target===document.getElementById('modalOverlay')) closeModal();
+  };
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+  document.getElementById('blogSearch').addEventListener('input', e=>{
+    searchTerm = e.target.value.trim();
+    renderBlog();
+  });
+}
+
+/* ---- Init ---- */
+function init(){
+  renderContactInfo();
+  attachHeader();
+  attachForms();
+  attachShare();
+  applyTranslations();
+  renderServices();
+  renderFilters();
+  renderBlog();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

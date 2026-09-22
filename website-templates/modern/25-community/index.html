@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{COMMUNITY_NAME} - Join Our Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #818cf8;
+  --accent: #ec4899;
+  --accent-dark: #db2777;
+  --accent-light: #f472b6;
+  --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #a855f7 50%, #ec4899 100%);
+  --gradient-soft: linear-gradient(135deg, #eef2ff 0%, #fdf2f8 100%);
+  --gradient-card: linear-gradient(135deg, rgba(99,102,241,0.05) 0%, rgba(236,72,153,0.05) 100%);
+  --bg: #f8fafc;
+  --bg-white: #ffffff;
+  --text: #1e293b;
+  --text-secondary: #64748b;
+  --text-light: #94a3b8;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 4px 20px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+  --shadow-glow: 0 0 40px rgba(99,102,241,0.15);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 8px;
+  --radius-full: 9999px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', 'Inter', sans-serif; line-height: 1.2; }
+
+a { text-decoration: none; color: inherit; }
+
+img { max-width: 100%; display: block; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: var(--radius-full);
+  font-weight: 600; font-size: 0.95rem; border: none; cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  font-family: 'Inter', sans-serif; letter-spacing: -0.01em;
+}
+.btn-primary {
+  background: var(--gradient); color: #fff;
+  box-shadow: 0 4px 20px rgba(99,102,241,0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(99,102,241,0.45);
+}
+.btn-secondary {
+  background: var(--bg-white); color: var(--primary);
+  border: 2px solid var(--border);
+}
+.btn-secondary:hover {
+  border-color: var(--primary);
+  background: var(--gradient-card);
+  transform: translateY(-2px);
+}
+.btn-ghost {
+  background: transparent; color: var(--primary); padding: 10px 20px;
+}
+.btn-ghost:hover { background: rgba(99,102,241,0.08); }
+.btn-sm { padding: 10px 22px; font-size: 0.875rem; }
+.btn-lg { padding: 18px 40px; font-size: 1.05rem; }
+
+.section { padding: 100px 0; position: relative; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 16px; border-radius: var(--radius-full);
+  background: var(--gradient-card); color: var(--primary);
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; margin-bottom: 16px;
+  border: 1px solid rgba(99,102,241,0.1);
+}
+.section-title {
+  font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800;
+  margin-bottom: 16px; color: var(--text);
+  letter-spacing: -0.03em;
+}
+.section-subtitle {
+  font-size: 1.1rem; color: var(--text-secondary);
+  max-width: 600px; margin: 0 auto 48px;
+}
+.text-center { text-align: center; }
+.text-gradient {
+  background: var(--gradient); -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(226,232,240,0.6);
+  transition: all 0.3s ease;
+}
+.navbar.scrolled {
+  box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+}
+.navbar-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 72px;
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; }
+.nav-logo {
+  width: 42px; height: 42px; border-radius: 12px;
+  background: var(--gradient); display: flex; align-items: center;
+  justify-content: center; font-size: 1.3rem; color: #fff;
+  box-shadow: 0 2px 12px rgba(99,102,241,0.3);
+}
+.nav-name { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.25rem; }
+.nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+.nav-links a {
+  padding: 8px 16px; border-radius: var(--radius-sm);
+  font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--primary); background: rgba(99,102,241,0.06);
+}
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 8px; background: none; border: none;
+}
+.hamburger span {
+  width: 24px; height: 2.5px; background: var(--text);
+  border-radius: 2px; transition: all 0.3s ease;
+}
+.mobile-menu {
+  display: none; position: fixed; top: 72px; left: 0; right: 0;
+  background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+}
+.mobile-menu.active { display: block; }
+.mobile-menu a {
+  display: block; padding: 14px 16px; border-radius: var(--radius-xs);
+  font-weight: 500; color: var(--text-secondary);
+}
+.mobile-menu a:hover { background: rgba(99,102,241,0.06); color: var(--primary); }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #eef2ff 0%, #faf5ff 40%, #fdf2f8 100%);
+}
+.hero::before {
+  content: ''; position: absolute; top: -50%; right: -20%;
+  width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+  animation: float 8s ease-in-out infinite;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -30%; left: -15%;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(236,72,153,0.1) 0%, transparent 70%);
+  animation: float 10s ease-in-out infinite reverse;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-40px) scale(1.05); }
+}
+.hero-content {
+  position: relative; z-index: 2; text-align: center;
+  max-width: 800px; margin: 0 auto; padding: 120px 24px 80px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 20px; border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
+  border: 1px solid rgba(99,102,241,0.15);
+  font-size: 0.85rem; font-weight: 600; color: var(--primary);
+  margin-bottom: 28px; box-shadow: var(--shadow-sm);
+  animation: fadeInUp 0.6s ease-out;
+}
+.hero-badge .pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #22c55e; position: relative;
+}
+.hero-badge .pulse::after {
+  content: ''; position: absolute; inset: -3px;
+  border-radius: 50%; background: rgba(34,197,94,0.3);
+  animation: pulse-ring 2s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.hero-title {
+  font-size: clamp(2.8rem, 6vw, 4.5rem); font-weight: 900;
+  line-height: 1.08; margin-bottom: 24px;
+  letter-spacing: -0.04em;
+  animation: fadeInUp 0.6s ease-out 0.1s both;
+}
+.hero-desc {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: var(--text-secondary); max-width: 560px;
+  margin: 0 auto 40px; line-height: 1.7;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+.hero-actions {
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px; flex-wrap: wrap;
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+.hero-avatars {
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 48px; animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+.hero-avatars-stack {
+  display: flex;
+}
+.hero-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 3px solid #fff; margin-left: -12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; box-shadow: var(--shadow-sm);
+}
+.hero-avatar:first-child { margin-left: 0; }
+.hero-avatars-count {
+  display: flex; align-items: center; margin-left: 16px;
+  font-size: 0.9rem; font-weight: 600; color: var(--text-secondary);
+}
+.hero-avatars-count strong { color: var(--primary); }
+.hero-float-cards {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none; z-index: 1;
+}
+.float-card {
+  position: absolute; background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px); border-radius: var(--radius);
+  padding: 14px 18px; box-shadow: var(--shadow);
+  border: 1px solid rgba(226,232,240,0.5);
+  animation: floatCard 6s ease-in-out infinite;
+}
+.float-card:nth-child(1) { top: 20%; left: 8%; animation-delay: 0s; }
+.float-card:nth-child(2) { top: 30%; right: 8%; animation-delay: 2s; }
+.float-card:nth-child(3) { bottom: 25%; left: 5%; animation-delay: 4s; }
+.float-card-icon { font-size: 1.5rem; margin-bottom: 4px; }
+.float-card-text { font-size: 0.75rem; font-weight: 600; color: var(--text); }
+.float-card-sub { font-size: 0.65rem; color: var(--text-light); }
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* STATS */
+.stats { padding: 60px 0; background: var(--bg-white); border-bottom: 1px solid var(--border-light); }
+.stats-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+}
+.stat-item { text-align: center; }
+.stat-number {
+  font-family: 'Poppins', sans-serif; font-size: 2.8rem;
+  font-weight: 900; background: var(--gradient);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; line-height: 1.1;
+}
+.stat-label {
+  font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+/* FEATURES */
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.feature-card {
+  background: var(--bg-white); border-radius: var(--radius);
+  padding: 36px 28px; border: 1px solid var(--border-light);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  position: relative; overflow: hidden;
+}
+.feature-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--gradient); opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-4px); box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+.feature-card:hover::before { opacity: 1; }
+.feature-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; margin-bottom: 20px;
+  background: var(--gradient-card);
+}
+.feature-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+.feature-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
+
+/* CHANNELS */
+.channels-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.channel-card {
+  background: var(--bg-white); border-radius: var(--radius);
+  padding: 24px; border: 1px solid var(--border-light);
+  display: flex; gap: 16px; align-items: flex-start;
+  transition: all 0.3s ease; cursor: pointer;
+}
+.channel-card:hover {
+  transform: translateY(-3px); box-shadow: var(--shadow);
+  border-color: rgba(99,102,241,0.2);
+}
+.channel-emoji {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; flex-shrink: 0;
+  background: var(--gradient-card);
+}
+.channel-info { flex: 1; min-width: 0; }
+.channel-name { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+.channel-desc {
+  font-size: 0.82rem; color: var(--text-secondary);
+  line-height: 1.5; margin-bottom: 8px;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.channel-meta {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 0.78rem; color: var(--text-light);
+}
+.channel-meta span { display: flex; align-items: center; gap: 4px; }
+
+/* POSTS */
+.posts-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+.post-card {
+  background: var(--bg-white); border-radius: var(--radius);
+  padding: 28px; border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+.post-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.post-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.post-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0; background: var(--gradient-card);
+}
+.post-author-name { font-weight: 600; font-size: 0.95rem; }
+.post-category {
+  display: inline-flex; padding: 3px 10px; border-radius: var(--radius-full);
+  background: var(--gradient-card); color: var(--primary);
+  font-size: 0.72rem; font-weight: 600; margin-top: 2px;
+}
+.post-title {
+  font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;
+  line-height: 1.4;
+}
+.post-excerpt {
+  font-size: 0.88rem; color: var(--text-secondary);
+  line-height: 1.6; margin-bottom: 16px;
+  display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.post-actions {
+  display: flex; align-items: center; gap: 16px;
+  padding-top: 14px; border-top: 1px solid var(--border-light);
+}
+.post-action {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.82rem; font-weight: 500; color: var(--text-secondary);
+  cursor: pointer; padding: 6px 12px; border-radius: var(--radius-xs);
+  transition: all 0.2s ease; background: none; border: none;
+  font-family: 'Inter', sans-serif;
+}
+.post-action:hover { background: rgba(99,102,241,0.06); color: var(--primary); }
+.post-action.liked { color: var(--accent); }
+.post-action .count { font-weight: 600; }
+
+/* PRICING */
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px; max-width: 800px; margin: 0 auto;
+}
+.pricing-card {
+  background: var(--bg-white); border-radius: var(--radius);
+  padding: 40px 32px; border: 1px solid var(--border-light);
+  position: relative; transition: all 0.3s ease;
+}
+.pricing-card.featured {
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white), var(--gradient);
+  background-origin: border-box; background-clip: padding-box, border-box;
+  box-shadow: var(--shadow-glow);
+}
+.pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.pricing-badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  padding: 6px 20px; border-radius: var(--radius-full);
+  background: var(--gradient); color: #fff;
+  font-size: 0.78rem; font-weight: 700; white-space: nowrap;
+}
+.pricing-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+.pricing-price {
+  font-family: 'Poppins', sans-serif; font-size: 3rem;
+  font-weight: 900; margin-bottom: 8px;
+}
+.pricing-price span { font-size: 1rem; font-weight: 500; color: var(--text-secondary); }
+.pricing-desc {
+  font-size: 0.88rem; color: var(--text-secondary);
+  margin-bottom: 28px; line-height: 1.5;
+}
+.pricing-features { list-style: none; margin-bottom: 32px; }
+.pricing-features li {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0; font-size: 0.9rem; color: var(--text-secondary);
+}
+.pricing-features li::before {
+  content: '✓'; width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(34,197,94,0.1); color: #22c55e;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+}
+
+/* TESTIMONIALS */
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+.testimonial-card {
+  background: var(--bg-white); border-radius: var(--radius);
+  padding: 32px; border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+.testimonial-card:hover { box-shadow: var(--shadow); }
+.testimonial-stars { font-size: 1rem; margin-bottom: 16px; letter-spacing: 2px; }
+.testimonial-text {
+  font-size: 0.95rem; color: var(--text-secondary);
+  line-height: 1.7; margin-bottom: 20px; font-style: italic;
+}
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; background: var(--gradient-card);
+}
+.testimonial-name { font-weight: 600; font-size: 0.9rem; }
+.testimonial-role { font-size: 0.78rem; color: var(--text-light); }
+
+/* JOIN FORM */
+.join-section { background: var(--gradient-soft); }
+.join-form-wrapper {
+  max-width: 600px; margin: 0 auto;
+  background: var(--bg-white); border-radius: var(--radius);
+  padding: 48px 40px; box-shadow: var(--shadow);
+  border: 1px solid var(--border-light);
+}
+.form-group { margin-bottom: 20px; }
+.form-label {
+  display: block; font-size: 0.85rem; font-weight: 600;
+  margin-bottom: 8px; color: var(--text);
+}
+.form-input, .form-textarea, .form-select {
+  width: 100%; padding: 14px 18px; border-radius: var(--radius-sm);
+  border: 2px solid var(--border); font-size: 0.95rem;
+  font-family: 'Inter', sans-serif; transition: all 0.2s ease;
+  background: var(--bg); color: var(--text);
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  outline: none; border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.1);
+  background: var(--bg-white);
+}
+.form-textarea { resize: vertical; min-height: 100px; }
+.form-hint { font-size: 0.78rem; color: var(--text-light); margin-top: 6px; }
+.form-checkbox {
+  display: flex; align-items: flex-start; gap: 10px;
+  cursor: pointer;
+}
+.form-checkbox input {
+  width: 18px; height: 18px; margin-top: 2px;
+  accent-color: var(--primary); flex-shrink: 0;
+}
+.form-success {
+  display: none; text-align: center; padding: 40px 20px;
+}
+.form-success.show { display: block; }
+.form-success-icon {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: rgba(34,197,94,0.1); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 2.5rem; margin: 0 auto 20px;
+}
+.form-success h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
+.form-success p { color: var(--text-secondary); font-size: 0.95rem; }
+
+/* FAQ */
+.faq-list { max-width: 720px; margin: 0 auto; }
+.faq-item {
+  background: var(--bg-white); border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light); margin-bottom: 12px;
+  overflow: hidden; transition: all 0.3s ease;
+}
+.faq-item.active { border-color: rgba(99,102,241,0.2); }
+.faq-question {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px; cursor: pointer; font-weight: 600;
+  font-size: 0.95rem; transition: all 0.2s ease;
+  background: none; border: none; width: 100%;
+  text-align: left; font-family: 'Inter', sans-serif; color: var(--text);
+}
+.faq-question:hover { color: var(--primary); }
+.faq-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gradient-card); color: var(--primary);
+  font-size: 1.1rem; flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.faq-item.active .faq-icon { transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-item.active .faq-answer {
+  max-height: 300px; padding: 0 24px 20px;
+}
+.faq-answer p {
+  font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;
+}
+
+/* FOOTER */
+.footer {
+  background: var(--text); color: rgba(255,255,255,0.7);
+  padding: 80px 0 30px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px; margin-bottom: 48px;
+}
+.footer-brand .nav-logo { margin-bottom: 16px; }
+.footer-brand-desc {
+  font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px;
+  max-width: 300px;
+}
+.footer-social { display: flex; gap: 12px; }
+.footer-social a {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(255,255,255,0.08); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 1.1rem; transition: all 0.2s ease;
+}
+.footer-social a:hover { background: var(--primary); color: #fff; }
+.footer-col-title {
+  font-weight: 700; color: #fff; margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a {
+  font-size: 0.88rem; transition: color 0.2s ease;
+}
+.footer-links a:hover { color: #fff; }
+.footer-bottom {
+  padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.82rem; flex-wrap: wrap; gap: 16px;
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .float-card { display: none; }
+}
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .section { padding: 70px 0; }
+  .hero-title { font-size: 2.5rem; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .join-form-wrapper { padding: 32px 24px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .posts-grid { grid-template-columns: 1fr; }
+  .channels-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     ⚙️ CONFIG — CUSTOMIZE HERE
+     ============================================================ -->
+<script>
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  CONFIG — Edit these values to customize your community     ║
+// ╚══════════════════════════════════════════════════════════════╝
+const CONFIG = {
+  communityName: "MyanDev Hub",
+  tagline: "The #1 online community for Myanmar developers, designers & tech enthusiasts. Learn, share & grow together.",
+  telegramLink: "t.me/hein_public_ai_bot",
+  email: "hello@myandev.com",
+  // Hero avatars (emoji + background)
+  heroAvatars: [
+    { emoji: "👨‍💻", bg: "#eef2ff" },
+    { emoji: "👩‍🎨", bg: "#fdf2f8" },
+    { emoji: "🧑‍🔬", bg: "#f0fdf4" },
+    { emoji: "👨‍🚀", bg: "#fef9c3" },
+    { emoji: "👩‍🏫", bg: "#ede9fe" },
+  ],
+  // Stats numbers
+  stats: [
+    { label: "Members", value: 12400, suffix: "+" },
+    { label: "Posts & Discussions", value: 48500, suffix: "+" },
+    { label: "Online Now", value: 342, suffix: "" },
+    { label: "Countries", value: 18, suffix: "+" },
+  ],
+};
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  CHANNELS — Add, remove or edit channels                   ║
+// ╚══════════════════════════════════════════════════════════════╝
+const CHANNELS = [
+  { name: "General Chat", emoji: "💬", members: 8200, desc: "Chat about anything tech-related. Introduce yourself!" },
+  { name: "JavaScript / TypeScript", emoji: "⚡", members: 3400, desc: "JS, TS, Node.js, React, Vue & more" },
+  { name: "Python & AI/ML", emoji: "🐍", members: 2800, desc: "Python, TensorFlow, ChatGPT, data science" },
+  { name: "UI/UX Design", emoji: "🎨", members: 1900, desc: "Figma, design systems, user research" },
+  { name: "Myanmar Tech Jobs", emoji: "💼", members: 5100, desc: "Job postings, freelance gigs & career advice" },
+  { name: "Mobile Dev", emoji: "📱", members: 2200, desc: "Flutter, React Native, iOS & Android" },
+  { name: "DevOps & Cloud", emoji: "☁️", members: 1600, desc: "AWS, Docker, CI/CD & infrastructure" },
+  { name: "Startup & Business", emoji: "🚀", members: 2400, desc: "Launch ideas, find co-founders, get feedback" },
+];
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  POSTS — Trending / demo posts                              ║
+// ╚══════════════════════════════════════════════════════════════╝
+const POSTS = [
+  {
+    author: "Aung Min", avatar: "🧑‍💻", avatarBg: "#eef2ff",
+    title: "How I landed a remote job at a Singapore startup",
+    excerpt: "After 6 months of learning and building projects in this community, I finally got my dream remote job. Here's my journey and tips for fellow Myanmar devs...",
+    likes: 234, replies: 47, category: "Career",
+  },
+  {
+    author: "Thiri Soe", avatar: "👩‍🎨", avatarBg: "#fdf2f8",
+    title: "Free Figma templates for your portfolio",
+    excerpt: "I've created 5 beautiful, responsive portfolio templates specifically for Myanmar developers. Download them for free and customize!",
+    likes: 189, replies: 32, category: "Design",
+  },
+  {
+    author: "Kyaw Zin", avatar: "🧑‍🔬", avatarBg: "#f0fdf4",
+    title: "Building a ChatGPT clone with Python & Next.js",
+    excerpt: "Step-by-step tutorial on creating your own AI chatbot. Includes API integration, streaming responses, and a beautiful UI. Code included!",
+    likes: 412, replies: 89, category: "Tutorial",
+  },
+  {
+    author: "Su Su", avatar: "👩‍🏫", avatarBg: "#fef9c3",
+    title: "မြန်မာ devs တွေအတွက် freelancing tips",
+    excerpt: "Fiverr, Upwork, Toptal မှာ profile ကောင်းကောင်းဖန်တီးနည်း၊ pricing strategy နဲ့ client တွေနဲ့ ဘယ်လို communicate လုပ်မလဲ...",
+    likes: 567, replies: 124, category: "Freelancing",
+  },
+  {
+    author: "Htet Aung", avatar: "👨‍🚀", avatarBg: "#ede9fe",
+    title: "Docker for beginners: Myanmar-style guide",
+    excerpt: ".docker ကို ရိုးရှင်းတဲ့ မြန်မာဘာသာနဲ့ ရှင်းပြထားပါတယ်။ Container, Image, Dockerfile အကုန်လုံး cover လုပ်ထားပါတယ်။",
+    likes: 178, replies: 56, category: "DevOps",
+  },
+  {
+    author: "May Thet", avatar: "👩‍💻", avatarBg: "#fce7f3",
+    title: "React Native vs Flutter: 2024 comparison for Myanmar devs",
+    excerpt: "Which framework should you choose for your next mobile app? I've built apps with both and here's my honest comparison...",
+    likes: 298, replies: 71, category: "Mobile Dev",
+  },
+];
+</script>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="nav-brand">
+      <div class="nav-logo">🌐</div>
+      <span class="nav-name" id="navName"></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#channels">Channels</a></li>
+      <li><a href="#trending">Trending</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#join" class="btn btn-ghost btn-sm">Log In</a>
+      <a href="#join" class="btn btn-primary btn-sm">Join Free</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Features</a>
+    <a href="#channels">Channels</a>
+    <a href="#trending">Trending</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#join" class="btn btn-primary btn-sm" style="margin-top:12px; text-align:center;">Join Free</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-float-cards">
+    <div class="float-card">
+      <div class="float-card-icon">🔥</div>
+      <div class="float-card-text">342 online</div>
+      <div class="float-card-sub">Right now</div>
+    </div>
+    <div class="float-card">
+      <div class="float-card-icon">🎉</div>
+      <div class="float-card-text">12,400+</div>
+      <div class="float-card-sub">Members</div>
+    </div>
+    <div class="float-card">
+      <div class="float-card-icon">⚡</div>
+      <div class="float-card-text">48,500+</div>
+      <div class="float-card-sub">Posts</div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse"></span>
+      Community is live!
+    </div>
+    <h1 class="hero-title">
+      Welcome to<br><span class="text-gradient" id="heroTitle"></span>
+    </h1>
+    <p class="hero-desc" id="heroDesc"></p>
+    <div class="hero-actions">
+      <a href="#join" class="btn btn-primary btn-lg">🚀 Join Now — It's Free</a>
+      <a href="#channels" class="btn btn-secondary btn-lg">Browse Channels</a>
+    </div>
+    <div class="hero-avatars">
+      <div class="hero-avatars-stack" id="heroAvatars"></div>
+      <div class="hero-avatars-count">
+        <strong id="heroMemberCount"></strong>&nbsp;members already joined
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS
+     ============================================================ -->
+<section class="stats" id="stats">
+  <div class="container">
+    <div class="stats-grid" id="statsGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURES
+     ============================================================ -->
+<section class="section" id="features">
+  <div class="container text-center">
+    <div class="section-badge">✨ Features</div>
+    <h2 class="section-title">Everything You Need to<br><span class="text-gradient">Connect & Grow</span></h2>
+    <p class="section-subtitle">A modern community platform designed for Myanmar tech enthusiasts to learn, share, and collaborate.</p>
+    <div class="features-grid" id="featuresGrid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">📡</div>
+        <h3 class="feature-title">Topic Channels</h3>
+        <p class="feature-desc">Join channels for JS, Python, Design, DevOps and more. Focused discussions in every category.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">✉️</div>
+        <h3 class="feature-title">Direct Messages</h3>
+        <p class="feature-desc">Connect 1-on-1 with mentors, collaborators, and friends. Private & secure conversations.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📅</div>
+        <h3 class="feature-title">Live Events</h3>
+        <p class="feature-desc">Join workshops, talks, hackathons & community meetups. Learn from experts every week.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🏆</div>
+        <h3 class="feature-title">Gamification</h3>
+        <p class="feature-desc">Earn badges, climb leaderboards & get recognized. Your contributions matter here.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🤝</div>
+        <h3 class="feature-title">Mentorship</h3>
+        <p class="feature-desc">Get paired with experienced devs. Guided career growth for beginners & juniors.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔒</div>
+        <h3 class="feature-title">Safe & Inclusive</h3>
+        <p class="feature-desc">A welcoming space for everyone. Zero tolerance for harassment. Community-first rules.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CHANNELS
+     ============================================================ -->
+<section class="section" style="background: var(--gradient-soft);" id="channels">
+  <div class="container text-center">
+    <div class="section-badge">📡 Channels</div>
+    <h2 class="section-title">Explore <span class="text-gradient">Channels</span></h2>
+    <p class="section-subtitle">Find your tribe. Join conversations that matter to you.</p>
+    <div class="channels-grid" id="channelsGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TRENDING POSTS
+     ============================================================ -->
+<section class="section" id="trending">
+  <div class="container text-center">
+    <div class="section-badge">🔥 Trending</div>
+    <h2 class="section-title">What's <span class="text-gradient">Hot</span> Right Now</h2>
+    <p class="section-subtitle">Top posts from our community this week. Jump in and join the discussion.</p>
+    <div class="posts-grid" id="postsGrid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRICING
+     ============================================================ -->
+<section class="section" id="pricing">
+  <div class="container text-center">
+    <div class="section-badge">💎 Membership</div>
+    <h2 class="section-title">Choose Your <span class="text-gradient">Plan</span></h2>
+    <p class="section-subtitle">Start free, upgrade when you're ready. No hidden fees.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <h3 class="pricing-name">Free</h3>
+        <div class="pricing-price">$0 <span>/ forever</span></div>
+        <p class="pricing-desc">Everything you need to get started with the community.</p>
+        <ul class="pricing-features">
+          <li>Access to all public channels</li>
+          <li>Community events & meetups</li>
+          <li>Basic profile & DMs</li>
+          <li>Weekly newsletter</li>
+        </ul>
+        <a href="#join" class="btn btn-secondary" style="width:100%;justify-content:center;">Get Started Free</a>
+      </div>
+      <div class="pricing-card featured reveal">
+        <div class="pricing-badge">🔥 Most Popular</div>
+        <h3 class="pricing-name">Pro Member</h3>
+        <div class="pricing-price text-gradient">$9 <span>/ month</span></div>
+        <p class="pricing-desc">Unlock premium features, mentorship & exclusive content.</p>
+        <ul class="pricing-features">
+          <li>Everything in Free</li>
+          <li>1-on-1 mentor matching</li>
+          <li>Premium courses & workshops</li>
+          <li>Priority job board access</li>
+          <li>Pro badge & leaderboard</li>
+          <li>Exclusive Pro-only channels</li>
+        </ul>
+        <a href="#join" class="btn btn-primary" style="width:100%;justify-content:center;">Upgrade to Pro</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="section" style="background: var(--gradient-soft);" id="testimonials">
+  <div class="container text-center">
+    <div class="section-badge">💬 Testimonials</div>
+    <h2 class="section-title">Loved by <span class="text-gradient">Thousands</span></h2>
+    <p class="section-subtitle">Hear from our community members about their experience.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"This community changed my career. I went from zero coding knowledge to landing a remote job in 8 months. The mentors here are incredible!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👨‍💻</div>
+          <div>
+            <div class="testimonial-name">Aung Min</div>
+            <div class="testimonial-role">Full-Stack Developer @ Remote</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"အရမ်းကောင်းပါတယ်။ Myanmar developers တွေအတွက် ဒီလို community မျိုး လိုအပ်နေတာ ကြာပြီ။ Thank you so much!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👩‍🎨</div>
+          <div>
+            <div class="testimonial-name">Thiri Soe</div>
+            <div class="testimonial-role">UI/UX Designer</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"The job board alone is worth it. I found 3 freelance clients in my first month. The gamification keeps me motivated to contribute every day."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">🧑‍🔬</div>
+          <div>
+            <div class="testimonial-name">Kyaw Zin</div>
+            <div class="testimonial-role">Python Developer & Freelancer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     JOIN / REGISTER FORM
+     ============================================================ -->
+<section class="section join-section" id="join">
+  <div class="container text-center">
+    <div class="section-badge">🚀 Get Started</div>
+    <h2 class="section-title">Join <span class="text-gradient">{COMMUNITY_NAME}</span> Today</h2>
+    <p class="section-subtitle">Create your free account and start connecting with thousands of Myanmar tech enthusiasts.</p>
+    <div class="join-form-wrapper">
+      <form id="joinForm">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" id="joinName" placeholder="e.g. Aung Min" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" id="joinEmail" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">I'm interested in</label>
+          <select class="form-select" id="joinInterest">
+            <option value="">Select your primary interest</option>
+            <option value="frontend">Frontend Development</option>
+            <option value="backend">Backend Development</option>
+            <option value="mobile">Mobile Development</option>
+            <option value="ai">AI & Machine Learning</option>
+            <option value="design">UI/UX Design</option>
+            <option value="devops">DevOps & Cloud</option>
+            <option value="freelancing">Freelancing</option>
+            <option value="career">Career Advice</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Anything you'd like to share? (Optional)</label>
+          <textarea class="form-textarea" id="joinMessage" placeholder="Tell us about yourself, your goals, or what you're looking for..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-checkbox">
+            <input type="checkbox" id="joinTerms" required>
+            <span style="font-size:0.85rem; color:var(--text-secondary);">I agree to the community guidelines and want to join the <strong>Telegram group</strong> for updates.</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%; justify-content:center;">
+          🎉 Create My Free Account
+        </button>
+        <p class="form-hint" style="margin-top:16px; text-align:center;">
+          Already a member? <a href="{TG_LINK}" target="_blank" style="color:var(--primary); font-weight:600;">Open Telegram →</a>
+        </p>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <div class="form-success-icon">🎉</div>
+        <h3>Welcome to <span id="successName"></span>!</h3>
+        <p>Your account is ready. Join our Telegram group to start connecting with the community right away!</p>
+        <div style="margin-top:28px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="{TG_LINK}" target="_blank" class="btn btn-primary">📱 Join Telegram Group</a>
+          <a href="#" class="btn btn-secondary" onclick="document.getElementById('formSuccess').classList.remove('show'); document.getElementById('joinForm').style.display='block'; return false;">Register Another</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section class="section" id="faq">
+  <div class="container text-center">
+    <div class="section-badge">❓ FAQ</div>
+    <h2 class="section-title">Frequently Asked <span class="text-gradient">Questions</span></h2>
+    <p class="section-subtitle">Everything you need to know about joining our community.</p>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item">
+        <button class="faq-question">Is it really free to join? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Yes! Our community is 100% free to join. You get access to all channels, events, and basic features at no cost. We also offer a Pro plan ($9/month) for premium features like 1-on-1 mentorship and exclusive courses.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do I need to know how to code? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Not at all! We welcome everyone — from complete beginners to senior engineers. Many members are just starting their coding journey. Our community is designed to help you learn and grow at your own pace.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Is this only for Myanmar developers? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>While we're primarily focused on Myanmar's tech community, developers from all backgrounds and countries are welcome! We have members from 18+ countries and most discussions are in both Myanmar (Burmese) and English.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How do I access the community? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>Our community runs on Telegram — the most popular messaging app in Myanmar. Once you register, you'll get instant access to our Telegram group and all its channels. It's simple and works on any device.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What kind of events do you host? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>We host weekly workshops, monthly hackathons, guest speaker sessions, code reviews, portfolio critiques, and in-person meetups in Yangon and Mandalay. Events are recorded and shared for those who can't attend live.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How can I become a mentor? <span class="faq-icon">+</span></button>
+        <div class="faq-answer"><p>We're always looking for experienced devs to mentor newcomers. If you have 3+ years of professional experience and want to give back, apply through our Telegram group. Mentors get a special badge and access to the Pro tier for free.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:16px;">🌐</div>
+        <p class="footer-brand-desc">The largest online community for Myanmar developers and tech enthusiasts. Learn, build, and grow together.</p>
+        <div class="footer-social">
+          <a href="{TG_LINK}" target="_blank" title="Telegram">📱</a>
+          <a href="#" title="GitHub">💻</a>
+          <a href="#" title="Twitter/X">🐦</a>
+          <a href="#" title="YouTube">▶️</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Community</h4>
+        <ul class="footer-links">
+          <li><a href="#channels">Channels</a></li>
+          <li><a href="#trending">Trending Posts</a></li>
+          <li><a href="#pricing">Membership</a></li>
+          <li><a href="#">Events Calendar</a></li>
+          <li><a href="#">Job Board</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Resources</h4>
+        <ul class="footer-links">
+          <li><a href="#">Learning Paths</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Project Showcase</a></li>
+          <li><a href="#">Open Source</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Support</h4>
+        <ul class="footer-links">
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#">Community Guidelines</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Report an Issue</a></li>
+          <li><a href="#">Code of Conduct</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2024 <span id="footerName"></span>. All rights reserved.</span>
+      <span>Made with ❤️ for Myanmar tech community</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT — Interactions & Logic
+     ============================================================ -->
+<script>
+(function() {
+  // ── Populate placeholders ──
+  document.getElementById('navName').textContent = CONFIG.communityName;
+  document.getElementById('heroTitle').textContent = CONFIG.communityName;
+  document.getElementById('heroDesc').textContent = CONFIG.tagline;
+  document.getElementById('heroMemberCount').textContent = CONFIG.stats[0].value.toLocaleString();
+  document.getElementById('footerName').textContent = CONFIG.communityName;
+  document.getElementById('successName').textContent = CONFIG.communityName;
+  document.title = CONFIG.communityName + ' - Join Our Community';
+
+  // Replace placeholders in body HTML
+  document.body.innerHTML = document.body.innerHTML
+    .replace(/\{COMMUNITY_NAME\}/g, CONFIG.communityName)
+    .replace(/\{EMAIL\}/g, CONFIG.email)
+    .replace(/\{TG_LINK\}/g, CONFIG.telegramLink);
+
+  // ── Hero Avatars ──
+  const avStack = document.getElementById('heroAvatars');
+  CONFIG.heroAvatars.forEach(a => {
+    const div = document.createElement('div');
+    div.className = 'hero-avatar';
+    div.style.background = a.bg;
+    div.textContent = a.emoji;
+    avStack.appendChild(div);
+  });
+
+  // ── Stats ──
+  const statsGrid = document.getElementById('statsGrid');
+  CONFIG.stats.forEach((s, i) => {
+    const item = document.createElement('div');
+    item.className = 'stat-item reveal';
+    item.innerHTML = `<div class="stat-number" data-target="${s.value}" data-suffix="${s.suffix}">0${s.suffix}</div><div class="stat-label">${s.label}</div>`;
+    statsGrid.appendChild(item);
+  });
+
+  // ── Channels ──
+  const channelsGrid = document.getElementById('channelsGrid');
+  CHANNELS.forEach(ch => {
+    const card = document.createElement('div');
+    card.className = 'channel-card reveal';
+    card.innerHTML = `
+      <div class="channel-emoji">${ch.emoji}</div>
+      <div class="channel-info">
+        <div class="channel-name">${ch.name}</div>
+        <div class="channel-desc">${ch.desc}</div>
+        <div class="channel-meta">
+          <span>👥 ${ch.members.toLocaleString()} members</span>
+          <span>· Active now</span>
+        </div>
+      </div>`;
+    channelsGrid.appendChild(card);
+  });
+
+  // ── Posts ──
+  const postsGrid = document.getElementById('postsGrid');
+  POSTS.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'post-card reveal';
+    card.innerHTML = `
+      <div class="post-header">
+        <div class="post-avatar" style="background:${p.avatarBg}">${p.avatar}</div>
+        <div>
+          <div class="post-author-name">${p.author}</div>
+          <span class="post-category">${p.category}</span>
+        </div>
+      </div>
+      <h3 class="post-title">${p.title}</h3>
+      <p class="post-excerpt">${p.excerpt}</p>
+      <div class="post-actions">
+        <button class="post-action like-btn" data-idx="${i}">
+          ❤️ <span class="count">${p.likes}</span> Likes
+        </button>
+        <button class="post-action reply-btn" data-idx="${i}">
+          💬 <span class="count">${p.replies}</span> Replies
+        </button>
+      </div>`;
+    postsGrid.appendChild(card);
+  });
+
+  // ── Like / Reply interactions ──
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.like-btn');
+    if (btn) {
+      btn.classList.toggle('liked');
+      const count = btn.querySelector('.count');
+      const idx = parseInt(btn.dataset.idx);
+      let val = parseInt(count.textContent);
+      count.textContent = btn.classList.contains('liked') ? val + 1 : val - 1;
+    }
+    const repBtn = e.target.closest('.reply-btn');
+    if (repBtn) {
+      const count = repBtn.querySelector('.count');
+      count.textContent = parseInt(count.textContent) + 1;
+      repBtn.style.color = 'var(--primary)';
+    }
+  });
+
+  // ── Counter animation ──
+  function animateCounters() {
+    document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const duration = 2000;
+      const start = performance.now();
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(eased * target);
+        el.textContent = current.toLocaleString() + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    });
+  }
+
+  // ── Scroll reveal ──
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        if (entry.target.closest('.stats')) animateCounters();
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Also observe stats section
+  const statsEl = document.getElementById('stats');
+  if (statsEl) {
+    const obs2 = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { animateCounters(); obs2.disconnect(); }
+    }, { threshold: 0.3 });
+    obs2.observe(statsEl);
+  }
+
+  // ── Navbar scroll ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── Mobile menu ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+    const spans = hamburger.querySelectorAll('span');
+    if (mobileMenu.classList.contains('active')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    } else {
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
+    }
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      const spans = hamburger.querySelectorAll('span');
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
+    });
+  });
+
+  // ── FAQ accordion ──
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const wasActive = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+      if (!wasActive) item.classList.add('active');
+    });
+  });
+
+  // ── Join form ──
+  document.getElementById('joinForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('joinName').value.trim();
+    if (!name) return;
+    this.style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+    window.scrollTo({ top: document.getElementById('join').offsetTop - 90, behavior: 'smooth' });
+  });
+
+})();
+</script>
+</body>
+</html>

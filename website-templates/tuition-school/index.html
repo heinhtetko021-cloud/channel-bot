@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Name | Tuition Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Myanmar:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CSS VARIABLES — EASY CUSTOMIZATION
+   Change these to rebrand the entire site instantly.
+   ===================================================================== */
+:root {
+  --primary: #c2775a;        /* Terra cotta accent */
+  --primary-dark: #a8613f;
+  --primary-light: #d99a7e;
+  --bg: #faf7f3;             /* Cream background */
+  --bg-card: #ffffff;
+  --bg-dark: #2c2220;
+  --text: #3b2f2f;
+  --text-light: #7a6b6b;
+  --text-inverse: #faf7f3;
+  --border: #e8ddd4;
+  --shadow: 0 2px 16px rgba(60,40,20,0.07);
+  --shadow-lg: 0 8px 32px rgba(60,40,20,0.12);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --font: 'Inter', 'Noto Sans Myanmar', sans-serif;
+  --max-w: 1100px;
+  --transition: 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+/* =====================================================================
+   RESET & BASE
+   ===================================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--primary-dark); }
+.container { width: 90%; max-width: var(--max-w); margin: 0 auto; }
+
+/* =====================================================================
+   UTILITY
+   ===================================================================== */
+.section { padding: 72px 0; }
+.section-alt { background: var(--bg-card); }
+.section-title {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.section-title h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.section-title p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+.badge {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.btn {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: center;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(194,119,90,0.35);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+.btn-outline:hover {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-sm { padding: 9px 22px; font-size: 0.85rem; }
+
+/* =====================================================================
+   HEADER / NAV
+   ===================================================================== */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(250,247,243,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow var(--transition);
+}
+.header.scrolled { box-shadow: var(--shadow); }
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.nav-logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-logo .logo-icon {
+  width: 36px; height: 36px;
+  background: var(--primary);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 700; font-size: 0.9rem;
+}
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 28px;
+  align-items: center;
+}
+.nav-links a {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--primary); }
+.nav-cta .btn { padding: 10px 24px; }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.hamburger span {
+  width: 24px; height: 2.5px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all var(--transition);
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 68px; left: 0; right: 0; bottom: 0;
+  background: var(--bg);
+  z-index: 999;
+  padding: 32px 24px;
+}
+.mobile-menu.active { display: block; }
+.mobile-menu a {
+  display: block;
+  padding: 16px 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+.mobile-menu a:hover { color: var(--primary); }
+.mobile-menu .btn { margin-top: 24px; text-align: center; display: block; }
+
+/* =====================================================================
+   HERO
+   ===================================================================== */
+.hero {
+  padding: 130px 0 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(194,119,90,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(194,119,90,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero h1 {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.hero h1 .accent { color: var(--primary); }
+.hero .tagline {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: var(--text-light);
+  max-width: 580px;
+  margin: 0 auto 36px;
+  line-height: 1.8;
+}
+.hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 56px;
+  flex-wrap: wrap;
+}
+.hero-stat { text-align: center; }
+.hero-stat .num {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+.hero-stat .label {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* =====================================================================
+   ABOUT / WHY US
+   ===================================================================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+}
+.about-card {
+  background: var(--bg-card);
+  padding: 36px 28px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.about-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto 20px;
+  background: rgba(194,119,90,0.1);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+}
+.about-card h3 { font-size: 1.05rem; margin-bottom: 8px; font-weight: 600; }
+.about-card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.7; }
+
+/* =====================================================================
+   COURSES
+   ===================================================================== */
+.courses-filter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: 24px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font);
+}
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+}
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+.course-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.course-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  padding: 28px 24px 22px;
+  color: #fff;
+  position: relative;
+}
+.course-header .tag {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 16px;
+  backdrop-filter: blur(4px);
+}
+.course-header h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+.course-header .level { opacity: 0.85; font-size: 0.85rem; }
+.course-body { padding: 20px 24px 24px; flex: 1; display: flex; flex-direction: column; }
+.course-meta {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+.course-meta span { display: flex; align-items: center; gap: 4px; }
+.course-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+.course-price .currency { font-size: 0.8rem; font-weight: 500; }
+.course-body .btn { width: 100%; margin-top: auto; }
+
+/* =====================================================================
+   SCHEDULE / TIMETABLE
+   ===================================================================== */
+.schedule-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-card);
+  min-width: 600px;
+}
+.schedule-table th {
+  background: var(--primary);
+  color: #fff;
+  padding: 14px 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: left;
+  white-space: nowrap;
+}
+.schedule-table td {
+  padding: 14px 20px;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.schedule-table tr:last-child td { border-bottom: none; }
+.schedule-table tr:hover td { background: rgba(194,119,90,0.04); }
+.time-cell { font-weight: 600; color: var(--primary); white-space: nowrap; }
+
+/* =====================================================================
+   TEACHERS
+   ===================================================================== */
+.teachers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+.teacher-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.teacher-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.teacher-avatar {
+  width: 100%; aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.4rem;
+  color: #fff;
+}
+.teacher-info { padding: 20px; }
+.teacher-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+.teacher-info .role { color: var(--primary); font-size: 0.82rem; font-weight: 500; }
+.teacher-info .bio { color: var(--text-light); font-size: 0.82rem; margin-top: 8px; }
+
+/* =====================================================================
+   TESTIMONIALS
+   ===================================================================== */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+.testimonial-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.testimonial-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 16px; left: 24px;
+  font-size: 4rem;
+  color: var(--primary-light);
+  opacity: 0.3;
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+.testimonial-card p {
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.testimonial-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.testimonial-name { font-weight: 600; font-size: 0.9rem; }
+.testimonial-role { font-size: 0.78rem; color: var(--text-light); }
+.testimonial-stars { color: #f0b429; font-size: 0.8rem; margin-top: 2px; }
+
+/* =====================================================================
+   ENROLLMENT FORM
+   ===================================================================== */
+.enrollment-wrap {
+  max-width: 620px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 44px 36px;
+  box-shadow: var(--shadow-lg);
+}
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(194,119,90,0.15);
+}
+.form-group select { appearance: auto; }
+.form-group textarea { resize: vertical; min-height: 80px; }
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+.form-success .check {
+  width: 64px; height: 64px;
+  background: #e8f5e9;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.8rem;
+}
+.form-success h3 { font-size: 1.2rem; margin-bottom: 8px; color: #2e7d32; }
+.form-success p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px; }
+
+/* =====================================================================
+   CONTACT + FOOTER
+   ===================================================================== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.contact-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.contact-icon {
+  width: 44px; height: 44px;
+  min-width: 44px;
+  background: rgba(194,119,90,0.1);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.contact-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+.contact-card p { font-size: 0.85rem; color: var(--text-light); }
+
+.footer {
+  background: var(--bg-dark);
+  color: var(--text-inverse);
+  padding: 48px 0 24px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  margin-bottom: 36px;
+}
+.footer h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--primary-light);
+}
+.footer p, .footer a {
+  font-size: 0.85rem;
+  color: rgba(250,247,243,0.7);
+  line-height: 2;
+}
+.footer a:hover { color: var(--primary-light); }
+.footer-links { list-style: none; }
+.footer-links li a { color: rgba(250,247,243,0.7); font-size: 0.85rem; }
+.footer-links li a:hover { color: var(--primary-light); }
+.footer-bottom {
+  border-top: 1px solid rgba(250,247,243,0.1);
+  padding-top: 20px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(250,247,243,0.4);
+}
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 110px 0 60px; }
+  .hero-stats { gap: 24px; }
+  .section { padding: 52px 0; }
+  .section-title { margin-bottom: 32px; }
+  .enrollment-wrap { padding: 28px 20px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .teachers-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .courses-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .hero-buttons { flex-direction: column; align-items: center; }
+  .hero-buttons .btn { width: 100%; max-width: 280px; }
+}
+
+/* =====================================================================
+   ANIMATIONS
+   ===================================================================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- ===================================================================
+     HEADER / NAVIGATION
+     =================================================================== -->
+<header class="header" id="header">
+  <nav class="nav container">
+    <a href="#" class="nav-logo">
+      <span class="logo-icon" id="navLogoIcon">H</span>
+      <span id="navSchoolName">{SCHOOL_NAME}</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#teachers">Teachers</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#enroll" class="nav-cta btn btn-primary btn-sm">Enroll Now</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#courses">Courses</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#teachers">Teachers</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#contact">Contact</a>
+    <a href="#enroll" class="btn btn-primary">Enroll Now</a>
+  </div>
+</header>
+
+<!-- ===================================================================
+     HERO SECTION
+     =================================================================== -->
+<section class="hero" id="hero">
+  <div class="container">
+    <span class="badge">MM Students Welcome</span>
+    <h1 style="margin-top:16px;">Master Your Future at<br><span class="accent" id="heroSchoolName">{SCHOOL_NAME}</span></h1>
+    <p class="tagline">
+      Myanmar's quality tuition center for all levels. Learn with expert teachers, achieve top results, and unlock your potential.
+    </p>
+    <div class="hero-buttons">
+      <a href="#courses" class="btn btn-primary">Explore Courses</a>
+      <a href="#enroll" class="btn btn-outline">Enroll Now</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">500+</div><div class="label">Students</div></div>
+      <div class="hero-stat"><div class="num">20+</div><div class="label">Courses</div></div>
+      <div class="hero-stat"><div class="num">15+</div><div class="label">Teachers</div></div>
+      <div class="hero-stat"><div class="num">95%</div><div class="label">Pass Rate</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     ABOUT / WHY US
+     =================================================================== -->
+<section class="section section-alt" id="about">
+  <div class="container">
+    <div class="section-title fade-in">
+      <span class="badge">About Us</span>
+      <h2>Why Choose <span class="accent">{SCHOOL_NAME}</span>?</h2>
+      <p>We are dedicated to helping Myanmar students succeed in every subject.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card fade-in">
+        <div class="about-icon">🎓</div>
+        <h3>Expert Teachers</h3>
+        <p>Qualified and experienced teachers who are passionate about education and student success.</p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="about-icon">📚</div>
+        <h3>Comprehensive Curriculum</h3>
+        <p>Well-structured courses covering school syllabus, exam prep, and skill development.</p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="about-icon">🏫</div>
+        <h3>Small Class Size</h3>
+        <p>Limited students per class ensuring personal attention and better understanding.</p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="about-icon">📝</div>
+        <h3>Regular Assessment</h3>
+        <p>Weekly quizzes and monthly exams to track progress and build exam confidence.</p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="about-icon">💻</div>
+        <h3>Modern Facilities</h3>
+        <p>Comfortable classrooms with projectors, WiFi, and modern learning tools.</p>
+      </div>
+      <div class="about-card fade-in">
+        <div class="about-icon">🤝</div>
+        <h3>Supportive Community</h3>
+        <p>Join a community of motivated learners with peer support and guidance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     COURSES SECTION
+     Courses are rendered from the JS COURSES array below.
+     =================================================================== -->
+<section class="section" id="courses">
+  <div class="container">
+    <div class="section-title fade-in">
+      <span class="badge">Our Programs</span>
+      <h2>Available Courses</h2>
+      <p>Choose from our wide range of courses designed for Myanmar students.</p>
+    </div>
+    <div class="courses-filter" id="coursesFilter"></div>
+    <div class="courses-grid" id="coursesGrid"></div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     SCHEDULE / TIMETABLE
+     =================================================================== -->
+<section class="section section-alt" id="schedule">
+  <div class="container">
+    <div class="section-title fade-in">
+      <span class="badge">Timetable</span>
+      <h2>Class Schedule</h2>
+      <p>Weekly timetable for all our regular tuition classes.</p>
+    </div>
+    <div class="schedule-table-wrap fade-in">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time-cell">3:00 – 4:30</td>
+            <td>Math (Grade 8)</td>
+            <td>English (Grade 9)</td>
+            <td>Math (Grade 8)</td>
+            <td>English (Grade 9)</td>
+            <td>Math (Grade 8)</td>
+            <td>Mock Exam</td>
+          </tr>
+          <tr>
+            <td class="time-cell">4:45 – 6:15</td>
+            <td>Science (Grade 9)</td>
+            <td>Math (Grade 10)</td>
+            <td>Science (Grade 9)</td>
+            <td>Math (Grade 10)</td>
+            <td>Science (Grade 9)</td>
+            <td>English (Grade 10)</td>
+          </tr>
+          <tr>
+            <td class="time-cell">6:30 – 8:00</td>
+            <td>English (Grade 10)</td>
+            <td>Biology (Grade 11)</td>
+            <td>English (Grade 10)</td>
+            <td>Biology (Grade 11)</td>
+            <td>English (Grade 10)</td>
+            <td>Science (Grade 11)</td>
+          </tr>
+          <tr>
+            <td class="time-cell">8:00 – 9:30</td>
+            <td>Computer Basic</td>
+            <td>IELTS Prep</td>
+            <td>Computer Basic</td>
+            <td>IELTS Prep</td>
+            <td>Computer Basic</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     TEACHERS / STAFF
+     =================================================================== -->
+<section class="section" id="teachers">
+  <div class="container">
+    <div class="section-title fade-in">
+      <span class="badge">Our Team</span>
+      <h2>Meet Our Teachers</h2>
+      <p>Passionate educators dedicated to your child's success.</p>
+    </div>
+    <div class="teachers-grid" id="teachersGrid"></div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     TESTIMONIALS
+     =================================================================== -->
+<section class="section section-alt" id="testimonials">
+  <div class="container">
+    <div class="section-title fade-in">
+      <span class="badge">Reviews</span>
+      <h2>What Students & Parents Say</h2>
+      <p>Hear from our community about their experience.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in">
+        <p>Excellent tuition center! My son's grades improved significantly after joining. The teachers are very patient and helpful. Highly recommended!</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MN</div>
+          <div>
+            <div class="testimonial-name">Ma Myint Noe</div>
+            <div class="testimonial-role">Parent</div>
+            <div class="testimonial-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p>I learned so much here. The small class size means the teacher can focus on each student. The IELTS prep course really helped me prepare for university abroad.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AA</div>
+          <div>
+            <div class="testimonial-name">Aung Aung</div>
+            <div class="testimonial-role">Student, Grade 12</div>
+            <div class="testimonial-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <p>Affordable fees with great quality education. My daughter enjoys the computer classes and has learned so much. The online scheduling is very convenient.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">KT</div>
+          <div>
+            <div class="testimonial-name">Khin Thida</div>
+            <div class="testimonial-role">Parent</div>
+            <div class="testimonial-stars">★★★★☆</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     ENROLLMENT FORM
+     =================================================================== -->
+<section class="section" id="enroll">
+  <div class="container">
+    <div class="section-title fade-in">
+      <span class="badge">Enroll</span>
+      <h2>Register for a Course</h2>
+      <p>Fill in the form below and we will contact you to confirm.</p>
+    </div>
+    <div class="enrollment-wrap fade-in">
+      <form id="enrollForm">
+        <div class="form-group">
+          <label for="studentName">Student Name (ကျောင်းသား/ကျောင်းသူ အမည်)</label>
+          <input type="text" id="studentName" placeholder="e.g. Aung Kyaw" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number (ဖုန်းနံပါတ်)</label>
+          <input type="tel" id="phone" placeholder="09-XXXXXXXX" required>
+        </div>
+        <div class="form-group">
+          <label for="guardian">Guardian Name (အုပ်ထိန်းသူ အမည်)</label>
+          <input type="text" id="guardian" placeholder="e.g. U Kyaw Zin">
+        </div>
+        <div class="form-group">
+          <label for="course">Select Course (သင်တန်းရွေးပါ)</label>
+          <select id="course" required>
+            <option value="">— Choose a Course —</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message (Optional)</label>
+          <textarea id="message" placeholder="Any questions or special requests..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Submit Enrollment</button>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <div class="check">✓</div>
+        <h3>Enrollment Confirmed!</h3>
+        <p>Thank you for registering. We will contact you shortly via phone to confirm details.</p>
+        <a href="{TG_LINK}" target="_blank" class="btn btn-outline">Contact Us on Telegram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     CONTACT
+     =================================================================== -->
+<section class="section section-alt" id="contact">
+  <div class="container">
+    <div class="section-title fade-in">
+      <span class="badge">Contact</span>
+      <h2>Get in Touch</h2>
+      <p>We're here to answer your questions.</p>
+    </div>
+    <div class="contact-grid fade-in">
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h4>Phone</h4>
+          <p id="contactPhone">{PHONE}</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div>
+          <h4>Address</h4>
+          <p id="contactAddress">{ADDRESS}</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">💬</div>
+        <div>
+          <h4>Telegram</h4>
+          <p><a href="{TG_LINK}" target="_blank">Chat with us</a></p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <h4>Hours</h4>
+          <p>Mon – Sat: 3:00 PM – 9:30 PM</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     FOOTER
+     =================================================================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4 id="footerSchoolName">{SCHOOL_NAME}</h4>
+        <p>Empowering Myanmar students with quality education since 2020.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#courses">Courses</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#enroll">Enroll Now</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Courses</h4>
+        <ul class="footer-links" id="footerCourses"></ul>
+      </div>
+      <div>
+        <h4>Contact Info</h4>
+        <p id="footerAddress">{ADDRESS}</p>
+        <p id="footerPhone">{PHONE}</p>
+        <p><a href="{TG_LINK}" target="_blank">Telegram</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="footerYear"></span> <span id="footerCopyright">{SCHOOL_NAME}</span>. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================================================================
+     JAVASCRIPT
+     =================================================================== -->
+<script>
+/* =====================================================================
+   SITE CONFIGURATION — CUSTOMIZE HERE
+   Change these values to match your client's details.
+   ===================================================================== */
+const CONFIG = {
+  schoolName: "{SCHOOL_NAME}",
+  phone: "{PHONE}",
+  address: "{ADDRESS}",
+  telegramLink: "{TG_LINK}",
+  currencyLabel: "Ks",
+  year: new Date().getFullYear()
+};
+
+/* =====================================================================
+   COURSES ARRAY — CUSTOMIZE YOUR COURSES HERE
+   Add / remove / edit entries easily.
+   Each course: { id, title, level, price, duration, tag, category }
+   ===================================================================== */
+const COURSES = [
+  { id: 1, title: "Mathematics", level: "Grade 8 – 10", price: "80,000", duration: "3 months", tag: "Popular", category: "School" },
+  { id: 2, title: "English", level: "Grade 8 – 10", price: "75,000", duration: "3 months", tag: "", category: "School" },
+  { id: 3, title: "Science (Physics, Chemistry)", level: "Grade 9 – 11", price: "85,000", duration: "3 months", tag: "", category: "School" },
+  { id: 4, title: "Biology", level: "Grade 11 – 12", price: "90,000", duration: "3 months", tag: "", category: "School" },
+  { id: 5, title: "Myanmar (မြန်မာစာ)", level: "Grade 8 – 10", price: "65,000", duration: "3 months", tag: "", category: "School" },
+  { id: 6, title: "Computer Basic & MS Office", level: "Beginner", price: "100,000", duration: "2 months", tag: "New", category: "Skill" },
+  { id: 7, title: "IELTS Preparation", level: "All Levels", price: "150,000", duration: "4 months", tag: "၂လ", category: "Skill" },
+  { id: 8, title: "Web Development", level: "Beginner", price: "120,000", duration: "3 months", tag: "New", category: "Skill" },
+  { id: 9, title: "Graphic Design (Photoshop)", level: "Beginner", price: "110,000", duration: "2 months", tag: "၂လ", category: "Skill" },
+  { id: 10, title: "Matriculation Exam Prep", level: "Grade 10", price: "120,000", duration: "5 months", tag: "Popular", category: "Exam" },
+  { id: 11, title: "University Entrance Prep", level: "Grade 12", price: "130,000", duration: "4 months", tag: "", category: "Exam" },
+  { id: 12, title: "English for Kids", level: "Age 6–10", price: "55,000", duration: "3 months", tag: "", category: "Kids" }
+];
+
+/* =====================================================================
+   TEACHERS ARRAY — CUSTOMIZE HERE
+   ===================================================================== */
+const TEACHERS = [
+  { name: "U Thein Aung", role: "Math Teacher", initials: "TA", bio: "B.Sc Mathematics, 8 years teaching experience" },
+  { name: "Daw Khin Myo", role: "English Teacher", initials: "KM", bio: "BA English, IELTS 7.5 certified" },
+  { name: "U Zaw Min Htut", role: "Science Teacher", initials: "ZM", bio: "B.Sc Physics, former school head" },
+  { name: "Daw Nandar Lin", role: "Computer Instructor", initials: "NL", bio: "B.Sc CS, certified trainer" },
+  { name: "U Myo Kyaw", role: "Biology Teacher", initials: "MK", bio: "B.Sc Biology, 10 years experience" },
+  { name: "Daw Su Su Hlaing", role: "Myanmar Teacher", initials: "SH", bio: "BA Myanmar, literature expert" }
+];
+
+/* =====================================================================
+   INITIALIZATION
+   ===================================================================== */
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ---- Replace placeholders with CONFIG values ----
+  function replacePlaceholders() {
+    document.querySelectorAll('[id*="SchoolName"], [id*="schoolName"], [id*="Copyright"]').forEach(function(el) {
+      el.textContent = CONFIG.schoolName;
+    });
+    document.getElementById('heroSchoolName').textContent = CONFIG.schoolName;
+    document.getElementById('footerSchoolName').textContent = CONFIG.schoolName;
+    document.getElementById('footerCopyright').textContent = CONFIG.schoolName;
+    document.getElementById('navSchoolName').textContent = CONFIG.schoolName;
+    document.getElementById('navLogoIcon').textContent = CONFIG.schoolName.charAt(0).toUpperCase();
+    document.getElementById('contactPhone').textContent = CONFIG.phone;
+    document.getElementById('contactAddress').textContent = CONFIG.address;
+    document.getElementById('footerAddress').textContent = CONFIG.address;
+    document.getElementById('footerPhone').textContent = CONFIG.phone;
+    document.getElementById('footerYear').textContent = CONFIG.year;
+    document.title = CONFIG.schoolName + " | Tuition Website";
+    // Replace all {SCHOOL_NAME}, {PHONE}, {ADDRESS}, {TG_LINK} text nodes
+    document.body.innerHTML = document.body.innerHTML
+      .replace(/\{SCHOOL_NAME\}/g, CONFIG.schoolName)
+      .replace(/\{PHONE\}/g, CONFIG.phone)
+      .replace(/\{ADDRESS\}/g, CONFIG.address)
+      .replace(/\{TG_LINK\}/g, CONFIG.telegramLink);
+  }
+  replacePlaceholders();
+
+  // ---- Render Courses ----
+  var coursesGrid = document.getElementById('coursesGrid');
+  var coursesFilter = document.getElementById('coursesFilter');
+  var courseSelect = document.getElementById('course');
+  var categories = ['All'];
+
+  // Get unique categories
+  COURSES.forEach(function(c) {
+    if (c.category && categories.indexOf(c.category) === -1) {
+      categories.push(c.category);
+    }
+  });
+
+  // Build filter buttons
+  categories.forEach(function(cat) {
+    var btn = document.createElement('button');
+    btn.className = 'filter-btn' + (cat === 'All' ? ' active' : '');
+    btn.textContent = cat;
+    btn.setAttribute('data-filter', cat);
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderCourses(cat);
+    });
+    coursesFilter.appendChild(btn);
+  });
+
+  function renderCourses(filter) {
+    coursesGrid.innerHTML = '';
+    var filtered = filter === 'All' ? COURSES : COURSES.filter(function(c) { return c.category === filter; });
+    filtered.forEach(function(course) {
+      var card = document.createElement('div');
+      card.className = 'course-card fade-in';
+      card.innerHTML =
+        '<div class="course-header">' +
+          (course.tag ? '<span class="tag">' + course.tag + '</span>' : '') +
+          '<h3>' + course.title + '</h3>' +
+          '<div class="level">' + course.level + '</div>' +
+        '</div>' +
+        '<div class="course-body">' +
+          '<div class="course-meta">' +
+            '<span>🕐 ' + course.duration + '</span>' +
+            '<span>📂 ' + course.category + '</span>' +
+          '</div>' +
+          '<div class="course-price">' + course.price + ' <span class="currency">' + CONFIG.currencyLabel + '</span></div>' +
+          '<a href="#enroll" class="btn btn-primary btn-sm">Enroll Now</a>' +
+        '</div>';
+      coursesGrid.appendChild(card);
+    });
+    // Populate course select dropdown
+    var currentVal = courseSelect.value;
+    courseSelect.innerHTML = '<option value="">— Choose a Course —</option>';
+    COURSES.forEach(function(c) {
+      var opt = document.createElement('option');
+      opt.value = c.title;
+      opt.textContent = c.title + ' – ' + c.price + ' ' + CONFIG.currencyLabel;
+      courseSelect.appendChild(opt);
+    });
+    if (currentVal) courseSelect.value = currentVal;
+    observeFadeIn();
+  }
+  renderCourses('All');
+
+  // ---- Render Teachers ----
+  var teachersGrid = document.getElementById('teachersGrid');
+  TEACHERS.forEach(function(t) {
+    var card = document.createElement('div');
+    card.className = 'teacher-card fade-in';
+    card.innerHTML =
+      '<div class="teacher-avatar">' + t.initials + '</div>' +
+      '<div class="teacher-info">' +
+        '<h4>' + t.name + '</h4>' +
+        '<div class="role">' + t.role + '</div>' +
+        '<div class="bio">' + t.bio + '</div>' +
+      '</div>';
+    teachersGrid.appendChild(card);
+  });
+
+  // ---- Render Footer Courses ----
+  var footerCourses = document.getElementById('footerCourses');
+  COURSES.slice(0, 6).forEach(function(c) {
+    var li = document.createElement('li');
+    li.innerHTML = '<a href="#courses">' + c.title + '</a>';
+    footerCourses.appendChild(li);
+  });
+
+  // ---- Enrollment Form ----
+  document.getElementById('enrollForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('enrollForm').style.display = 'none';
+    var success = document.getElementById('formSuccess');
+    success.style.display = 'block';
+    // Update Telegram link in success message
+    var tgBtn = success.querySelector('a');
+    if (tgBtn) tgBtn.href = CONFIG.telegramLink;
+  });
+
+  // ---- Hamburger Menu ----
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ---- Header scroll shadow ----
+  window.addEventListener('scroll', function() {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // ---- Scroll fade-in animation ----
+  function observeFadeIn() {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el) {
+      observer.observe(el);
+    });
+  }
+  observeFadeIn();
+
+});
+</script>
+</body>
+</html>
