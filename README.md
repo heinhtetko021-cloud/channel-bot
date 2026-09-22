@@ -1,115 +1,72 @@
-# 🤖 H-Tech Channel Bot
+# 🤖 H-Tech Studio Channel Bot (Upgraded)
 
-Telegram channel နှစ်ခုကို တစ်နေ့ ၃ ကြိမ် auto-post လုပ်ပေးတဲ့ bot ။
-Vercel (free) + Upstash Redis (free) နဲ့ deploy လုပ်လို့ရပါတယ်။
+AI-powered auto-poster for the **@h_tech_studio** channel.
+Every day the AI **drafts** 2 human-like Burmese posts (09:00 + 18:00 Myanmar time).
+The draft is sent to the admin first — **nothing is posted until you confirm it.**
+Deploy on Vercel (free) + Upstash Redis (free) + Groq AI (free tier).
 
-## Features
+## How it works
 
-- 📅 **Cron**: မနက် ၉၊ ညနေ ၂၊ ညနေ ၆ — channel နှစ်ခုလုံးကို random template ကနေ post
-- ➕ **Add new**: `/new <type> <text>` — Telegram ကနေပဲ post template အသစ် ထည့်လို့ရတယ်
-- 📋 **Templates**: value / showcase / promo / faq ဆိုပြီး ၄ မျိုး ခွဲထား
-- 🚀 **Manual post**: `/post <type> <n>` — ချက်ချင်း post တင်
-- 🗑 **Delete**: `/del <type> <n>` — template ဖျက်
-- 🔒 **Admin only**: သတ်မှတ်ထားတဲ့ Telegram user ID ပဲ သုံးလို့ရ
+1. **09:00 & 18:00 (MM)** → Vercel Cron fires `/api/cron`
+2. AI (Groq `openai/gpt-oss-120b`) writes a fresh, natural, non-repeating post
+   (uses `sales-kit.md` prices/services + old templates as style guide)
+3. The draft is sent to all admins with buttons:
+   - **✏️ Edit** — send replacement text, then re-confirm
+   - **✅ Confirm** — posts it to @h_tech_studio
+   - **❌ Skip** — drops the draft
+4. Posted drafts are saved to Redis so the AI avoids repeating recent posts
 
-## Project Structure
+## Commands (admin only)
 
-```
-channel-bot/
-├── api/
-│   ├── bot.js       # Bot logic + admin commands
-│   ├── webhook.js   # Telegram webhook handler (Vercel)
-│   └── cron.js      # Scheduled posting (Vercel Cron)
-├── templates.json   # Default seed templates
-├── vercel.json      # Cron schedule (၃ ကြိမ်/နေ့)
-├── package.json
-└── .env.example
-```
+| Command / button | What it does |
+|---|---|
+| `/menu` (+ blue Menu button) | Inline menu: Generate / Confirm / Edit / Skip / Templates / Add / Status |
+| `/draft` | Generate a fresh AI draft right now |
+| `/status` | Channel, storage, pending draft, recent posts |
+| `/list <type>` | View templates (value / showcase / promo / faq) |
+| `/new <type> <text>` | Add a template |
+| `/del <type> <n>` | Delete a template |
+| `/post <type> <n>` | Post a template NOW without AI (emergency) |
 
-## Setup
+Only admins (`ADMIN_ID`, comma-separated) can use the bot.
 
-### 1. Create Telegram Bot
-
-1. Telegram မှာ [@BotFather](https://t.me/BotFather) ကို message ပို့ပြီး `/newbot`
-2. နာမည်ပေး (e.g. `HTechAutoPostBot`)
-3. ရလာတဲ့ **token** ကို သိမ်းထား
-
-### 2. Create Upstash Redis (free)
-
-1. [upstash.com](https://console.upstash.com) → Create Database (free tier)
-2. Node.js tab ကနေ `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` ကို ကူးထား
-
-### 3. Find Your IDs
-
-**Admin ID (မင်းရဲ့ Telegram User ID):**
-- [@userinfobot](https://t.me/userinfobot) ကို message ပို့ → id ကိုကြည့်
-
-**Channel IDs:**
-- Channel နှစ်ခုချောင်းကို bot က admin လုပ်ပေးပါ (channel settings → administrators → add bot)
-- Channel ID ရှာနည်း ၂ မျိုး:
-  - **Username** (string): channel နာမည် ရှိရင် `@my_channel` ဆိုပြီး သုံးလို့ရပါတယ်
-  - **Numeric** (e.g. `-1001234567890`): `@username_to_id_bot` (ဒါမှမဟုတ် `@RawDataBot`) ကို message ပို့ပြီး channel post ကို forward လုပ်ပါ → ID ရပါမယ်
-
-### 4. Deploy to Vercel
-
-1. Project ကို GitHub မှာ push လုပ်ပါ
-2. [vercel.com](https://vercel.com) → New Project → import
-3. **Environment Variables** ထဲမှာ ထည့်ပါ:
+## Environment variables (Vercel → Settings → Environment Variables)
 
 ```
 BOT_TOKEN=<BotFather token>
-ADMIN_ID=<မင်းရဲ့ Telegram user ID>
-CHANNEL_ID=@first_channel
-CHANNEL_ID_2=@second_channel
-UPSTASH_REDIS_REST_URL=<upstash url>
-UPSTASH_REDIS_REST_TOKEN=<upstash token>
-CRON_SECRET=<random string e.g. mysecret123>
+ADMIN_ID=8390911265,8611536716
+CHANNEL_ID=-1004370717794        # @h_tech_studio only
+GROQ_API_KEY=gsk_...              # get at console.groq.com
+GROQ_MODEL=openai/gpt-oss-120b
+UPSTASH_REDIS_REST_URL=https://<db>.upstash.io
+UPSTASH_REDIS_REST_TOKEN=<token>
+CRON_SECRET=<any random string>
 ```
 
-4. Deploy လုပ်ပါ
+> Remove `CHANNEL_ID_2` — the old second channel no longer exists.
 
-### 5. Set Webhook
+## Cron schedule (vercel.json)
 
-Deploy ပြီးရင် မင်းရဲ့ vercel URL ကို webhook အဖြစ် ချိတ်ပါ:
-
-```
-https://api.telegram.org/bot<BOT_TOKEN>/setWebhook?url=https://<your-app>.vercel.app/api/webhook
+```json
+{ "path": "/api/cron", "schedule": "30 2,11 * * *" }   // = 09:00 & 18:00 Myanmar (UTC+6:30)
 ```
 
-Browser မှာ အဲ့ link ကို ဖွင့်လိုက်ရင် `{"ok":true}` ပြပြီးသွားပါမယ်။
+## Files
 
-### 6. Test
+```
+api/ai.js      # Groq AI draft generator (prompt + retry)
+api/bot.js     # Bot: menu, confirm/edit/skip flow, templates, status
+api/cron.js    # Vercel cron → draft only (no auto-post)
+api/webhook.js # Telegram webhook entry (grammY adapter)
+vercel.json    # Cron schedule + function duration
+templates.json # Seed templates (style guide + manual posts)
+sales-kit.md   # Pricing/services knowledge for the AI
+```
 
-Telegram မှာ bot ကို `/admin` ပို့ကြည့်ပါ →
-- `/status` → ပြင်ဆင်မှုမှန်မမှန် ကြည့်
-- `/post promo 1` → channel တွေကို ချက်ချင်း post တင်
-
----
-
-## Cron Schedule (vercel.json)
-
-မနက် ၉ 🇲🇲 → `value` post
-ညနေ ၂ 🇲🇲 → `showcase` post
-ညနေ ၆ 🇲🇲 → `promo` post
-
-> Vercel free tier Cron က daily schedule ပဲ support လုပ်ပါတယ် — ဒါနဲ့ အဆင်ပြေပါတယ်။
-> Cron ကို toggle ဖွင့်ဖို့ Vercel dashboard → Project → Settings → Cron から Enable လုပ်ရပါမယ် (free ဖြစ်လည်း cron enabled လုပ်ရ).
-
-## Commands (Admin only)
-
-| Command | Usage |
-|---|---|
-| `/admin` | Help |
-| `/new value <text>` | Template အသစ် ထည့် (multi-line ဆို text ရိုက်တဲ့ message နောက်မှာ) |
-| `/post <type> <n>` | #n post ကို channel နှစ်ခုလုံးသို့ ချက်ချင်းတင် |
-| `/list <type>` | Templates ကြည့် (e.g. /list promo) |
-| `/del <type> <n>` | Template ဖျက် |
-| `/status` | Config + template count ကြည့် |
-
-## Local Dev
+## Local dev
 
 ```bash
 npm install
-# .env ဖိုင်ထဲ environment variables ထည့်ပြီးရင်
+# .env with the same variables, then:
 npx vercel dev
 ```

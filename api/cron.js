@@ -1,58 +1,73 @@
-const { Bot } = require("grammy");
-const { Redis } = require("@upstash/redis");
-const { channels } = require("./bot");
-const DEFAULT_TEMPLATES = require("../templates.json");
+// api/cron.js — Vercel Cron.
+// At 09:00 and 18:00 (Myanmar time) generates an AI draft and sends it to the
+// admins for approval. Nothing is auto-posted — the admin must press ✅ Confirm.
+const { generateDraftWithRetry } = require("./ai");
+const { getRedis, pushDraft, setDraft, clearDraft, recentPosts } = require("./bot");
 
 const TOKEN = process.env.BOT_TOKEN;
+const ADMIN_IDS = (process.env.ADMIN_ID || "")
+  .split(",")
+  .map((id) => parseInt(id.trim(), 10))
+  .filter((n) => Number.isFinite(n));
 
-let redis = null;
-if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
-  redis = new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN,
-  });
-}
-const TPL_KEY = "htech:templates";
-
-async function getTemplates() {
-  if (redis) {
-    const stored = await redis.get(TPL_KEY);
-    if (stored) return JSON.parse(stored);
-  }
-  return structuredClone(DEFAULT_TEMPLATES);
+function mmNow() {
+  return new Date(Date.now() + (6 * 60 + 30) * 60000);
 }
 
-// Vercel Cron handler
+function currentSlot() {
+  const z = mmNow();
+  const h = z.getUTCHours();
+  const date = z.toISOString().slice(0, 10);
+  if (h === 9) return { label: "09", key: `htech:draft:${date}:09`, am: true };
+  if (h === 18) return { label: "18", key: `htech:draft:${date}:18`, am: false };
+  return null;
+}
+
 module.exports = async function handler(req, res) {
   if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const data = await getTemplates();
-  const hour = new Date().getUTCHours();
-  const type = getTypeForHour(hour);
-  const posts = data[type] || data.value;
-  const text = posts[Math.floor(Math.random() * posts.length)];
+  const slot = currentSlot();
+  if (!slot) {
+    return res.json({ ok: true, action: "not-a-post-slot" });
+  }
 
-  const bot = new Bot(TOKEN);
-  const results = [];
-  for (const ch of channels) {
+  const redis = getRedis();
+  if (redis) {
     try {
-      await bot.api.sendMessage(ch, text);
-      results.push({ channel: ch, ok: true });
+      const claimed = await redis.set(`htech:slot:${slot.key}`, String(Date.now()), {
+        nx: true,
+        ex: 86400,
+      });
+      if (!claimed) {
+        return res.json({ ok: true, action: "already-claimed", slot: slot.key });
+      }
     } catch (e) {
-      results.push({ channel: ch, ok: false, error: e.message });
+      console.error("slot claim failed:", e.message);
     }
   }
 
-  return res.json({ type, hour, results });
+  try {
+    const recent = await recentPosts();
+    const text = await generateDraftWithRetry({ am: slot.am, avoid: recent });
+    await setDraft(slot.key, text);
+    await pushDraft(slot.key, text, slot.label);
+    return res.json({
+      ok: true,
+      action: "draft-sent",
+      slot: slot.key,
+      to: ADMIN_IDS.length,
+    });
+  } catch (e) {
+    console.error("cron draft failed:", e.message);
+    const { Bot } = require("grammy");
+    const bot = new Bot(TOKEN);
+    for (const a of ADMIN_IDS) {
+      await bot.api
+        .sendMessage(a, `⚠️ AI draft မရေးနိုင်ဘူး (${slot.label}):\n${String(e.message).slice(0, 200)}`)
+        .catch(() => {});
+    }
+    return res.status(502).json({ ok: false, error: e.message });
+  }
 };
-
-function getTypeForHour(hour) {
-  // Myanmar is UTC+6:30
-  const myanmar = (hour + 6 + 0.5) % 24;
-  if (myanmar >= 8 && myanmar < 11) return "value";
-  if (myanmar >= 13 && myanmar < 16) return "showcase";
-  if (myanmar >= 17 && myanmar < 20) return "promo";
-  return "value";
-}
