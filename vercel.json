@@ -11,6 +11,9 @@
     },
     "api/cron.js": {
       "maxDuration": 30
+    },
+    "api/forward.js": {
+      "maxDuration": 30
     }
   }
 }

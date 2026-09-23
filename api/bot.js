@@ -4,6 +4,7 @@
 const { Bot, InlineKeyboard } = require("grammy");
 const { Redis } = require("@upstash/redis");
 const { generateDraftWithRetry } = require("./ai");
+const { describeMessage, upsertPost } = require("./fwd");
 
 const TOKEN = process.env.BOT_TOKEN;
 const ADMIN_IDS = (process.env.ADMIN_ID || "")
@@ -477,6 +478,30 @@ bot.api
     { command: "new", description: "➕ Template အသစ်ထည့်ပါ" },
   ])
   .catch((e) => console.error("setMyCommands:", e.message));
+
+// ------------------------------------------------------------------ forwarder window
+
+const FWD_WINDOW = parseInt(process.env.FORWARD_WINDOW || "10", 10) || 10;
+
+async function recordFeed(msg) {
+  if (process.env.FORWARD_ENABLED !== "1" && process.env.FORWARD_ENABLED !== "true") return;
+  const r = getRedis();
+  if (!r) return;
+  try {
+    const rec = describeMessage(msg);
+    await upsertPost(r, rec, FWD_WINDOW);
+  } catch (e) {
+    console.error("recordFeed:", e.message);
+  }
+}
+
+bot.on("channel_post", (ctx) => {
+  recordFeed(ctx.message);
+});
+
+bot.on("edited_channel_post", (ctx) => {
+  recordFeed(ctx.message);
+});
 
 module.exports = {
   bot,
